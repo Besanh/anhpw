@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\Backend\MenuController;
+use App\Http\Controllers\Backend\MenuTypeController;
 use App\Http\Controllers\Backend\UserController;
+use App\Http\Livewire\Select2Dropdown;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,7 +25,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Auth::routes();
 
-// Route::group(['prefix' => 'admin'], function(){
-//     Route::get('login', [UserController::class, 'login'])->name('get-login');
-//     Route::get('register', [UserController::class, 'register'])->name('get-register');
-// });
+Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function () {
+    Route::resource('menu', MenuController::class);
+    Route::resource('menu-type', MenuTypeController::class);
+});
+Route::get('/', Select2Dropdown::class);

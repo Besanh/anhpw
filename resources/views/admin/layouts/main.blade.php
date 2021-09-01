@@ -51,8 +51,10 @@
     <!-- Logout Modal-->
     @include('admin.popup')
 
-    @include('admin.layouts.script')
+    @include('admin.layouts.script'))
 
 </body>
+@livewireScripts
+@stack('scripts')
 
 </html>

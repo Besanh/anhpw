@@ -15,106 +15,112 @@ class Menu extends Model
 
     public $level = 0;
 
-    // Lay menu cha
-    public static function buildTree($type_id, $status = 1)
+    public static function builTree($type_id, $status = 1)
     {
+        $tree = [];
         $query = self::where([
             'type_id' => $type_id,
             'parent_id' => 0
         ])
-            ->orderBy([
-                'status' => 'DESC',
-                'priority' => 'DESC',
-                'id' => 'ASC'
-            ]);
+            ->orderBy('status desc, priority desc, id');
+
         if (is_numeric($status)) {
             $query->where(function ($query, $status) {
-                $query->where('status', $status);
+                return $query->where('status', $status);
             });
         } else {
             $status = '';
         }
 
         $data = $query->get();
-        $tree = [];
         if ($data) {
-            foreach ($data as $node) {
-                self::processTree($tree, $node, $status);
+            foreach ($data as $n) {
+                self::proccessTree($tree, $n, $status);
             }
         }
 
         return $tree;
     }
 
-    // Lay menu con theo menu cha
-    public static function processTree($tree, $node, $status, $level = 0)
+    public static function proccessTree($tree, $node, $status, $level = 0)
     {
         $node->level = $level;
         array_push($tree, $node);
-        $data = self::where([
-            'parent_id' => $node->parent_id,
+        $query = self::where([
+            'parent_id' => $node->id,
             'type_id' => $node->type_id
         ])
-            ->filter(['status' => $status])
-            ->orderBy([
-                'status' => 'DESC',
-                'priority' => 'DESC',
-                'id' => 'ASC'
-            ])
+            ->filter('status', $status)
+            ->orderBy('priority desc, id')
             ->get();
 
-        if ($data) {
-            foreach ($data as $n) {
-                self::processTree($tree, $n, $status, $level + 1);
+        if ($query) {
+            foreach ($query as $n) {
+                self::proccessTree($tree, $n, $status, $level + 1);
             }
         }
     }
 
-    public static function buildDataForList($tree, $eliminatedId = null)
+    public static function buildTreeById($id)
+    {
+        $tree = [];
+        $data = self::where('type_id', $id)
+            ->orderBy('priority desc, id')
+            ->first();
+        if ($data) {
+            self::proccessTree($tree, $data, '');
+        }
+        return $tree;
+    }
+
+    public static function buildDataForList($tree, $eliminated = null)
     {
         $list = [];
-        $in_eliminatedId = [];
-        if ($in_eliminatedId > 0) {
-            $menu = collect(self::buildTreeById($eliminatedId));
+        $list_eliminated = [];
+        if ($eliminated > 0) {
+            $menu = collect(self::buildTreeById($eliminated));
             if ($menu) {
-                $in_eliminatedId = $menu->map(function ($menu) {
-                    return $menu->id;
+                $list_eliminated = $menu->map(function ($item) {
+                    return $item;
                 });
             }
         }
 
-        if ($tree) {
-            foreach ($tree as $node) {
-                if ($node->id != $in_eliminatedId && !in_array($node->id, $in_eliminatedId)) {
-                    $list[$node->id] = str_repeat('-', Arr::get($node, 'level') * 5) . $node->name;
-                }
+        foreach ($tree as $node) {
+            if ($node->id != $eliminated && !in_array($node->id, $list_eliminated)) {
+                $list[$node->id] = str_repeat('-', $node->level * 5) . $node->name;
             }
         }
 
         return $list;
     }
 
-    public static function buildTreeById($id)
+    public static function findMenuType($alias)
     {
-        $tree = [];
-        $data = self::find($id);
-        if ($data) {
-            self::processTree($tree, $data, '');
-        }
+        return self::find()
+            ->alias('m')
+            ->innerJoin('menu_types as mt', 'm.type_id=t.id')
+            ->where([
+                'status' => 1,
+                'alias' => $alias,
+                'parent_id' => 0
+            ])
+            ->get();
     }
 
     public function getParents()
     {
-        return $this->belongsTo(self::class, 'parent_id', 'id');
+        return $this->hasOne(self::class, 'parent_id', 'id');
     }
 
     public function getChilds()
     {
-        return $this->hasMany(self::class, 'parent_id', 'id')->orderBy('weight desc, id');
+        return $this->hasMany(self::class, 'parent_id', 'id')
+            ->orderBy('priority desc, id');
     }
 
     public function getType()
     {
-        return $this->hasOne(MenuType::class, 'id', 'type_id');
+        return $this->belongsTo(MenuType::class, 'id', 'type_id');
     }
 }
