@@ -29,4 +29,4 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function () {
     Route::resource('menu', MenuController::class);
     Route::resource('menu-type', MenuTypeController::class);
 });
-Route::get('/', Select2Dropdown::class);
+// Route::get('/', Select2Dropdown::class);

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\MenuTypeStoreRequest;
 use App\Models\MenuType;
 use Illuminate\Http\Request;
 
@@ -13,14 +14,9 @@ class MenuTypeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $menu_types = MenuType::paginate(10);
-        if($request->has('search'))
-        {
-            $menu_types = MenuType::where('name', $request->search)
-            ->paginate(10);
-        }
+        $menu_types = MenuType::get();
 
         return view('admin.menu-type.index', compact('menu_types'));
     }
@@ -41,9 +37,14 @@ class MenuTypeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(MenuTypeStoreRequest $request)
     {
-        //
+        MenuType::create($request->validated());
+
+        return redirect()->back()->with('message', 'Created menu type successfully');
+        // if ($request->validated()) {
+
+        // }
     }
 
     /**

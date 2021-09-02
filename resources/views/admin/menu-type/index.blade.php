@@ -40,50 +40,53 @@ $title = 'Menu Type - Index'; ?>
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="card shadow mb-4">
             <div class="card-body">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Alias</th>
-                            <th scope="col">Status</th>
-                            <th scope="col">Created At</th>
-                            <th scope="col">Updated At</th>
-                            <th scope="col">Manage</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @if ($menu_types)
-                            @foreach ($menu_types as $k => $t)
-                                <?php $k++; ?>
-                                <tr>
-                                    <th scope="row">{!! $k !!}</th>
-                                    <td>{!! $t->name !!}</td>
-                                    <td>{!! $t->alias !!}</td>
-                                    <td>{!! $t->status !!}</td>
-                                    <td>{!! $t->created_at !!}</td>
-                                    <td>{!! $t->updated_at !!}</td>
-                                    <td>
-                                        <a class="btn btn-success" href="{!! route('menu-type.edit', $t->id) !!}">
-                                            <<i class="fa fa-paint-brush" aria-hidden="true"></i>
-                                        </a>
-                                        <a class="btn btn-warning" href="{!! route('menu-type', $t->id) !!}">
-                                            <i class="fa fa-eye" aria-hidden="true"></i>
-                                        </a>
-                                        <a class="btn btn-danger" onclick="return confirm('Are you sure?')"
-                                            href="{{ route('menu-type.destroy', $t->id) }}">
-                                            <i class="fa fa-trash"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        @endif
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Alias</th>
+                                <th>Status</th>
+                                <th>Created At</th>
+                                <th>Updated At</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Alias</th>
+                                <th>Status</th>
+                                <th>Created At</th>
+                                <th>Updated At</th>
+                                <th>Action</th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            @if ($menu_types)
+                                @foreach ($menu_types as $k => $t)
+                                    <?php $k++; ?>
+                                    <tr>
+                                        <th scope="row">{!! $k !!}</th>
+                                        <td>{!! $t->name !!}</td>
+                                        <td>{!! $t->alias !!}</td>
+                                        <td>{!! $t->status !!}</td>
+                                        <td>{!! $t->created_at !!}</td>
+                                        <td>{!! $t->updated_at !!}</td>
+                                        <td>
+                                            @include('helper.action', ['t' => $t, 'uri' => 'menu-type'])
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endif
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
-        <div class="row">{!! $menu_types->links() !!}</div>
     </div>
 @endsection
