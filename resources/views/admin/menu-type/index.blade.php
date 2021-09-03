@@ -1,5 +1,7 @@
 <?php
-$title = 'Menu Type - Index'; ?>
+$title = 'Menu Type - Index';
+$head_table = ['#', 'Name', 'Alias', 'Status', 'Created At', 'Updated At', 'Action'];
+?>
 @section('title', $title)
     @extends('admin.layouts.main')
 @section('content')
@@ -20,22 +22,9 @@ $title = 'Menu Type - Index'; ?>
                 </div>
             </div>
         @endif
-        <div class="card-header">
+        <div class="card-header border-bottom-primary">
             <div class="row">
-                <div class="col-md-9 col-sm-9 col-xs-9">
-                    <form action="{{ route('menu-type.index') }}" method="GET">
-                        <div class="row form-grow align-items-center">
-                            <div class="col-md-3 col-sm-3 col-xs-3">
-                                <input type="search" name="search" class="form-control mb-2" id="inlineFormInput"
-                                    placeholder="Search menu type" />
-                            </div>
-                            <div class="col-md-3 col-sm-3 col-xs-3">
-                                <button type="submit" class="btn btn-primary mb-2">Search</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="col-md-3 col-sm-3 col-xs-9">
+                <div class="col-md-12 col-sm-12 col-xs-12">
                     <a href="{!! route('menu-type.create') !!}" class="float-right">Create</a>
                 </div>
             </div>
@@ -46,24 +35,12 @@ $title = 'Menu Type - Index'; ?>
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
-                                <th>#</th>
-                                <th>Name</th>
-                                <th>Alias</th>
-                                <th>Status</th>
-                                <th>Created At</th>
-                                <th>Updated At</th>
-                                <th>Action</th>
+                                @include('helper.head-table', compact('head_table'))
                             </tr>
                         </thead>
                         <tfoot>
                             <tr>
-                                <th>#</th>
-                                <th>Name</th>
-                                <th>Alias</th>
-                                <th>Status</th>
-                                <th>Created At</th>
-                                <th>Updated At</th>
-                                <th>Action</th>
+                                @include('helper.head-table', compact('head_table'))
                             </tr>
                         </tfoot>
                         <tbody>
@@ -74,7 +51,11 @@ $title = 'Menu Type - Index'; ?>
                                         <th scope="row">{!! $k !!}</th>
                                         <td>{!! $t->name !!}</td>
                                         <td>{!! $t->alias !!}</td>
-                                        <td>{!! $t->status !!}</td>
+                                        <td>
+                                            @include('helper.stick', ['status' => $t->status,
+                                            'id' => $t->id,
+                                            'uri' => route('update.status', $t->id)])
+                                        </td>
                                         <td>{!! $t->created_at !!}</td>
                                         <td>{!! $t->updated_at !!}</td>
                                         <td>
@@ -90,3 +71,4 @@ $title = 'Menu Type - Index'; ?>
         </div>
     </div>
 @endsection
+@include('helper.be-crud')

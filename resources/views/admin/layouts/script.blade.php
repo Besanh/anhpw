@@ -11,9 +11,8 @@
 {{-- Select 2 --}}
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-<!-- Page level plugins -->
-<script src="{{ asset('datatables/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('datatables/dataTables.bootstrap4.min.js') }}"></script>
-
-<!-- Page level custom scripts -->
-<script src="{{asset('datatables/datatables-demo.js')}}"></script>
+{{-- @livewireScripts --}}
+@stack('datatable')
+@stack('scripts')
+@stack('update-status')
+@stack('update-status-css')

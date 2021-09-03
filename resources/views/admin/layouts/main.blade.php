@@ -49,12 +49,10 @@
     </a>
 
     <!-- Logout Modal-->
-    @include('admin.popup')
+    @include('helper.popup')
 
     @include('admin.layouts.script'))
 
 </body>
-@livewireScripts
-@stack('scripts')
 
 </html>

@@ -91,4 +91,16 @@ class MenuTypeController extends Controller
     {
         //
     }
+
+    public function updateStatus($id)
+    {
+        $model = MenuType::find($id);
+        if ($model) {
+            $model->status = ($model->status) ? 0 : 1;
+            $model->save();
+            $msg = ['status' => $model->status, 'message' => "Record #{$id} updated successfully"];
+            return response()->json($msg);
+        }
+        return redirect()->back()->with('message', 'Nothing change');
+    }
 }

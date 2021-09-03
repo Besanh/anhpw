@@ -1,9 +1,8 @@
 <?php
 
+use App\Http\Controllers\Backend\AnhController;
 use App\Http\Controllers\Backend\MenuController;
 use App\Http\Controllers\Backend\MenuTypeController;
-use App\Http\Controllers\Backend\UserController;
-use App\Http\Livewire\Select2Dropdown;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,5 +27,5 @@ Auth::routes();
 Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function () {
     Route::resource('menu', MenuController::class);
     Route::resource('menu-type', MenuTypeController::class);
+    Route::get('menu-type/update-status/{id}', [MenuTypeController::class, 'updateStatus'])->name('update.status');
 });
-// Route::get('/', Select2Dropdown::class);

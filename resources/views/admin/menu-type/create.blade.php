@@ -30,7 +30,7 @@ $status = getStatus();
                     @endif
                     <div class="card-header">
                         {{ $title }}
-                        <a href="{{ route('menu-type.index') }}" class="float-right">Menu Type</a>
+                        <a href="{{ route('menu-type.index') }}" class="float-right">Menu Types</a>
                     </div>
 
                     <div class="card-body">
