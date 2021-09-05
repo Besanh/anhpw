@@ -1,12 +1,12 @@
 <?php
-$title = 'Menu Type - Index';
-$head_table = ['#', 'Name', 'Alias', 'Status', 'Created At', 'Updated At', 'Action'];
+$title = 'Menu Type - Show';
+$head_table = ['Name', 'Alias', 'Status', 'Created At', 'Updated At', 'Action'];
 ?>
 @section('title', $title)
     @extends('admin.layouts.main')
 @section('content')
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800"><a href="{{ route('menu-type.index') }}">{{ 'Menu Types' }}</a></h1>
+        <h1 class="h3 mb-0 text-gray-800">{{ ('Menu Type') }}</h1>
     </div>
     <div class="card mx-auto">
         @if (Session::has('message'))
@@ -25,7 +25,7 @@ $head_table = ['#', 'Name', 'Alias', 'Status', 'Created At', 'Updated At', 'Acti
         <div class="card-header border-bottom-primary">
             <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
-                    <a href="{!! route('menu-type.create') !!}" class="float-right">Create</a>
+                    <a href="{!! route('menu-type.index') !!}" class="float-right">Menu Types</a>
                 </div>
             </div>
         </div>
@@ -44,25 +44,21 @@ $head_table = ['#', 'Name', 'Alias', 'Status', 'Created At', 'Updated At', 'Acti
                             </tr>
                         </tfoot>
                         <tbody>
-                            @if ($menu_types)
-                                @foreach ($menu_types as $k => $t)
-                                    <?php $k++; ?>
-                                    <tr>
-                                        <th scope="row">{!! $k !!}</th>
-                                        <td>{!! $t->name !!}</td>
-                                        <td>{!! $t->alias !!}</td>
-                                        <td>
-                                            @include('helper.stick', ['status' => $t->status,
-                                            'id' => $t->id,
-                                            'uri' => route('menu-type.status', $t->id)])
-                                        </td>
-                                        <td>{!! $t->created_at !!}</td>
-                                        <td>{!! $t->updated_at !!}</td>
-                                        <td>
-                                            @include('helper.action', ['t' => $t, 'uri' => 'menu-type'])
-                                        </td>
-                                    </tr>
-                                @endforeach
+                            @if ($menuType)
+                                <tr>
+                                    <td>{!! $menuType->name !!}</td>
+                                    <td>{!! $menuType->alias !!}</td>
+                                    <td>
+                                        @include('helper.stick', ['status' => $menuType->status,
+                                        'id' => $menuType->id,
+                                        'uri' => route('update.status', $menuType->id)])
+                                    </td>
+                                    <td>{!! $menuType->created_at !!}</td>
+                                    <td>{!! $menuType->updated_at !!}</td>
+                                    <td>
+                                        @include('helper.action', ['t' => $menuType, 'uri' => 'menu-type'])
+                                    </td>
+                                </tr>
                             @endif
                         </tbody>
                     </table>

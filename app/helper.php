@@ -9,3 +9,12 @@ if (!function_exists('getStatus')) {
         ];
     }
 }
+
+if (!function_exists('getArray')) {
+    function getArray($array)
+    {
+        echo "<pre>";
+        print_r($array);
+        echo "</pre>";
+    }
+}

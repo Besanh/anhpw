@@ -5,28 +5,32 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 
 class Menu extends Model
 {
     use HasFactory;
+
     const MENU_ADMIN = "admin";
     const MENU_NAV = "navigation";
     const MENU_FOOTER = "footer";
 
+    protected $fillable = ['parent_id', 'type_id', 'name', 'name_seo', 'alias', 'url', 'icon', 'priority', 'status', 'note'];
+
     public $level = 0;
 
-    public static function builTree($type_id, $status = 1)
+    public static function buildTree($type_id, $status = 1)
     {
         $tree = [];
         $query = self::where([
             'type_id' => $type_id,
             'parent_id' => 0
         ])
-            ->orderBy('status desc, priority desc, id');
+            ->orderByRaw('status desc, priority desc, id');
 
         if (is_numeric($status)) {
-            $query->where(function ($query, $status) {
-                return $query->where('status', $status);
+            $query->where(function ($query) use ($status) {
+                $query->where('status', $status);
             });
         } else {
             $status = '';
@@ -42,7 +46,7 @@ class Menu extends Model
         return $tree;
     }
 
-    public static function proccessTree($tree, $node, $status, $level = 0)
+    public static function proccessTree(&$tree, $node, $status, $level = 0)
     {
         $node->level = $level;
         array_push($tree, $node);
@@ -50,10 +54,9 @@ class Menu extends Model
             'parent_id' => $node->id,
             'type_id' => $node->type_id
         ])
-            ->filter('status', $status)
-            ->orderBy('priority desc, id')
+            // ->whereStatus($status != '')
+            ->orderByRaw('priority desc, id')
             ->get();
-
         if ($query) {
             foreach ($query as $n) {
                 self::proccessTree($tree, $n, $status, $level + 1);
@@ -65,7 +68,7 @@ class Menu extends Model
     {
         $tree = [];
         $data = self::where('type_id', $id)
-            ->orderBy('priority desc, id')
+            ->orderByRaw('priority desc, id')
             ->first();
         if ($data) {
             self::proccessTree($tree, $data, '');
@@ -108,6 +111,40 @@ class Menu extends Model
             ->get();
     }
 
+    public static function getMenuType()
+    {
+        $collection = collect(['name']);
+        $combined = [];
+        $query = MenuType::select(['id', 'name'])->orderByRaw('updated_at desc, id')->get();
+        if ($query) {
+            foreach ($query as $node) {
+                $combined[$node->id] = $collection->combine(['name' => strtoupper($node->name)]);
+            }
+        }
+        return $combined;
+        // $combine = $collection->combine([]);
+        // $model = collect(MenuType::select(['id', 'name'])->orderByRaw('updated_at desc, id')->get());
+        // if ($model) {
+        //     return $model->map(function ($name) {
+        //         return strtoupper($name);
+        //     });
+        // }
+    }
+
+    // Hien menu type name trong index
+    public static function mapMenuType($type_id)
+    {
+        $collection = collect(['name']);
+        $combined = [];
+        $query = MenuType::select(['id', 'name'])
+            ->where("id", $type_id)
+            ->orderByRaw('updated_at desc, id')
+            ->first();
+        if ($query) {
+            return Arr::get($collection->combine(['name' => strtoupper($query->name)]), 'name');
+        }
+    }
+
     public function getParents()
     {
         return $this->hasOne(self::class, 'parent_id', 'id');
@@ -116,7 +153,7 @@ class Menu extends Model
     public function getChilds()
     {
         return $this->hasMany(self::class, 'parent_id', 'id')
-            ->orderBy('priority desc, id');
+            ->orderByRaw('priority desc, id');
     }
 
     public function getType()

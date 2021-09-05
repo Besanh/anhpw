@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MenuTypeStoreRequest;
+use App\Http\Requests\MenuTypeUpdateRequest;
 use App\Models\MenuType;
-use Illuminate\Http\Request;
 
 class MenuTypeController extends Controller
 {
@@ -39,12 +39,11 @@ class MenuTypeController extends Controller
      */
     public function store(MenuTypeStoreRequest $request)
     {
-        MenuType::create($request->validated());
+        if ($request->validated()) {
+            MenuType::create($request->validated());
 
-        return redirect()->back()->with('message', 'Created menu type successfully');
-        // if ($request->validated()) {
-
-        // }
+            return redirect()->back()->with('message', 'Created menu type successfully');
+        }
     }
 
     /**
@@ -53,9 +52,9 @@ class MenuTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(MenuType $menuType)
     {
-        //
+        return view('admin.menu-type.show', compact('menuType'));
     }
 
     /**
@@ -64,9 +63,9 @@ class MenuTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(MenuType $menuType)
     {
-        //
+        return view('admin.menu-type.edit', compact('menuType'));
     }
 
     /**
@@ -76,9 +75,15 @@ class MenuTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(MenuTypeUpdateRequest $request, MenuType $menuType)
     {
-        //
+        if ($request->validated()) {
+            $menuType->update($request->validated());
+
+            return redirect()->back()->with('message', 'Updated menu type successfully');
+        }
+
+        return redirect()->back()->with('message', 'Something went wrong');
     }
 
     /**
@@ -89,7 +94,12 @@ class MenuTypeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $model = MenuType::find($id);
+        if ($model) {
+            $model->delete();
+            return redirect()->back()->with('message', 'Delete #' . $id . ' successfully');
+        }
+        return redirect()->back()->with('message', 'Data not found');
     }
 
     public function updateStatus($id)

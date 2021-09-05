@@ -1,5 +1,5 @@
 <?php
-$title = 'Menu Type - Create';
+$title = 'Menu Type - Edit';
 $status = getStatus();
 ?>
 @section('title', $title)
@@ -34,8 +34,9 @@ $status = getStatus();
                     </div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('menu-type.store') }}">
+                        <form method="POST" action="{{ route('menu-type.update', $menuType->id) }}">
                             @csrf
+                            @method('PUT')
 
                             <div class="form-group row">
                                 <label for="name" class="col-md-4 col-form-label text-md-right">
@@ -43,7 +44,8 @@ $status = getStatus();
                                 </label>
                                 <div class="col-md-6">
                                     <input id="name" type="text" class="form-control @error('name') is-invalid @enderror"
-                                        name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                        name="name" value="{{ old('name', $menuType->name) }}" required
+                                        autocomplete="name" autofocus>
 
                                     @error('name')
                                         <span class="invalid-feedback" role="alert">
@@ -58,7 +60,8 @@ $status = getStatus();
 
                                 <div class="col-md-6">
                                     <input id="alias" type="text" class="form-control @error('alias') is-invalid @enderror"
-                                        name="alias" value="{{ old('alias') }}" required autocomplete="alias" autofocus>
+                                        name="alias" value="{{ old('alias', $menuType->alias) }}"
+                                        {{ $menuType->alias ? 'disabled' : '' }} required autocomplete="alias" autofocus>
 
                                     @error('alias')
                                         <span class="invalid-feedback" role="alert">
@@ -68,12 +71,12 @@ $status = getStatus();
                                 </div>
                             </div>
 
-                            @include('helper/status-dropdown')
+                            @include('helper/status-dropdown', ['old_status' => $menuType->status])
 
                             <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-4">
                                     <button type="submit" class="btn btn-primary">
-                                        {{ __('Create') }}
+                                        {{ __('Update') }}
                                     </button>
                                 </div>
                             </div>

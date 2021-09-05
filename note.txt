@@ -4,3 +4,7 @@ composer require spatie/laravel-permission
 
 Su dung onDelete('cascade') va onUpdate('cascade) trong migrate khi tao foreign key giup khi update hoac delete table
 thi foreign key cung duoc update/xoa theo
+
+Get id from custom request
+$id = $this->menu_type->id
+$id = $this->route('menu_type')->id;

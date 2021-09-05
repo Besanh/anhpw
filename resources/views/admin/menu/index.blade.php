@@ -1,12 +1,14 @@
 <?php
-$title = 'Menu Type - Index';
-$head_table = ['#', 'Name', 'Alias', 'Status', 'Created At', 'Updated At', 'Action'];
+use App\Models\Menu;
+
+$title = 'Menu - Index';
+$head_table = ['#', 'Parent Id', 'Type Id', 'Name', 'Priority', 'Status', 'Action'];
 ?>
 @section('title', $title)
     @extends('admin.layouts.main')
 @section('content')
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800"><a href="{{ route('menu-type.index') }}">{{ 'Menu Types' }}</a></h1>
+        <h1 class="h3 mb-0 text-gray-800"><a href="{{ route('menu.index', $alias) }}">{{ 'Menus' }}</a></h1>
     </div>
     <div class="card mx-auto">
         @if (Session::has('message'))
@@ -25,7 +27,7 @@ $head_table = ['#', 'Name', 'Alias', 'Status', 'Created At', 'Updated At', 'Acti
         <div class="card-header border-bottom-primary">
             <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
-                    <a href="{!! route('menu-type.create') !!}" class="float-right">Create</a>
+                    <a href="{!! route('menu.create', $alias) !!}" class="float-right">Create</a>
                 </div>
             </div>
         </div>
@@ -44,22 +46,22 @@ $head_table = ['#', 'Name', 'Alias', 'Status', 'Created At', 'Updated At', 'Acti
                             </tr>
                         </tfoot>
                         <tbody>
-                            @if ($menu_types)
-                                @foreach ($menu_types as $k => $t)
+                            @if ($model)
+                                @foreach ($model as $k => $node)
                                     <?php $k++; ?>
                                     <tr>
                                         <th scope="row">{!! $k !!}</th>
-                                        <td>{!! $t->name !!}</td>
-                                        <td>{!! $t->alias !!}</td>
+                                        <th>{!! $node->parent_id !!}</th>
+                                        <th>{!! Menu::mapMenuType($node->type_id) !!}</th>
+                                        <td>{!! $node->name !!}</td>
+                                        <td>{!! $node->priority !!}</td>
                                         <td>
-                                            @include('helper.stick', ['status' => $t->status,
-                                            'id' => $t->id,
-                                            'uri' => route('menu-type.status', $t->id)])
+                                            @include('helper.stick', ['status' => $node->status,
+                                            'id' => $node->id,
+                                            'uri' => route('menu-update.status', $node->id)])
                                         </td>
-                                        <td>{!! $t->created_at !!}</td>
-                                        <td>{!! $t->updated_at !!}</td>
                                         <td>
-                                            @include('helper.action', ['t' => $t, 'uri' => 'menu-type'])
+                                            @include('helper.action', ['t' => $node, 'uri' => 'menu'])
                                         </td>
                                     </tr>
                                 @endforeach

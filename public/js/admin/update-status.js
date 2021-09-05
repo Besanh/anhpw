@@ -48,34 +48,4 @@ $(document).ready(function () {
 
     ajaxUpdateStatus();
 
-    // Delete item ajax
-    function ajaxDeleteItem() {
-        $('a.update-status').on('click', function (e) {
-            var id = $('i.status').attr('data-id');
-            $(this).html('<i class="status-' + id + ' fa fa-spinner" data-id="' + id + '"></i>');
-            e.preventDefault();
-            $.ajax({
-                url: $(this).attr('href'),
-                type: 'GET',
-                dataType: 'json',
-                // data: {
-                //     "_token": $('meta[name="csrf-token"]').attr('content')
-                // },
-                success: function (data) {
-                    if (data.status == 1) {
-                        $('i.status-' + id).removeClass().addClass('fa fa-check text-success');
-                    }
-                    else {
-                        $('i.status-' + id).removeClass().addClass('fa fa-times text-danger');
-                    }
-                }
-            }).always(function (XHR, textStatus, errorThrown) {
-                if (textStatus != 'success') {
-                    console.log(XHR); alert(XHR.responseText);
-                }
-            });
-        });
-    }
-
-    // ajaxDeleteItem();
 });
