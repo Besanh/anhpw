@@ -48,7 +48,7 @@ $title = 'Menu - Create';
                                                 @foreach ($menu_list as $k => $m)
                                                     <option value="{!! $k !!}"
                                                         class="@error('m') is-invalid @enderror">
-                                                        {!! $m->name !!}
+                                                        {!! $m !!}
                                                     </option>
                                                 @endforeach
                                             @endif
@@ -154,7 +154,7 @@ $title = 'Menu - Create';
                                     <div>
                                         <input id="icon" type="text"
                                             class="form-control @error('icon') is-invalid @enderror" name="icon"
-                                            value="{{ old('icon') }}" required autocomplete="icon" autofocus>
+                                            value="{{ old('icon') }}" autocomplete="icon" autofocus>
 
                                         @error('icon')
                                             <span class="invalid-feedback" role="alert">

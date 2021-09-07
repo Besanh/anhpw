@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MenuStoreRequest;
+use App\Http\Requests\MenuUpdateRequest;
 use App\Models\Menu;
 use App\Models\MenuType;
 use Exception;
@@ -57,9 +58,13 @@ class MenuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($alias, $id)
     {
-        //
+        $menu = Menu::find($id);
+        if ($menu) {
+            return view('admin.menu.show', compact('menu', 'alias'));
+        }
+        return redirect()->back()->with('message', 'Page not found');
     }
 
     /**
@@ -68,11 +73,17 @@ class MenuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($alias, Menu $menu)
+    public function edit($alias, $id)
     {
-        $type = $this->findMenuType($alias);
-        $menu_list = Menu::buildDataForList(Menu::buildTree($type->id));
-        return view('admin.menu.edit', compact('menu', 'alias', 'menu_list'));
+        $menu = Menu::where('id', $id)->first();
+        if ($menu) {
+            $type = $this->findMenuType($alias);
+            $menu_list = Menu::buildDataForList(Menu::buildTree($menu->type_id), $menu->id);
+
+            return view('admin.menu.edit', compact('menu', 'alias', 'menu_list', 'type'));
+        }
+
+        return redirect()->route('menu', $alias)->with('message', 'Page not found');
     }
 
     /**
@@ -82,9 +93,17 @@ class MenuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(MenuUpdateRequest $request, $id)
     {
-        //
+        $menu = Menu::find($id);
+        if ($menu) {
+            if ($request->validated()) {
+                $menu->update($request->validated());
+                return redirect()->back()->with('message', 'Updated successfully');
+            }
+        }
+
+        return redirect()->back()->with('message', 'Something went wrong');
     }
 
     /**
@@ -95,7 +114,12 @@ class MenuController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $model = Menu::find($id);
+        if ($model) {
+            $model->delete();
+            return redirect()->back()->with('message', 'Delete #' . $id . ' successfully');
+        }
+        return redirect()->back()->with('message', 'Data not found');
     }
 
     public function findMenuType($alias)
@@ -126,7 +150,7 @@ class MenuController extends Controller
 
     public function updateStatus($id)
     {
-        $model = MenuType::find($id);
+        $model = Menu::find($id);
         if ($model) {
             $model->status = ($model->status) ? 0 : 1;
             $model->save();

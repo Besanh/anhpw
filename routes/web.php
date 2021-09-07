@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Backend\MenuController;
 use App\Http\Controllers\Backend\MenuTypeController;
+use App\Http\Controllers\Backend\SideBarController;
+use App\Http\Controllers\Backend\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,15 +34,23 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function () {
     Route::get('menu/create/{alias}', [MenuController::class, 'create'])->name('menu.create');
     Route::post('menu/store', [MenuController::class, 'store'])->name('menu.store');
     Route::get('menu/edit/{alias}/{id}', [MenuController::class, 'edit'])->name('menu.edit');
-    Route::get('menu/show/{id}', [MenuController::class, 'show'])->name('menu.show');
+    Route::put('menu/update/{id}', [MenuController::class, 'update'])->name('menu.update');
+    Route::get('menu/show/{alias}/{id}', [MenuController::class, 'show'])->name('menu.show');
     Route::get('menu/destroy/{id}', [MenuController::class, 'destroy'])->name('menu.destroy');
     Route::get('menu/find-menu-type/{alias}', [MenuController::class, 'findMenuType']);
     Route::get('menu-get-type/{type_id}', [MenuController::class, 'getType']);
-    Route::get('menu/update-status/{id}', [MenuController::class, 'updateStatus'])->name('menu-update.status');
+    Route::get('menu/update-status/{id}', [MenuController::class, 'updateStatus'])->name('menu.status');
     Route::get('menu/destroy/{id}', [MenuController::class, 'destroy'])->name('menu.destroy');
 
     // Menu type
     Route::resource('menu-type', MenuTypeController::class)->only($only_action_resource);
     Route::get('menu-type/update-status/{id}', [MenuTypeController::class, 'updateStatus'])->name('menu-type.status');
     Route::get('menu-type/destroy/{id}', [MenuTypeController::class, 'destroy'])->name('menu-type.destroy');
+
+    // Sidebar backend
+    Route::get('setting-menu', [SideBarController::class, 'settingMenu'])->name('setting.menu');
+
+    // User
+    Route::resource('user', UserController::class)->only($only_action_resource);
+    Route::get('user/destroy/{id}', [UserController::class, 'destroy'])->name('user.destroy');
 });

@@ -81,14 +81,15 @@ class Menu extends Model
         $list = [];
         $list_eliminated = [];
         if ($eliminated > 0) {
-            $menu = collect(self::buildTreeById($eliminated));
-            if ($menu) {
-                $list_eliminated = $menu->map(function ($item) {
-                    return $item;
-                });
+            // $collection = collect(['id']);
+            $query = self::buildTreeById($eliminated);
+            if ($query) {
+                foreach ($query as $node) {
+                    $list_eliminated[$node->id] = strtoupper($node->id);
+                    // $list_eliminated[$node->id] = $collection->combine(['id' => strtoupper($node->id)]);
+                }
             }
         }
-
         foreach ($tree as $node) {
             if ($node->id != $eliminated && !in_array($node->id, $list_eliminated)) {
                 $list[$node->id] = str_repeat('-', $node->level * 5) . $node->name;
@@ -122,13 +123,6 @@ class Menu extends Model
             }
         }
         return $combined;
-        // $combine = $collection->combine([]);
-        // $model = collect(MenuType::select(['id', 'name'])->orderByRaw('updated_at desc, id')->get());
-        // if ($model) {
-        //     return $model->map(function ($name) {
-        //         return strtoupper($name);
-        //     });
-        // }
     }
 
     // Hien menu type name trong index

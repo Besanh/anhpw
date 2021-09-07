@@ -1,4 +1,6 @@
 <?php
+use App\Models\Menu;
+
 $title = 'Menu - Edit';
 $status = getStatus();
 ?>
@@ -34,21 +36,24 @@ $status = getStatus();
                     </div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('menu.store') }}">
+                        <form method="POST" action="{{ route('menu.update', $menu->id) }}">
                             @csrf
+                            @method('PUT')
                             <div class="row">
                                 <div class="col-md-4">
                                     <label for="parent_id" class="col-form-label text-md-right">{{ __('Parent') }}</label>
                                     <div>
                                         <select name="parent_id" class="form-control" aria-label="Default select" required
                                             size="5">
-                                            <option value="0">ROOT</option>
+                                            <option value="0" selected>
+                                                ROOT
+                                            </option>
                                             @if ($menu_list)
                                                 @foreach ($menu_list as $k => $m)
                                                     <option value="{!! $k !!}"
                                                         {{ $k == $menu->parent_id ? 'selected' : '' }}
                                                         class="@error('m') is-invalid @enderror">
-                                                        {!! $m->name !!}
+                                                        {!! $m !!}
                                                     </option>
                                                 @endforeach
                                             @endif
@@ -158,8 +163,7 @@ $status = getStatus();
                                     <div>
                                         <input id="icon" type="text"
                                             class="form-control @error('icon') is-invalid @enderror" name="icon"
-                                            value="{{ old('icon', $menu->icon) }}" required autocomplete="icon"
-                                            autofocus>
+                                            value="{{ old('icon', $menu->icon) }}" autocomplete="icon" autofocus>
 
                                         @error('icon')
                                             <span class="invalid-feedback" role="alert">
@@ -208,8 +212,8 @@ $status = getStatus();
                                         {{ 'Note' }}
                                     </label>
                                     <div class="form-floating">
-                                        <textarea class="form-control" value="{{ old('note', $menu->note) }}"
-                                            placeholder="Note here" id="floatingTextarea"></textarea>
+                                        <textarea class="form-control" name="note" placeholder="Note here"
+                                            id="floatingTextarea">{{ old('note', $menu->note) }}</textarea>
                                     </div>
                                 </div>
                             </div>
