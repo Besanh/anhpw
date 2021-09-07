@@ -1,13 +1,14 @@
 <?php
-$title = 'Users - Index';
-$head_table = ['#', 'Name', 'Email', 'Email Verified At', 'Created At', 'Updated At', 'Action'];
-$main_link = 'user';
+
+$title = 'Provinces - Index';
+$head_table = ['#', 'Name', 'Note', 'Status', 'Created At', 'Updated At', 'Action'];
+$main_link = 'province';
 ?>
 @section('title', $title)
     @extends('admin.layouts.main')
 @section('content')
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800"><a href="{{ route($main_link . '.index') }}">{{ 'Users' }}</a></h1>
+        <h1 class="h3 mb-0 text-gray-800"><a href="{{ route($main_link . '.index') }}">{{ 'Provinces' }}</a></h1>
     </div>
     <div class="card mx-auto">
         @if (Session::has('message'))
@@ -45,21 +46,27 @@ $main_link = 'user';
                             </tr>
                         </tfoot>
                         <tbody>
-                            @if ($users)
-                                @foreach ($users as $k => $node)
+                            @if ($provinces)
+                                @foreach ($provinces as $k => $node)
                                     <?php $k++; ?>
                                     <tr>
                                         <th scope="row">{!! $k !!}</th>
                                         <th>{!! $node->name !!}</th>
-                                        <td>{{ $node->email }}</td>
-                                        <td>{!! $node->email_verified_at !!}</td>
+                                        <td>{{ $node->note }}</td>
+                                        <td>
+                                            @include('helper.stick', ['status' => $node->status,
+                                            'id' => $node->id,
+                                            'uri' => route($main_link.'.status', $node->id)])
+                                        </td>
                                         <td>{{ $node->created_at }}</td>
                                         <td>{{ $node->updated_at }}</td>
                                         <td>
-                                            <a class="btn btn-success" href="{{ route($main_link . '.edit', $node->id) }}">
+                                            <a class="btn btn-success"
+                                                href="{{ route($main_link . '.edit', $node->id) }}">
                                                 <i class="fa fa-paint-brush" aria-hidden="true"></i>
                                             </a>
-                                            <a class="btn btn-warning" href="{{ route($main_link . '.show', $node->id) }}">
+                                            <a class="btn btn-warning"
+                                                href="{{ route($main_link . '.show', $node->id) }}">
                                                 <i class="fa fa-eye" aria-hidden="true"></i>
                                             </a>
                                             <a class="delete-item btn btn-danger" data-id={{ $node->id }}

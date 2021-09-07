@@ -2,14 +2,15 @@
 use App\Models\Menu;
 
 $title = 'Menu - Index';
-$head_table = ['#', 'Type', 'Name', 'Priority', 'Status', 'Action'];
+$head_table = ['#', 'Id', 'Type', 'Name', 'Priority', 'Status', 'Action'];
 $main_link = 'menu';
 ?>
 @section('title', $title)
     @extends('admin.layouts.main')
 @section('content')
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800"><a href="{{ route($main_link . '.index', $alias) }}">{{ 'Menus' }}</a></h1>
+        <h1 class="h3 mb-0 text-gray-800"><a href="{{ route($main_link . '.index', $alias) }}">{{ 'Menus' }}</a>
+        </h1>
     </div>
     <div class="card mx-auto">
         @if (Session::has('message'))
@@ -52,6 +53,7 @@ $main_link = 'menu';
                                     <?php $k++; ?>
                                     <tr>
                                         <th scope="row">{!! $k !!}</th>
+                                        <th>{{ $node->id }}</th>
                                         <th>{!! Menu::mapMenuType($node->type_id) !!}</th>
                                         <td>
                                             @if ($node->parent_id == 0)

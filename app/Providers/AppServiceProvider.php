@@ -59,11 +59,11 @@ class AppServiceProvider extends ServiceProvider
         $backend = [];
         $backend = Menu::where([
             ["type_id", "=", 1],
-            ["name", "=", 'Menu Setting'],
             ['status', "=", 1]
         ])
             ->where(function ($query) {
-                $query->where('parent_id', 0);
+                $query->where('parent_id', 0)
+                ->whereIn('id', [1,8]);
             })
             ->get();
         if ($backend) {

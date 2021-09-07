@@ -201,7 +201,7 @@ $title = 'Menu - Create';
                                         {{ 'Note' }}
                                     </label>
                                     <div class="form-floating">
-                                        <textarea class="form-control" placeholder="Note here"
+                                        <textarea class="form-control" name="note" placeholder="Note here"
                                             id="floatingTextarea"></textarea>
                                     </div>
                                 </div>

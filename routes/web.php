@@ -5,6 +5,7 @@ use App\Http\Controllers\Backend\MenuController;
 use App\Http\Controllers\Backend\MenuTypeController;
 use App\Http\Controllers\Backend\SideBarController;
 use App\Http\Controllers\Backend\UserController;
+use App\Http\Controllers\ProvinceController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -53,4 +54,9 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function () {
     // User
     Route::resource('user', UserController::class)->only($only_action_resource);
     Route::get('user/destroy/{id}', [UserController::class, 'destroy'])->name('user.destroy');
+
+    // Province
+    Route::resource('province', ProvinceController::class)->only($only_action_resource);
+    Route::get('province/update-status/{id}', [ProvinceController::class, 'updateStatus'])->name('province.status');
+    Route::get('province/destroy/{id}', [ProvinceController::class, 'destroy'])->name('province.destroy');
 });
