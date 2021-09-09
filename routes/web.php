@@ -1,10 +1,11 @@
 <?php
 
+use App\Http\Controllers\Backend\BrandController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Backend\MenuController;
 use App\Http\Controllers\Backend\MenuTypeController;
-use App\Http\Controllers\Backend\SideBarController;
 use App\Http\Controllers\Backend\UserController;
+use App\Http\Controllers\DistrictController;
 use App\Http\Controllers\ProvinceController;
 use Illuminate\Support\Facades\Route;
 
@@ -48,9 +49,6 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function () {
     Route::get('menu-type/update-status/{id}', [MenuTypeController::class, 'updateStatus'])->name('menu-type.status');
     Route::get('menu-type/destroy/{id}', [MenuTypeController::class, 'destroy'])->name('menu-type.destroy');
 
-    // Sidebar backend
-    Route::get('setting-menu', [SideBarController::class, 'settingMenu'])->name('setting.menu');
-
     // User
     Route::resource('user', UserController::class)->only($only_action_resource);
     Route::get('user/destroy/{id}', [UserController::class, 'destroy'])->name('user.destroy');
@@ -59,4 +57,19 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function () {
     Route::resource('province', ProvinceController::class)->only($only_action_resource);
     Route::get('province/update-status/{id}', [ProvinceController::class, 'updateStatus'])->name('province.status');
     Route::get('province/destroy/{id}', [ProvinceController::class, 'destroy'])->name('province.destroy');
+
+    // District
+    Route::resource('district', DistrictController::class)->only($only_action_resource);
+    Route::get('district/update-status/{id}', [DistrictController::class, 'updateStatus'])->name('district.status');
+    Route::get('district/destroy/{id}', [DistrictController::class, 'destroy'])->name('district.destroy');
+
+    // Brand
+    Route::resource('brand', BrandController::class)->only($only_action_resource);
+    Route::get('brand/update-status/{id}', [BrandController::class, 'updateStatus'])->name('brand.status');
+    Route::get('brand/destroy/{id}', [BrandController::class, 'destroy'])->name('brand.destroy');
 });
+Route::any('/ckfinder/connector', '\CKSource\CKFinderBridge\Controller\CKFinderController@requestAction')
+    ->name('ckfinder_connector');
+
+Route::any('/ckfinder/browser', '\CKSource\CKFinderBridge\Controller\CKFinderController@browserAction')
+    ->name('ckfinder_browser');

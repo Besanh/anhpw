@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DistrictStoreRequest;
+use App\Http\Requests\DistrictUpdateRequest;
+use App\Models\Districts;
+use App\Models\Provinces;
 use Illuminate\Http\Request;
 
 class DistrictController extends Controller
@@ -13,7 +17,11 @@ class DistrictController extends Controller
      */
     public function index()
     {
-        //
+        $model = new Districts();
+        $provinces = $model->getProvinceMap();
+        $districts  = Districts::get();
+
+        return view('admin.district.index', compact(['districts', 'provinces']));
     }
 
     /**
@@ -23,7 +31,8 @@ class DistrictController extends Controller
      */
     public function create()
     {
-        //
+        $provinces = Provinces::select(['id', 'name'])->get();
+        return view('admin.district.create', compact('provinces'));
     }
 
     /**
@@ -32,9 +41,12 @@ class DistrictController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(DistrictStoreRequest $request, Districts $district)
     {
-        //
+        if ($request->validated()) {
+            $district->create($request->validated());
+            return redirect()->back()->with('message', 'Created district successfully');
+        }
     }
 
     /**
@@ -43,9 +55,9 @@ class DistrictController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Districts $district)
     {
-        //
+        return view('admin.district.show', compact('district'));
     }
 
     /**
@@ -54,9 +66,10 @@ class DistrictController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Districts $district)
     {
-        //
+        $provinces = Provinces::select(['id', 'name'])->get();
+        return view('admin.district.edit', compact(['district', 'provinces']));
     }
 
     /**
@@ -66,9 +79,14 @@ class DistrictController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(DistrictUpdateRequest $request, Districts $district)
     {
-        //
+        if ($request->validated()) {
+            $district->update($request->validated());
+            return redirect()->back()->with('message', 'Updated district successfully');
+        }
+
+        return redirect()->refresh();
     }
 
     /**
@@ -79,6 +97,23 @@ class DistrictController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $model = Districts::find($id);
+        if ($model) {
+            $model->delete();
+            return redirect()->back()->with('message', 'Delete #' . $id . ' successfully');
+        }
+        return redirect()->back()->with('message', 'Data not found');
+    }
+
+    public function updateStatus($id)
+    {
+        $model = Districts::find($id);
+        if ($model) {
+            $model->status = ($model->status) ? 0 : 1;
+            $model->save();
+            $msg = ['status' => $model->status, 'message' => "Record #{$id} updated successfully"];
+            return response()->json($msg);
+        }
+        return redirect()->back()->with('message', 'Nothing change');
     }
 }

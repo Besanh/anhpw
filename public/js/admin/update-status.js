@@ -10,7 +10,7 @@ $(document).ready(function () {
 
             e.preventDefault();
             $.ajax({
-                url: $(this).attr('href'),
+                url: $(this).attr('data-href'),
                 type: 'GET',
                 dataType: 'json',
                 // data: {

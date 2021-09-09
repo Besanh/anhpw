@@ -10,4 +10,9 @@ class Provinces extends Model
     use HasFactory;
 
     protected $fillable = ['name', 'status', 'note'];
+
+    public function getDistricts()
+    {
+        return $this->hasMany(Districts::class, 'province_id', 'id');
+    }
 }

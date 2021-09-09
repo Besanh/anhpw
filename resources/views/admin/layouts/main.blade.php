@@ -48,6 +48,11 @@
         <i class="fas fa-angle-up"></i>
     </a>
 
+    <!-- loader part  -->
+    <div class="loader-container">
+        <img src="{{ asset('img/preloader.gif') }}" alt="preloader">
+    </div>
+
     <!-- Logout Modal-->
     @include('helper.popup')
 

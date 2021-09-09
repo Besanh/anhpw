@@ -129,7 +129,6 @@ class Menu extends Model
     public static function mapMenuType($type_id)
     {
         $collection = collect(['name']);
-        $combined = [];
         $query = MenuType::select(['id', 'name'])
             ->where("id", $type_id)
             ->orderByRaw('updated_at desc, id')
