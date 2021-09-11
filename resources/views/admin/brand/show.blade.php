@@ -1,21 +1,24 @@
 <?php
-$title = 'User - Show';
+$title = $brand->name;
 $head_table = [
-'Id' => $user->id,
-'Name' => $user->name,
-'Email' => $user->email,
-'Email Verified At' => $user->email_verified_at,
-'Created At' => $user->created_at,
-'Updated At' => $user->updated_at,
+'Id' => $brand->id,
+'Name' => $brand->name,
+'Name SEO' => $brand->name_seo,
+'Description' => $brand->description,
+'Image' => $brand->description,
+'Priority' => $brand->prioriy,
+'Status' => $brand->stats,
+'Created At' => $brand->created_at,
+'Updated At' => $brand->updated_at,
 'Action' => '',
 ];
-$main_link = 'user';
+$main_link = 'brand';
 ?>
 @section('title', $title)
     @extends('admin.layouts.main')
 @section('content')
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">{{ 'User' }}</h1>
+        <h1 class="h3 mb-0 text-gray-800">{{ 'Brand' }}</h1>
     </div>
     <div class="card mx-auto">
         @if (Session::has('message'))
@@ -34,7 +37,7 @@ $main_link = 'user';
         <div class="card-header border-bottom-primary">
             <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
-                    <a href="{!! route($main_link . '.index') !!}" class="float-right">Users</a>
+                    <a href="{!! route($main_link . '.index') !!}" class="float-right">Brands</a>
                 </div>
             </div>
         </div>
@@ -43,23 +46,23 @@ $main_link = 'user';
                 <div class="table-responsive">
                     <table class="table table-bordered" width="100%" cellspacing="0">
                         <tbody>
-                            @if ($user)
+                            @if ($brand)
                                 @foreach ($head_table as $head => $item)
                                     <tr>
                                         <th>{{ $head }}</th>
                                         <td>
                                             @if ($head == 'Action')
                                                 <a class="btn btn-success"
-                                                    href="{{ route($main_link . '.edit', $user->id) }}">
+                                                    href="{{ route($main_link . '.edit', $brand->id) }}">
                                                     <i class="fa fa-paint-brush" aria-hidden="true"></i>
                                                 </a>
                                                 <a class="btn btn-warning"
-                                                    href="{{ route($main_link . '.show', $user->id) }}">
+                                                    href="{{ route($main_link . '.show', $brand->id) }}">
                                                     <i class="fa fa-eye" aria-hidden="true"></i>
                                                 </a>
-                                                <a class="delete-item btn btn-danger" data-id={{ $user->id }}
+                                                <a class="delete-item btn btn-danger" data-id={{ $brand->id }}
                                                     onclick="return confirm('Are you sure?')"
-                                                    href="{{ route($main_link . '.destroy', $user->id) }}">
+                                                    href="{{ route($main_link . '.destroy', $brand->id) }}">
                                                     <i class="fa fa-trash"></i>
                                                 </a>
                                             @else

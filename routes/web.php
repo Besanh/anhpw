@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Backend\BrandController;
+use App\Http\Controllers\Backend\CapaController;
+use App\Http\Controllers\Backend\CateController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Backend\MenuController;
 use App\Http\Controllers\Backend\MenuTypeController;
@@ -67,7 +69,19 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function () {
     Route::resource('brand', BrandController::class)->only($only_action_resource);
     Route::get('brand/update-status/{id}', [BrandController::class, 'updateStatus'])->name('brand.status');
     Route::get('brand/destroy/{id}', [BrandController::class, 'destroy'])->name('brand.destroy');
+
+    // Product
+    Route::resource('capa', CapaController::class)->only($only_action_resource);
+    Route::get('capa/update-status/{id}', [CapaController::class, 'updateStatus'])->name('capa.status');
+    Route::get('capa/destroy/{id}', [CapaController::class, 'destroy'])->name('capa.destroy');
+
+    // Category
+    Route::resource('cate', CateController::class)->only($only_action_resource);
+    Route::get('cate/update-status/{id}', [CateController::class, 'updateStatus'])->name('cate.status');
+    Route::get('cate/destroy/{id}', [CateController::class, 'destroy'])->name('cate.destroy');
 });
+
+// CkFiner
 Route::any('/ckfinder/connector', '\CKSource\CKFinderBridge\Controller\CKFinderController@requestAction')
     ->name('ckfinder_connector');
 

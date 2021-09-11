@@ -51,6 +51,7 @@ class CreateProducts extends Migration
             $table->integer('pid')->nullable();
             $table->string('barcode');
             $table->string('name');
+            $table->integer('sex')->default(0);
             $table->integer('promote')->default(0);
             $table->string('capa')->comment('Size');
             $table->integer('capa_id');
@@ -79,7 +80,7 @@ class CreateProducts extends Migration
             $table->string('name');
             $table->string('name_seo');
             $table->text('description')->nullable();
-            $table->string('image');
+            $table->string('image')->default('no-image.png')->nullable();
             $table->integer('priority')->default(0);
             $table->integer('status')->default(0);
             $table->integer('created_by')->default(0)->nullable();

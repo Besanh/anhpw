@@ -3,14 +3,10 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\BrandStoreRequest;
-use App\Http\Requests\BrandUpdateRequest;
-use App\Models\Brand;
+use App\Models\Capacity;
 use Illuminate\Http\Request;
-use Intervention\Image\Facades\Image;
-use Intervention\Image\File;
 
-class BrandController extends Controller
+class CapaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,10 +15,8 @@ class BrandController extends Controller
      */
     public function index()
     {
-        $brands = Brand::orderBy('id', 'DESC')
-            ->select(['id', 'name', 'priority', 'status', 'created_at', 'updated_at'])
-            ->get();
-        return view('admin.brand.index', compact('brands'));
+        $capa = Capacity::orderBy('id', 'DESC')->get();
+        return view('admin.capa.index', compact('capa'));
     }
 
     /**
@@ -32,7 +26,7 @@ class BrandController extends Controller
      */
     public function create()
     {
-        return view('admin.brand.create');
+        return view('admin.capa.create');
     }
 
     /**
@@ -41,13 +35,17 @@ class BrandController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(BrandStoreRequest $request)
+    public function store(Request $request, Capacity $capa)
     {
-        if ($request->validated()) {
-            Brand::create($request->validated());
-
-            return redirect()->back()->with('message', 'Created brand successfully');
-        }
+        $request->validate([
+            'name' => 'required|string',
+            'status' => 'required|integer'
+        ]);
+        $capa->create([
+            'name' => $request->name,
+            'status' => $request->status
+        ]);
+        return redirect()->back()->with('message', 'Created capacity successfully');
     }
 
     /**
@@ -56,9 +54,9 @@ class BrandController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Brand $brand)
+    public function show(Capacity $capa)
     {
-        return view('admin.brand.show', compact('brand'));
+        return view('admin.capa.show', compact('capa'));
     }
 
     /**
@@ -67,9 +65,9 @@ class BrandController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Brand $brand)
+    public function edit(Capacity $capa)
     {
-        return view('admin.brand.edit', compact('brand'));
+        return view('admin.capa.edit', compact('capa'));
     }
 
     /**
@@ -79,14 +77,17 @@ class BrandController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(BrandUpdateRequest $request, Brand $brand)
+    public function update(Request $request, Capacity $capa)
     {
-        if ($request->validated()) {
-            $brand->update($request->validated());
-            return redirect()->back()->with('message', 'Updated brand successfully');
-        }
-
-        return redirect()->refresh();
+        $request->validate([
+            'name' => 'required|string',
+            'status' => 'required|integer'
+        ]);
+        $capa->update([
+            'name' => $request->name,
+            'status' => $request->status
+        ]);
+        return redirect()->back()->with('message', 'Updated capacity successfully');
     }
 
     /**
@@ -97,7 +98,7 @@ class BrandController extends Controller
      */
     public function destroy($id)
     {
-        $model = Brand::find($id);
+        $model = Capacity::find($id);
         if ($model) {
             $model->delete();
             return redirect()->back()->with('message', 'Delete #' . $id . ' successfully');
@@ -107,7 +108,7 @@ class BrandController extends Controller
 
     public function updateStatus($id)
     {
-        $model = Brand::find($id);
+        $model = Capacity::find($id);
         if ($model) {
             $model->status = ($model->status) ? 0 : 1;
             $model->save();

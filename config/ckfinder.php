@@ -30,8 +30,8 @@ $config['authentication'] = '\App\Http\Middleware\CustomCKFinderAuth';
 /*============================ License Key ============================================*/
 // http://docs.cksource.com/ckfinder3-php/configuration.html#configuration_options_licenseKey
 
-$config['licenseName'] = 'anhpw.com';
-$config['licenseKey']  = '8PNPKNMG7ABSE83G1A1B87HHRU4FK';
+$config['licenseName'] = 'localhost';
+$config['licenseKey']  = '*T?V-*1**-C**6-*D**-*T**-4*2*-2**F';
 
 /*============================ CKFinder Internal Directory ============================*/
 // http://docs.cksource.com/ckfinder3-php/configuration.html#configuration_options_privateDir
@@ -182,7 +182,7 @@ $config['sessionWriteClose'] = true;
 /*================================= CSRF protection ===================================*/
 // http://docs.cksource.com/ckfinder3-php/configuration.html#configuration_options_csrfProtection
 
-$config['csrfProtection'] = true;
+$config['csrfProtection'] = false;
 
 /*============================== End of Configuration =================================*/
 

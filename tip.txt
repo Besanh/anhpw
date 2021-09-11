@@ -1,0 +1,3 @@
+Su dung cho upload file input:
+mimes:jpeg,png,jpg|max:2048
+Su dung ckfinder thi khong can

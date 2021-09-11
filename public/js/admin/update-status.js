@@ -30,6 +30,7 @@ $(document).ready(function () {
                         else {
                             $('i.status-' + id).removeClass().addClass('status status-' + id + ' fa fa-times text-danger');
                         }
+                        $('.updated_at-' + id).html(moment(data.updated_at).format('Y-MM-DD H:m:s'));
                         clearTimeout(t);
                     }, 1000);
                 },
