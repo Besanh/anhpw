@@ -76,9 +76,9 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function () {
     Route::get('capa/destroy/{id}', [CapaController::class, 'destroy'])->name('capa.destroy');
 
     // Category
-    Route::resource('cate', CateController::class)->only($only_action_resource);
-    Route::get('cate/update-status/{id}', [CateController::class, 'updateStatus'])->name('cate.status');
-    Route::get('cate/destroy/{id}', [CateController::class, 'destroy'])->name('cate.destroy');
+    Route::resource('category', CateController::class)->only($only_action_resource);
+    Route::get('category/update-status/{id}', [CateController::class, 'updateStatus'])->name('category.status');
+    Route::get('category/destroy/{id}', [CateController::class, 'destroy'])->name('category.destroy');
 });
 
 // CkFiner

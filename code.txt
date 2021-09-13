@@ -1,0 +1,23 @@
+try {
+                $model = 'brands';
+                $dir = public_path('userfiles/images/' . $model);
+                $dir_org = public_path('userfiles/images/' . $model . Brand::$ORG);
+                $dir_thumb = public_path('userfiles/images/' . $model . Brand::$THUMB);
+
+                $file = $request->file('image');
+                $name = microtime(true) . '.' . $file->extension();
+                !is_dir($dir) ? mkdir($dir, 0777, true) : (!is_dir($dir_org) ? mkdir($dir_org, 0777, true) : (!is_dir($dir_thumb) ? mkdir($dir_thumb, 0777, true) : null));
+                Image::make($file->getRealPath())->save($dir_org . '/' . $name);
+                Image::make($file->getRealPath())->resize(150, 150, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->save($dir_thumb . $name);
+
+                $height = Image::make($file)->height();
+                $width = Image::make($file)->width();
+                if ($width >= 300 && $height >= 300) {
+                    // watermark
+                }
+            } catch (\Throwable $th) {
+                throw $th;
+                return false;
+            }

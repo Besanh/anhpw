@@ -1,13 +1,13 @@
 <?php
-$title = 'Brand - Create';
+$title = 'Category - Edit';
 $status = getStatus();
-$main_link = 'brand';
+$main_link = 'category';
 ?>
 @section('title', $title)
     @extends('admin.layouts.main')
 @section('content')
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">{{ 'Brand' }}</h1>
+        <h1 class="h3 mb-0 text-gray-800">{{ 'Category' }}</h1>
     </div>
     <div class="container">
         <div class="row justify-content-center">
@@ -31,11 +31,11 @@ $main_link = 'brand';
                     @endif
                     <div class="card-header">
                         {{ $title }}
-                        <a href="{{ route($main_link . '.index') }}" class="float-right">Brands</a>
+                        <a href="{{ route($main_link . '.index') }}" class="float-right">Categories</a>
                     </div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route($main_link . '.store') }}" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route($main_link . '.update', $cate->id) }}" enctype="multipart/form-data">
                             @csrf
 
                             <div class="row">
@@ -46,7 +46,7 @@ $main_link = 'brand';
                                     <div>
                                         <input id="name" type="text"
                                             class="form-control @error('name') is-invalid @enderror" name="name"
-                                            value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                            value="{{ old('name', $cate->name) }}" required autocomplete="name" autofocus>
 
                                         @error('name')
                                             <span class="invalid-feedback" role="alert">
@@ -61,24 +61,10 @@ $main_link = 'brand';
                                     <div>
                                         <input id="name" type="text"
                                             class="form-control @error('name_seo') is-invalid @enderror" name="name_seo"
-                                            value="{{ old('name_seo') }}" required autocomplete="name_seo" autofocus>
+                                            value="{{ old('name_seo', $cate->name_seo) }}" required
+                                            autocomplete="name_seo" autofocus>
 
                                         @error('name_seo')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-
-                                    <label for="priority" class="col-form-label text-md-right">
-                                        {{ __('Priority') }}
-                                    </label>
-                                    <div>
-                                        <input id="name" type="text"
-                                            class="form-control @error('priority') is-invalid @enderror" name="priority"
-                                            value="{{ old('priority') }}" required autocomplete="priority" autofocus>
-
-                                        @error('priority')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -92,6 +78,7 @@ $main_link = 'brand';
                                         <select name="status" class="form-control" aria-label="Default select" required>
                                             @foreach (getStatus() as $k => $t)
                                                 <option value="{!! $k !!}"
+                                                    {{ $cate->status == $k ? 'selected' : '' }}
                                                     class="@error('t') is-invalid @enderror">
                                                     {!! $t !!}
                                                 </option>
@@ -104,7 +91,18 @@ $main_link = 'brand';
                                         @enderror
                                     </div>
 
-                                    @include('helper.ckfinder', ['name' => 'image', 'value' => ''])
+                                    <div>
+                                        <label for="image" class="col-form-label text-md-right" data-toggle="tooltip"
+                                            data-placement="top" title="900x450">
+                                            {{ __('Image') }}
+                                        </label>
+                                        <div class="custom-file" data-toggle="tooltip" data-placement="top" title="900x450">
+                                            <input type="file" name="image" class="custom-file-input" id="image"
+                                                accept="image/png, image/gif, image/jpeg"
+                                                value="{{ old('image', $cate->image) }}">
+                                            <label class="custom-file-label" for="image">Choose file</label>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div class="col-md-6">
@@ -113,7 +111,9 @@ $main_link = 'brand';
 
                                     <div>
                                         <div class="form-group">
-                                            <textarea class="ckeditor form-control" name="description"></textarea>
+                                            <textarea class="ckeditor form-control"
+                                                value="{{ old('description', $cate->description) }}"
+                                                name="description"></textarea>
                                         </div>
                                         @error('description')
                                             <span class="invalid-feedback" role="alert">
