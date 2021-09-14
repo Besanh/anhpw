@@ -75,7 +75,7 @@ $main_link = 'menu-type';
                             @include('helper/status-dropdown', ['old_status' => $menuType->status])
 
                             <div class="form-group row mb-0">
-                                <div class="col-md-6 offset-md-4">
+                                <div class="col-md-12 offset-md-12 text-center">
                                     <button type="submit" class="btn btn-primary">
                                         {{ __('Update') }}
                                     </button>

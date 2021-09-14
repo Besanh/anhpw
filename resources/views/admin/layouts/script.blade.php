@@ -27,3 +27,5 @@
 @stack('update-status')
 @stack('update-status-css')
 @stack('ckeditor')
+@stack('datepicker')
+@stack('datetimepicker')

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CateStoreRequest;
+use App\Http\Requests\CateUpdateRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
@@ -60,9 +61,9 @@ class CateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Category $category)
     {
-        //
+        return view('admin.category.show', compact('category'));
     }
 
     /**
@@ -71,9 +72,9 @@ class CateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $cate)
+    public function edit(Category $category)
     {
-        return view('admin.category.edit', compact('cate'));
+        return view('admin.category.edit', compact('category'));
     }
 
     /**
@@ -83,9 +84,22 @@ class CateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CateUpdateRequest $request, Category $category)
     {
-        //
+        if ($request->validated()) {
+            if ($request->hasFile('image')) {
+                $request->image = proccessUpload($request, 'category', 900, 450);
+            }
+
+            $category->update([
+                'name' => $request->name,
+                'name_seo' => $request->name_seo,
+                'image' => $request->file('image') ? $request->image : $category->image,
+                'status' => $request->status,
+                'description' => $request->description
+            ]);
+            return redirect()->back()->with('message', 'Updated category successfully');
+        }
     }
 
     /**

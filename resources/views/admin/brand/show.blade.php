@@ -7,7 +7,7 @@ $head_table = [
 'Description' => $brand->description,
 'Image' => $brand->description,
 'Priority' => $brand->prioriy,
-'Status' => $brand->stats,
+'Status' => $brand->status,
 'Created At' => $brand->created_at,
 'Updated At' => $brand->updated_at,
 'Action' => '',
@@ -52,19 +52,7 @@ $main_link = 'brand';
                                         <th>{{ $head }}</th>
                                         <td>
                                             @if ($head == 'Action')
-                                                <a class="btn btn-success"
-                                                    href="{{ route($main_link . '.edit', $brand->id) }}">
-                                                    <i class="fa fa-paint-brush" aria-hidden="true"></i>
-                                                </a>
-                                                <a class="btn btn-warning"
-                                                    href="{{ route($main_link . '.show', $brand->id) }}">
-                                                    <i class="fa fa-eye" aria-hidden="true"></i>
-                                                </a>
-                                                <a class="delete-item btn btn-danger" data-id={{ $brand->id }}
-                                                    onclick="return confirm('Are you sure?')"
-                                                    href="{{ route($main_link . '.destroy', $brand->id) }}">
-                                                    <i class="fa fa-trash"></i>
-                                                </a>
+                                            @include('helper.action', ['uri' => $main_link, 'id' => $brand->id])
                                             @else
                                                 {{ $item }}
                                             @endif

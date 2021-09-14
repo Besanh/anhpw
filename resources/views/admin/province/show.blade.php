@@ -3,7 +3,7 @@ $title = 'Province - Show';
 $head_table = [
 'Id' => $province->id,
 'Name' => $province->name,
-'Status' => $province->stats,
+'Status' => $province->status,
 'Note' => $province->note,
 'Created At' => $province->created_at,
 'Updated At' => $province->updated_at,
@@ -49,19 +49,7 @@ $main_link = 'province';
                                         <th>{{ $head }}</th>
                                         <td>
                                             @if ($head == 'Action')
-                                                <a class="btn btn-success"
-                                                    href="{{ route($main_link . '.edit', $province->id) }}">
-                                                    <i class="fa fa-paint-brush" aria-hidden="true"></i>
-                                                </a>
-                                                <a class="btn btn-warning"
-                                                    href="{{ route($main_link . '.show', $province->id) }}">
-                                                    <i class="fa fa-eye" aria-hidden="true"></i>
-                                                </a>
-                                                <a class="delete-item btn btn-danger" data-id={{ $province->id }}
-                                                    onclick="return confirm('Are you sure?')"
-                                                    href="{{ route($main_link . '.destroy', $province->id) }}">
-                                                    <i class="fa fa-trash"></i>
-                                                </a>
+                                                @include('helper.action', ['uri' => $main_link, 'id' => $province->id])
                                             @else
                                                 {{ $item }}
                                             @endif

@@ -9,5 +9,7 @@ class MenuType extends Model
 {
     use HasFactory;
 
+    public $timestamp = true;
+
     protected $fillable = ['name', 'alias', 'status'];
 }

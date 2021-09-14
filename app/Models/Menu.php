@@ -11,6 +11,8 @@ class Menu extends Model
 {
     use HasFactory;
 
+    public $timestamp = true;
+
     const MENU_ADMIN = "admin";
     const MENU_NAV = "navigation";
     const MENU_FOOTER = "footer";

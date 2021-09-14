@@ -1,13 +1,14 @@
 <?php
-$title = 'Menu Type - Index';
-$head_table = ['#', 'Name', 'Alias', 'Status', 'Created At', 'Updated At', 'Action'];
-$main_link = 'menu-type';
+
+$title = 'Product - Index';
+$head_table = ['#', 'Category', 'Brand', 'Name', 'Status', 'Public Year', 'Created At', 'Updated At', 'Action'];
+$main_link = 'product';
 ?>
 @section('title', $title)
     @extends('admin.layouts.main')
 @section('content')
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800"><a href="{{ route($main_link . '.index') }}">{{ 'Menu Types' }}</a></h1>
+        <h1 class="h3 mb-0 text-gray-800"><a href="{{ route($main_link . '.index') }}">{{ 'Products' }}</a></h1>
     </div>
     <div class="card mx-auto">
         @if (Session::has('message'))
@@ -45,22 +46,22 @@ $main_link = 'menu-type';
                             </tr>
                         </tfoot>
                         <tbody>
-                            @if ($menu_types)
-                                @foreach ($menu_types as $k => $t)
+                            @if ($products)
+                                @foreach ($products as $k => $node)
                                     <?php $k++; ?>
                                     <tr>
                                         <th scope="row">{!! $k !!}</th>
-                                        <td>{!! $t->name !!}</td>
-                                        <td>{!! $t->alias !!}</td>
+                                        <th>{!! $node->name !!}</th>
+                                        <td>{{ $node->public_year }}</td>
                                         <td>
-                                            @include('helper.stick', ['status' => $t->status,
-                                            'id' => $t->id,
-                                            'uri' => route($main_link.'.status', $t->id)])
+                                            @include('helper.stick', ['status' => $node->status,
+                                            'id' => $node->id,
+                                            'uri' => route($main_link.'.status', $node->id)])
                                         </td>
-                                        <td>{!! $t->created_at !!}</td>
-                                        <td>{!! $t->updated_at !!}</td>
+                                        <td>{{ $node->created_at }}</td>
+                                        <td>{{ $node->updated_at }}</td>
                                         <td>
-                                            @include('helper.action', ['id' => $t->id, 'uri' => $main_link])
+                                            @include('helper.action', ['uri' => $main_link, 'id' => $node->id])
                                         </td>
                                     </tr>
                                 @endforeach

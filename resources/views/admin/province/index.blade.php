@@ -61,20 +61,7 @@ $main_link = 'province';
                                         <td>{{ $node->created_at }}</td>
                                         <td>{{ $node->updated_at }}</td>
                                         <td>
-                                            <a class="btn btn-success"
-                                                href="{{ route($main_link . '.edit', $node->id) }}">
-                                                <i class="fa fa-paint-brush" aria-hidden="true"></i>
-                                            </a>
-                                            <a class="btn btn-warning"
-                                                href="{{ route($main_link . '.show', $node->id) }}">
-                                                <i class="fa fa-eye" aria-hidden="true"></i>
-                                            </a>
-                                            <a class="delete-item btn btn-danger" data-id={{ $node->id }}
-                                                onclick="return confirm('Are you sure?')"
-                                                href="{{ route($main_link . '.destroy', $node->id) }}">
-                                                <i class="fa fa-trash"></i>
-                                            </a>
-
+                                            @include('helper.action', ['uri' => $main_link, 'id' => $node->id])
                                         </td>
                                     </tr>
                                 @endforeach

@@ -35,18 +35,21 @@ $main_link = 'category';
                     </div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route($main_link . '.update', $cate->id) }}" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route($main_link . '.update', $category->id) }}"
+                            enctype="multipart/form-data">
                             @csrf
+                            @method('PUT')
 
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-3">
                                     <label for="name" class="col-form-label text-md-right">
                                         {{ __('Name') }}
                                     </label>
                                     <div>
                                         <input id="name" type="text"
                                             class="form-control @error('name') is-invalid @enderror" name="name"
-                                            value="{{ old('name', $cate->name) }}" required autocomplete="name" autofocus>
+                                            value="{{ old('name', $category->name) }}" required autocomplete="name"
+                                            autofocus>
 
                                         @error('name')
                                             <span class="invalid-feedback" role="alert">
@@ -61,7 +64,7 @@ $main_link = 'category';
                                     <div>
                                         <input id="name" type="text"
                                             class="form-control @error('name_seo') is-invalid @enderror" name="name_seo"
-                                            value="{{ old('name_seo', $cate->name_seo) }}" required
+                                            value="{{ old('name_seo', $category->name_seo) }}" required
                                             autocomplete="name_seo" autofocus>
 
                                         @error('name_seo')
@@ -78,7 +81,7 @@ $main_link = 'category';
                                         <select name="status" class="form-control" aria-label="Default select" required>
                                             @foreach (getStatus() as $k => $t)
                                                 <option value="{!! $k !!}"
-                                                    {{ $cate->status == $k ? 'selected' : '' }}
+                                                    {{ $category->status == $k ? 'selected' : '' }}
                                                     class="@error('t') is-invalid @enderror">
                                                     {!! $t !!}
                                                 </option>
@@ -91,28 +94,17 @@ $main_link = 'category';
                                         @enderror
                                     </div>
 
-                                    <div>
-                                        <label for="image" class="col-form-label text-md-right" data-toggle="tooltip"
-                                            data-placement="top" title="900x450">
-                                            {{ __('Image') }}
-                                        </label>
-                                        <div class="custom-file" data-toggle="tooltip" data-placement="top" title="900x450">
-                                            <input type="file" name="image" class="custom-file-input" id="image"
-                                                accept="image/png, image/gif, image/jpeg"
-                                                value="{{ old('image', $cate->image) }}">
-                                            <label class="custom-file-label" for="image">Choose file</label>
-                                        </div>
-                                    </div>
+
                                 </div>
 
-                                <div class="col-md-6">
+                                <div class="col-md-5">
                                     <label for="description"
                                         class="col-form-label text-md-right">{{ __('Description') }}</label>
 
                                     <div>
                                         <div class="form-group">
                                             <textarea class="ckeditor form-control"
-                                                value="{{ old('description', $cate->description) }}"
+                                                value="{{ old('description', $category->description) }}"
                                                 name="description"></textarea>
                                         </div>
                                         @error('description')
@@ -122,12 +114,32 @@ $main_link = 'category';
                                         @enderror
                                     </div>
                                 </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="image" class="col-form-label text-md-right" data-toggle="tooltip"
+                                            data-placement="top" title="900x450">
+                                            {{ __('Image') }}
+                                        </label>
+                                        <div class="custom-file" data-toggle="tooltip" data-placement="top" title="900x450">
+                                            <input type="file" name="image" class="custom-file-input" id="image"
+                                                accept="image/png, image/gif, image/jpeg">
+                                            <label class="custom-file-label" for="image">
+                                                {{ old('image', $category->image ? $category->image : 'Choose file') }}
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <img src="{{ getImage($category->image) }}" class="rounded mx-auto d-block"
+                                            alt="{{ $category->name }}" width="200" height="200">
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="form-group row mb-0">
-                                <div class="col-md-6 offset-md-4">
+                                <div class="col-md-12 offset-md-12 text-center">
                                     <button type="submit" class="btn btn-primary">
-                                        {{ __('Create') }}
+                                        {{ __('Update') }}
                                     </button>
                                 </div>
                             </div>

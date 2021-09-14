@@ -6,6 +6,7 @@ use App\Http\Controllers\Backend\CateController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Backend\MenuController;
 use App\Http\Controllers\Backend\MenuTypeController;
+use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\DistrictController;
 use App\Http\Controllers\ProvinceController;
@@ -79,6 +80,11 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function () {
     Route::resource('category', CateController::class)->only($only_action_resource);
     Route::get('category/update-status/{id}', [CateController::class, 'updateStatus'])->name('category.status');
     Route::get('category/destroy/{id}', [CateController::class, 'destroy'])->name('category.destroy');
+
+    // Product
+    Route::resource('product', ProductController::class)->only($only_action_resource);
+    Route::get('product/update-status/{id}', [ProductController::class, 'updateStatus'])->name('product.status');
+    Route::get('product/destroy/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
 });
 
 // CkFiner

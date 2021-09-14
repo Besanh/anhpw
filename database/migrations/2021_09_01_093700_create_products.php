@@ -22,10 +22,10 @@ class CreateProducts extends Migration
             $table->string('name');
             $table->string('name_seo');
             $table->string('designer')->nullable();
-            $table->timestamp('public_year')->nullable();
+            $table->date('public_year')->nullable();
             $table->string('image')->nullable();
             $table->text('description')->nullable();
-            $table->json('galeries')->nullable();
+            $table->json('galleries')->nullable();
             $table->integer('promote')->default(0);
             $table->integer('status')->default(0);
             $table->integer('created_by')->default(0)->nullable();

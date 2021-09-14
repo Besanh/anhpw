@@ -47,8 +47,9 @@ if (!function_exists('createDir')) {
 }
 
 if (!function_exists('proccessUpload')) {
-    function proccessUpload($request, $model = 'default')
+    function proccessUpload($request, $model = 'default', $width = 500, $height = 500)
     {
+        $data = '';
         try {
             $dir = 'userfiles/images/' . $model . '/';
             $dir_org = 'userfiles/images/' . $model . '_org/';
@@ -68,22 +69,71 @@ if (!function_exists('proccessUpload')) {
             $height = Image::make($file)->height();
             $width = Image::make($file)->width();
             if ($width >= 900 && $height >= 450) {
-                if (Image::make($file->getRealPath())->resize(900, 450, function ($constraint) {
+                if (Image::make($file->getRealPath())->resize($width, $height, function ($constraint) {
                     $constraint->aspectRatio();
                 })->save(createImageUri($dir, $name))) {
-                    $request->image = $dir . $name;
+                    $data = createImageUri($dir, $name);
                 }
 
                 // watermark
             } else {
                 if (Image::make($file->getRealPath())->save(createImageUri($dir, $name))) {
-                    $request->image = $dir . $name;
+                    $data = createImageUri($dir, $name);
                 }
             }
-            return true;
+            return $data;
         } catch (\Throwable $th) {
             throw $th;
             return false;
         }
+    }
+}
+
+if (!function_exists('uploadMultipleImage')) {
+    function uploadMultipleImage($file, $model = 'default', $width = 500, $height = 500)
+    {
+        $data = [];
+        try {
+            $dir = 'userfiles/images/' . $model . '/';
+            $dir_org = 'userfiles/images/' . $model . '_org/';
+            $dir_thumb = 'userfiles/images/' . $model . '_thumb/';
+            $name = microtime(true) . '.' . $file->extension();
+            !is_dir($dir) ? createDir($dir) : (!is_dir($dir_org) ? createDir($dir_org) : (!is_dir($dir_thumb) ? createDir($dir_thumb) : null));
+
+            // Save org
+            Image::make($file->getRealPath())->save(createImageUri($dir_org, $name));
+            // Save thumb
+            Image::make($file->getRealPath())->resize(150, 150, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(createImageUri($dir_thumb, $name));
+
+            $height = Image::make($file)->height();
+            $width = Image::make($file)->width();
+            if ($width >= 900 && $height >= 450) {
+                if (Image::make($file->getRealPath())->resize($width, $height, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->save(createImageUri($dir, $name))) {
+                    $data = createImageUri($dir, $name);
+                }
+
+                // watermark
+            } else {
+                if (Image::make($file->getRealPath())->save(createImageUri($dir, $name))) {
+                    $data = createImageUri($dir, $name);
+                }
+            }
+            return $data;
+        } catch (\Throwable $th) {
+            throw $th;
+            return false;
+        }
+    }
+}
+
+
+if (!function_exists('getImage')) {
+    function getImage($dir)
+    {
+        return asset('/' . $dir);
     }
 }

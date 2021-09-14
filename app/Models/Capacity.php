@@ -9,7 +9,7 @@ class Capacity extends Model
 {
     use HasFactory;
 
-    public $timestaamps = true;
+    public $timestamps = true;
 
     protected $fillable = ['name', 'status'];
 }
