@@ -1,14 +1,14 @@
 <?php
 
-$title = 'Product - Index';
-$head_table = ['#', 'Category', 'Brand', 'Name', 'Status', 'Created At', 'Updated At', 'Action'];
-$main_link = 'product';
+$title = 'Price - Index';
+$head_table = ['#', 'SAP ID', 'Barcode', 'Name', 'Price', 'Status', 'Created At', 'Updated At', 'Action'];
+$main_link = 'price';
 ?>
 @section('title', $title)
     @extends('admin.layouts.main')
 @section('content')
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800"><a href="{{ route($main_link . '.index') }}">{{ 'Products' }}</a></h1>
+        <h1 class="h3 mb-0 text-gray-800"><a href="{{ route($main_link . '.index') }}">{{ 'Prices' }}</a></h1>
     </div>
     <div class="card mx-auto">
         @if (Session::has('message'))
@@ -34,7 +34,7 @@ $main_link = 'product';
         <div class="card shadow mb-4">
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <table class="table table-bordered" width="100%" cellspacing="0">
                         <thead>
                             <tr>
                                 @include('helper.head-table', compact('head_table'))
@@ -46,14 +46,15 @@ $main_link = 'product';
                             </tr>
                         </tfoot>
                         <tbody>
-                            @if ($products)
-                                @foreach ($products as $k => $node)
+                            @if ($prices)
+                                @foreach ($prices as $k => $node)
                                     <?php $k++; ?>
                                     <tr>
                                         <th scope="row">{!! $k !!}</th>
-                                        <th>{{ $node->cate_id }}</th>
-                                        <th>{{ $node->bid }}</th>
+                                        <th>{{ $node->sap_id }}</th>
+                                        <th>{{ $node->barcode }}</th>
                                         <th>{!! $node->name !!}</th>
+                                        <td>{{ $node->price }}</td>
                                         <td>
                                             @include('helper.stick', ['status' => $node->status,
                                             'id' => $node->id,

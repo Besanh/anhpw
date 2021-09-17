@@ -49,13 +49,14 @@ class CreateProducts extends Migration
 
         Schema::create('prices', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('sap_id')->nullable();
+            $table->string('sap_id', 50)->nullable();
             $table->integer('pid')->nullable();
-            $table->string('barcode');
-            $table->string('name');
+            $table->string('barcode', 50);
+            $table->string('name', 100);
+            $table->string('name_seo', 100);
             $table->integer('sex')->default(0);
             $table->integer('promote')->default(0);
-            $table->string('capa')->comment('Size');
+            $table->string('capa', 50)->comment('Size');
             $table->integer('capa_id');
             $table->bigInteger('price');
             $table->text('note')->nullable();

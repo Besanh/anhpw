@@ -8,15 +8,12 @@
 <!-- Custom scripts for all pages-->
 <script src="{{ asset('js/admin/sb-admin-2.min.js') }}"></script>
 
-{{-- Select 2 --}}
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+@stack('select2')
 
 {{-- Loader Page --}}
 <script src="{{ asset('js/loader.js') }}"></script>
 
-{{-- Moment JS --}}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" crossorigin="anonymous"
-    referrerpolicy="no-referrer"></script>
+@stack('moment')
 
 {{-- Custom JS --}}
 <script src="{{ asset('/js/custom.js') }}"></script>
@@ -29,3 +26,4 @@
 @stack('ckeditor')
 @stack('datepicker')
 @stack('datetimepicker')
+@stack('select-product')

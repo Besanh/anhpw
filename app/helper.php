@@ -92,7 +92,7 @@ if (!function_exists('proccessUpload')) {
 if (!function_exists('uploadMultipleImage')) {
     function uploadMultipleImage($file, $model = 'default', $width = 500, $height = 500)
     {
-        $data = [];
+        $data = '';
         try {
             $dir = 'userfiles/images/' . $model . '/';
             $dir_org = 'userfiles/images/' . $model . '_org/';

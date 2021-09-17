@@ -12,4 +12,9 @@ class Category extends Model
     public $timestamps = true;
 
     protected $fillable = ['name', 'name_seo', 'description', 'image', 'status'];
+
+    public function getProducts()
+    {
+        return $this->hasMany(Product::class, 'cate_id', 'id');
+    }
 }

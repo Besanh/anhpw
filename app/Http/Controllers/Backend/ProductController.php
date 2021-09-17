@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductStoreRequest;
+use App\Http\Requests\ProductUpdateRequest;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
@@ -51,9 +52,8 @@ class ProductController extends Controller
                 $galleries[] = uploadMultipleImage($node, 'product_galleries', 650, 750);
             }
         }
-        $request->galleries = $galleries;
         if ($request->validated()) {
-            $product->create([
+            $product->update([
                 'cate_id' => $request->cate_id,
                 'bid' => $request->bid,
                 'name' => $request->name,
@@ -64,7 +64,7 @@ class ProductController extends Controller
                 'status' => $request->status,
                 'description' => $request->description,
                 'image' => $request->image,
-                'galleries' => $request->galleries
+                'galleries' => json_encode($galleries)
             ]);
             return redirect()->back()->with('message', 'Created product successfully');
         }
@@ -76,9 +76,9 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Product $product)
     {
-        //
+        return view('admin.product.show', compact('product'));
     }
 
     /**
@@ -87,9 +87,11 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Product $product)
     {
-        //
+        $cates = Category::where('status', 1)->select(['id', 'name'])->get();
+        $brands = Brand::where('status', 1)->select(['id', 'name'])->get();
+        return view('admin.product.edit', compact('cates', 'brands', 'product'));
     }
 
     /**
@@ -99,9 +101,34 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ProductUpdateRequest $request, Product $product)
     {
-        //
+        $galleries = null;
+        if ($request->hasFile('image')) {
+            $request->image = proccessUpload($request, 'product', 650, 750);
+        }
+        if ($request->hasFile('galleries')) {
+            $galleries = [];
+            foreach ($request->file('galleries') as $node) {
+                $galleries[] = uploadMultipleImage($node, 'product_galleries', 650, 750);
+            }
+        }
+        if ($request->validated()) {
+            $product->update([
+                'cate_id' => $request->cate_id,
+                'bid' => $request->bid,
+                'name' => $request->name,
+                'name_seo' => $request->name_seo,
+                'designer' => $request->designer,
+                'public_year' => $request->public_year,
+                'promote' => $request->promote,
+                'status' => $request->status,
+                'description' => $request->description,
+                'image' => $request->image,
+                'galleries' => $galleries ? json_encode($galleries) : $product->galleries
+            ]);
+            return redirect()->back()->with('message', 'Updated product successfully');
+        }
     }
 
     /**
@@ -112,6 +139,23 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $model = Category::find($id);
+        if ($model) {
+            $model->delete();
+            return redirect()->back()->with('message', 'Delete #' . $id . ' successfully');
+        }
+        return redirect()->back()->with('message', 'Data not found');
+    }
+
+    public function updateStatus($id)
+    {
+        $model = Product::find($id);
+        if ($model) {
+            $model->status = ($model->status) ? 0 : 1;
+            $model->save();
+            $msg = ['status' => $model->status, 'message' => "Record #{$id} updated successfully"];
+            return response()->json($msg);
+        }
+        return redirect()->back()->with('message', 'Nothing change');
     }
 }

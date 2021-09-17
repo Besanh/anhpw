@@ -1,29 +1,29 @@
 <?php
-$title = 'Product - Show';
+$title = 'Price - Show';
 $head_table = [
-'Id' => $product->id,
-'Cate_id' => $product->cate_id,
-'Bid' => $product->bid,
-'Name' => $product->name,
-'Name SEO' => $product->name_seo,
-'Designer' => $product->designer,
-'Public Year' => $product->public_year,
-'Image' => $product->image,
-'Description' => $product->description,
-'Galleries' => $product->galleries,
-'Promote' => $product->promote,
-'Status' => $product->status,
-'Created At' => $product->created_at,
-'Updated At' => $product->updated_at,
+'Id' => $price->id,
+'Sap ID' => $price->sap_id,
+'Barcode' => $price->barcode,
+'Name' => $price->name,
+'Name SEO' => $price->name_seo,
+'Promote' => $price->promote,
+'Capa' => $price->capa,
+'Capa ID' => $price->capa_id,
+'Price' => $price->price,
+'Status' => $price->status,
+'Note' => $price->note,
+'Stock' => $price->stock,
+'Created At' => $price->created_at,
+'Updated At' => $price->updated_at,
 'Action' => '',
 ];
-$main_link = 'product';
+$main_link = 'price';
 ?>
 @section('title', $title)
     @extends('admin.layouts.main')
 @section('content')
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">{{ 'Product' }}</h1>
+        <h1 class="h3 mb-0 text-gray-800">{{ 'Price' }}</h1>
     </div>
     <div class="card mx-auto">
         @if (Session::has('message'))
@@ -42,7 +42,7 @@ $main_link = 'product';
         <div class="card-header border-bottom-primary">
             <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
-                    <a href="{!! route($main_link . '.index') !!}" class="float-right">Products</a>
+                    <a href="{!! route($main_link . '.index') !!}" class="float-right">Prices</a>
                 </div>
             </div>
         </div>
@@ -51,13 +51,13 @@ $main_link = 'product';
                 <div class="table-responsive">
                     <table class="table table-bordered" width="100%" cellspacing="0">
                         <tbody>
-                            @if ($product)
+                            @if ($price)
                                 @foreach ($head_table as $head => $item)
                                     <tr>
                                         <th>{{ $head }}</th>
                                         <td>
                                             @if ($head == 'Action')
-                                                @include('helper.action', ['uri' => $main_link, 'id' => $product->id])
+                                                @include('helper.action', ['uri' => $main_link, 'id' => $price->id])
                                             @else
                                                 {{ $item }}
                                             @endif

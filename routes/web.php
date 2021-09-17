@@ -6,6 +6,7 @@ use App\Http\Controllers\Backend\CateController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Backend\MenuController;
 use App\Http\Controllers\Backend\MenuTypeController;
+use App\Http\Controllers\Backend\PriceController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\DistrictController;
@@ -85,6 +86,18 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function () {
     Route::resource('product', ProductController::class)->only($only_action_resource);
     Route::get('product/update-status/{id}', [ProductController::class, 'updateStatus'])->name('product.status');
     Route::get('product/destroy/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
+
+    // Price
+    Route::get('price', [PriceController::class, 'index'])->name('price.index');
+    Route::get('price/create', [PriceController::class, 'create'])->name('price.create');
+    Route::post('price/store', [PriceController::class, 'store'])->name('price.store');
+    Route::get('price/edit/{id}', [PriceController::class, 'edit'])->name('price.edit');
+    Route::put('price/update/{id}', [PriceController::class, 'update'])->name('price.update');
+    Route::get('price/show/{id}', [PriceController::class, 'show'])->name('price.show');
+    Route::get('price/update-status/{id}', [PriceController::class, 'updateStatus'])->name('price.status');
+    Route::get('price/destroy/{id}', [PriceController::class, 'destroy'])->name('price.destroy');
+    Route::get('price/select-product', [PriceController::class, 'selectProduct'])->name('price.select-product');
+    Route::get('price/select-capa', [PriceController::class, 'selectCapa'])->name('price.select-capa');
 });
 
 // CkFiner

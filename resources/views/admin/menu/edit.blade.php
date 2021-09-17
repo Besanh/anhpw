@@ -3,6 +3,7 @@ use App\Models\Menu;
 
 $title = 'Menu - Edit';
 $status = getStatus();
+$main_link = 'menu';
 ?>
 @section('title', $title)
     @extends('admin.layouts.main')
@@ -32,11 +33,11 @@ $status = getStatus();
                     @endif
                     <div class="card-header">
                         {{ $title }}
-                        <a href="{{ route('menu.index', $alias) }}" class="float-right">Menus</a>
+                        <a href="{{ route($main_link.'.index', $alias) }}" class="float-right">Menus</a>
                     </div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('menu.update', $menu->id) }}">
+                        <form method="POST" action="{{ route($main_link.'.update', $menu->id) }}">
                             @csrf
                             @method('PUT')
                             <div class="row">

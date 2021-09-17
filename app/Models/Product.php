@@ -28,6 +28,11 @@ class Product extends Model
         return $this->belongsTo(Brand::class, 'bid', 'id');
     }
 
+    public function getPrices()
+    {
+        return $this->hasMany(Price::class, 'pid', 'id');
+    }
+
     public function getCateMap()
     {
         $combined = [];
