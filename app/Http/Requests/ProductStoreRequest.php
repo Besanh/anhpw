@@ -29,7 +29,7 @@ class ProductStoreRequest extends FormRequest
             'name' => 'required|string',
             'name_seo' => 'required|string',
             'designer' => 'string|nullable',
-            'public_year' => 'date|nullable',
+            'public_year' => 'date_format:Y|nullable',
             'image' => 'mimes:jpeg,png,jpg|max:2048',
             'description' => 'string|nullable',
             'promote' => 'required|integer',

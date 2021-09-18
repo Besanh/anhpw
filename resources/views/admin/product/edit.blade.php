@@ -139,11 +139,10 @@ $main_link = 'product';
                                             {{ __('Public Year') }}
                                         </label>
                                         <div>
-                                            <div class="input-group date" data-provide="datepicker">
-                                                <input type="text" class="form-control"
-                                                    value="{{ old('public_year', $product->public_year) }}">
-                                                <div class="input-group-addon"></div>
-                                            </div>
+                                            <input id="public_year" type="text"
+                                                class="form-control @error('designer') is-invalid @enderror" name="public_year"
+                                                value="{{ old('public_year', $product->public_year) }}" autocomplete="public_year"
+                                                autofocus>
                                             @error('public_year')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -186,11 +185,8 @@ $main_link = 'product';
                                                 </span>
                                             @enderror
                                         </div>
-
-
                                     </div>
                                 </div>
-
 
                                 <div class="col-md-6">
                                     <label for="description"
@@ -266,4 +262,4 @@ $main_link = 'product';
     </div>
 @endsection
 @include('helper.ckeditor')
-@include('helper.datepicker')
+@include('helper.datetimepicker')

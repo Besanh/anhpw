@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Backend\BlogController;
 use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\CapaController;
 use App\Http\Controllers\Backend\CateController;
@@ -8,8 +9,10 @@ use App\Http\Controllers\Backend\MenuController;
 use App\Http\Controllers\Backend\MenuTypeController;
 use App\Http\Controllers\Backend\PriceController;
 use App\Http\Controllers\Backend\ProductController;
+use App\Http\Controllers\Backend\StoreController;
 use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\DistrictController;
+use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\ProvinceController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,7 +31,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Auth::routes();
 
@@ -88,21 +91,27 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function () {
     Route::get('product/destroy/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
 
     // Price
-    Route::get('price', [PriceController::class, 'index'])->name('price.index');
-    Route::get('price/create', [PriceController::class, 'create'])->name('price.create');
-    Route::post('price/store', [PriceController::class, 'store'])->name('price.store');
-    Route::get('price/edit/{id}', [PriceController::class, 'edit'])->name('price.edit');
-    Route::put('price/update/{id}', [PriceController::class, 'update'])->name('price.update');
-    Route::get('price/show/{id}', [PriceController::class, 'show'])->name('price.show');
+    Route::resource('price', PriceController::class)->only($only_action_resource);
     Route::get('price/update-status/{id}', [PriceController::class, 'updateStatus'])->name('price.status');
     Route::get('price/destroy/{id}', [PriceController::class, 'destroy'])->name('price.destroy');
     Route::get('price/select-product', [PriceController::class, 'selectProduct'])->name('price.select-product');
     Route::get('price/select-capa', [PriceController::class, 'selectCapa'])->name('price.select-capa');
+
+    // Store
+    Route::resource('store', StoreController::class)->only($only_action_resource);
+    Route::get('store/update-status/{id}', [StoreController::class, 'updateStatus'])->name('store.status');
+    Route::get('store/destroy/{id}', [StoreController::class, 'destroy'])->name('store.destroy');
+
+    // Blog
+    Route::resource('blog', BlogController::class)->only($only_action_resource);
+    Route::get('blog/update-status/{id}', [BlogController::class, 'updateStatus'])->name('blog.status');
+    Route::get('blog/destroy/{id}', [BlogController::class, 'destroy'])->name('blog.destroy');
 });
 
 // CkFiner
 Route::any('/ckfinder/connector', '\CKSource\CKFinderBridge\Controller\CKFinderController@requestAction')
     ->name('ckfinder_connector');
-
 Route::any('/ckfinder/browser', '\CKSource\CKFinderBridge\Controller\CKFinderController@browserAction')
     ->name('ckfinder_browser');
+
+Route::get('home', [HomeController::class, 'index'])->name('frontend.home');

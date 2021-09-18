@@ -39,7 +39,7 @@ class CreateAreaInfo extends Migration
             $table->bigIncrements('id');
             $table->foreignId('province_id')->constrained('provinces')->onDelete('cascade')->onUpdate('cascade');
             $table->string('name');
-            $table->text('note')->nullable();
+            $table->string('location')->nullable();
             $table->integer('status')->default(0);
             $table->integer('created_by')->default(0)->nullable();
             $table->integer('updated_by')->default(0)->nullable();
@@ -51,10 +51,22 @@ class CreateAreaInfo extends Migration
             $table->bigIncrements('id');
             $table->string('title');
             $table->text('content')->nullable();
+            $table->string('image')->default('no-image.png')->nullable();
             $table->timestamp('published_at');
             $table->integer('status')->default(0);
             $table->integer('created_by')->default(0)->nullable();
             $table->integer('updated_by')->default(0)->nullable();
+            $table->timestamps();
+            $table->engine = self::$myisam;
+        });
+
+        Schema::create('contacts', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('name', 100);
+            $table->string('email', 100);
+            $table->string('subject');
+            $table->string('phone', 15);
+            $table->text('message')->nullable();
             $table->timestamps();
             $table->engine = self::$myisam;
         });
@@ -71,5 +83,6 @@ class CreateAreaInfo extends Migration
         Schema::dropIfExists('districts');
         Schema::dropIfExists('stores');
         Schema::dropIfExists('blogs');
+        Schema::dropIfExists('contacts');
     }
 }

@@ -22,7 +22,7 @@ class CreateProducts extends Migration
             $table->string('name');
             $table->string('name_seo');
             $table->string('designer')->nullable();
-            $table->date('public_year')->nullable();
+            $table->year('public_year')->nullable();
             $table->string('image')->nullable();
             $table->text('description')->nullable();
             $table->json('galleries')->nullable();
