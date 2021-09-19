@@ -52,6 +52,10 @@ class AppServiceProvider extends ServiceProvider
             $user_childs = $this->getChilds($this->getUserParents());
             $view->with(compact('user_childs'));
         });
+
+        ///////////////////////////////////////////////////////////////////
+        ///////////////////////////// Topbar /////////////////////////////
+        /////////////////////////////////////////////////////////////////
     }
 
     public function getMenuParents()

@@ -9,6 +9,7 @@ use App\Http\Controllers\Backend\MenuController;
 use App\Http\Controllers\Backend\MenuTypeController;
 use App\Http\Controllers\Backend\PriceController;
 use App\Http\Controllers\Backend\ProductController;
+use App\Http\Controllers\Backend\SettingController;
 use App\Http\Controllers\Backend\StoreController;
 use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\DistrictController;
@@ -106,6 +107,11 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function () {
     Route::resource('blog', BlogController::class)->only($only_action_resource);
     Route::get('blog/update-status/{id}', [BlogController::class, 'updateStatus'])->name('blog.status');
     Route::get('blog/destroy/{id}', [BlogController::class, 'destroy'])->name('blog.destroy');
+
+    // Setting
+    Route::resource('setting', SettingController::class)->only($only_action_resource);
+    Route::get('setting/update-status/{id}', [SettingController::class, 'updateStatus'])->name('setting.status');
+    Route::get('setting/destroy/{id}', [SettingController::class, 'destroy'])->name('setting.destroy');
 });
 
 // CkFiner

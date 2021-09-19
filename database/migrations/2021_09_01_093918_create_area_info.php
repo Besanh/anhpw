@@ -70,6 +70,16 @@ class CreateAreaInfo extends Migration
             $table->timestamps();
             $table->engine = self::$myisam;
         });
+
+        Schema::create('settings', function(Blueprint $table){
+            $table->bigIncrements('id');
+            $table->string('name');
+            $table->string('value_setting');
+            $table->enum("type", ["json", "text"]);
+            $table->integer('status')->default(0);
+            $table->timestamps();
+            $table->engine = self::$myisam;
+        });
     }
 
     /**
@@ -84,5 +94,6 @@ class CreateAreaInfo extends Migration
         Schema::dropIfExists('stores');
         Schema::dropIfExists('blogs');
         Schema::dropIfExists('contacts');
+        Schema::dropIfExists('settings');
     }
 }

@@ -7,901 +7,1879 @@
 
 </head>
 
-<body id="page-top">
+<body>
+    <main>
+        <!-- Header -->
+        <header id="js-header" class="u-header u-header--static u-shadow-v19">
+            <!-- Top Bar -->
+            @include('frontend.layouts.topbar')
+            <!-- End Top Bar -->
 
-    <!-- Page Wrapper -->
-    <div id="wrapper">
+            @include('frontend.layouts.navigation')
+        </header>
+        <!-- End Header -->
 
-        <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
-            <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
-                </div>
-                <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
-            </a>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
-
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item">
-                <a class="nav-link" href="index.html">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Interface
-            </div>
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Components</span>
-                </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Components:</h6>
-                        <a class="collapse-item" href="buttons.html">Buttons</a>
-                        <a class="collapse-item" href="cards.html">Cards</a>
-                    </div>
-                </div>
-            </li>
-
-            <!-- Nav Item - Utilities Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-                    aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span>Utilities</span>
-                </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Utilities:</h6>
-                        <a class="collapse-item" href="utilities-color.html">Colors</a>
-                        <a class="collapse-item" href="utilities-border.html">Borders</a>
-                        <a class="collapse-item" href="utilities-animation.html">Animations</a>
-                        <a class="collapse-item" href="utilities-other.html">Other</a>
-                    </div>
-                </div>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Addons
-            </div>
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                    aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Pages</span>
-                </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Login Screens:</h6>
-                        <a class="collapse-item" href="login.html">Login</a>
-                        <a class="collapse-item" href="register.html">Register</a>
-                        <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-                        <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Other Pages:</h6>
-                        <a class="collapse-item" href="404.html">404 Page</a>
-                        <a class="collapse-item" href="blank.html">Blank Page</a>
-                    </div>
-                </div>
-            </li>
-
-            <!-- Nav Item - Charts -->
-            <li class="nav-item">
-                <a class="nav-link" href="charts.html">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Charts</span></a>
-            </li>
-
-            <!-- Nav Item - Tables -->
-            <li class="nav-item active">
-                <a class="nav-link" href="tables.html">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Tables</span></a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
-
-            <!-- Sidebar Toggler (Sidebar) -->
-            <div class="text-center d-none d-md-inline">
-                <button class="rounded-circle border-0" id="sidebarToggle"></button>
-            </div>
-
-        </ul>
-        <!-- End of Sidebar -->
-
-        <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
-
-            <!-- Main Content -->
-            <div id="content">
-
-                <!-- Topbar -->
-                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-                    <!-- Sidebar Toggle (Topbar) -->
-                    <form class="form-inline">
-                        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                            <i class="fa fa-bars"></i>
-                        </button>
-                    </form>
-
-                    <!-- Topbar Search -->
-                    <form
-                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                        <div class="input-group">
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                                aria-label="Search" aria-describedby="basic-addon2">
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="button">
-                                    <i class="fas fa-search fa-sm"></i>
-                                </button>
+        <!-- Revolution Slider -->
+        <div class="g-overflow-hidden">
+            <div id="rev_slider_1014_1_wrapper" class="rev_slider_wrapper fullscreen-container"
+                data-alias="typewriter-effect" data-source="gallery" style="background-color:transparent;padding:0px;">
+                <!-- START REVOLUTION SLIDER 5.4.1 fullscreen mode -->
+                <div id="rev_slider_1014_1" class="rev_slider fullscreenbanner" style="display:none;"
+                    data-version="5.4.1">
+                    <ul>
+                        <!-- SLIDE  -->
+                        <li data-index="rs-2800" data-transition="slidingoverlayhorizontal" data-slotamount="default"
+                            data-hideafterloop="0" data-hideslideonmobile="off" data-easein="default"
+                            data-easeout="default" data-masterspeed="default"
+                            data-thumb="assets/img-temp/1920x1080/img2.jpg" data-rotate="0" data-saveperformance="off"
+                            data-title="Slide" data-param1="" data-param2="" data-param3="" data-param4=""
+                            data-param5="" data-param6="" data-param7="" data-param8="" data-param9="" data-param10=""
+                            data-description="">
+                            <!-- MAIN IMAGE -->
+                            <img src="assets/img-temp/1920x1080/img2.jpg" alt="" data-bgposition="center center"
+                                data-bgfit="cover" data-bgparallax="10" class="rev-slidebg">
+                            <!-- LAYERS -->
+                            <!-- LAYER NR. 1 -->
+                            <div class="tp-caption tp-shape tp-shapewrapper" id="slide-2800-layer-7"
+                                data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']"
+                                data-y="['middle','middle','middle','middle']" data-voffset="['0','0','0','0']"
+                                data-width="full" data-height="full" data-whitespace="nowrap" data-type="shape"
+                                data-basealign="slide" data-responsive_offset="off" data-responsive="off"
+                                data-frames='[{"from":"opacity:0;","speed":500,"to":"o:1;","delay":0,"ease":"Power4.easeOut"},{"speed":5000,"to":"opacity:0;","ease":"Power4.easeInOut"}]'
+                                data-textAlign="['left','left','left','left']" data-paddingtop="[0,0,0,0]"
+                                data-paddingright="[0,0,0,0]" data-paddingbottom="[0,0,0,0]"
+                                data-paddingleft="[0,0,0,0]"
+                                style="z-index: 5;background-color:rgba(0, 0, 0, 0.50);border-color:rgba(0, 0, 0, 0);border-width:0px;">
                             </div>
-                        </div>
-                    </form>
 
-                    <!-- Topbar Navbar -->
-                    <ul class="navbar-nav ml-auto">
+                            <!-- LAYER NR. 2 -->
+                            <div class="tp-caption   tp-resizeme" id="slide-2800-layer-1"
+                                data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']"
+                                data-y="['middle','middle','middle','middle']"
+                                data-voffset="['-160','-160','-130','-157']" data-fontsize="['110','110','100','60']"
+                                data-lineheight="['110','110','100','60']" data-width="none" data-height="none"
+                                data-whitespace="nowrap" data-type="text" data-responsive_offset="on"
+                                data-frames='[{"from":"y:50px;sX:1;sY:1;opacity:0;","speed":2500,"to":"o:1;","delay":500,"ease":"Power4.easeOut"},{"delay":"wait","speed":300,"to":"opacity:0;","ease":"nothing"}]'
+                                data-textAlign="['center','center','center','center']" data-paddingtop="[0,0,0,0]"
+                                data-paddingright="[0,0,0,0]" data-paddingbottom="[0,0,0,0]"
+                                data-paddingleft="[0,0,0,0]"
+                                style="z-index: 6; white-space: nowrap; font-size: 110px; line-height: 110px; font-weight: 700; color: rgba(255, 255, 255, 1.00);border-width:0px;letter-spacing:-7px;">
+                                Summer Collection
+                            </div>
 
-                        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-                        <li class="nav-item dropdown no-arrow d-sm-none">
-                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-search fa-fw"></i>
-                            </a>
-                            <!-- Dropdown - Messages -->
-                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
-                                aria-labelledby="searchDropdown">
-                                <form class="form-inline mr-auto w-100 navbar-search">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control bg-light border-0 small"
-                                            placeholder="Search for..." aria-label="Search"
-                                            aria-describedby="basic-addon2">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-primary" type="button">
-                                                <i class="fas fa-search fa-sm"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
+                            <!-- LAYER NR. 4 -->
+                            <div class="tp-caption   tp-resizeme" id="slide-2800-layer-2"
+                                data-x="['center','center','center','center']" data-hoffset="['-10','-10','-10','-10']"
+                                data-y="['middle','middle','middle','middle']" data-voffset="['0','0','-8','-32']"
+                                data-fontsize="['40','40','30','30']" data-width="['640','640','480','360']"
+                                data-height="none" data-whitespace="['nowrap','nowrap','normal','normal']"
+                                data-type="text"
+                                data-typewriter='{"lines":"Special%20Offer:%20Free%20Shipping%20Today,%20Shop%20with%20Unify","enabled":"on","speed":"70","delays":"1%7C100","looped":"on","cursorType":"one","blinking":"on","word_delay":"off","sequenced":"on","hide_cursor":"off","start_delay":"1500","newline_delay":"1000","deletion_speed":"20","deletion_delay":"1000","blinking_speed":"500","linebreak_delay":"60","cursor_type":"two","background":"off"}'
+                                data-responsive_offset="on"
+                                data-frames='[{"from":"y:50px;sX:1;sY:1;opacity:0;","speed":2500,"to":"o:1;","delay":500,"ease":"Power4.easeOut"},{"delay":"wait","speed":300,"to":"opacity:0;","ease":"nothing"}]'
+                                data-textAlign="['center','center','center','center']" data-paddingtop="[0,0,0,0]"
+                                data-paddingright="[0,0,0,0]" data-paddingbottom="[0,0,0,0]"
+                                data-paddingleft="[0,0,0,0]"
+                                style="z-index: 8; min-width: 640px; max-width: 640px; white-space: nowrap; font-size: 40px; line-height: 40px; font-weight: 400; color: rgba(255, 255, 255, 1.00);border-width:0px;">
+                                Get 20% off any Purchase over $100
+                            </div>
+
+                            <!-- LAYER NR. 5 -->
+                            <div class="tp-caption rev-btn  tp-resizeme" id="slide-2800-layer-4"
+                                data-x="['right','right','center','center']" data-hoffset="['660','550','0','0']"
+                                data-y="['middle','middle','middle','middle']" data-voffset="['140','140','100','83']"
+                                data-width="none" data-height="none" data-whitespace="nowrap" data-type="button"
+                                data-actions='[{"event":"click","action":"scrollbelow","offset":"px","delay":""}]'
+                                data-responsive_offset="on"
+                                data-frames='[{"from":"x:-50px;opacity:0;","speed":2500,"to":"o:1;","delay":500,"ease":"Power4.easeOut"},{"delay":"wait","speed":300,"to":"opacity:0;","ease":"nothing"},{"frame":"hover","speed":"150","ease":"Power2.easeInOut","to":"o:1;rX:0;rY:0;rZ:0;z:0;","style":"c:rgba(0, 0, 0, 1.00);bg:rgba(255, 255, 255, 1.00);bc:rgba(255, 255, 255, 0);bw:2px 2px 2px 2px;"}]'
+                                data-textAlign="['left','left','left','left']" data-paddingtop="[0,0,0,0]"
+                                data-paddingright="[50,50,50,50]" data-paddingbottom="[0,0,0,0]"
+                                data-paddingleft="[50,50,50,50]"
+                                style="z-index: 9; white-space: nowrap; font-size: 15px; line-height: 46px; font-weight: 700; color: rgba(255, 255, 255, 1.00);background-color:rgba(0, 0, 0, 0);border-color:rgba(255, 255, 255, 0.25);border-style:solid;border-width:2px;border-radius:4px 4px 4px 4px;outline:none;box-shadow:none;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;letter-spacing:5px;cursor:pointer;">
+                                SHOP NOW
+                            </div>
+
+                            <!-- LAYER NR. 6 -->
+                            <div class="tp-caption   tp-resizeme" id="slide-2800-layer-6"
+                                data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']"
+                                data-y="['middle','middle','middle','middle']" data-voffset="['137','137','158','141']"
+                                data-width="none" data-height="none" data-whitespace="nowrap" data-type="text"
+                                data-responsive_offset="on"
+                                data-frames='[{"from":"y:50px;opacity:0;","speed":2500,"to":"o:1;","delay":500,"ease":"Power4.easeOut"},{"delay":"wait","speed":300,"to":"opacity:0;","ease":"nothing"}]'
+                                data-textAlign="['left','left','left','left']" data-paddingtop="[0,0,0,0]"
+                                data-paddingright="[0,0,0,0]" data-paddingbottom="[0,0,0,0]"
+                                data-paddingleft="[0,0,0,0]"
+                                style="z-index: 10; white-space: nowrap; font-size: 25px; line-height: 25px; font-weight: 400; color: rgba(255, 255, 255, 1.00);font-style:italic;border-width:0px;">
+                                or
+                            </div>
+
+                            <!-- LAYER NR. 7 -->
+                            <div class="tp-caption rev-btn  tp-resizeme" id="slide-2800-layer-5"
+                                data-x="['left','left','center','center']" data-hoffset="['660','550','0','0']"
+                                data-y="['middle','middle','middle','middle']" data-voffset="['140','140','224','207']"
+                                data-width="none" data-height="none" data-whitespace="nowrap" data-type="button"
+                                data-actions='[{"event":"click","action":"scrollbelow","offset":"px","delay":""}]'
+                                data-responsive_offset="on"
+                                data-frames='[{"from":"x:50px;opacity:0;","speed":2500,"to":"o:1;","delay":500,"ease":"Power4.easeOut"},{"delay":"wait","speed":300,"to":"opacity:0;","ease":"nothing"},{"frame":"hover","speed":"150","ease":"Power2.easeInOut","to":"o:1;rX:0;rY:0;rZ:0;z:0;","style":"c:rgba(0, 0, 0, 1.00);bg:rgba(255, 255, 255, 1.00);bc:rgba(255, 255, 255, 0);bw:2px 2px 2px 2px;"}]'
+                                data-textAlign="['left','left','left','left']" data-paddingtop="[0,0,0,0]"
+                                data-paddingright="[50,50,50,50]" data-paddingbottom="[0,0,0,0]"
+                                data-paddingleft="[50,50,50,50]"
+                                style="z-index: 11; white-space: nowrap; font-size: 15px; line-height: 46px; font-weight: 700; color: rgba(255, 255, 255, 1.00);background-color:rgba(0, 0, 0, 0);border-color:rgba(255, 255, 255, 0.25);border-style:solid;border-width:2px;border-radius:4px 4px 4px 4px;outline:none;box-shadow:none;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;letter-spacing:5px;cursor:pointer;">
+                                CONTACT
                             </div>
                         </li>
+                        <!-- END SLIDE  -->
 
-                        <!-- Nav Item - Alerts -->
-                        <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-bell fa-fw"></i>
-                                <!-- Counter - Alerts -->
-                                <span class="badge badge-danger badge-counter">3+</span>
-                            </a>
-                            <!-- Dropdown - Alerts -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="alertsDropdown">
-                                <h6 class="dropdown-header">
-                                    Alerts Center
-                                </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-primary">
-                                            <i class="fas fa-file-alt text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 12, 2019</div>
-                                        <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-success">
-                                            <i class="fas fa-donate text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 7, 2019</div>
-                                        $290.29 has been deposited into your account!
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-warning">
-                                            <i class="fas fa-exclamation-triangle text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 2, 2019</div>
-                                        Spending Alert: We've noticed unusually high spending for your account.
-                                    </div>
-                                </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+                        <!-- SLIDE  -->
+                        <li data-index="rs-2802" data-transition="slidingoverlayhorizontal" data-slotamount="default"
+                            data-hideafterloop="0" data-hideslideonmobile="off" data-easein="default"
+                            data-easeout="default" data-masterspeed="default"
+                            data-thumb="assets/img-temp/1920x1080/img1.jpg" data-rotate="0" data-saveperformance="off"
+                            data-title="Slide" data-param1="" data-param2="" data-param3="" data-param4=""
+                            data-param5="" data-param6="" data-param7="" data-param8="" data-param9="" data-param10=""
+                            data-description="">
+                            <!-- MAIN IMAGE -->
+                            <img src="assets/img-temp/1920x1080/img1.jpg" alt="" data-bgposition="center center"
+                                data-bgfit="cover" data-bgrepeat="no-repeat" class="rev-slidebg">
+                            <!-- LAYERS -->
+
+                            <!-- LAYER NR. 15 -->
+                            <div class="tp-caption tp-shape tp-shapewrapper " id="slide-2802-layer-7"
+                                data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']"
+                                data-y="['middle','middle','middle','middle']" data-voffset="['0','0','0','0']"
+                                data-width="full" data-height="full" data-whitespace="nowrap" data-type="shape"
+                                data-basealign="slide" data-responsive_offset="off" data-responsive="off"
+                                data-frames='[{"from":"opacity:0;","speed":1000,"to":"o:1;","delay":0,"ease":"Power4.easeOut"},{"delay":"wait","speed":1000,"to":"opacity:0;","ease":"Power4.easeOut"}]'
+                                data-textAlign="['left','left','left','left']" data-paddingtop="[0,0,0,0]"
+                                data-paddingright="[0,0,0,0]" data-paddingbottom="[0,0,0,0]"
+                                data-paddingleft="[0,0,0,0]"
+                                style="z-index: 19;background-color:rgba(0, 0, 0, 0.50);border-color:rgba(0, 0, 0, 0);border-width:0px;">
+                            </div>
+
+                            <!-- LAYER NR. 16 -->
+                            <div class="tp-caption   tp-resizeme" id="slide-2802-layer-1"
+                                data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']"
+                                data-y="['middle','middle','middle','middle']" data-voffset="['0','0','0','0']"
+                                data-fontsize="['100','100','70','60']" data-lineheight="['100','100','70','50']"
+                                data-width="['760','760','none','360']" data-height="none"
+                                data-whitespace="['normal','normal','nowrap','normal']" data-type="text"
+                                data-typewriter='{"lines":"","enabled":"on","speed":"80","delays":"1%7C100","looped":"off","cursorType":"one","blinking":"on","word_delay":"off","sequenced":"off","hide_cursor":"on","start_delay":"1000","newline_delay":"1000","deletion_speed":"20","deletion_delay":"1000","blinking_speed":"500","linebreak_delay":"60","cursor_type":"two","background":"off"}'
+                                data-responsive_offset="on"
+                                data-frames='[{"from":"y:50px;sX:1;sY:1;opacity:0;","speed":2500,"to":"o:1;","delay":500,"ease":"Power4.easeOut"},{"delay":"wait","speed":300,"to":"opacity:0;","ease":"nothing"}]'
+                                data-textAlign="['center','center','center','center']" data-paddingtop="[0,0,0,0]"
+                                data-paddingright="[0,0,0,0]" data-paddingbottom="[0,0,0,0]"
+                                data-paddingleft="[0,0,0,0]"
+                                style="z-index: 20; min-width: 760px; max-width: 760px; white-space: normal; font-size: 100px; line-height: 100px; font-weight: 700; color: rgba(255, 255, 255, 1.00);border-width:0px;letter-spacing:-5px;">
+                                Finding your
+                                <br>
+                                Perfect Clothes..
                             </div>
                         </li>
+                        <!-- END SLIDE  -->
 
-                        <!-- Nav Item - Messages -->
-                        <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-envelope fa-fw"></i>
-                                <!-- Counter - Messages -->
-                                <span class="badge badge-danger badge-counter">7</span>
-                            </a>
-                            <!-- Dropdown - Messages -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="messagesDropdown">
-                                <h6 class="dropdown-header">
-                                    Message Center
-                                </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_1.svg" alt="...">
-                                        <div class="status-indicator bg-success"></div>
-                                    </div>
-                                    <div class="font-weight-bold">
-                                        <div class="text-truncate">Hi there! I am wondering if you can help me with a
-                                            problem I've been having.</div>
-                                        <div class="small text-gray-500">Emily Fowler · 58m</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_2.svg" alt="...">
-                                        <div class="status-indicator"></div>
-                                    </div>
-                                    <div>
-                                        <div class="text-truncate">I have the photos that you ordered last month, how
-                                            would you like them sent to you?</div>
-                                        <div class="small text-gray-500">Jae Chun · 1d</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_3.svg" alt="...">
-                                        <div class="status-indicator bg-warning"></div>
-                                    </div>
-                                    <div>
-                                        <div class="text-truncate">Last month's report looks great, I am very happy with
-                                            the progress so far, keep up the good work!</div>
-                                        <div class="small text-gray-500">Morgan Alvarez · 2d</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60"
-                                            alt="...">
-                                        <div class="status-indicator bg-success"></div>
-                                    </div>
-                                    <div>
-                                        <div class="text-truncate">Am I a good boy? The reason I ask is because someone
-                                            told me that people say this to all dogs, even if they aren't good...</div>
-                                        <div class="small text-gray-500">Chicken the Dog · 2w</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
+                        <!-- SLIDE  -->
+                        <li data-index="rs-2801" data-transition="slidingoverlayhorizontal" data-slotamount="default"
+                            data-hideafterloop="0" data-hideslideonmobile="off" data-easein="default"
+                            data-easeout="default" data-masterspeed="default"
+                            data-thumb="assets/img-temp/1920x1080/img3.jpg" data-rotate="0" data-saveperformance="off"
+                            data-title="Slide" data-param1="" data-param2="" data-param3="" data-param4=""
+                            data-param5="" data-param6="" data-param7="" data-param8="" data-param9="" data-param10=""
+                            data-description="">
+                            <!-- MAIN IMAGE -->
+                            <img src="assets/img-temp/1920x1080/img3.jpg" alt="" data-bgposition="center center"
+                                data-bgfit="cover" data-bgrepeat="no-repeat" class="rev-slidebg">
+                            <!-- LAYERS -->
+
+                            <!-- LAYER NR. 8 -->
+                            <div class="tp-caption tp-shape tp-shapewrapper " id="slide-2801-layer-7"
+                                data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']"
+                                data-y="['middle','middle','middle','middle']" data-voffset="['0','0','0','0']"
+                                data-width="full" data-height="full" data-whitespace="nowrap" data-type="shape"
+                                data-basealign="slide" data-responsive_offset="off" data-responsive="off"
+                                data-frames='[{"from":"opacity:0;","speed":1000,"to":"o:1;","delay":0,"ease":"Power4.easeOut"},{"delay":"wait","speed":1000,"to":"opacity:0;","ease":"Power4.easeOut"}]'
+                                data-textAlign="['left','left','left','left']" data-paddingtop="[0,0,0,0]"
+                                data-paddingright="[0,0,0,0]" data-paddingbottom="[0,0,0,0]"
+                                data-paddingleft="[0,0,0,0]"
+                                style="z-index: 12;background-color:rgba(0, 0, 0, 0.50);border-color:rgba(0, 0, 0, 0);border-width:0px;">
+                            </div>
+
+                            <!-- LAYER NR. 9 -->
+                            <div class="tp-caption   tp-resizeme" id="slide-2801-layer-1"
+                                data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']"
+                                data-y="['middle','middle','middle','middle']"
+                                data-voffset="['-160','-160','-130','-157']" data-fontsize="['130','130','100','80']"
+                                data-lineheight="['130','130','100','80']" data-width="none" data-height="none"
+                                data-whitespace="nowrap" data-type="text" data-responsive_offset="on"
+                                data-frames='[{"from":"y:50px;sX:1;sY:1;opacity:0;","speed":2500,"to":"o:1;","delay":500,"ease":"Power4.easeOut"},{"delay":"wait","speed":300,"to":"opacity:0;","ease":"nothing"}]'
+                                data-textAlign="['center','center','center','center']" data-paddingtop="[0,0,0,0]"
+                                data-paddingright="[0,0,0,0]" data-paddingbottom="[0,0,0,0]"
+                                data-paddingleft="[0,0,0,0]"
+                                style="z-index: 13; white-space: nowrap; font-size: 130px; line-height: 130px; font-weight: 700; color: rgba(255, 255, 255, 1.00);background-color:rgba(0, 0, 0, 0);border-width:0px;letter-spacing:-7px;">
+                                High Quality
+                            </div>
+
+                            <!-- LAYER NR. 10 -->
+                            <div class="tp-caption tp-shape tp-shapewrapper  tp-resizeme" id="slide-2801-layer-3"
+                                data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']"
+                                data-y="['middle','middle','middle','middle']" data-voffset="['-50','-50','-54','-89']"
+                                data-width="60" data-height="3" data-whitespace="nowrap" data-type="shape"
+                                data-responsive_offset="on"
+                                data-frames='[{"from":"y:50px;opacity:0;","speed":2500,"to":"o:1;","delay":500,"ease":"Power4.easeOut"},{"delay":"wait","speed":300,"to":"opacity:0;","ease":"nothing"}]'
+                                data-textAlign="['left','left','left','left']" data-paddingtop="[0,0,0,0]"
+                                data-paddingright="[0,0,0,0]" data-paddingbottom="[0,0,0,0]"
+                                data-paddingleft="[0,0,0,0]"
+                                style="z-index: 14;background-color:rgba(0, 220, 186, 1.00);border-color:rgba(0, 0, 0, 0);border-width:0px;">
+                            </div>
+
+                            <!-- LAYER NR. 11 -->
+                            <div class="tp-caption   tp-resizeme" id="slide-2801-layer-2"
+                                data-x="['center','center','center','center']" data-hoffset="['-10','-10','-10','-10']"
+                                data-y="['middle','middle','middle','middle']" data-voffset="['0','0','-8','-32']"
+                                data-fontsize="['40','40','30','30']" data-width="['640','640','480','360']"
+                                data-height="none" data-whitespace="normal" data-type="text"
+                                data-typewriter='{"lines":"Stylish%20Collections%20for%20the%20Best,","enabled":"on","speed":"60","delays":"1%7C100","looped":"on","cursorType":"one","blinking":"on","word_delay":"off","sequenced":"on","hide_cursor":"off","start_delay":"1500","newline_delay":"1000","deletion_speed":"20","deletion_delay":"1000","blinking_speed":"500","linebreak_delay":"60","cursor_type":"two","background":"off"}'
+                                data-responsive_offset="on"
+                                data-frames='[{"from":"y:50px;sX:1;sY:1;opacity:0;","speed":2500,"to":"o:1;","delay":500,"ease":"Power4.easeOut"},{"delay":"wait","speed":300,"to":"opacity:0;","ease":"nothing"}]'
+                                data-textAlign="['center','center','center','center']" data-paddingtop="[0,0,0,0]"
+                                data-paddingright="[0,0,0,0]" data-paddingbottom="[0,0,0,0]"
+                                data-paddingleft="[0,0,0,0]"
+                                style="z-index: 15; min-width: 640px; max-width: 640px; white-space: nowrap; font-size: 40px; line-height: 40px; font-weight: 400; color: rgba(255, 255, 255, 1.00);border-width:0px;">
+                                Made to Captivate your Audience.
+                            </div>
+
+                            <!-- LAYER NR. 12 -->
+                            <div class="tp-caption rev-btn  tp-resizeme" id="slide-2801-layer-4"
+                                data-x="['right','right','center','center']" data-hoffset="['660','550','0','0']"
+                                data-y="['middle','middle','middle','middle']" data-voffset="['140','140','100','83']"
+                                data-width="none" data-height="none" data-whitespace="nowrap" data-type="button"
+                                data-actions='[{"event":"click","action":"scrollbelow","offset":"px","delay":""}]'
+                                data-responsive_offset="on"
+                                data-frames='[{"from":"x:-50px;opacity:0;","speed":2500,"to":"o:1;","delay":500,"ease":"Power4.easeOut"},{"delay":"wait","speed":300,"to":"opacity:0;","ease":"nothing"},{"frame":"hover","speed":"150","ease":"Power2.easeInOut","to":"o:1;rX:0;rY:0;rZ:0;z:0;","style":"c:rgba(0, 0, 0, 1.00);bg:rgba(255, 255, 255, 1.00);bc:rgba(255, 255, 255, 0);bw:2px 2px 2px 2px;"}]'
+                                data-textAlign="['left','left','left','left']" data-paddingtop="[0,0,0,0]"
+                                data-paddingright="[50,50,50,50]" data-paddingbottom="[0,0,0,0]"
+                                data-paddingleft="[50,50,50,50]"
+                                style="z-index: 16; white-space: nowrap; font-size: 15px; line-height: 46px; font-weight: 700; color: rgba(255, 255, 255, 1.00);background-color:rgba(0, 0, 0, 0);border-color:rgba(255, 255, 255, 0.25);border-style:solid;border-width:2px;border-radius:4px 4px 4px 4px;outline:none;box-shadow:none;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;letter-spacing:5px;cursor:pointer;">
+                                ABOUT US
+                            </div>
+
+                            <!-- LAYER NR. 13 -->
+                            <div class="tp-caption   tp-resizeme" id="slide-2801-layer-6"
+                                data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']"
+                                data-y="['middle','middle','middle','middle']" data-voffset="['137','137','158','141']"
+                                data-width="none" data-height="none" data-whitespace="nowrap" data-type="text"
+                                data-responsive_offset="on"
+                                data-frames='[{"from":"y:50px;opacity:0;","speed":2500,"to":"o:1;","delay":500,"ease":"Power4.easeOut"},{"delay":"wait","speed":300,"to":"opacity:0;","ease":"nothing"}]'
+                                data-textAlign="['left','left','left','left']" data-paddingtop="[0,0,0,0]"
+                                data-paddingright="[0,0,0,0]" data-paddingbottom="[0,0,0,0]"
+                                data-paddingleft="[0,0,0,0]"
+                                style="z-index: 17; white-space: nowrap; font-size: 25px; line-height: 25px; font-weight: 400; color: rgba(255, 255, 255, 1.00);font-style:italic;border-width:0px;">
+                                or
+                            </div>
+
+                            <!-- LAYER NR. 14 -->
+                            <div class="tp-caption rev-btn  tp-resizeme" id="slide-2801-layer-5"
+                                data-x="['left','left','center','center']" data-hoffset="['660','550','0','0']"
+                                data-y="['middle','middle','middle','middle']" data-voffset="['140','140','224','207']"
+                                data-width="none" data-height="none" data-whitespace="nowrap" data-type="button"
+                                data-actions='[{"event":"click","action":"scrollbelow","offset":"px","delay":""}]'
+                                data-responsive_offset="on"
+                                data-frames='[{"from":"x:50px;opacity:0;","speed":2500,"to":"o:1;","delay":500,"ease":"Power4.easeOut"},{"delay":"wait","speed":300,"to":"opacity:0;","ease":"nothing"},{"frame":"hover","speed":"150","ease":"Power2.easeInOut","to":"o:1;rX:0;rY:0;rZ:0;z:0;","style":"c:rgba(0, 0, 0, 1.00);bg:rgba(255, 255, 255, 1.00);bc:rgba(255, 255, 255, 0);bw:2px 2px 2px 2px;"}]'
+                                data-textAlign="['left','left','left','left']" data-paddingtop="[0,0,0,0]"
+                                data-paddingright="[50,50,50,50]" data-paddingbottom="[0,0,0,0]"
+                                data-paddingleft="[50,50,50,50]"
+                                style="z-index: 18; white-space: nowrap; font-size: 15px; line-height: 46px; font-weight: 700; color: rgba(255, 255, 255, 1.00);background-color:rgba(0, 0, 0, 0);border-color:rgba(255, 255, 255, 0.25);border-style:solid;border-width:2px;border-radius:4px 4px 4px 4px;outline:none;box-shadow:none;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;letter-spacing:5px;cursor:pointer;">
+                                CONTACT
                             </div>
                         </li>
-
-                        <div class="topbar-divider d-none d-sm-block"></div>
-
-                        <!-- Nav Item - User Information -->
-                        <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
-                                <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
-                            </a>
-                            <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Profile
-                                </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Settings
-                                </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Activity Log
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
-                                </a>
-                            </div>
-                        </li>
-
+                        <!-- END SLIDE  -->
                     </ul>
+                    <div class="tp-bannertimer tp-bottom" style="visibility: hidden !important;"></div>
+                </div>
+            </div>
+        </div>
+        <!-- End Revolution Slider -->
 
-                </nav>
-                <!-- End of Topbar -->
-
-                <!-- Begin Page Content -->
-                <div class="container-fluid">
-
-                    <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Tables</h1>
-                    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
-                        For more information about DataTables, please visit the <a target="_blank"
-                            href="https://datatables.net">official DataTables documentation</a>.</p>
-
-                    <!-- DataTales Example -->
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                            <th>Start date</th>
-                                            <th>Salary</th>
-                                        </tr>
-                                    </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                            <th>Start date</th>
-                                            <th>Salary</th>
-                                        </tr>
-                                    </tfoot>
-                                    <tbody>
-                                        <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td>61</td>
-                                            <td>2011/04/25</td>
-                                            <td>$320,800</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Garrett Winters</td>
-                                            <td>Accountant</td>
-                                            <td>Tokyo</td>
-                                            <td>63</td>
-                                            <td>2011/07/25</td>
-                                            <td>$170,750</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Ashton Cox</td>
-                                            <td>Junior Technical Author</td>
-                                            <td>San Francisco</td>
-                                            <td>66</td>
-                                            <td>2009/01/12</td>
-                                            <td>$86,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Cedric Kelly</td>
-                                            <td>Senior Javascript Developer</td>
-                                            <td>Edinburgh</td>
-                                            <td>22</td>
-                                            <td>2012/03/29</td>
-                                            <td>$433,060</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Airi Satou</td>
-                                            <td>Accountant</td>
-                                            <td>Tokyo</td>
-                                            <td>33</td>
-                                            <td>2008/11/28</td>
-                                            <td>$162,700</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Brielle Williamson</td>
-                                            <td>Integration Specialist</td>
-                                            <td>New York</td>
-                                            <td>61</td>
-                                            <td>2012/12/02</td>
-                                            <td>$372,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Herrod Chandler</td>
-                                            <td>Sales Assistant</td>
-                                            <td>San Francisco</td>
-                                            <td>59</td>
-                                            <td>2012/08/06</td>
-                                            <td>$137,500</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Rhona Davidson</td>
-                                            <td>Integration Specialist</td>
-                                            <td>Tokyo</td>
-                                            <td>55</td>
-                                            <td>2010/10/14</td>
-                                            <td>$327,900</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Colleen Hurst</td>
-                                            <td>Javascript Developer</td>
-                                            <td>San Francisco</td>
-                                            <td>39</td>
-                                            <td>2009/09/15</td>
-                                            <td>$205,500</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Sonya Frost</td>
-                                            <td>Software Engineer</td>
-                                            <td>Edinburgh</td>
-                                            <td>23</td>
-                                            <td>2008/12/13</td>
-                                            <td>$103,600</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Jena Gaines</td>
-                                            <td>Office Manager</td>
-                                            <td>London</td>
-                                            <td>30</td>
-                                            <td>2008/12/19</td>
-                                            <td>$90,560</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Quinn Flynn</td>
-                                            <td>Support Lead</td>
-                                            <td>Edinburgh</td>
-                                            <td>22</td>
-                                            <td>2013/03/03</td>
-                                            <td>$342,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Charde Marshall</td>
-                                            <td>Regional Director</td>
-                                            <td>San Francisco</td>
-                                            <td>36</td>
-                                            <td>2008/10/16</td>
-                                            <td>$470,600</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Haley Kennedy</td>
-                                            <td>Senior Marketing Designer</td>
-                                            <td>London</td>
-                                            <td>43</td>
-                                            <td>2012/12/18</td>
-                                            <td>$313,500</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Tatyana Fitzpatrick</td>
-                                            <td>Regional Director</td>
-                                            <td>London</td>
-                                            <td>19</td>
-                                            <td>2010/03/17</td>
-                                            <td>$385,750</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Michael Silva</td>
-                                            <td>Marketing Designer</td>
-                                            <td>London</td>
-                                            <td>66</td>
-                                            <td>2012/11/27</td>
-                                            <td>$198,500</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Paul Byrd</td>
-                                            <td>Chief Financial Officer (CFO)</td>
-                                            <td>New York</td>
-                                            <td>64</td>
-                                            <td>2010/06/09</td>
-                                            <td>$725,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Gloria Little</td>
-                                            <td>Systems Administrator</td>
-                                            <td>New York</td>
-                                            <td>59</td>
-                                            <td>2009/04/10</td>
-                                            <td>$237,500</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Bradley Greer</td>
-                                            <td>Software Engineer</td>
-                                            <td>London</td>
-                                            <td>41</td>
-                                            <td>2012/10/13</td>
-                                            <td>$132,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Dai Rios</td>
-                                            <td>Personnel Lead</td>
-                                            <td>Edinburgh</td>
-                                            <td>35</td>
-                                            <td>2012/09/26</td>
-                                            <td>$217,500</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Jenette Caldwell</td>
-                                            <td>Development Lead</td>
-                                            <td>New York</td>
-                                            <td>30</td>
-                                            <td>2011/09/03</td>
-                                            <td>$345,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Yuri Berry</td>
-                                            <td>Chief Marketing Officer (CMO)</td>
-                                            <td>New York</td>
-                                            <td>40</td>
-                                            <td>2009/06/25</td>
-                                            <td>$675,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Caesar Vance</td>
-                                            <td>Pre-Sales Support</td>
-                                            <td>New York</td>
-                                            <td>21</td>
-                                            <td>2011/12/12</td>
-                                            <td>$106,450</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Doris Wilder</td>
-                                            <td>Sales Assistant</td>
-                                            <td>Sidney</td>
-                                            <td>23</td>
-                                            <td>2010/09/20</td>
-                                            <td>$85,600</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Angelica Ramos</td>
-                                            <td>Chief Executive Officer (CEO)</td>
-                                            <td>London</td>
-                                            <td>47</td>
-                                            <td>2009/10/09</td>
-                                            <td>$1,200,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Gavin Joyce</td>
-                                            <td>Developer</td>
-                                            <td>Edinburgh</td>
-                                            <td>42</td>
-                                            <td>2010/12/22</td>
-                                            <td>$92,575</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Jennifer Chang</td>
-                                            <td>Regional Director</td>
-                                            <td>Singapore</td>
-                                            <td>28</td>
-                                            <td>2010/11/14</td>
-                                            <td>$357,650</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Brenden Wagner</td>
-                                            <td>Software Engineer</td>
-                                            <td>San Francisco</td>
-                                            <td>28</td>
-                                            <td>2011/06/07</td>
-                                            <td>$206,850</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Fiona Green</td>
-                                            <td>Chief Operating Officer (COO)</td>
-                                            <td>San Francisco</td>
-                                            <td>48</td>
-                                            <td>2010/03/11</td>
-                                            <td>$850,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Shou Itou</td>
-                                            <td>Regional Marketing</td>
-                                            <td>Tokyo</td>
-                                            <td>20</td>
-                                            <td>2011/08/14</td>
-                                            <td>$163,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Michelle House</td>
-                                            <td>Integration Specialist</td>
-                                            <td>Sidney</td>
-                                            <td>37</td>
-                                            <td>2011/06/02</td>
-                                            <td>$95,400</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Suki Burks</td>
-                                            <td>Developer</td>
-                                            <td>London</td>
-                                            <td>53</td>
-                                            <td>2009/10/22</td>
-                                            <td>$114,500</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Prescott Bartlett</td>
-                                            <td>Technical Author</td>
-                                            <td>London</td>
-                                            <td>27</td>
-                                            <td>2011/05/07</td>
-                                            <td>$145,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Gavin Cortez</td>
-                                            <td>Team Leader</td>
-                                            <td>San Francisco</td>
-                                            <td>22</td>
-                                            <td>2008/10/26</td>
-                                            <td>$235,500</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Martena Mccray</td>
-                                            <td>Post-Sales support</td>
-                                            <td>Edinburgh</td>
-                                            <td>46</td>
-                                            <td>2011/03/09</td>
-                                            <td>$324,050</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Unity Butler</td>
-                                            <td>Marketing Designer</td>
-                                            <td>San Francisco</td>
-                                            <td>47</td>
-                                            <td>2009/12/09</td>
-                                            <td>$85,675</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Howard Hatfield</td>
-                                            <td>Office Manager</td>
-                                            <td>San Francisco</td>
-                                            <td>51</td>
-                                            <td>2008/12/16</td>
-                                            <td>$164,500</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Hope Fuentes</td>
-                                            <td>Secretary</td>
-                                            <td>San Francisco</td>
-                                            <td>41</td>
-                                            <td>2010/02/12</td>
-                                            <td>$109,850</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Vivian Harrell</td>
-                                            <td>Financial Controller</td>
-                                            <td>San Francisco</td>
-                                            <td>62</td>
-                                            <td>2009/02/14</td>
-                                            <td>$452,500</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Timothy Mooney</td>
-                                            <td>Office Manager</td>
-                                            <td>London</td>
-                                            <td>37</td>
-                                            <td>2008/12/11</td>
-                                            <td>$136,200</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Jackson Bradshaw</td>
-                                            <td>Director</td>
-                                            <td>New York</td>
-                                            <td>65</td>
-                                            <td>2008/09/26</td>
-                                            <td>$645,750</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Olivia Liang</td>
-                                            <td>Support Engineer</td>
-                                            <td>Singapore</td>
-                                            <td>64</td>
-                                            <td>2011/02/03</td>
-                                            <td>$234,500</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Bruno Nash</td>
-                                            <td>Software Engineer</td>
-                                            <td>London</td>
-                                            <td>38</td>
-                                            <td>2011/05/03</td>
-                                            <td>$163,500</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Sakura Yamamoto</td>
-                                            <td>Support Engineer</td>
-                                            <td>Tokyo</td>
-                                            <td>37</td>
-                                            <td>2009/08/19</td>
-                                            <td>$139,575</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Thor Walton</td>
-                                            <td>Developer</td>
-                                            <td>New York</td>
-                                            <td>61</td>
-                                            <td>2013/08/11</td>
-                                            <td>$98,540</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Finn Camacho</td>
-                                            <td>Support Engineer</td>
-                                            <td>San Francisco</td>
-                                            <td>47</td>
-                                            <td>2009/07/07</td>
-                                            <td>$87,500</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Serge Baldwin</td>
-                                            <td>Data Coordinator</td>
-                                            <td>Singapore</td>
-                                            <td>64</td>
-                                            <td>2012/04/09</td>
-                                            <td>$138,575</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Zenaida Frank</td>
-                                            <td>Software Engineer</td>
-                                            <td>New York</td>
-                                            <td>63</td>
-                                            <td>2010/01/04</td>
-                                            <td>$125,250</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Zorita Serrano</td>
-                                            <td>Software Engineer</td>
-                                            <td>San Francisco</td>
-                                            <td>56</td>
-                                            <td>2012/06/01</td>
-                                            <td>$115,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Jennifer Acosta</td>
-                                            <td>Junior Javascript Developer</td>
-                                            <td>Edinburgh</td>
-                                            <td>43</td>
-                                            <td>2013/02/01</td>
-                                            <td>$75,650</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Cara Stevens</td>
-                                            <td>Sales Assistant</td>
-                                            <td>New York</td>
-                                            <td>46</td>
-                                            <td>2011/12/06</td>
-                                            <td>$145,600</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Hermione Butler</td>
-                                            <td>Regional Director</td>
-                                            <td>London</td>
-                                            <td>47</td>
-                                            <td>2011/03/21</td>
-                                            <td>$356,250</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Lael Greer</td>
-                                            <td>Systems Administrator</td>
-                                            <td>London</td>
-                                            <td>21</td>
-                                            <td>2009/02/27</td>
-                                            <td>$103,500</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Jonas Alexander</td>
-                                            <td>Developer</td>
-                                            <td>San Francisco</td>
-                                            <td>30</td>
-                                            <td>2010/07/14</td>
-                                            <td>$86,500</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Shad Decker</td>
-                                            <td>Regional Director</td>
-                                            <td>Edinburgh</td>
-                                            <td>51</td>
-                                            <td>2008/11/13</td>
-                                            <td>$183,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Michael Bruce</td>
-                                            <td>Javascript Developer</td>
-                                            <td>Singapore</td>
-                                            <td>29</td>
-                                            <td>2011/06/27</td>
-                                            <td>$183,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Donna Snider</td>
-                                            <td>Customer Support</td>
-                                            <td>New York</td>
-                                            <td>27</td>
-                                            <td>2011/01/25</td>
-                                            <td>$112,000</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+        <!-- Features -->
+        <div class="g-brd-bottom g-brd-gray-light-v4">
+            <div class="container g-py-30">
+                <div class="row justify-content-center">
+                    <div class="col-md-4 mx-auto g-py-15">
+                        <!-- Media -->
+                        <div class="media g-px-50--lg">
+                            <i
+                                class="d-flex g-color-black g-font-size-30 g-pos-rel g-top-3 mr-4 icon-real-estate-048 u-line-icon-pro"></i>
+                            <div class="media-body">
+                                <span class="d-block g-font-weight-500 g-font-size-default text-uppercase">Free
+                                    Shipping</span>
+                                <span class="d-block g-color-gray-dark-v4">In 2-3 Days</span>
                             </div>
                         </div>
+                        <!-- End Media -->
                     </div>
 
-                </div>
-                <!-- /.container-fluid -->
-
-            </div>
-            <!-- End of Main Content -->
-
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2020</span>
+                    <div class="col-md-4 mx-auto g-brd-x--md g-brd-gray-light-v3 g-py-15">
+                        <!-- Media -->
+                        <div class="media g-px-50--lg">
+                            <i
+                                class="d-flex g-color-black g-font-size-30 g-pos-rel g-top-3 mr-4 icon-real-estate-040 u-line-icon-pro"></i>
+                            <div class="media-body">
+                                <span class="d-block g-font-weight-500 g-font-size-default text-uppercase">Free
+                                    Returns</span>
+                                <span class="d-block g-color-gray-dark-v4">No Questions Asked</span>
+                            </div>
+                        </div>
+                        <!-- End Media -->
                     </div>
-                </div>
-            </footer>
-            <!-- End of Footer -->
 
-        </div>
-        <!-- End of Content Wrapper -->
-
-    </div>
-    <!-- End of Page Wrapper -->
-
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
-
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <!-- Media -->
+                    <div class="col-md-4 mx-auto g-py-15">
+                        <div class="media g-px-50--lg">
+                            <i
+                                class="d-flex g-color-black g-font-size-30 g-pos-rel g-top-3 mr-4 icon-hotel-restaurant-062 u-line-icon-pro"></i>
+                            <div class="media-body text-left">
+                                <span class="d-block g-font-weight-500 g-font-size-default text-uppercase">Free
+                                    24</span>
+                                <span class="d-block g-color-gray-dark-v4">Days Storage</span>
+                            </div>
+                        </div>
+                        <!-- End Media -->
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+        <!-- End Features -->
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <!-- Categories -->
+        <div class="container g-pt-100 g-pb-70">
+            <div class="row g-mx-minus-10">
+                <div class="col-sm-6 col-md-4 g-px-10 g-mb-30">
+                    <article class="u-block-hover">
+                        <img class="w-100 u-block-hover__main--zoom-v1 g-mb-minus-8"
+                            src="assets/img-temp/650x850/img1.jpg" alt="Image Description">
+                        <div class="g-pos-abs g-bottom-30 g-left-30">
+                            <span class="d-block g-color-black">Collections</span>
+                            <h2 class="h1 mb-0">Women</h2>
+                        </div>
+                        <a class="u-link-v2" href="#"></a>
+                    </article>
+                </div>
 
-    <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+                <div class="col-sm-6 col-md-4 g-px-10 g-mb-30">
+                    <article class="u-block-hover">
+                        <img class="w-100 u-block-hover__main--zoom-v1 g-mb-minus-8"
+                            src="assets/img-temp/650x850/img2.jpg" alt="Image Description">
+                        <div class="g-pos-abs g-bottom-30 g-left-30">
+                            <span class="d-block g-color-black">Collections</span>
+                            <h2 class="h1 mb-0">Children</h2>
+                        </div>
+                        <a class="u-link-v2" href="#"></a>
+                    </article>
+                </div>
 
-    <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.min.js"></script>
+                <div class="col-sm-6 col-md-4 g-px-10 g-mb-30">
+                    <article class="u-block-hover">
+                        <img class="w-100 u-block-hover__main--zoom-v1 g-mb-minus-8"
+                            src="assets/img-temp/650x850/img3.jpg" alt="Image Description">
+                        <div class="g-pos-abs g-bottom-30 g-left-30">
+                            <span class="d-block g-color-black">Collections</span>
+                            <h2 class="h1 mb-0">Men</h2>
+                        </div>
+                        <a class="u-link-v2" href="#"></a>
+                    </article>
+                </div>
+            </div>
+        </div>
+        <!-- End Categories -->
 
-    <!-- Page level plugins -->
-    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+        <!-- Products -->
+        <div class="container g-pb-100">
+            <div class="text-center mx-auto g-max-width-600 g-mb-50">
+                <h2 class="g-color-black mb-4">Featured Products</h2>
+                <p class="lead">We want to create a range of beautiful, practical and modern outerwear that doesn't cost
+                    the earth – but let's you still live life in style.</p>
+            </div>
 
-    <!-- Page level custom scripts -->
-    <script src="js/demo/datatables-demo.js"></script>
+            <div id="carouselCus1" class="js-carousel g-pb-100 g-mx-minus-10" data-infinite="true" data-slides-show="4"
+                data-lazy-load="ondemand"
+                data-arrows-classes="u-arrow-v1 g-pos-abs g-bottom-0 g-width-45 g-height-45 g-color-gray-dark-v5 g-bg-secondary g-color-white--hover g-bg-primary--hover rounded"
+                data-arrow-left-classes="fa fa-angle-left g-left-10"
+                data-arrow-right-classes="fa fa-angle-right g-right-10"
+                data-pagi-classes="u-carousel-indicators-v1 g-absolute-centered--x g-bottom-20 text-center">
+                <div class="js-slide">
+                    <div class="g-px-10">
+                        <!-- Product -->
+                        <figure class="g-pos-rel g-mb-20">
+                            <img class="img-fluid" data-lazy="assets/img-temp/480x700/img1.jpg" alt="Image Description">
 
+                            <figcaption
+                                class="w-100 g-bg-primary g-bg-black--hover text-center g-pos-abs g-bottom-0 g-transition-0_2 g-py-5">
+                                <a class="g-color-white g-font-size-11 text-uppercase g-letter-spacing-1 g-text-underline--none--hover"
+                                    href="#">New Arrival</a>
+                            </figcaption>
+                        </figure>
+
+                        <div class="media">
+                            <!-- Product Info -->
+                            <div class="d-flex flex-column">
+                                <h4 class="h6 g-color-black mb-1">
+                                    <a class="u-link-v5 g-color-black g-color-primary--hover" href="#">
+                                        Summer shorts
+                                    </a>
+                                </h4>
+                                <a class="d-inline-block g-color-gray-dark-v5 g-font-size-13" href="#">Man</a>
+                                <span class="d-block g-color-black g-font-size-17">$52.00</span>
+                            </div>
+                            <!-- End Product Info -->
+
+                            <!-- Products Icons -->
+                            <ul class="list-inline media-body text-right">
+                                <li class="list-inline-item align-middle mx-0">
+                                    <a class="u-icon-v1 u-icon-size--sm g-color-gray-dark-v5 g-color-primary--hover g-font-size-15 rounded-circle"
+                                        href="#" data-toggle="tooltip" data-placement="top" title="Add to Cart">
+                                        <i class="icon-finance-100 u-line-icon-pro"></i>
+                                    </a>
+                                </li>
+                                <li class="list-inline-item align-middle mx-0">
+                                    <a class="u-icon-v1 u-icon-size--sm g-color-gray-dark-v5 g-color-primary--hover g-font-size-15 rounded-circle"
+                                        href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist">
+                                        <i class="icon-medical-022 u-line-icon-pro"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                            <!-- End Products Icons -->
+                        </div>
+                        <!-- End Product -->
+                    </div>
+                </div>
+
+                <div class="js-slide">
+                    <div class="g-px-10">
+                        <!-- Product -->
+                        <figure class="g-pos-rel g-mb-20">
+                            <img class="img-fluid" data-lazy="assets/img-temp/480x700/img2.jpg" alt="Image Description">
+
+                            <span
+                                class="u-ribbon-v1 g-width-40 g-height-40 g-color-white g-bg-primary g-font-size-13 text-center text-uppercase g-rounded-50x g-top-10 g-right-minus-10 g-px-2 g-py-10">-40%</span>
+                        </figure>
+
+                        <div class="media">
+                            <!-- Product Info -->
+                            <div class="d-flex flex-column">
+                                <h4 class="h6 g-color-black mb-1">
+                                    <a class="u-link-v5 g-color-black g-color-primary--hover" href="#">
+                                        Stylish shirt
+                                    </a>
+                                </h4>
+                                <a class="d-inline-block g-color-gray-dark-v5 g-font-size-13" href="#">Woman</a>
+                                <span class="d-block g-color-black g-font-size-17">$99.00</span>
+                            </div>
+                            <!-- End Product Info -->
+
+                            <!-- Products Icons -->
+                            <ul class="list-inline media-body text-right">
+                                <li class="list-inline-item align-middle mx-0">
+                                    <a class="u-icon-v1 u-icon-size--sm g-color-gray-dark-v5 g-color-primary--hover g-font-size-15 rounded-circle"
+                                        href="#" data-toggle="tooltip" data-placement="top" title="Add to Cart">
+                                        <i class="icon-finance-100 u-line-icon-pro"></i>
+                                    </a>
+                                </li>
+                                <li class="list-inline-item align-middle mx-0">
+                                    <a class="u-icon-v1 u-icon-size--sm g-color-gray-dark-v5 g-color-primary--hover g-font-size-15 rounded-circle"
+                                        href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist">
+                                        <i class="icon-medical-022 u-line-icon-pro"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                            <!-- End Products Icons -->
+                        </div>
+                        <!-- End Product -->
+                    </div>
+                </div>
+
+                <div class="js-slide">
+                    <div class="g-px-10">
+                        <!-- Product -->
+                        <figure class="g-pos-rel g-mb-20">
+                            <img class="img-fluid" data-lazy="assets/img-temp/480x700/img3.jpg" alt="Image Description">
+
+                            <figcaption
+                                class="w-100 g-bg-lightred text-center g-pos-abs g-bottom-0 g-transition-0_2 g-py-5">
+                                <span class="g-color-white g-font-size-11 text-uppercase g-letter-spacing-1">Sold
+                                    Out</span>
+                            </figcaption>
+                        </figure>
+
+                        <div class="media">
+                            <!-- Product Info -->
+                            <div class="d-flex flex-column">
+                                <h4 class="h6 g-color-black mb-1">
+                                    <a class="u-link-v5 g-color-black g-color-primary--hover" href="#">
+                                        Classic jacket
+                                    </a>
+                                </h4>
+                                <a class="d-inline-block g-color-gray-dark-v5 g-font-size-13" href="#">Man</a>
+                                <span class="d-block g-color-black g-font-size-17">$49.99</span>
+                            </div>
+                            <!-- End Product Info -->
+
+                            <!-- Products Icons -->
+                            <ul class="list-inline media-body text-right">
+                                <li class="list-inline-item align-middle mx-0">
+                                    <a class="u-icon-v1 u-icon-size--sm g-color-gray-dark-v5 g-color-primary--hover g-font-size-15 rounded-circle"
+                                        href="#" data-toggle="tooltip" data-placement="top" title="Add to Cart">
+                                        <i class="icon-finance-100 u-line-icon-pro"></i>
+                                    </a>
+                                </li>
+                                <li class="list-inline-item align-middle mx-0">
+                                    <a class="u-icon-v1 u-icon-size--sm g-color-gray-dark-v5 g-color-primary--hover g-font-size-15 rounded-circle"
+                                        href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist">
+                                        <i class="icon-medical-022 u-line-icon-pro"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                            <!-- End Products Icons -->
+                        </div>
+                        <!-- End Product -->
+                    </div>
+                </div>
+
+                <div class="js-slide">
+                    <div class="g-px-10">
+                        <!-- Product -->
+                        <figure class="g-pos-rel g-mb-20">
+                            <img class="img-fluid" data-lazy="assets/img-temp/480x700/img4.jpg" alt="Image Description">
+                        </figure>
+
+                        <div class="media">
+                            <!-- Product Info -->
+                            <div class="d-flex flex-column">
+                                <h4 class="h6 g-color-black mb-1">
+                                    <a class="u-link-v5 g-color-black g-color-primary--hover" href="#">
+                                        Wool lined parka
+                                    </a>
+                                </h4>
+                                <a class="d-inline-block g-color-gray-dark-v5 g-font-size-13" href="#">Woman</a>
+                                <span class="d-block g-color-black g-font-size-17">$82.37</span>
+                            </div>
+                            <!-- End Product Info -->
+
+                            <!-- Products Icons -->
+                            <ul class="list-inline media-body text-right">
+                                <li class="list-inline-item align-middle mx-0">
+                                    <a class="u-icon-v1 u-icon-size--sm g-color-gray-dark-v5 g-color-primary--hover g-font-size-15 rounded-circle"
+                                        href="#" data-toggle="tooltip" data-placement="top" title="Add to Cart">
+                                        <i class="icon-finance-100 u-line-icon-pro"></i>
+                                    </a>
+                                </li>
+                                <li class="list-inline-item align-middle mx-0">
+                                    <a class="u-icon-v1 u-icon-size--sm g-color-gray-dark-v5 g-color-primary--hover g-font-size-15 rounded-circle"
+                                        href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist">
+                                        <i class="icon-medical-022 u-line-icon-pro"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                            <!-- End Products Icons -->
+                        </div>
+                        <!-- End Product -->
+                    </div>
+                </div>
+
+                <div class="js-slide">
+                    <div class="g-px-10">
+                        <!-- Product -->
+                        <figure class="g-pos-rel g-mb-20">
+                            <img class="img-fluid" data-lazy="assets/img-temp/480x700/img5.jpg" alt="Image Description">
+
+                            <figcaption
+                                class="w-100 g-bg-lightred text-center g-pos-abs g-bottom-0 g-transition-0_2 g-py-5">
+                                <span class="g-color-white g-font-size-11 text-uppercase g-letter-spacing-1">Sold
+                                    Out</span>
+                            </figcaption>
+                        </figure>
+
+                        <div class="media">
+                            <!-- Product Info -->
+                            <div class="d-flex flex-column">
+                                <h4 class="h6 g-color-black mb-1">
+                                    <a class="u-link-v5 g-color-black g-color-primary--hover" href="#">
+                                        Hooded jeans
+                                    </a>
+                                </h4>
+                                <a class="d-inline-block g-color-gray-dark-v5 g-font-size-13" href="#">Man</a>
+                                <span class="d-block g-color-black g-font-size-17">$35.99</span>
+                            </div>
+                            <!-- End Product Info -->
+
+                            <!-- Products Icons -->
+                            <ul class="list-inline media-body text-right">
+                                <li class="list-inline-item align-middle mx-0">
+                                    <a class="u-icon-v1 u-icon-size--sm g-color-gray-dark-v5 g-color-primary--hover g-font-size-15 rounded-circle"
+                                        href="#" data-toggle="tooltip" data-placement="top" title="Add to Cart">
+                                        <i class="icon-finance-100 u-line-icon-pro"></i>
+                                    </a>
+                                </li>
+                                <li class="list-inline-item align-middle mx-0">
+                                    <a class="u-icon-v1 u-icon-size--sm g-color-gray-dark-v5 g-color-primary--hover g-font-size-15 rounded-circle"
+                                        href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist">
+                                        <i class="icon-medical-022 u-line-icon-pro"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                            <!-- End Products Icons -->
+                        </div>
+                        <!-- End Product -->
+                    </div>
+                </div>
+
+                <div class="js-slide">
+                    <div class="g-px-10">
+                        <!-- Product -->
+                        <figure class="g-pos-rel g-mb-20">
+                            <img class="img-fluid" data-lazy="assets/img-temp/480x700/img6.jpg" alt="Image Description">
+                        </figure>
+
+                        <div class="media">
+                            <!-- Product Info -->
+                            <div class="d-flex flex-column">
+                                <h4 class="h6 g-color-black mb-1">
+                                    <a class="u-link-v5 g-color-black g-color-primary--hover" href="#">
+                                        Waterproof jacket
+                                    </a>
+                                </h4>
+                                <a class="d-inline-block g-color-gray-dark-v5 g-font-size-13" href="#">Woman</a>
+                                <span class="d-block g-color-black g-font-size-17">$105.99</span>
+                            </div>
+                            <!-- End Product Info -->
+
+                            <!-- Products Icons -->
+                            <ul class="list-inline media-body text-right">
+                                <li class="list-inline-item align-middle mx-0">
+                                    <a class="u-icon-v1 u-icon-size--sm g-color-gray-dark-v5 g-color-primary--hover g-font-size-15 rounded-circle"
+                                        href="#" data-toggle="tooltip" data-placement="top" title="Add to Cart">
+                                        <i class="icon-finance-100 u-line-icon-pro"></i>
+                                    </a>
+                                </li>
+                                <li class="list-inline-item align-middle mx-0">
+                                    <a class="u-icon-v1 u-icon-size--sm g-color-gray-dark-v5 g-color-primary--hover g-font-size-15 rounded-circle"
+                                        href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist">
+                                        <i class="icon-medical-022 u-line-icon-pro"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                            <!-- End Products Icons -->
+                        </div>
+                        <!-- End Product -->
+                    </div>
+                </div>
+
+                <div class="js-slide">
+                    <div class="g-px-10">
+                        <!-- Product -->
+                        <figure class="g-pos-rel g-mb-20">
+                            <img class="img-fluid" data-lazy="assets/img-temp/480x700/img7.jpg" alt="Image Description">
+
+                            <span
+                                class="u-ribbon-v1 g-width-40 g-height-40 g-color-white g-bg-primary g-font-size-13 text-center text-uppercase g-rounded-50x g-top-10 g-right-minus-10 g-px-2 g-py-10">-40%</span>
+
+                            <figcaption
+                                class="w-100 g-bg-primary g-bg-black--hover text-center g-pos-abs g-bottom-0 g-transition-0_2 g-py-5">
+                                <a class="g-color-white g-font-size-11 text-uppercase g-letter-spacing-1 g-text-underline--none--hover"
+                                    href="#">New Arrival</a>
+                            </figcaption>
+                        </figure>
+
+                        <div class="media">
+                            <!-- Product Info -->
+                            <div class="d-flex flex-column">
+                                <h4 class="h6 g-color-black mb-1">
+                                    <a class="u-link-v5 g-color-black g-color-primary--hover" href="#">
+                                        Classic T-shirt
+                                    </a>
+                                </h4>
+                                <a class="d-inline-block g-color-gray-dark-v5 g-font-size-13" href="#">Man</a>
+                                <span class="d-block g-color-black g-font-size-17">$11.00</span>
+                            </div>
+                            <!-- End Product Info -->
+
+                            <!-- Products Icons -->
+                            <ul class="list-inline media-body text-right">
+                                <li class="list-inline-item align-middle mx-0">
+                                    <a class="u-icon-v1 u-icon-size--sm g-color-gray-dark-v5 g-color-primary--hover g-font-size-15 rounded-circle"
+                                        href="#" data-toggle="tooltip" data-placement="top" title="Add to Cart">
+                                        <i class="icon-finance-100 u-line-icon-pro"></i>
+                                    </a>
+                                </li>
+                                <li class="list-inline-item align-middle mx-0">
+                                    <a class="u-icon-v1 u-icon-size--sm g-color-gray-dark-v5 g-color-primary--hover g-font-size-15 rounded-circle"
+                                        href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist">
+                                        <i class="icon-medical-022 u-line-icon-pro"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                            <!-- End Products Icons -->
+                        </div>
+                        <!-- End Product -->
+                    </div>
+                </div>
+
+                <div class="js-slide">
+                    <div class="g-px-10">
+                        <!-- Product -->
+                        <figure class="g-pos-rel g-mb-20">
+                            <img class="img-fluid" data-lazy="assets/img-temp/480x700/img8.jpg" alt="Image Description">
+                        </figure>
+
+                        <div class="media">
+                            <!-- Product Info -->
+                            <div class="d-flex flex-column">
+                                <h4 class="h6 g-color-black mb-1">
+                                    <a class="u-link-v5 g-color-black g-color-primary--hover" href="#">
+                                        Blue skirt
+                                    </a>
+                                </h4>
+                                <a class="d-inline-block g-color-gray-dark-v5 g-font-size-13" href="#">Woman</a>
+                                <span class="d-block g-color-black g-font-size-17">$34.00</span>
+                            </div>
+                            <!-- End Product Info -->
+
+                            <!-- Products Icons -->
+                            <ul class="list-inline media-body text-right">
+                                <li class="list-inline-item align-middle mx-0">
+                                    <a class="u-icon-v1 u-icon-size--sm g-color-gray-dark-v5 g-color-primary--hover g-font-size-15 rounded-circle"
+                                        href="#" data-toggle="tooltip" data-placement="top" title="Add to Cart">
+                                        <i class="icon-finance-100 u-line-icon-pro"></i>
+                                    </a>
+                                </li>
+                                <li class="list-inline-item align-middle mx-0">
+                                    <a class="u-icon-v1 u-icon-size--sm g-color-gray-dark-v5 g-color-primary--hover g-font-size-15 rounded-circle"
+                                        href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist">
+                                        <i class="icon-medical-022 u-line-icon-pro"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                            <!-- End Products Icons -->
+                        </div>
+                        <!-- End Product -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Products -->
+
+        <!-- Promo Block -->
+        <section class="g-bg-secondary g-pos-rel">
+            <div class="container g-pt-100 g-pb-70">
+                <div class="row justify-content-between align-items-center">
+                    <div class="col-md-8 col-lg-6 order-md-2 g-mb-30">
+                        <div class="g-pos-rel">
+                            <img class="img-fluid w-100" src="assets/img-temp/725x725/img1.png" alt="Image Description">
+                            <span
+                                class="u-icon-v1 g-width-85 g-height-85 g-brd-3 g-brd-white g-color-white g-bg-primary g-font-weight-300 g-font-size-22 rounded-circle g-pos-abs g-top-100 g-left-0 g-brd-around">
+                                <i class="g-font-style-normal">$60
+                                    <span class="g-font-size-16">.00</span>
+                                </i>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 order-md-1 g-mb-30">
+                        <div class="g-mb-30">
+                            <h1 class="g-color-primary g-font-weight-400 g-font-size-40 mb-0">Leather</h1>
+                            <h2 class="g-color-dark g-font-weight-300 g-font-size-75 g-line-height-1 mb-4">Gloves</h2>
+                            <p class="lead">We want to create a range of beautiful, practical and modern outerwear that
+                                doesn't cost the earth.</p>
+                        </div>
+
+                        <a class="btn u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25 g-mb-70" href="#">Shop
+                            Now</a>
+
+                        <!-- Countdown -->
+                        <div class="text-uppercase">
+                            <div class="js-countdown u-countdown-v3 g-line-height-1_3 g-color-black"
+                                data-end-date="2019/08/20" data-month-format="%m" data-days-format="%D"
+                                data-hours-format="%H" data-minutes-format="%M" data-seconds-format="%S">
+                                <div class="d-inline-block text-center g-mx-15 mb-3">
+                                    <div class="js-cd-days g-color-lightred g-font-weight-500 g-font-size-15">12</div>
+                                    <span class="g-color-gray-dark-v4 g-font-size-11">Days</span>
+                                </div>
+
+                                <div class="hidden-down d-inline-block align-top g-font-size-15">:</div>
+
+                                <div class="d-inline-block text-center g-mx-15 mb-3">
+                                    <div class="js-cd-hours g-font-weight-500 g-font-size-15">01</div>
+                                    <span class="g-color-gray-dark-v4 g-font-size-11">Hours</span>
+                                </div>
+
+                                <div class="hidden-down d-inline-block align-top g-font-size-15">:</div>
+
+                                <div class="d-inline-block text-center g-mx-15 mb-3">
+                                    <div class="js-cd-minutes g-font-weight-500 g-font-size-15">52</div>
+                                    <span class="g-color-gray-dark-v4 g-font-size-11">Minutes</span>
+                                </div>
+
+                                <div class="hidden-down d-inline-block align-top g-font-size-15">:</div>
+
+                                <div class="d-inline-block text-center g-mx-15 mb-3">
+                                    <div class="js-cd-seconds g-font-weight-500 g-font-size-15">52</div>
+                                    <span class="g-color-gray-dark-v4 g-font-size-11">Seconds</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Countdown -->
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End Promo Block -->
+
+        <!-- New Arrivals -->
+        <section class="container g-py-100">
+            <div class="text-center mx-auto g-max-width-600 g-mb-50">
+                <h2 class="g-color-black mb-4">New Arrivals</h2>
+                <p class="lead">We want to create a range of beautiful, practical and modern outerwear that doesn't cost
+                    the earth – but let's you still live life in style.</p>
+            </div>
+
+            <div class="row g-mx-minus-10 g-mb-50">
+                <div class="col-md-6 col-lg-4 g-px-10">
+                    <!-- Article -->
+                    <article class="media g-brd-around g-brd-gray-light-v4 g-bg-white rounded g-pa-10 g-mb-20">
+                        <!-- Article Image -->
+                        <div class="g-max-width-100 g-mr-15">
+                            <img class="d-flex w-100" src="assets/img-temp/150x150/img1.jpg" alt="Image Description">
+                        </div>
+                        <!-- End Article Image -->
+
+                        <!-- Article Info -->
+                        <div class="media-body align-self-center">
+                            <h4 class="h5 g-mb-7">
+                                <a class="g-color-black g-color-primary--hover g-text-underline--none--hover"
+                                    href="#">Glasses</a>
+                            </h4>
+                            <a class="d-inline-block g-color-gray-dark-v5 g-font-size-13 g-mb-10"
+                                href="#">Accessories</a>
+                            <!-- End Article Info -->
+
+                            <!-- Article Footer -->
+                            <footer class="d-flex justify-content-between g-font-size-16">
+                                <span class="g-color-black g-line-height-1">$22.00</span>
+                                <ul class="list-inline g-color-gray-light-v2 g-font-size-14 g-line-height-1">
+                                    <li
+                                        class="list-inline-item align-middle g-brd-right g-brd-gray-light-v3 g-pr-10 g-mr-6">
+                                        <a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover"
+                                            href="#" title="Add to Cart" data-toggle="tooltip" data-placement="top">
+                                            <i class="icon-finance-100 u-line-icon-pro"></i>
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item align-middle">
+                                        <a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover"
+                                            href="#" title="Add to Wishlist" data-toggle="tooltip" data-placement="top">
+                                            <i class="icon-medical-022 u-line-icon-pro"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </footer>
+                            <!-- End Article Footer -->
+                        </div>
+                    </article>
+                    <!-- End Article -->
+                </div>
+
+                <div class="col-md-6 col-lg-4 g-px-10">
+                    <!-- Article -->
+                    <article class="media g-brd-around g-brd-gray-light-v4 g-bg-white rounded g-pa-10 g-mb-20">
+                        <!-- Article Image -->
+                        <div class="g-max-width-100 g-mr-15">
+                            <img class="d-flex w-100" src="assets/img-temp/150x150/img2.jpg" alt="Image Description">
+                        </div>
+                        <!-- End Article Image -->
+
+                        <!-- Article Info -->
+                        <div class="media-body align-self-center">
+                            <h4 class="h5 g-mb-7">
+                                <a class="g-color-black g-color-primary--hover g-text-underline--none--hover"
+                                    href="#">Gloves</a>
+                            </h4>
+                            <a class="d-inline-block g-color-gray-dark-v5 g-font-size-13 g-mb-10"
+                                href="#">Accessories</a>
+                            <!-- End Article Info -->
+
+                            <!-- Article Footer -->
+                            <footer class="d-flex justify-content-between g-font-size-16">
+                                <span class="g-color-black g-line-height-1">$55.00</span>
+                                <ul class="list-inline g-color-gray-light-v2 g-font-size-14 g-line-height-1">
+                                    <li
+                                        class="list-inline-item align-middle g-brd-right g-brd-gray-light-v3 g-pr-10 g-mr-6">
+                                        <a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover"
+                                            href="#" title="Add to Cart" data-toggle="tooltip" data-placement="top">
+                                            <i class="icon-finance-100 u-line-icon-pro"></i>
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item align-middle">
+                                        <a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover"
+                                            href="#" title="Add to Wishlist" data-toggle="tooltip" data-placement="top">
+                                            <i class="icon-medical-022 u-line-icon-pro"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </footer>
+                            <!-- End Article Footer -->
+                        </div>
+                    </article>
+                    <!-- End Article -->
+                </div>
+
+                <div class="col-md-6 col-lg-4 g-px-10">
+                    <!-- Article -->
+                    <article class="media g-brd-around g-brd-gray-light-v4 g-bg-white rounded g-pa-10 g-mb-20">
+                        <!-- Article Image -->
+                        <div class="g-max-width-100 g-mr-15">
+                            <img class="d-flex w-100" src="assets/img-temp/150x150/img3.jpg" alt="Image Description">
+                        </div>
+                        <!-- End Article Image -->
+
+                        <!-- Article Info -->
+                        <div class="media-body align-self-center">
+                            <h4 class="h5 g-mb-7">
+                                <a class="g-color-black g-color-primary--hover g-text-underline--none--hover"
+                                    href="#">Chukka Shoes</a>
+                            </h4>
+                            <a class="d-inline-block g-color-gray-dark-v5 g-font-size-13 g-mb-10" href="#">Footwear</a>
+                            <!-- End Article Info -->
+
+                            <!-- Article Footer -->
+                            <footer class="d-flex justify-content-between g-font-size-16">
+                                <span class="g-color-black g-line-height-1">$55.00</span>
+                                <ul class="list-inline g-color-gray-light-v2 g-font-size-14 g-line-height-1">
+                                    <li
+                                        class="list-inline-item align-middle g-brd-right g-brd-gray-light-v3 g-pr-10 g-mr-6">
+                                        <a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover"
+                                            href="#" title="Add to Cart" data-toggle="tooltip" data-placement="top">
+                                            <i class="icon-finance-100 u-line-icon-pro"></i>
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item align-middle">
+                                        <a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover"
+                                            href="#" title="Add to Wishlist" data-toggle="tooltip" data-placement="top">
+                                            <i class="icon-medical-022 u-line-icon-pro"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </footer>
+                            <!-- End Article Footer -->
+                        </div>
+                    </article>
+                    <!-- End Article -->
+                </div>
+
+                <div class="col-md-6 col-lg-4 g-px-10">
+                    <!-- Article -->
+                    <article class="media g-brd-around g-brd-gray-light-v4 g-bg-white rounded g-pa-10 g-mb-20">
+                        <!-- Article Image -->
+                        <div class="g-max-width-100 g-mr-15">
+                            <img class="d-flex w-100" src="assets/img-temp/150x150/img4.jpg" alt="Image Description">
+                        </div>
+                        <!-- End Article Image -->
+
+                        <!-- Article Info -->
+                        <div class="media-body align-self-center">
+                            <h4 class="h5 g-mb-7">
+                                <a class="g-color-black g-color-primary--hover g-text-underline--none--hover"
+                                    href="#">Shoes</a>
+                            </h4>
+                            <a class="d-inline-block g-color-gray-dark-v5 g-font-size-13 g-mb-10" href="#">Footwear</a>
+                            <!-- End Article Info -->
+
+                            <!-- Article Footer -->
+                            <footer class="d-flex justify-content-between g-font-size-16">
+                                <span class="g-color-black g-line-height-1">$55.00</span>
+                                <ul class="list-inline g-color-gray-light-v2 g-font-size-14 g-line-height-1">
+                                    <li
+                                        class="list-inline-item align-middle g-brd-right g-brd-gray-light-v3 g-pr-10 g-mr-6">
+                                        <a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover"
+                                            href="#" title="Add to Cart" data-toggle="tooltip" data-placement="top">
+                                            <i class="icon-finance-100 u-line-icon-pro"></i>
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item align-middle">
+                                        <a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover"
+                                            href="#" title="Add to Wishlist" data-toggle="tooltip" data-placement="top">
+                                            <i class="icon-medical-022 u-line-icon-pro"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </footer>
+                            <!-- End Article Content -->
+                        </div>
+                    </article>
+                    <!-- End Article -->
+                </div>
+
+                <div class="col-md-6 col-lg-4 g-px-10">
+                    <!-- Article -->
+                    <article class="media g-brd-around g-brd-gray-light-v4 g-bg-white rounded g-pa-10 g-mb-20">
+                        <!-- Article Image -->
+                        <div class="g-max-width-100 g-mr-15">
+                            <img class="d-flex w-100" src="assets/img-temp/150x150/img5.jpg" alt="Image Description">
+                        </div>
+                        <!-- End Article Image -->
+
+                        <!-- Article Info -->
+                        <div class="media-body align-self-center">
+                            <h4 class="h5 g-mb-7">
+                                <a class="g-color-black g-color-primary--hover g-text-underline--none--hover"
+                                    href="#">Sneaker</a>
+                            </h4>
+                            <a class="d-inline-block g-color-gray-dark-v5 g-font-size-13 g-mb-10" href="#">Footwear</a>
+                            <!-- End Article Info -->
+
+                            <!-- Article Footer -->
+                            <footer class="d-flex justify-content-between g-font-size-16">
+                                <span class="g-color-black g-line-height-1">$55.00</span>
+                                <ul class="list-inline g-color-gray-light-v2 g-font-size-14 g-line-height-1">
+                                    <li
+                                        class="list-inline-item align-middle g-brd-right g-brd-gray-light-v3 g-pr-10 g-mr-6">
+                                        <a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover"
+                                            href="#" title="Add to Cart" data-toggle="tooltip" data-placement="top">
+                                            <i class="icon-finance-100 u-line-icon-pro"></i>
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item align-middle">
+                                        <a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover"
+                                            href="#" title="Add to Wishlist" data-toggle="tooltip" data-placement="top">
+                                            <i class="icon-medical-022 u-line-icon-pro"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </footer>
+                            <!-- End Article Content -->
+                        </div>
+                    </article>
+                    <!-- End Article -->
+                </div>
+
+                <div class="col-md-6 col-lg-4 g-px-10">
+                    <!-- Article -->
+                    <article class="media g-brd-around g-brd-gray-light-v4 g-bg-white rounded g-pa-10 g-mb-20">
+                        <!-- Article Image -->
+                        <div class="g-max-width-100 g-mr-15">
+                            <img class="d-flex w-100" src="assets/img-temp/150x150/img6.jpg" alt="Image Description">
+                        </div>
+                        <!-- End Article Image -->
+
+                        <!-- Article Info -->
+                        <div class="media-body align-self-center">
+                            <h4 class="h5 g-mb-7">
+                                <a class="g-color-black g-color-primary--hover g-text-underline--none--hover"
+                                    href="#">Sneaker</a>
+                            </h4>
+                            <a class="d-inline-block g-color-gray-dark-v5 g-font-size-13 g-mb-10" href="#">Footwear</a>
+                            <!-- End Article Info -->
+
+                            <!-- Article Footer -->
+                            <footer class="d-flex justify-content-between g-font-size-16">
+                                <span class="g-color-black g-line-height-1">$55.00</span>
+                                <ul class="list-inline g-color-gray-light-v2 g-font-size-14 g-line-height-1">
+                                    <li
+                                        class="list-inline-item align-middle g-brd-right g-brd-gray-light-v3 g-pr-10 g-mr-6">
+                                        <a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover"
+                                            href="#" title="Add to Cart" data-toggle="tooltip" data-placement="top">
+                                            <i class="icon-finance-100 u-line-icon-pro"></i>
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item align-middle">
+                                        <a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover"
+                                            href="#" title="Add to Wishlist" data-toggle="tooltip" data-placement="top">
+                                            <i class="icon-medical-022 u-line-icon-pro"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </footer>
+                            <!-- End Article Footer -->
+                        </div>
+                    </article>
+                    <!-- End Article -->
+                </div>
+
+                <div class="col-md-6 col-lg-4 g-px-10">
+                    <!-- Article -->
+                    <article class="media g-brd-around g-brd-gray-light-v4 g-bg-white rounded g-pa-10 g-mb-20">
+                        <!-- Article Image -->
+                        <div class="g-max-width-100 g-mr-15">
+                            <img class="d-flex w-100" src="assets/img-temp/150x150/img7.jpg" alt="Image Description">
+                        </div>
+                        <!-- End Article Image -->
+
+                        <!-- Article Info -->
+                        <div class="media-body align-self-center">
+                            <h4 class="h5 g-mb-7">
+                                <a class="g-color-black g-color-primary--hover g-text-underline--none--hover"
+                                    href="#">Desk Clock</a>
+                            </h4>
+                            <a class="d-inline-block g-color-gray-dark-v5 g-font-size-13 g-mb-10" href="#">Hi-Tech</a>
+                            <!-- End Article Info -->
+
+                            <!-- Article Footer -->
+                            <footer class="d-flex justify-content-between g-font-size-16">
+                                <span class="g-color-black g-line-height-1">$55.00</span>
+                                <ul class="list-inline g-color-gray-light-v2 g-font-size-14 g-line-height-1">
+                                    <li
+                                        class="list-inline-item align-middle g-brd-right g-brd-gray-light-v3 g-pr-10 g-mr-6">
+                                        <a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover"
+                                            href="#" title="Add to Cart" data-toggle="tooltip" data-placement="top">
+                                            <i class="icon-finance-100 u-line-icon-pro"></i>
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item align-middle">
+                                        <a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover"
+                                            href="#" title="Add to Wishlist" data-toggle="tooltip" data-placement="top">
+                                            <i class="icon-medical-022 u-line-icon-pro"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </footer>
+                            <!-- End Article Footer -->
+                        </div>
+                    </article>
+                    <!-- End Article -->
+                </div>
+
+                <div class="col-md-6 col-lg-4 g-px-10">
+                    <!-- Article -->
+                    <article class="media g-brd-around g-brd-gray-light-v4 g-bg-white rounded g-pa-10 g-mb-20">
+                        <!-- Article Image -->
+                        <div class="g-max-width-100 g-mr-15">
+                            <img class="d-flex w-100" src="assets/img-temp/150x150/img8.jpg" alt="Image Description">
+                        </div>
+                        <!-- End Article Image -->
+
+                        <!-- Article Info -->
+                        <div class="media-body align-self-center">
+                            <h4 class="h5 g-mb-7">
+                                <a class="g-color-black g-color-primary--hover g-text-underline--none--hover"
+                                    href="#">Alarm Clock</a>
+                            </h4>
+                            <a class="d-inline-block g-color-gray-dark-v5 g-font-size-13 g-mb-10" href="#">Hi-Tech</a>
+                            <!-- End Article Info -->
+
+                            <!-- Article Footer -->
+                            <footer class="d-flex justify-content-between g-font-size-16">
+                                <span class="g-color-black g-line-height-1">$55.00</span>
+                                <ul class="list-inline g-color-gray-light-v2 g-font-size-14 g-line-height-1">
+                                    <li
+                                        class="list-inline-item align-middle g-brd-right g-brd-gray-light-v3 g-pr-10 g-mr-6">
+                                        <a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover"
+                                            href="#" title="Add to Cart" data-toggle="tooltip" data-placement="top">
+                                            <i class="icon-finance-100 u-line-icon-pro"></i>
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item align-middle">
+                                        <a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover"
+                                            href="#" title="Add to Wishlist" data-toggle="tooltip" data-placement="top">
+                                            <i class="icon-medical-022 u-line-icon-pro"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </footer>
+                            <!-- End Article Footer -->
+                        </div>
+                    </article>
+                    <!-- End Article -->
+                </div>
+
+                <div class="col-md-6 col-lg-4 g-px-10">
+                    <!-- Article -->
+                    <article class="media g-brd-around g-brd-gray-light-v4 g-bg-white rounded g-pa-10 g-mb-20">
+                        <!-- Article Image -->
+                        <div class="g-max-width-100 g-mr-15">
+                            <img class="d-flex w-100" src="assets/img-temp/150x150/img9.jpg" alt="Image Description">
+                        </div>
+                        <!-- End Article Image -->
+
+                        <!-- Article Info -->
+                        <div class="media-body align-self-center">
+                            <h4 class="h5 g-mb-7">
+                                <a class="g-color-black g-color-primary--hover g-text-underline--none--hover"
+                                    href="#">Desk Clock</a>
+                            </h4>
+                            <a class="d-inline-block g-color-gray-dark-v5 g-font-size-13 g-mb-10" href="#">Hi-Tech</a>
+                            <!-- End Article Info -->
+
+                            <!-- Article Footer -->
+                            <footer class="d-flex justify-content-between g-font-size-16">
+                                <span class="g-color-black g-line-height-1">$55.00</span>
+                                <ul class="list-inline g-color-gray-light-v2 g-font-size-14 g-line-height-1">
+                                    <li
+                                        class="list-inline-item align-middle g-brd-right g-brd-gray-light-v3 g-pr-10 g-mr-6">
+                                        <a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover"
+                                            href="#" title="Add to Cart" data-toggle="tooltip" data-placement="top">
+                                            <i class="icon-finance-100 u-line-icon-pro"></i>
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item align-middle">
+                                        <a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover"
+                                            href="#" title="Add to Wishlist" data-toggle="tooltip" data-placement="top">
+                                            <i class="icon-medical-022 u-line-icon-pro"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </footer>
+                            <!-- End Article Footer -->
+                        </div>
+                    </article>
+                    <!-- End Article -->
+                </div>
+            </div>
+
+            <div class="text-center">
+                <a class="btn u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25" href="#">All New Arrivals</a>
+            </div>
+        </section>
+        <!-- End New Arrivals -->
+
+        <!-- Categories -->
+        <div class="container-fluid px-0">
+            <div class="row align-items-center no-gutters">
+                <div class="col-md-7 col-lg-8 u-block-hover g-bg-size-cover g-min-height-500 g-flex-centered"
+                    data-bg-img-src="assets/img-temp/1200x800/img1.jpg">
+                    <div class="g-flex-centered-item text-right g-pa-50">
+                        <h2 class="g-color-white g-font-weight-700 g-font-size-50 text-uppercase g-line-height-1 mb-4">
+                            Summer
+                            <br>
+                            Collection
+                        </h2>
+                        <span class="u-link-v5 g-color-black g-color-primary--hover g-font-size-18">Shop Now</span>
+                    </div>
+
+                    <a class="u-link-v2" href="#"></a>
+                </div>
+
+                <div class="col-md-5 col-lg-4 u-block-hover g-bg-size-cover g-min-height-500 g-flex-centered"
+                    data-bg-img-src="assets/img/bg/secondary.png">
+                    <div class="text-center">
+                        <img class="img-fluid mb-3" src="assets/img-temp/500x320/img1.png" alt="Image Description">
+                        <h3 class="h5 u-link-v5 g-color-primary--hover g-font-weight-400 mb-3">Sneaker Shoes for Man
+                        </h3>
+                        <span class="g-color-primary g-font-weight-700 g-font-size-20">$45.00</span>
+                    </div>
+
+                    <a class="u-link-v2" href="#"></a>
+                </div>
+            </div>
+        </div>
+        <!-- End Categories -->
+
+        <!-- News -->
+        <div class="container g-pt-100 g-pb-70">
+            <div class="text-center mx-auto g-max-width-600 g-mb-50">
+                <h2 class="g-color-black mb-4">Blog News</h2>
+                <p class="lead">Keep in touch with the latest blogs &amp; news.</p>
+            </div>
+
+            <div class="row g-mx-minus-10">
+                <div class="col-sm-6 col-md-4 g-px-10 g-mb-30">
+                    <!-- Blog Background Overlay Blocks -->
+                    <article class="u-block-hover">
+                        <div class="g-bg-cover g-bg-white-gradient-opacity-v1--after">
+                            <img class="d-flex align-items-end u-block-hover__main--mover-down"
+                                src="assets/img-temp/650x650/img1.jpg" alt="Image Description">
+                        </div>
+                        <div class="u-block-hover__additional--partially-slide-up text-center g-z-index-1 mt-auto">
+                            <div class="u-block-hover__visible g-pa-25">
+                                <span class="d-block g-color-white-opacity-0_7 g-font-size-13 mb-2">sport</span>
+                                <h2 class="h4 g-color-white g-font-weight-400 mb-3">
+                                    <a class="u-link-v5 g-color-white g-color-primary--hover g-cursor-pointer"
+                                        href="#">24 Hours in Shopping</a>
+                                </h2>
+                                <h4 class="d-inline-block g-color-white-opacity-0_7 g-font-size-11 mb-0">
+                                    By,
+                                    <a class="g-color-white-opacity-0_7 text-uppercase" href="#">Dan Shaw</a>
+                                </h4>
+                                <span class="g-color-white-opacity-0_7 g-pos-rel g-top-2 mx-2">&#183;</span>
+                                <span class="g-color-white-opacity-0_7 g-font-size-10 text-uppercase">May 31,
+                                    2017</span>
+                            </div>
+
+                            <a class="d-inline-block g-brd-bottom g-brd-white g-color-white g-font-weight-500 g-font-size-12 text-uppercase g-text-underline--none--hover g-mb-30"
+                                href="#">Read more</a>
+                        </div>
+                    </article>
+                    <!-- End Blog Background Overlay Blocks -->
+                </div>
+
+                <div class="col-sm-6 col-md-4 g-px-10 g-mb-30">
+                    <!-- Blog Background Overlay Blocks -->
+                    <article class="u-block-hover">
+                        <div class="g-bg-cover g-bg-white-gradient-opacity-v1--after">
+                            <img class="d-flex align-items-end u-block-hover__main--mover-down"
+                                src="assets/img-temp/650x650/img2.jpg" alt="Image Description">
+                        </div>
+                        <div class="u-block-hover__additional--partially-slide-up text-center g-z-index-1 mt-auto">
+                            <div class="u-block-hover__visible g-pa-25">
+                                <span class="d-block g-color-white-opacity-0_7 g-font-size-13 mb-2">design</span>
+                                <h2 class="h4 g-color-white g-font-weight-400 mb-3">
+                                    <a class="u-link-v5 g-color-white g-color-primary--hover g-cursor-pointer"
+                                        href="#">How to Design with Colors</a>
+                                </h2>
+                                <h4 class="d-inline-block g-color-white-opacity-0_7 g-font-size-11 mb-0">
+                                    By,
+                                    <a class="g-color-white-opacity-0_7 text-uppercase" href="#">Dan Shaw</a>
+                                </h4>
+                                <span class="g-color-white-opacity-0_7 g-pos-rel g-top-2 mx-2">&#183;</span>
+                                <span class="g-color-white-opacity-0_7 g-font-size-10 text-uppercase">May 31,
+                                    2017</span>
+                            </div>
+
+                            <a class="d-inline-block g-brd-bottom g-brd-white g-color-white g-font-weight-500 g-font-size-12 text-uppercase g-text-underline--none--hover g-mb-30"
+                                href="#">Read more</a>
+                        </div>
+                    </article>
+                    <!-- End Blog Background Overlay Blocks -->
+                </div>
+
+                <div class="col-sm-6 col-md-4 g-px-10 g-mb-30">
+                    <!-- Blog Background Overlay Blocks -->
+                    <article class="u-block-hover">
+                        <div class="g-bg-cover g-bg-white-gradient-opacity-v1--after">
+                            <img class="d-flex align-items-end u-block-hover__main--mover-down"
+                                src="assets/img-temp/650x650/img3.jpg" alt="Image Description">
+                        </div>
+                        <div class="u-block-hover__additional--partially-slide-up text-center g-z-index-1 mt-auto">
+                            <div class="u-block-hover__visible g-pa-25">
+                                <span class="d-block g-color-white-opacity-0_7 g-font-size-13 mb-2">photography</span>
+                                <h2 class="h4 g-color-white g-font-weight-400 mb-3">
+                                    <a class="u-link-v5 g-color-white g-color-primary--hover g-cursor-pointer"
+                                        href="#">Stunning Woman's Capture</a>
+                                </h2>
+                                <h4 class="d-inline-block g-color-white-opacity-0_7 g-font-size-11 mb-0">
+                                    By,
+                                    <a class="g-color-white-opacity-0_7 text-uppercase" href="#">Dan Shaw</a>
+                                </h4>
+                                <span class="g-color-white-opacity-0_7 g-pos-rel g-top-2 mx-2">&#183;</span>
+                                <span class="g-color-white-opacity-0_7 g-font-size-10 text-uppercase">May 31,
+                                    2017</span>
+                            </div>
+
+                            <a class="d-inline-block g-brd-bottom g-brd-white g-color-white g-font-weight-500 g-font-size-12 text-uppercase g-text-underline--none--hover g-mb-30"
+                                href="#">Read more</a>
+                        </div>
+                    </article>
+                    <!-- End Blog Background Overlay Blocks -->
+                </div>
+            </div>
+        </div>
+        <!-- End News -->
+
+        <!-- Footer -->
+        <footer class="g-bg-main-light-v1">
+            <!-- Content -->
+            <div class="g-brd-bottom g-brd-secondary-light-v1">
+                <div class="container g-pt-100">
+                    <div class="row justify-content-start g-mb-30 g-mb-0--md">
+                        <div class="col-md-5 g-mb-30">
+                            <h2 class="h5 g-color-gray-light-v3 mb-4">Products</h2>
+
+                            <div class="row">
+                                <div class="col-4 g-mb-20">
+                                    <!-- Links -->
+                                    <ul class="list-unstyled g-font-size-13 mb-0">
+                                        <li class="g-mb-10">
+                                            <a class="u-link-v5 g-color-gray-dark-v5 g-color-primary--hover"
+                                                href="#">SmartPhone</a>
+                                        </li>
+                                        <li class="g-my-10">
+                                            <a class="u-link-v5 g-color-gray-dark-v5 g-color-primary--hover"
+                                                href="#">Laptop</a>
+                                        </li>
+                                        <li class="g-my-10">
+                                            <a class="u-link-v5 g-color-gray-dark-v5 g-color-primary--hover"
+                                                href="#">Mouse</a>
+                                        </li>
+                                        <li class="g-my-10">
+                                            <a class="u-link-v5 g-color-gray-dark-v5 g-color-primary--hover"
+                                                href="#">Monitor</a>
+                                        </li>
+                                        <li class="g-my-10">
+                                            <a class="u-link-v5 g-color-gray-dark-v5 g-color-primary--hover"
+                                                href="#">Watch</a>
+                                        </li>
+                                    </ul>
+                                    <!-- End Links -->
+                                </div>
+
+                                <div class="col-4 g-mb-20">
+                                    <!-- Links -->
+                                    <ul class="list-unstyled g-font-size-13 mb-0">
+                                        <li class="g-mb-10">
+                                            <a class="u-link-v5 g-color-gray-dark-v5 g-color-primary--hover"
+                                                href="#">Tablet</a>
+                                        </li>
+                                        <li class="g-my-10">
+                                            <a class="u-link-v5 g-color-gray-dark-v5 g-color-primary--hover"
+                                                href="#">Accessorie</a>
+                                        </li>
+                                        <li class="g-my-10">
+                                            <a class="u-link-v5 g-color-gray-dark-v5 g-color-primary--hover"
+                                                href="#">Mouses Pad</a>
+                                        </li>
+                                        <li class="g-my-10">
+                                            <a class="u-link-v5 g-color-gray-dark-v5 g-color-primary--hover"
+                                                href="#">Handset</a>
+                                        </li>
+                                        <li class="g-my-10">
+                                            <a class="u-link-v5 g-color-gray-dark-v5 g-color-primary--hover"
+                                                href="#">Phablet</a>
+                                        </li>
+                                    </ul>
+                                    <!-- End Links -->
+                                </div>
+
+                                <div class="col-4 g-mb-20">
+                                    <!-- Links -->
+                                    <ul class="list-unstyled g-font-size-13 mb-0">
+                                        <li class="g-mb-10">
+                                            <a class="u-link-v5 g-color-gray-dark-v5 g-color-primary--hover"
+                                                href="#">Speakers</a>
+                                        </li>
+                                        <li class="g-my-10">
+                                            <a class="u-link-v5 g-color-gray-dark-v5 g-color-primary--hover"
+                                                href="#">Camera</a>
+                                        </li>
+                                        <li class="g-my-10">
+                                            <a class="u-link-v5 g-color-gray-dark-v5 g-color-primary--hover"
+                                                href="#">Play Station</a>
+                                        </li>
+                                        <li class="g-my-10">
+                                            <a class="u-link-v5 g-color-gray-dark-v5 g-color-primary--hover"
+                                                href="#">Xbox</a>
+                                        </li>
+                                    </ul>
+                                    <!-- End Links -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 col-md-3 g-mb-30 g-mb-0--sm">
+                            <h2 class="h5 g-color-gray-light-v3 mb-4">Brands</h2>
+
+                            <div class="row">
+                                <div class="col-6 g-mb-20">
+                                    <!-- Links -->
+                                    <ul class="list-unstyled g-font-size-13 mb-0">
+                                        <li class="g-mb-10">
+                                            <a class="u-link-v5 g-color-gray-dark-v5 g-color-primary--hover"
+                                                href="#">Logitech</a>
+                                        </li>
+                                        <li class="g-my-10">
+                                            <a class="u-link-v5 g-color-gray-dark-v5 g-color-primary--hover"
+                                                href="#">Samsung</a>
+                                        </li>
+                                        <li class="g-my-10">
+                                            <a class="u-link-v5 g-color-gray-dark-v5 g-color-primary--hover"
+                                                href="#">Microsoft</a>
+                                        </li>
+                                        <li class="g-my-10">
+                                            <a class="u-link-v5 g-color-gray-dark-v5 g-color-primary--hover"
+                                                href="#">Apple</a>
+                                        </li>
+                                    </ul>
+                                    <!-- End Links -->
+                                </div>
+
+                                <div class="col-6 g-mb-20">
+                                    <!-- Links -->
+                                    <ul class="list-unstyled g-font-size-13 mb-0">
+                                        <li class="g-mb-10">
+                                            <a class="u-link-v5 g-color-gray-dark-v5 g-color-primary--hover"
+                                                href="#">Huawei</a>
+                                        </li>
+                                        <li class="g-my-10">
+                                            <a class="u-link-v5 g-color-gray-dark-v5 g-color-primary--hover"
+                                                href="#">Motorola</a>
+                                        </li>
+                                        <li class="g-my-10">
+                                            <a class="u-link-v5 g-color-gray-dark-v5 g-color-primary--hover"
+                                                href="#">Sony</a>
+                                        </li>
+                                        <li class="g-my-10">
+                                            <a class="u-link-v5 g-color-gray-dark-v5 g-color-primary--hover"
+                                                href="#">Nokia</a>
+                                        </li>
+                                    </ul>
+                                    <!-- End Links -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-5 col-md-3 ml-auto g-mb-30 g-mb-0--sm">
+                            <h2 class="h5 g-color-gray-light-v3 mb-4">Contacts</h2>
+
+                            <!-- Links -->
+                            <ul class="list-unstyled g-color-gray-dark-v5 g-font-size-13">
+                                <li class="media my-3">
+                                    <i class="d-flex mt-1 mr-3 icon-hotel-restaurant-235 u-line-icon-pro"></i>
+                                    <div class="media-body">
+                                        Unit 25 Suite 3, 925 Prospect
+                                        <br>
+                                        PI New York Avenue
+                                    </div>
+                                </li>
+                                <li class="media my-3">
+                                    <i class="d-flex mt-1 mr-3 icon-communication-062 u-line-icon-pro"></i>
+                                    <div class="media-body">
+                                        htmlstream@support.com
+                                    </div>
+                                </li>
+                                <li class="media my-3">
+                                    <i class="d-flex mt-1 mr-3 icon-communication-033 u-line-icon-pro"></i>
+                                    <div class="media-body">
+                                        +32 333 444 555
+                                    </div>
+                                </li>
+                            </ul>
+                            <!-- End Links -->
+                        </div>
+                    </div>
+
+                    <!-- Secondary Content -->
+                    <div class="row">
+                        <div class="col-md-4 g-mb-50">
+                            <h2 class="h5 g-color-gray-light-v3 mb-4">Subscribe</h2>
+
+                            <!-- Subscribe Form -->
+                            <form class="input-group u-shadow-v19 rounded">
+                                <input
+                                    class="form-control g-brd-none g-color-gray-dark-v5 g-bg-main-light-v2 g-bg-main-light-v2--focus g-placeholder-gray-dark-v3 rounded g-px-20 g-py-8"
+                                    type="email" placeholder="Enter your email">
+                                <span class="input-group-addon u-shadow-v19 g-brd-none g-bg-main-light-v2 g-pa-5">
+                                    <button class="btn u-btn-primary rounded text-uppercase g-py-8 g-px-18"
+                                        type="submit">
+                                        <i class="fa fa-angle-right"></i>
+                                    </button>
+                                </span>
+                            </form>
+                            <!-- End Subscribe Form -->
+                        </div>
+
+                        <div class="col-6 col-md-3 offset-lg-1 g-mb-30">
+                            <h2 class="h5 g-color-gray-light-v3 mb-4">Language/Currency:</h2>
+
+                            <!-- Large Button Group -->
+                            <div class="btn-group dropup">
+                                <button
+                                    class="btn btn-black g-bg-main-light-v1 btn-lg g-color-gray-dark-v5 g-color-primary--hover g-font-size-default g-pl-0 mr-5"
+                                    type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <svg class="g-ml-minus-6" xmlns="http://www.w3.org/2000/svg" height="11" width="27"
+                                        viewBox="0 0 640 480">
+                                        <defs>
+                                            <clipPath id="a">
+                                                <path fill-opacity=".67" d="M-85.333 0h682.67v512h-682.67z" />
+                                            </clipPath>
+                                        </defs>
+                                        <g clip-path="url(#a)" transform="translate(80) scale(.94)">
+                                            <g stroke-width="1pt">
+                                                <path fill="#006" d="M-256 0H768.02v512.01H-256z" />
+                                                <path
+                                                    d="M-256 0v57.244l909.535 454.768H768.02V454.77L-141.515 0H-256zM768.02 0v57.243L-141.515 512.01H-256v-57.243L653.535 0H768.02z"
+                                                    fill="#fff" />
+                                                <path
+                                                    d="M170.675 0v512.01h170.67V0h-170.67zM-256 170.67v170.67H768.02V170.67H-256z"
+                                                    fill="#fff" />
+                                                <path
+                                                    d="M-256 204.804v102.402H768.02V204.804H-256zM204.81 0v512.01h102.4V0h-102.4zM-256 512.01L85.34 341.34h76.324l-341.34 170.67H-256zM-256 0L85.34 170.67H9.016L-256 38.164V0zm606.356 170.67L691.696 0h76.324L426.68 170.67h-76.324zM768.02 512.01L426.68 341.34h76.324L768.02 473.848v38.162z"
+                                                    fill="#c00" />
+                                            </g>
+                                        </g>
+                                    </svg>
+                                    English
+                                    <i class="g-font-size-12 ml-2 fa fa-caret-up"></i>
+                                </button>
+                                <div class="dropdown-menu g-brd-gray-dark-v2 g-bg-main-light-v2">
+                                    <a class="dropdown-item g-color-gray-dark-v5" href="#">
+                                        <svg xmlns="http://www.w3.org/2000/svg" height="11" width="27"
+                                            viewBox="0 0 640 480">
+                                            <defs>
+                                                <clipPath id="a">
+                                                    <path fill-opacity=".67" d="M-85.333 0h682.67v512h-682.67z" />
+                                                </clipPath>
+                                            </defs>
+                                            <g clip-path="url(#a)" transform="translate(80) scale(.94)">
+                                                <g stroke-width="1pt">
+                                                    <path fill="#006" d="M-256 0H768.02v512.01H-256z" />
+                                                    <path
+                                                        d="M-256 0v57.244l909.535 454.768H768.02V454.77L-141.515 0H-256zM768.02 0v57.243L-141.515 512.01H-256v-57.243L653.535 0H768.02z"
+                                                        fill="#fff" />
+                                                    <path
+                                                        d="M170.675 0v512.01h170.67V0h-170.67zM-256 170.67v170.67H768.02V170.67H-256z"
+                                                        fill="#fff" />
+                                                    <path
+                                                        d="M-256 204.804v102.402H768.02V204.804H-256zM204.81 0v512.01h102.4V0h-102.4zM-256 512.01L85.34 341.34h76.324l-341.34 170.67H-256zM-256 0L85.34 170.67H9.016L-256 38.164V0zm606.356 170.67L691.696 0h76.324L426.68 170.67h-76.324zM768.02 512.01L426.68 341.34h76.324L768.02 473.848v38.162z"
+                                                        fill="#c00" />
+                                                </g>
+                                            </g>
+                                        </svg>
+                                        English
+                                    </a>
+                                    <a class="dropdown-item g-color-gray-dark-v5" href="#">
+                                        <svg xmlns="http://www.w3.org/2000/svg" height="11" width="27"
+                                            viewBox="0 0 640 480">
+                                            <g stroke-width="1pt" fill-rule="evenodd">
+                                                <path fill="#fff" d="M0 0h640v480H0z" />
+                                                <path fill="#00267f" d="M0 0h213.33v480H0z" />
+                                                <path fill="#f31830" d="M426.67 0H640v480H426.67z" />
+                                            </g>
+                                        </svg>
+                                        Spanish
+                                    </a>
+                                    <a class="dropdown-item g-color-gray-dark-v5" href="#">
+                                        <svg xmlns="http://www.w3.org/2000/svg" height="11" width="27"
+                                            viewBox="0 0 640 480">
+                                            <g fill-rule="evenodd" stroke-width="1pt">
+                                                <path fill="#fff" d="M0 0h640v480H0z" />
+                                                <path fill="#0039a6" d="M0 160.003h640V480H0z" />
+                                                <path fill="#d52b1e" d="M0 319.997h640V480H0z" />
+                                            </g>
+                                        </svg>
+                                        Russian
+                                    </a>
+                                    <a class="dropdown-item g-color-gray-dark-v5" href="#">
+                                        <svg xmlns="http://www.w3.org/2000/svg" height="11" width="27"
+                                            viewBox="0 0 640 480">
+                                            <path fill="#ffce00" d="M0 320h640v160.002H0z" />
+                                            <path d="M0 0h640v160H0z" />
+                                            <path fill="#d00" d="M0 160h640v160H0z" />
+                                        </svg>
+                                        German
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- End Large Button Group -->
+
+                            <!-- Large Button Group -->
+                            <div class="btn-group dropup">
+                                <button
+                                    class="btn btn-black g-bg-main-light-v1 btn-lg g-color-gray-dark-v5 g-color-primary--hover g-font-size-default g-pl-0"
+                                    type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="mr-2 fa fa-euro"></i>
+                                    Euro
+                                    <i class="mr-2 g-font-size-12 ml-2 fa fa-caret-up"></i>
+                                </button>
+                                <div class="dropdown-menu g-max-width-100 g-brd-gray-dark-v2 g-bg-main-light-v2">
+                                    <a class="dropdown-item g-color-gray-dark-v5" href="#">
+                                        <i class="mr-2 fa fa-euro"></i>
+                                        Euro
+                                    </a>
+                                    <a class="dropdown-item g-color-gray-dark-v5" href="#">
+                                        <i class="mr-2 fa fa-dollar"></i>
+                                        US Dollars
+                                    </a>
+                                    <a class="dropdown-item g-color-gray-dark-v5" href="#">
+                                        <i class="mr-2 fa fa-gbp"></i>
+                                        GBP
+                                    </a>
+                                    <a class="dropdown-item g-color-gray-dark-v5" href="#">
+                                        <i class="mr-2 fa fa-yen"></i>
+                                        Yen
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- End Large Button Group -->
+                        </div>
+
+                        <div class="col-6 col-md-3 ml-auto g-mb-30">
+                            <h2 class="h5 g-color-gray-light-v3 mb-4">Follow Us On:</h2>
+
+                            <!-- Social Icons -->
+                            <ul class="list-inline mb-50">
+                                <li class="list-inline-item g-mr-2">
+                                    <a class="u-icon-v1 u-icon-slide-up--hover g-color-gray-dark-v4 g-color-white--hover g-bg-facebook--hover rounded"
+                                        href="#">
+                                        <i
+                                            class="g-font-size-18 g-line-height-1 u-icon__elem-regular fa fa-facebook"></i>
+                                        <i
+                                            class="g-color-white g-font-size-18 g-line-height-0_8 u-icon__elem-hover fa fa-facebook"></i>
+                                    </a>
+                                </li>
+                                <li class="list-inline-item g-mx-2">
+                                    <a class="u-icon-v1 u-icon-slide-up--hover g-color-gray-dark-v4 g-color-white--hover g-bg-twitter--hover rounded"
+                                        href="#">
+                                        <i
+                                            class="g-font-size-18 g-line-height-1 u-icon__elem-regular fa fa-twitter"></i>
+                                        <i
+                                            class="g-color-white g-font-size-18 g-line-height-0_8 u-icon__elem-hover fa fa-twitter"></i>
+                                    </a>
+                                </li>
+                                <li class="list-inline-item g-mx-2">
+                                    <a class="u-icon-v1 u-icon-slide-up--hover g-color-gray-dark-v4 g-color-white--hover g-bg-instagram--hover rounded"
+                                        href="#">
+                                        <i
+                                            class="g-font-size-18 g-line-height-1 u-icon__elem-regular fa fa-instagram"></i>
+                                        <i
+                                            class="g-color-white g-font-size-18 g-line-height-0_8 u-icon__elem-hover fa fa-instagram"></i>
+                                    </a>
+                                </li>
+                                <li class="list-inline-item g-mx-2">
+                                    <a class="u-icon-v1 u-icon-slide-up--hover g-color-gray-dark-v4 g-color-white--hover g-bg-google-plus--hover rounded"
+                                        href="#">
+                                        <i
+                                            class="g-font-size-18 g-line-height-1 u-icon__elem-regular fa fa-google-plus"></i>
+                                        <i
+                                            class="g-color-white g-font-size-18 g-line-height-0_8 u-icon__elem-hover fa fa-google-plus"></i>
+                                    </a>
+                                </li>
+                                <li class="list-inline-item g-mx-2">
+                                    <a class="u-icon-v1 u-icon-slide-up--hover g-color-gray-dark-v4 g-color-white--hover g-bg-linkedin--hover rounded"
+                                        href="#">
+                                        <i
+                                            class="g-font-size-18 g-line-height-1 u-icon__elem-regular fa fa-linkedin"></i>
+                                        <i
+                                            class="g-color-white g-font-size-18 g-line-height-0_8 u-icon__elem-hover fa fa-linkedin"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                            <!-- End Social Icons -->
+                        </div>
+                    </div>
+                    <!-- End Secondary Content -->
+                </div>
+            </div>
+            <!-- End Content -->
+
+            <!-- Copyright -->
+            <div class="container g-pt-30 g-pb-10">
+                <div class="row justify-content-between align-items-center">
+                    <div class="col-md-6 g-mb-20">
+                        <p class="g-font-size-13 mb-0">2019 &copy; Htmlstream. All Rights Reserved.</p>
+                    </div>
+
+                    <div class="col-md-6 text-md-right g-mb-20">
+                        <ul class="list-inline g-color-gray-dark-v5 g-font-size-25 mb-0">
+                            <li class="list-inline-item g-cursor-pointer mr-1">
+                                <i class="fa fa-cc-visa" title="Visa" data-toggle="tooltip" data-placement="top"></i>
+                            </li>
+                            <li class="list-inline-item g-cursor-pointer mx-1">
+                                <i class="fa fa-cc-paypal" title="Paypal" data-toggle="tooltip"
+                                    data-placement="top"></i>
+                            </li>
+                            <li class="list-inline-item g-cursor-pointer mx-1">
+                                <i class="fa fa-cc-mastercard" title="Master Card" data-toggle="tooltip"
+                                    data-placement="top"></i>
+                            </li>
+                            <li class="list-inline-item g-cursor-pointer ml-1">
+                                <i class="fa fa-cc-stripe" title="Stripe" data-toggle="tooltip"
+                                    data-placement="top"></i>
+                            </li>
+                            <li class="list-inline-item g-cursor-pointer ml-1">
+                                <i class="fa fa-cc-discover" title="Discover" data-toggle="tooltip"
+                                    data-placement="top"></i>
+                            </li>
+                            <li class="list-inline-item g-cursor-pointer ml-1">
+                                <i class="fa fa-cc-jcb" title="JCB" data-toggle="tooltip" data-placement="top"></i>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- End Copyright -->
+        </footer>
+        <!-- End Footer -->
+
+        <!-- Go To Top -->
+        <a class="js-go-to u-go-to-v2" href="#" data-type="fixed" data-position='{
+           "bottom": 15,
+           "right": 15
+         }' data-offset-top="400" data-compensation="#js-header" data-show-effect="zoomIn">
+            <i class="hs-icon hs-icon-arrow-top"></i>
+        </a>
+        <!-- End Go To Top -->
+
+        <!-- Modal Window -->
+        <div id="modal-type-onscroll" class="js-autonomous-popup text-left g-bg-white g-pos-rel g-rounded-5"
+            style="display: none;" data-modal-type="onscroll" data-open-effect="fadeIn" data-close-effect="fadeIn"
+            data-breakpoint="1000" data-speed="500">
+            <button type="button"
+                class="close g-color-main-light-v3 g-color-primary--hover g-font-size-13 g-pos-abs g-top-15 g-right-15 g-opacity-1"
+                onclick="Custombox.modal.close();">
+                <i class="hs-icon hs-icon-close"></i>
+            </button>
+
+            <!-- Modal Window - Content -->
+            <div class="g-width-720">
+                <div class="row align-items-center">
+                    <div class="col-sm-6 g-height-350--sm g-bg-size-cover g-bg-pos-top-center g-rounded-left-5"
+                        data-bg-img-src="assets/img-temp/300x300/img1.jpg"></div>
+
+                    <div class="col-sm-6">
+                        <div class="g-pl-30 g-pl-20--sm g-pr-30 g-py-20">
+                            <!-- Info -->
+                            <div class="g-mb-35">
+                                <h3 class="h1 g-color-primary">Subscribe</h3>
+                                <p class="g-font-weight-300 g-font-size-16">Get free promotions every month!</p>
+                            </div>
+                            <!-- End Info -->
+
+                            <!-- Subscribe Form -->
+                            <form class="input-group u-shadow-v19 rounded g-mb-20">
+                                <input
+                                    class="form-control g-brd-right-none g-brd-gray-light-v4 g-color-white g-bg-main-light-v3 g-rounded-left-5 g-px-20 g-py-8"
+                                    type="email" placeholder="Enter your email">
+                                <span
+                                    class="input-group-addon u-shadow-v19 g-brd-left-none g-brd-gray-light-v4 g-bg-main-light-v3 g-rounded-right-5 g-pa-5">
+                                    <button class="btn u-btn-primary rounded text-uppercase g-py-8 g-px-18"
+                                        type="submit">
+                                        <i class="fa fa-angle-right"></i>
+                                    </button>
+                                </span>
+                            </form>
+                            <!-- End Subscribe Form -->
+
+                            <!-- Social Icons -->
+                            <ul class="list-inline mb-0">
+                                <li class="list-inline-item g-mx-0">
+                                    <a class="u-icon-v3 u-icon-size--xs g-color-main-light-v3 g-color-white--hover g-bg-white g-bg-primary--hover g-font-size-13 rounded"
+                                        href="#">
+                                        <i class="fa fa-facebook"></i>
+                                    </a>
+                                </li>
+                                <li class="list-inline-item g-mx-0">
+                                    <a class="u-icon-v3 u-icon-size--xs g-color-main-light-v3 g-color-white--hover g-bg-white g-bg-primary--hover g-font-size-13 rounded"
+                                        href="#">
+                                        <i class="fa fa-twitter"></i>
+                                    </a>
+                                </li>
+                                <li class="list-inline-item g-mx-0">
+                                    <a class="u-icon-v3 u-icon-size--xs g-color-main-light-v3 g-color-white--hover g-bg-white g-bg-primary--hover g-font-size-13 rounded"
+                                        href="#">
+                                        <i class="fa fa-instagram"></i>
+                                    </a>
+                                </li>
+                                <li class="list-inline-item g-mx-0">
+                                    <a class="u-icon-v3 u-icon-size--xs g-color-main-light-v3 g-color-white--hover g-bg-white g-bg-primary--hover g-font-size-13 rounded"
+                                        href="#">
+                                        <i class="fa fa-google-plus"></i>
+                                    </a>
+                                </li>
+                                <li class="list-inline-item g-mx-0">
+                                    <a class="u-icon-v3 u-icon-size--xs g-color-main-light-v3 g-color-white--hover g-bg-white g-bg-primary--hover g-font-size-13 rounded"
+                                        href="#">
+                                        <i class="fa fa-linkedin"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                            <!-- End Social Icons -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Modal Window - Content -->
+        </div>
+        <!-- End Modal Window -->
+    </main>
+
+    <div class="u-outer-spaces-helper"></div>
+
+    @include('frontend.layouts.script')
 </body>
+
 
 </html>
