@@ -49,9 +49,9 @@
     </a>
 
     <!-- loader part  -->
-    <div class="loader-container">
+    {{-- <div class="loader-container">
         <img src="{{ asset('img/preloader.gif') }}" alt="preloader">
-    </div>
+    </div> --}}
 
     <!-- Logout Modal-->
     @include('helper.popup')

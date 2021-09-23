@@ -13,7 +13,7 @@
 
 <!-- JS Revolution Slider -->
 <script src="{{ asset('frontend/js/revolution-slider/jquery.themepunch.tools.min.js') }}"></script>
-<script src="{{ asset('frontend/js/revolution-slider/revolution/jquery.themepunch.revolution.min.js') }}"></script>
+<script src="{{ asset('frontend/js/revolution-slider/jquery.themepunch.revolution.min.js') }}"></script>
 
 <script src="{{ asset('frontend/js/revolution-slider/revolution-addons/revolution.addon.typewriter.min.js') }}">
 </script>
@@ -30,24 +30,24 @@
 </script>
 <script src="{{ asset('frontend/js/revolution-slider/extensions/revolution.extension.navigation.min.js') }}">
 </script>
-<script src="{{ asset('/revolution-slider/extensions/revolution.extension.parallax.min.js') }}">
+<script src="{{ asset('frontend/js/revolution-slider/extensions/revolution.extension.parallax.min.js') }}">
 </script>
 <script
-    src="{{ asset('frontend/js/revolution-slider/revolution/js/extensions/revolution.extension.slideanims.min.js') }}">
+    src="{{ asset('frontend/js/revolution-slider/extensions/revolution.extension.slideanims.min.js') }}">
 </script>
-<script src="{{ asset('frontend/js/revolution-slider/revolution/js/extensions/revolution.extension.video.min.js') }}">
+<script src="{{ asset('frontend/js/revolution-slider/extensions/revolution.extension.video.min.js') }}">
 </script>
 
 <!-- JS Unify -->
-<script src="{{ assets('frontend/js/hs-core/hs.core.js') }}"></script>
-<script src="{{ assets('frontend/js/hs-components/hs.header.js') }}"></script>
-<script src="{{ assets('frontend/js/hs-helpers/hs.hamburgers.js') }}"></script>
-<script src="{{ assets('frontend/js/hs-components/hs.dropdown.js') }}"></script>
-<script src="{{ assets('frontend/js/hs-components/hs.scrollbar.js') }}"></script>
-<script src="{{ assets('frontend/js/hs-components/hs.countdown.js') }}"></script>
-<script src="{{ assets('frontend/js/hs-components/hs.carousel.js') }}"></script>
-<script src="{{ assets('frontend/js/hs-components/hs.go-to.js') }}"></script>
-<script src="{{ assets('frontend/js/hs-components/hs.count-qty.js') }}"></script>
+<script src="{{ asset('frontend/js/hs-core/hs.core.js') }}"></script>
+<script src="{{ asset('frontend/js/hs-components/hs.header.js') }}"></script>
+<script src="{{ asset('frontend/js/hs-helpers/hs.hamburgers.js') }}"></script>
+<script src="{{ asset('frontend/js/hs-components/hs.dropdown.js') }}"></script>
+<script src="{{ asset('frontend/js/hs-components/hs.scrollbar.js') }}"></script>
+<script src="{{ asset('frontend/js/hs-components/hs.countdown.js') }}"></script>
+<script src="{{ asset('frontend/js/hs-components/hs.carousel.js') }}"></script>
+<script src="{{ asset('frontend/js/hs-components/hs.go-to.js') }}"></script>
+<script src="{{ asset('frontend/js/hs-components/hs.count-qty.js') }}"></script>
 
 <!-- JS Customization -->
 <script src="{{ asset('frontend/js/custom.js') }}"></script>

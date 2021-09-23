@@ -1,7 +1,5 @@
 <?php
 
-use App\Models\Backend\AdminUser;
-
 return [
 
     /*
@@ -46,10 +44,10 @@ return [
             'driver' => 'token',
             'provider' => 'users',
         ],
-        // 'admin' => [
-        //     'drvier' => 'session',
-        //     'provider' => 'admin'
-        // ]
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admins'
+        ]
     ],
 
     /*
@@ -74,10 +72,10 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
-        // 'admin' => [
-        //     'driver' => 'eloquent',
-        //     'model' => AdminUser::class
-        // ]
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Backend\AdminUser::class
+        ]
 
         // 'users' => [
         //     'driver' => 'database',

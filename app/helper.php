@@ -2,6 +2,7 @@
 
 use Intervention\Image\Facades\Image;
 
+// Status
 if (!function_exists('getStatus')) {
     function getStatus()
     {
@@ -12,6 +13,9 @@ if (!function_exists('getStatus')) {
     }
 }
 
+/**
+ * Dump ket qua ra man hinh
+ */
 if (!function_exists('getArray')) {
     function getArray($array)
     {
@@ -21,6 +25,9 @@ if (!function_exists('getArray')) {
     }
 }
 
+/**
+ * Tao uri image
+ */
 if (!function_exists('createImageUri')) {
     function createImageUri($dir, $name)
     {
@@ -29,6 +36,9 @@ if (!function_exists('createImageUri')) {
     }
 }
 
+/**
+ * Tao datetime theo gmdate +7
+ */
 if (!function_exists('getDateTime')) {
     function getDateTime($time, $format = 'd-m-Y')
     {
@@ -36,6 +46,9 @@ if (!function_exists('getDateTime')) {
     }
 }
 
+/**
+ * Tao duong dan folder
+ */
 if (!function_exists('createDir')) {
     function createDir($dir)
     {
@@ -46,6 +59,9 @@ if (!function_exists('createDir')) {
     }
 }
 
+/**
+ * Upload single image
+ */
 if (!function_exists('proccessUpload')) {
     function proccessUpload($request, $model = 'default', $width = 500, $height = 500)
     {
@@ -89,6 +105,9 @@ if (!function_exists('proccessUpload')) {
     }
 }
 
+/**
+ * Upload multiple image
+ */
 if (!function_exists('uploadMultipleImage')) {
     function uploadMultipleImage($file, $model = 'default', $width = 500, $height = 500)
     {
@@ -130,7 +149,9 @@ if (!function_exists('uploadMultipleImage')) {
     }
 }
 
-
+/**
+ * Lay duong dan image trong public
+ */
 if (!function_exists('getImage')) {
     function getImage($dir)
     {

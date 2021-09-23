@@ -15,12 +15,19 @@ class AdminAuthenticate
      * @param  \Closure  $next
      * @return mixed
      */
+    // public function handle(Request $request, Closure $next, $guard = 'admin')
+    // {
+    //     if(!Auth::guard($guard))
+    //     {
+    //         return view('admin.auth.login');
+    //     }
+    //     return $next($request);
+    // }
     public function handle(Request $request, Closure $next, $guard = 'admin')
     {
-        if(!Auth::guard($guard)->check())
-        {
-            return redirect('/authority/login');
+        if ($guard == "admin" && Auth::guard($guard)->check()) {
+            return $next($request);
         }
-        return $next($request);
+        return redirect()->guest('/admin/login');
     }
 }

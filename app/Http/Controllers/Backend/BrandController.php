@@ -6,9 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\BrandStoreRequest;
 use App\Http\Requests\BrandUpdateRequest;
 use App\Models\Brand;
-use Illuminate\Http\Request;
-use Intervention\Image\Facades\Image;
-use Intervention\Image\File;
 
 class BrandController extends Controller
 {

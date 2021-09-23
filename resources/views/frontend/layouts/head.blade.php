@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700,900">
 
 <!-- CSS Global Compulsory -->
-<link rel="stylesheet" href="{{ asset('frontend/css/bootstrap/bootstrap/bootstrap.min.css') }}">
+<link rel="stylesheet" href="{{ asset('frontend/css/bootstrap/bootstrap.min.css') }}">
 
 <!-- CSS Implementing Plugins -->
 <link rel="stylesheet" href="{{ asset('frontend/css/icon-awesome/font-awesome.min.css') }}">
@@ -28,7 +28,7 @@
 <!-- Revolution Slider -->
 <link rel="stylesheet" href="{{ asset('frontend/css/revolution-slider/pe-icon-7-stroke/pe-icon-7-stroke.css') }}">
 <link rel="stylesheet" href="{{ asset('frontend/css/revolution-slider/settings.css') }}">
-<link rel="stylesheet" href="{{ asset('frontend/css/revolution-slider/layer.css') }}">
+<link rel="stylesheet" href="{{ asset('frontend/css/revolution-slider/layers.css') }}">
 <link rel="stylesheet" href="{{ asset('frontend/css/revolution-slider/navigation.css') }}">
 <link rel="stylesheet" href="{{ asset('frontend/css/revolution-slider/typewritter/typewritter.css') }}">
 
