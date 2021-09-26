@@ -25,7 +25,7 @@ class SettingUpdateRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
-            'value_setting' => 'required|string',
+            'value_setting' => 'required',
             'type' => 'required|string',
             'status' => 'required|integer'
         ];

@@ -31,7 +31,7 @@ $title = 'Menu - Create';
                     @endif
                     <div class="card-header">
                         {{ $title }}
-                        <a href="{{ route('menu.index', $alias) }}" class="float-right">Menu</a>
+                        <a href="{{ route('menu.index', $alias) }}" class="float-right">Menus</a>
                     </div>
 
                     <div class="card-body">

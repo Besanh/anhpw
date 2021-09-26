@@ -23,3 +23,6 @@ nom install moment
 Intervension Image
 composer require intervention/image
 http://image.intervention.io/getting_started/installation
+
+Sua loi route resource khi dang ki route moi, check list thi co nhung request 404:
+Dua route resource ve cuoi, cac route khac dua len tren

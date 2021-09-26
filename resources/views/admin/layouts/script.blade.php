@@ -27,3 +27,4 @@
 @stack('datepicker')
 @stack('datetimepicker')
 @stack('select-product')
+@stack('append-input')

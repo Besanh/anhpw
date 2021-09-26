@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Setting;
+use Illuminate\Support\Arr;
 use Intervention\Image\Facades\Image;
 
 // Status
@@ -156,5 +158,35 @@ if (!function_exists('getImage')) {
     function getImage($dir)
     {
         return asset('/' . $dir);
+    }
+}
+
+/**
+ * 
+ */
+if (!function_exists('getConfig')) {
+    function getConfig($name, $attribute = null)
+    {
+        $config = Setting::find($name);
+        if ($config !== null) {
+
+            if ($attribute === null) {
+                return $config->value;
+            }
+
+            return Arr::get(json_decode($config->value), "{$attribute}.value");
+        }
+        return null;
+    }
+}
+
+/**
+ * Check string is json
+ */
+if (!function_exists('isJson')) {
+    function isJson($string)
+    {
+        json_decode($string);
+        return (json_last_error() == JSON_ERROR_NONE);
     }
 }

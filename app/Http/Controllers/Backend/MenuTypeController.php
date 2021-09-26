@@ -16,7 +16,7 @@ class MenuTypeController extends Controller
      */
     public function index()
     {
-        $menu_types = MenuType::get();
+        $menu_types = MenuType::orderBy('id', 'DESC')->get();
 
         return view('admin.menu-type.index', compact('menu_types'));
     }

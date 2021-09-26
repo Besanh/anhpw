@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Menu;
+use App\Models\Setting;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -56,6 +57,26 @@ class AppServiceProvider extends ServiceProvider
         ///////////////////////////////////////////////////////////////////
         ///////////////////////////// Topbar /////////////////////////////
         /////////////////////////////////////////////////////////////////
+        View::composer('frontend.layouts.topbar', function ($view) {
+            $socials = Setting::where('status', 1)
+                ->where('name', 'socials')
+                ->select('value_setting')
+                ->first();
+            $phone = Setting::where('status', 1)
+                ->where('name', 'phone')
+                ->select('value_setting')
+                ->first();
+            $view->with(compact(['socials', 'phone']));
+        });
+
+        ///////////////////////////////////////////////////////////////////
+        ///////////////////////////// Menu Topbar ////////////////////////
+        /////////////////////////////////////////////////////////////////
+        View::composer('frontend.layouts.sub-files.menu-topbar', function ($view) {
+            $parent_menus = $this->getParentTopBar();
+            $child_menus = $this->getChilds($this->getParentTopBar());
+            $view->with(compact(['parent_menus', 'child_menus']));
+        });
     }
 
     public function getMenuParents()
@@ -67,7 +88,7 @@ class AppServiceProvider extends ServiceProvider
         ])
             ->where(function ($query) {
                 $query->where('parent_id', 0)
-                ->whereIn('id', [1,8]);
+                    ->whereIn('id', [1, 8]);
             })
             ->get();
         if ($backend) {
@@ -111,5 +132,19 @@ class AppServiceProvider extends ServiceProvider
             }
         }
         return $childs;
+    }
+
+    public function getParentTopBar()
+    {
+        $menus = [];
+        $menus = Menu::where([
+            ['parent_id', '=', 0],
+            ['type_id', '=', 6],
+            ['status', '=', 1]
+        ])
+            ->select(['name', 'alias', 'url', 'note'])
+            ->get();
+
+        return $menus;
     }
 }

@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SettingStoreRequest;
 use App\Http\Requests\SettingUpdateRequest;
 use App\Models\Setting;
-use Illuminate\Http\Request;
 
 class SettingController extends Controller
 {
@@ -40,8 +39,17 @@ class SettingController extends Controller
      */
     public function store(SettingStoreRequest $request, Setting $setting)
     {
+        $val = null;
+        if ($request->type == 'json') {
+            $val = $this->proccessValue($request->key_setting, $request->value_setting);
+        }
         if ($request->validated()) {
-            $setting->create($request->validated());
+            $setting->create([
+                'name' => $request->name,
+                'value_setting' => $val ? $val : $request->value_setting,
+                'type' => $request->type,
+                'status' => $request->status
+            ]);
             return redirect()->back()->with('message', 'Created setting successfully');
         }
         return redirect()->back()->with('message', 'Something went wrong');
@@ -79,9 +87,15 @@ class SettingController extends Controller
      */
     public function update(SettingUpdateRequest $request, Setting $setting)
     {
+        $json_value = $this->proccessValue($request->key_setting, $request->value_setting);
         if ($request->validated()) {
-            $setting->update($request->validated());
-            return redirect()->back()->with('message', 'Updated item successfully');
+            $setting->update([
+                'name' => $request->name,
+                'value_setting' => $json_value ? $json_value : $setting->value_setting,
+                'type' => $request->type,
+                'status' => $request->status
+            ]);
+            return redirect()->back()->with('message', 'Updated setting successfully');
         }
     }
 
@@ -111,5 +125,29 @@ class SettingController extends Controller
             return response()->json($msg);
         }
         return redirect()->back()->with('message', 'Nothing change');
+    }
+
+    protected function proccessValue($key, $value)
+    {
+        $json_value = [];
+        if (is_array($value)) {
+            foreach ($value as $k => $node) {
+                $json_value[$k] = [
+                    $key[$k] => $node
+                ];
+            }
+        }
+
+        return json_encode($json_value);
+    }
+
+    public function fieldText()
+    {
+        return view('admin.setting.sub_file.field-text');
+    }
+
+    public function fieldJson()
+    {
+        return view('admin.setting.sub_file.field-json');
     }
 }

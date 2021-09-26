@@ -54,27 +54,14 @@ $main_link = 'setting';
                                 </div>
                             </div>
 
-                            <div class="form-group row">
-                                <label for="value_setting" class="col-md-4 col-form-label text-md-right">
-                                    {{ __('Value Setting') }}
-                                </label>
-                                <div class="col-md-6">
-                                    <textarea class="form-control" name="value_setting"></textarea>
-
-                                    @error('value_setting')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
+                            <div class="form-group row setting-type">
                                 <label for="type" class="col-md-4 col-form-label text-md-right">
                                     {{ __('Type') }}
                                 </label>
                                 <div class="col-md-6">
-                                    <select name="type" class="form-control" aria-label="Default select" required>
+                                    <select name="type" class="form-control" aria-label="Default select" required
+                                        onchange="changeField(this)">
+                                        <option>Choose type</option>
                                         @foreach ($types as $k => $t)
                                             <option value="{!! $k !!}"
                                                 class="@error('t') is-invalid @enderror">
@@ -125,5 +112,41 @@ $main_link = 'setting';
         </div>
     </div>
 @endsection
-@include('helper.ckeditor')
-@include('helper.datetimepicker')
+@push('append-input')
+    <script>
+        function clickToClone() {
+            $('.click-to-clone').on('click', function() {
+                var clone_ks = $('.clone_key_setting:last').clone();
+                clone_ks.insertAfter('.clone_value_setting:last');
+
+                var clone_vs = $('.clone_value_setting:last').clone();
+                clone_vs.insertAfter('.clone_key_setting:last');
+
+                $('.key-setting:last').val('');
+                $('.value-setting:last').val('');
+
+                clickToClone();
+            });
+        }
+        clickToClone();
+
+        function changeField(sel) {
+            var url = sel.value == 'text' ? "{{ route('setting.field-text') }}" : "{{ route('setting.field-json') }}";
+            $.ajax({
+                    url: url,
+                    type: 'GET',
+                    dataType: 'html',
+                    success: function(data) {
+                        if ($('.field-setting').length > 0) {
+                            $('.field-setting').remove();
+                        }
+                        $(data).insertAfter($('.setting-type'));
+                    }
+                })
+                .done(function() {
+                    clickToClone();
+                });
+        }
+
+    </script>
+@endpush

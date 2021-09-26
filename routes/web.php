@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Backend\Auth\RegisterController;
 use App\Http\Controllers\Backend\Auth\LoginController;
+use App\Http\Controllers\Backend\Auth\ResetPasswordController;
 use App\Http\Controllers\Backend\BlogController;
 use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\CapaController;
@@ -31,9 +32,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return redirect()->route('frontend.home');
+//     // return view('welcome');
+// });
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -49,6 +51,9 @@ Route::group(['prefix' => 'admin'], function () {
     // Register
     Route::get('register', [RegisterController::class, 'showAdminRegisterForm'])->name('admin-register');
     Route::post('create-admin', [RegisterController::class, 'createAdmin'])->name('create-admin');
+
+    // Reset password
+    Route::get('password/reset', [ResetPasswordController::class, 'reset'])->name('password.reset');
 });
 // Backend
 Route::group(['middleware' => ['admin'], 'prefix' => 'admin'], function () {
@@ -127,9 +132,11 @@ Route::group(['middleware' => ['admin'], 'prefix' => 'admin'], function () {
     Route::get('blog/destroy/{id}', [BlogController::class, 'destroy'])->name('blog.destroy');
 
     // Setting
-    Route::resource('setting', SettingController::class)->only($only_action_resource);
     Route::get('setting/update-status/{id}', [SettingController::class, 'updateStatus'])->name('setting.status');
     Route::get('setting/destroy/{id}', [SettingController::class, 'destroy'])->name('setting.destroy');
+    Route::get('setting/field-text', [SettingController::class, 'fieldText'])->name('setting.field-text');
+    Route::get('setting/field-json', [SettingController::class, 'fieldJson'])->name('setting.field-json');
+    Route::resource('setting', SettingController::class)->only($only_action_resource);
 });
 
 // CkFiner
@@ -138,4 +145,3 @@ Route::any('/ckfinder/connector', '\CKSource\CKFinderBridge\Controller\CKFinderC
 Route::any('/ckfinder/browser', '\CKSource\CKFinderBridge\Controller\CKFinderController@browserAction')
     ->name('ckfinder_browser');
 
-Route::get('home', [FrontendController::class, 'index'])->name('frontend.home');
