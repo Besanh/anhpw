@@ -17,7 +17,7 @@ class Menu extends Model
     const MENU_NAV = "navigation";
     const MENU_FOOTER = "footer";
 
-    protected $fillable = ['parent_id', 'type_id', 'name', 'name_seo', 'alias', 'url', 'icon', 'priority', 'status', 'note'];
+    protected $fillable = ['parent_id', 'type_id', 'name', 'name_seo', 'alias', 'route', 'url', 'icon', 'priority', 'status', 'note'];
 
     public $level = 0;
 

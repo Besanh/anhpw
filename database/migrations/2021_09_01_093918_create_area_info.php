@@ -75,7 +75,7 @@ class CreateAreaInfo extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('value_setting');
-            $table->enum("type", ["json", "text"]);
+            $table->enum("type", ["json", "text", "image"]);
             $table->integer('status')->default(0);
             $table->timestamps();
             $table->engine = self::$myisam;

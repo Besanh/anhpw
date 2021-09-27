@@ -17,7 +17,7 @@ class CustomCKFinderAuth
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::check()) {
+        if (Auth::guard('admin')->check()) {
             config(['ckfinder.authentication' => function () use ($request) {
                 return true;
             }]);

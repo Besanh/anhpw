@@ -162,6 +162,16 @@ if (!function_exists('getImage')) {
 }
 
 /**
+ * Lay no-image
+ */
+if (!function_exists('getNoImage')) {
+    function getNoImage()
+    {
+        return asset('/userfiles/images/no-image.png');
+    }
+}
+
+/**
  * 
  */
 if (!function_exists('getConfig')) {

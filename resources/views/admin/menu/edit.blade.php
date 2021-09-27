@@ -45,7 +45,7 @@ $main_link = 'menu';
                                     <label for="parent_id" class="col-form-label text-md-right">{{ __('Parent') }}</label>
                                     <div>
                                         <select name="parent_id" class="form-control" aria-label="Default select" required
-                                            size="5">
+                                            size="4">
                                             <option value="0" selected>
                                                 ROOT
                                             </option>
@@ -85,6 +85,21 @@ $main_link = 'menu';
                                             @endif
                                         </select>
                                         @error('parent_id')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+
+                                    <label for="route" class="col-form-label text-md-right">
+                                        {{ __('Route') }}
+                                    </label>
+                                    <div>
+                                        <input id="route" type="text"
+                                            class="form-control @error('route') is-invalid @enderror" name="route"
+                                            value="{{ old('route', $menu->route) }}" autocomplete="route" autofocus>
+
+                                        @error('route')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>

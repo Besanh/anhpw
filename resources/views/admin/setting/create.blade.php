@@ -131,7 +131,8 @@ $main_link = 'setting';
         clickToClone();
 
         function changeField(sel) {
-            var url = sel.value == 'text' ? "{{ route('setting.field-text') }}" : "{{ route('setting.field-json') }}";
+            var url = sel.value == 'text' ? "{{ route('setting.field-text') }}" : (sel.value == 'image' ?
+                "{{ route('setting.field-image') }}" : "{{ route('setting.field-json') }}");
             $.ajax({
                     url: url,
                     type: 'GET',

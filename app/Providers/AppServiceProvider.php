@@ -74,8 +74,44 @@ class AppServiceProvider extends ServiceProvider
         /////////////////////////////////////////////////////////////////
         View::composer('frontend.layouts.sub-files.menu-topbar', function ($view) {
             $parent_menus = $this->getParentTopBar();
-            $child_menus = $this->getChilds($this->getParentTopBar());
-            $view->with(compact(['parent_menus', 'child_menus']));
+            $str = '';
+            if ($parent_menus) {
+                foreach ($parent_menus as $k => $p) {
+                    $max_key[] = $k;
+                    if ($p->route) {
+                        $url = route($p->route);
+                    } else {
+                        $url = $p->url == 'javascript:void(0)' ? $p->url : url($p->url);
+                    }
+                    $str .= '<li class="list-inline-item g-mx-4">';
+                    $str .= '<a class="account-dropdown-invoker-2 g-color-white-opacity-0_6 g-color-primary--hover g-font-weight-400 g-text-underline--none--hover"
+                    class="g-color-white-opacity-0_6 g-color-primary--hover g-font-weight-400 g-text-underline--none--hover"
+                    href="' . $url . '" aria-controls="account-dropdown-2" aria-haspopup="true" aria-expanded="false"
+                    data-dropdown-event="hover" data-dropdown-target="#' . $p->alias . '"
+                    data-dropdown-type="css-animation" data-dropdown-duration="300" data-dropdown-hide-on-scroll="false"
+                    data-dropdown-animation-in="fadeIn" data-dropdown-animation-out="fadeOut">
+                    ' . $p->name . '
+                </a>';
+                    $str .= $this->getChildTopBar($p->id, $p->type_id, $p->alias);
+                    $str .= '</li>';
+                    $str .= '<li class="list-inline-item g-color-white-opacity-0_3 g-mx-4">|</li>';
+                }
+            }
+            $view->with(['tree_topbar' => $str]);
+        });
+
+        ///////////////////////////////////////////////////////////////////
+        ///////////////////////////// Logo ///////////////////////////////
+        /////////////////////////////////////////////////////////////////
+        View::composer('frontend.layouts.navigation', function ($view) {
+            $logo = 'no-image.png';
+            $logo = Setting::where([
+                ['name', '=', 'logo'],
+                ['status', '=', 1]
+            ])
+                ->select('value_setting')
+                ->first();
+            $view->with(compact('logo'));
         });
     }
 
@@ -142,9 +178,42 @@ class AppServiceProvider extends ServiceProvider
             ['type_id', '=', 6],
             ['status', '=', 1]
         ])
-            ->select(['name', 'alias', 'url', 'note'])
+            ->select(['id', 'type_id', 'name', 'alias', 'route', 'url', 'note'])
             ->get();
 
         return $menus;
+    }
+
+    public function getChildTopBar($parent_id, $type_id, $alias)
+    {
+        $str = '';
+        $child_menus = Menu::where([
+            ["parent_id", '=', $parent_id],
+            ['type_id', '=', $type_id],
+            ['status', "=", 1]
+        ])
+            ->select(['id', 'type_id', 'name', 'alias', 'route', 'url', 'note'])
+            ->get();
+        $str .= '<ul id="' . $alias . '"
+                class="list-unstyled u-shadow-v29 g-pos-abs g-bg-white g-width-160 g-pb-5 g-mt-19 g-z-index-2"
+                aria-labelledby="account-dropdown-invoker-2">';
+        if ($child_menus) {
+            foreach ($child_menus as $s) {
+                if ($s->route) {
+                    $url = route($s->route);
+                } else {
+                    $url = $s->url == 'javascript:void(0)' ? $s->url : url($s->url);
+                }
+
+                $str .= '<li>';
+                $str .= '<a class="d-block g-color-black g-color-primary--hover g-text-underline--none--hover g-font-weight-400 g-py-5 g-px-20"
+                        href="' . $url . '">
+                        ' . $s->name . '
+                    </a>';
+                $str .= '</li>';
+            }
+        }
+        $str .= '</ul>';
+        return $str;
     }
 }

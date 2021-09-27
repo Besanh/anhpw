@@ -29,6 +29,7 @@ class MenuStoreRequest extends FormRequest
             'name' => ['required', 'string', 'max:100'],
             'name_seo' => ['required', 'string', 'max:100'],
             'alias' => ['required', 'string', 'max:100'],
+            'route' => ['string', 'max:100', 'nullable'],
             'url' => ['required', 'string', 'max:255'],
             'icon' => ['string', 'max:50', 'nullable'],
             'note' => ['string', 'max:50', 'nullable'],

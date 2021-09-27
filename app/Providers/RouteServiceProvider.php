@@ -50,11 +50,19 @@ class RouteServiceProvider extends ServiceProvider
                 ->group(base_path('routes/web.php'));
 
             /**
+             * Frontend
              * Dang ki file route moi
              */
             Route::middleware('web')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/frontend.php'));
+
+            /**
+             * Backend
+             */
+            Route::middleware('web')
+                ->namespace($this->namespace)
+                ->group(base_path('routes/backend.php'));
         });
     }
 

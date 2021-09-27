@@ -35,6 +35,7 @@ class CreateAreaMenu extends Migration
             $table->string('name', 100);
             $table->string('name_seo', 100);
             $table->string('alias', 100);
+            $table->string('route', 100)->nullable();
             $table->string('url');
             $table->string('icon', 30)->nullable();
             $table->text('note')->nullable();

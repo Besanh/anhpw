@@ -7,6 +7,7 @@ $head_table = [
 'Name' => $menu->name,
 'Name SEO' => $menu->name_seo,
 'Alias' => $menu->alias,
+'Route' => $menu->route,
 'Url' => $menu->url,
 'Icon' => $menu->icon,
 'Note' => $menu->note,

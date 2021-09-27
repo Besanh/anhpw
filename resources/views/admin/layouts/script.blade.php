@@ -28,3 +28,4 @@
 @stack('datetimepicker')
 @stack('select-product')
 @stack('append-input')
+@stack('ckfinder-input')

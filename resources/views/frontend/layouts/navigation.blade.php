@@ -16,19 +16,18 @@
 
             <!-- Logo -->
             <a class="navbar-brand" href="home-page-1.html">
-                <img src="assets/img/logo/logo-1.png" alt="Image Description">
+                <img class="img img-responsive img-logo" src="{{ $logo->value_setting != 'no-image.png' ? $logo->value_setting : getNoImage() }}"
+                    alt="Logo">
             </a>
             <!-- End Logo -->
 
             <!-- Navigation -->
-            <div id="navBar"
-                class="collapse navbar-collapse align-items-center flex-sm-row g-pt-15 g-pt-0--lg">
+            <div id="navBar" class="collapse navbar-collapse align-items-center flex-sm-row g-pt-15 g-pt-0--lg">
                 <ul class="navbar-nav ml-auto">
                     <!-- Home - Submenu -->
                     <li class="nav-item hs-has-sub-menu g-mx-10--lg g-mx-15--xl">
-                        <a id="nav-link--home"
-                            class="nav-link text-uppercase g-color-primary--hover g-px-5 g-py-20" href="#"
-                            aria-haspopup="true" aria-expanded="false" aria-controls="nav-submenu--home">
+                        <a id="nav-link--home" class="nav-link text-uppercase g-color-primary--hover g-px-5 g-py-20"
+                            href="#" aria-haspopup="true" aria-expanded="false" aria-controls="nav-submenu--home">
                             Home
                         </a>
 
@@ -59,9 +58,8 @@
 
                     <!-- Pages - Submenu -->
                     <li class="nav-item hs-has-sub-menu g-mx-10--lg g-mx-15--xl">
-                        <a id="nav-link--pages"
-                            class="nav-link text-uppercase g-color-primary--hover g-px-5 g-py-20" href="#"
-                            aria-haspopup="true" aria-expanded="false" aria-controls="nav-submenu--pages">
+                        <a id="nav-link--pages" class="nav-link text-uppercase g-color-primary--hover g-px-5 g-py-20"
+                            href="#" aria-haspopup="true" aria-expanded="false" aria-controls="nav-submenu--pages">
                             Pages
                         </a>
 
@@ -70,8 +68,8 @@
                             id="nav-submenu--pages" aria-labelledby="nav-link--pages">
                             <!-- Grid Filter -->
                             <li class="dropdown-item hs-has-sub-menu">
-                                <a id="nav-link--pages--grid-filter" class="nav-link g-color-gray-dark-v4"
-                                    href="#" aria-haspopup="true" aria-expanded="false"
+                                <a id="nav-link--pages--grid-filter" class="nav-link g-color-gray-dark-v4" href="#"
+                                    aria-haspopup="true" aria-expanded="false"
                                     aria-controls="nav-submenu--pages--grid-filter">
                                     Grid Filter
                                 </a>
@@ -126,8 +124,8 @@
 
                             <!-- List Filter -->
                             <li class="dropdown-item hs-has-sub-menu">
-                                <a id="nav-link--pages--list-filter" class="nav-link g-color-gray-dark-v4"
-                                    href="#" aria-haspopup="true" aria-expanded="false"
+                                <a id="nav-link--pages--list-filter" class="nav-link g-color-gray-dark-v4" href="#"
+                                    aria-haspopup="true" aria-expanded="false"
                                     aria-controls="nav-submenu--pages--list-filter">
                                     List Filter
                                 </a>
@@ -182,9 +180,8 @@
 
                             <!-- Left/Right Category -->
                             <li class="dropdown-item hs-has-sub-menu">
-                                <a id="nav-link--pages--left-right-category"
-                                    class="nav-link g-color-gray-dark-v4" href="#" aria-haspopup="true"
-                                    aria-expanded="false"
+                                <a id="nav-link--pages--left-right-category" class="nav-link g-color-gray-dark-v4"
+                                    href="#" aria-haspopup="true" aria-expanded="false"
                                     aria-controls="nav-submenu--pages--left-right-category">
                                     Left/Right Category
                                 </a>
@@ -242,9 +239,8 @@
 
                             <!-- Single Product -->
                             <li class="dropdown-item hs-has-sub-menu">
-                                <a id="nav-link--pages--single-product"
-                                    class="nav-link g-color-gray-dark-v4" href="#" aria-haspopup="true"
-                                    aria-expanded="false"
+                                <a id="nav-link--pages--single-product" class="nav-link g-color-gray-dark-v4" href="#"
+                                    aria-haspopup="true" aria-expanded="false"
                                     aria-controls="nav-submenu--pages--single-product">
                                     Single Product
                                 </a>
@@ -278,8 +274,8 @@
 
                             <!-- Checkout -->
                             <li class="dropdown-item hs-has-sub-menu">
-                                <a id="nav-link--pages--checkout" class="nav-link g-color-gray-dark-v4"
-                                    href="#" aria-haspopup="true" aria-expanded="false"
+                                <a id="nav-link--pages--checkout" class="nav-link g-color-gray-dark-v4" href="#"
+                                    aria-haspopup="true" aria-expanded="false"
                                     aria-controls="nav-submenu--pages--checkout">
                                     Checkout
                                 </a>
@@ -300,15 +296,14 @@
                                         </a>
                                     </li>
                                     <li class="dropdown-item">
-                                        <a class="nav-link g-color-gray-dark-v4"
-                                            href="page-empty-cart-1.html">Empty Cart
+                                        <a class="nav-link g-color-gray-dark-v4" href="page-empty-cart-1.html">Empty
+                                            Cart
                                             <span
                                                 class="u-label g-rounded-3 g-font-size-10 g-bg-lightred g-py-3 g-pos-rel g-top-minus-1 g-ml-5">New</span>
                                         </a>
                                     </li>
                                     <li class="dropdown-item">
-                                        <a class="nav-link g-color-gray-dark-v4"
-                                            href="page-gift-card-1.html">Gift Card
+                                        <a class="nav-link g-color-gray-dark-v4" href="page-gift-card-1.html">Gift Card
                                             <span
                                                 class="u-label g-rounded-3 g-font-size-10 g-bg-lightred g-py-3 g-pos-rel g-top-minus-1 g-ml-5">New</span>
                                         </a>
@@ -320,8 +315,8 @@
 
                             <!-- Account -->
                             <li class="dropdown-item hs-has-sub-menu">
-                                <a id="nav-link--pages--account" class="nav-link g-color-gray-dark-v4"
-                                    href="#" aria-haspopup="true" aria-expanded="false"
+                                <a id="nav-link--pages--account" class="nav-link g-color-gray-dark-v4" href="#"
+                                    aria-haspopup="true" aria-expanded="false"
                                     aria-controls="nav-submenu--pages--account">
                                     Account
                                 </a>
@@ -331,22 +326,20 @@
                                     class="hs-sub-menu list-unstyled u-shadow-v11 g-brd-top g-brd-primary g-brd-top-2 g-min-width-220 g-mt-minus-2"
                                     aria-labelledby="nav-link--pages--account">
                                     <li class="dropdown-item">
-                                        <a class="nav-link g-color-gray-dark-v4"
-                                            href="page-wallet-1.html">Your Wallet
+                                        <a class="nav-link g-color-gray-dark-v4" href="page-wallet-1.html">Your Wallet
                                             <span
                                                 class="u-label g-rounded-3 g-font-size-10 g-bg-lightred g-py-3 g-pos-rel g-top-minus-1 g-ml-5">New</span>
                                         </a>
                                     </li>
                                     <li class="dropdown-item">
-                                        <a class="nav-link g-color-gray-dark-v4"
-                                            href="page-orders-1.html">Your Orders
+                                        <a class="nav-link g-color-gray-dark-v4" href="page-orders-1.html">Your Orders
                                             <span
                                                 class="u-label g-rounded-3 g-font-size-10 g-bg-lightred g-py-3 g-pos-rel g-top-minus-1 g-ml-5">New</span>
                                         </a>
                                     </li>
                                     <li class="dropdown-item">
-                                        <a class="nav-link g-color-gray-dark-v4"
-                                            href="page-open-orders-1.html">Open Orders
+                                        <a class="nav-link g-color-gray-dark-v4" href="page-open-orders-1.html">Open
+                                            Orders
                                             <span
                                                 class="u-label g-rounded-3 g-font-size-10 g-bg-lightred g-py-3 g-pos-rel g-top-minus-1 g-ml-5">New</span>
                                         </a>
@@ -359,15 +352,13 @@
                                         </a>
                                     </li>
                                     <li class="dropdown-item">
-                                        <a class="nav-link g-color-gray-dark-v4"
-                                            href="page-wishlist-1.html">Wishlist
+                                        <a class="nav-link g-color-gray-dark-v4" href="page-wishlist-1.html">Wishlist
                                             <span
                                                 class="u-label g-rounded-3 g-font-size-10 g-bg-lightred g-py-3 g-pos-rel g-top-minus-1 g-ml-5">New</span>
                                         </a>
                                     </li>
                                     <li class="dropdown-item">
-                                        <a class="nav-link g-color-gray-dark-v4"
-                                            href="page-addresses-1.html">Addresses
+                                        <a class="nav-link g-color-gray-dark-v4" href="page-addresses-1.html">Addresses
                                             <span
                                                 class="u-label g-rounded-3 g-font-size-10 g-bg-lightred g-py-3 g-pos-rel g-top-minus-1 g-ml-5">New</span>
                                         </a>
@@ -380,8 +371,8 @@
                                         </a>
                                     </li>
                                     <li class="dropdown-item">
-                                        <a class="nav-link g-color-gray-dark-v4"
-                                            href="page-login-security-1.html">Login &amp; Security
+                                        <a class="nav-link g-color-gray-dark-v4" href="page-login-security-1.html">Login
+                                            &amp; Security
                                             <span
                                                 class="u-label g-rounded-3 g-font-size-10 g-bg-lightred g-py-3 g-pos-rel g-top-minus-1 g-ml-5">New</span>
                                         </a>
@@ -402,12 +393,11 @@
                                 <a class="nav-link g-color-gray-dark-v4" href="page-login-1.html">Login</a>
                             </li>
                             <li class="dropdown-item">
-                                <a class="nav-link g-color-gray-dark-v4"
-                                    href="page-signup-1.html">Signup</a>
+                                <a class="nav-link g-color-gray-dark-v4" href="page-signup-1.html">Signup</a>
                             </li>
                             <li class="dropdown-item">
-                                <a class="nav-link g-color-gray-dark-v4"
-                                    href="page-password-recovery-1.html">Password Recovery
+                                <a class="nav-link g-color-gray-dark-v4" href="page-password-recovery-1.html">Password
+                                    Recovery
                                     <span
                                         class="u-label g-rounded-3 g-font-size-10 g-bg-lightred g-py-3 g-pos-rel g-top-minus-1 g-ml-5">New</span>
                                 </a>
@@ -419,8 +409,7 @@
                                 </a>
                             </li>
                             <li class="dropdown-item">
-                                <a class="nav-link g-color-gray-dark-v4"
-                                    href="page-coming-soon-1.html">Coming Soon
+                                <a class="nav-link g-color-gray-dark-v4" href="page-coming-soon-1.html">Coming Soon
                                     <span
                                         class="u-label g-rounded-3 g-font-size-10 g-bg-lightred g-py-3 g-pos-rel g-top-minus-1 g-ml-5">New</span>
                                 </a>
@@ -447,9 +436,8 @@
                     <!-- Categories - Mega Menu -->
                     <li class="hs-has-mega-menu nav-item g-mx-10--lg g-mx-15--xl" data-animation-in="fadeIn"
                         data-animation-out="fadeOut" data-position="right">
-                        <a id="mega-menu-label-3"
-                            class="nav-link text-uppercase g-color-primary--hover g-px-5 g-py-20" href="#"
-                            aria-haspopup="true" aria-expanded="false">
+                        <a id="mega-menu-label-3" class="nav-link text-uppercase g-color-primary--hover g-px-5 g-py-20"
+                            href="#" aria-haspopup="true" aria-expanded="false">
                             Categories
                             <i class="hs-icon hs-icon-arrow-bottom g-font-size-11 g-ml-7"></i>
                         </a>
@@ -543,8 +531,7 @@
 
                                     <div class="mb-5 g-mb-0--lg">
                                         <!-- Links -->
-                                        <span
-                                            class="d-block g-font-weight-500 text-uppercase mb-2">Office</span>
+                                        <span class="d-block g-font-weight-500 text-uppercase mb-2">Office</span>
 
                                         <ul class="list-unstyled">
                                             <li>
@@ -641,9 +628,8 @@
                     <!-- Watch - Mega Menu -->
                     <li class="hs-has-mega-menu nav-item g-mx-10--lg g-mx-15--xl" data-animation-in="fadeIn"
                         data-animation-out="fadeOut" data-position="right">
-                        <a id="mega-menu-label-2"
-                            class="nav-link text-uppercase g-color-primary--hover g-px-5 g-py-20" href="#"
-                            aria-haspopup="true" aria-expanded="false">
+                        <a id="mega-menu-label-2" class="nav-link text-uppercase g-color-primary--hover g-px-5 g-py-20"
+                            href="#" aria-haspopup="true" aria-expanded="false">
                             Watch
                             <i class="hs-icon hs-icon-arrow-bottom g-font-size-11 g-ml-7"></i>
                         </a>
@@ -655,8 +641,7 @@
                                 <div class="col-md-4 g-mb-30 g-mb-0--md">
                                     <div class="g-pa-30">
                                         <!-- Links -->
-                                        <span
-                                            class="d-block g-font-weight-500 text-uppercase mb-2">Watches</span>
+                                        <span class="d-block g-font-weight-500 text-uppercase mb-2">Watches</span>
 
                                         <ul class="list-unstyled">
                                             <li>
@@ -724,9 +709,8 @@
                     <!-- Mega Menu Item -->
                     <li class="hs-has-mega-menu nav-item g-mx-10--lg g-mx-15--xl" data-animation-in="fadeIn"
                         data-animation-out="fadeOut" data-position="right">
-                        <a id="mega-menu-label-4"
-                            class="nav-link text-uppercase g-color-primary--hover g-px-5 g-py-20" href="#"
-                            aria-haspopup="true" aria-expanded="false">
+                        <a id="mega-menu-label-4" class="nav-link text-uppercase g-color-primary--hover g-px-5 g-py-20"
+                            href="#" aria-haspopup="true" aria-expanded="false">
                             Catalogue
                             <i class="hs-icon hs-icon-arrow-bottom g-font-size-11 g-ml-7"></i>
                         </a>
@@ -738,8 +722,7 @@
                                 <div class="col-sm-6 col-md-3 g-mb-30 g-mb-0--sm">
                                     <!-- Links -->
                                     <div class="mb-5">
-                                        <span
-                                            class="d-block g-font-weight-500 text-uppercase mb-2">Clothes</span>
+                                        <span class="d-block g-font-weight-500 text-uppercase mb-2">Clothes</span>
 
                                         <ul class="list-unstyled mb-0">
                                             <li>
@@ -761,8 +744,7 @@
                                             <li>
                                                 <a class="d-block g-color-text g-color-primary--hover g-text-underline--none--hover g-py-5"
                                                     href="#">Shorts
-                                                    <span
-                                                        class="u-label g-bg-primary rounded g-ml-10">New</span>
+                                                    <span class="u-label g-bg-primary rounded g-ml-10">New</span>
                                                 </a>
                                             </li>
                                             <li>
@@ -804,8 +786,7 @@
                                 <div class="col-sm-6 col-md-3 g-mb-30 g-mb-0--sm">
                                     <!-- Links -->
                                     <div class="mb-5">
-                                        <span
-                                            class="d-block g-font-weight-500 text-uppercase mb-2">Accessories</span>
+                                        <span class="d-block g-font-weight-500 text-uppercase mb-2">Accessories</span>
 
                                         <ul class="list-unstyled mb-0">
                                             <li>
@@ -834,15 +815,13 @@
 
                                     <!-- Links -->
                                     <div class="mb-5">
-                                        <span
-                                            class="d-block g-font-weight-500 text-uppercase mb-2">Lingerie</span>
+                                        <span class="d-block g-font-weight-500 text-uppercase mb-2">Lingerie</span>
 
                                         <ul class="list-unstyled mb-0">
                                             <li>
                                                 <a class="d-block g-color-text g-color-primary--hover g-text-underline--none--hover g-py-5"
                                                     href="#">Linger
-                                                    <span
-                                                        class="u-label g-bg-primary rounded g-ml-10">New</span>
+                                                    <span class="u-label g-bg-primary rounded g-ml-10">New</span>
                                                 </a>
                                             </li>
                                             <li>
@@ -854,8 +833,7 @@
                                     <!-- End Links -->
 
                                     <!-- Links -->
-                                    <span
-                                        class="d-block g-font-weight-500 text-uppercase mb-2">Nightwear</span>
+                                    <span class="d-block g-font-weight-500 text-uppercase mb-2">Nightwear</span>
 
                                     <ul class="list-unstyled mb-0">
                                         <li>
@@ -882,8 +860,7 @@
                                         <li>
                                             <a class="d-block g-color-text g-color-primary--hover g-text-underline--none--hover g-py-5"
                                                 href="#">Coats &amp; Jackets
-                                                <span
-                                                    class="u-label g-bg-primary rounded g-ml-10">New</span>
+                                                <span class="u-label g-bg-primary rounded g-ml-10">New</span>
                                             </a>
                                         </li>
                                         <li>
@@ -941,8 +918,7 @@
                                 <div class="col-sm-6 col-md-3 g-mb-30 g-mb-0--sm">
                                     <!-- Links -->
                                     <div class="mb-5">
-                                        <span
-                                            class="d-block g-font-weight-500 text-uppercase mb-2">Accessories</span>
+                                        <span class="d-block g-font-weight-500 text-uppercase mb-2">Accessories</span>
 
                                         <ul class="list-unstyled mb-0">
                                             <li>
@@ -971,15 +947,13 @@
 
                                     <!-- Links -->
                                     <div class="mb-5">
-                                        <span
-                                            class="d-block g-font-weight-500 text-uppercase mb-2">Lingerie</span>
+                                        <span class="d-block g-font-weight-500 text-uppercase mb-2">Lingerie</span>
 
                                         <ul class="list-unstyled mb-0">
                                             <li>
                                                 <a class="d-block g-color-text g-color-primary--hover g-text-underline--none--hover g-py-5"
                                                     href="#">Linger
-                                                    <span
-                                                        class="u-label g-bg-primary rounded g-ml-10">New</span>
+                                                    <span class="u-label g-bg-primary rounded g-ml-10">New</span>
                                                 </a>
                                             </li>
                                             <li>
@@ -991,8 +965,7 @@
                                     <!-- End Links -->
 
                                     <!-- Links -->
-                                    <span
-                                        class="d-block g-font-weight-500 text-uppercase mb-2">Nightwear</span>
+                                    <span class="d-block g-font-weight-500 text-uppercase mb-2">Nightwear</span>
 
                                     <ul class="list-unstyled mb-0">
                                         <li>
@@ -1015,9 +988,8 @@
                     <!-- New Arrivals - Mega Menu -->
                     <li class="hs-has-mega-menu nav-item g-ml-10--lg g-ml-15--xl" data-animation-in="fadeIn"
                         data-animation-out="fadeOut" data-position="right">
-                        <a id="mega-menu-label-5"
-                            class="nav-link text-uppercase g-color-primary--hover g-px-5 g-py-20" href="#"
-                            aria-haspopup="true" aria-expanded="false">
+                        <a id="mega-menu-label-5" class="nav-link text-uppercase g-color-primary--hover g-px-5 g-py-20"
+                            href="#" aria-haspopup="true" aria-expanded="false">
                             New Arrivals
                             <i class="hs-icon hs-icon-arrow-bottom g-font-size-11 g-ml-7"></i>
                         </a>

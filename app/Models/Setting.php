@@ -13,5 +13,5 @@ class Setting extends Model
 
     protected $fillable = ['name', 'value_setting', 'type', 'status'];
 
-    const SETTING_TYPES = ["json" => "Json", "text" => "Text"];
+    const SETTING_TYPES = ["json" => "Json", "text" => "Text", 'image' => 'Image'];
 }

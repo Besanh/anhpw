@@ -42,7 +42,10 @@ class SettingController extends Controller
         $val = null;
         if ($request->type == 'json') {
             $val = $this->proccessValue($request->key_setting, $request->value_setting);
+        } elseif ($request->type == 'image') {
+            $val = $request->value_setting;
         }
+        
         if ($request->validated()) {
             $setting->create([
                 'name' => $request->name,
@@ -87,11 +90,17 @@ class SettingController extends Controller
      */
     public function update(SettingUpdateRequest $request, Setting $setting)
     {
-        $json_value = $this->proccessValue($request->key_setting, $request->value_setting);
+        $val = null;
+        if ($request->type == 'json') {
+            $val = $this->proccessValue($request->key_setting, $request->value_setting);
+        } elseif ($request->type == 'image') {
+            $val = $request->value_setting;
+        }
+
         if ($request->validated()) {
             $setting->update([
                 'name' => $request->name,
-                'value_setting' => $json_value ? $json_value : $setting->value_setting,
+                'value_setting' => $val ? $val : $setting->value_setting,
                 'type' => $request->type,
                 'status' => $request->status
             ]);
@@ -143,11 +152,16 @@ class SettingController extends Controller
 
     public function fieldText()
     {
-        return view('admin.setting.sub_file.field-text');
+        return view('admin.setting.sub-file.field-text');
     }
 
     public function fieldJson()
     {
-        return view('admin.setting.sub_file.field-json');
+        return view('admin.setting.sub-file.field-json');
+    }
+
+    public function fieldImage()
+    {
+        return view('admin.setting.sub-file.field-image');
     }
 }
