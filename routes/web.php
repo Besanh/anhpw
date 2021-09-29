@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Backend\CKEditorController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,6 +22,9 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // Auth::routes();
+
+// CkEditor
+Route::post('ckeditor/upload', [CKEditorController::class, 'upload'])->name('upload');
 
 // CkFiner
 Route::any('/ckfinder/connector', '\CKSource\CKFinderBridge\Controller\CKFinderController@requestAction')

@@ -33,11 +33,12 @@ $main_link = 'menu';
                     @endif
                     <div class="card-header">
                         {{ $title }}
-                        <a href="{{ route($main_link.'.index', $alias) }}" class="float-right">Menus</a>
+                        <a href="{{ route($main_link . '.index', $alias) }}" class="float-right">Menus</a>
                     </div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route($main_link.'.update', $menu->id) }}">
+                        <form method="POST" action="{{ route($main_link . '.update', $menu->id) }}"
+                            enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <div class="row">
@@ -105,9 +106,24 @@ $main_link = 'menu';
                                             </span>
                                         @enderror
                                     </div>
+
+                                    <label for="head" class="col-form-label text-md-right">
+                                        {{ __('Head') }}
+                                    </label>
+                                    <div>
+                                        <input id="route" type="text"
+                                            class="form-control @error('head') is-invalid @enderror" name="head"
+                                            value="{{ old('head', $menu->head) }}" autocomplete="head" autofocus>
+
+                                        @error('head')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
                                 </div>
 
-                                <div class="col-md-4">
+                                <div class="col-md-4 mb-5">
                                     <label for="name" class="col-form-label text-md-right">
                                         {{ __('Name') }}
                                     </label>
@@ -170,6 +186,24 @@ $main_link = 'menu';
                                             </span>
                                         @enderror
                                     </div>
+
+                                    <label for="image" class="col-form-label text-md-right" data-toggle="tooltip"
+                                        data-placement="top" title="700x700">
+                                        {{ __('Image') }}
+                                    </label>
+                                    <div class="custom-file" data-toggle="tooltip" data-placement="top" title="700x700">
+                                        <input type="file" name="image" class="custom-file-input" id="image"
+                                            accept="image/png, image/gif, image/jpeg">
+                                        <label class="custom-file-label" for="image">
+                                            {{ $menu->image ? $menu->image : 'Choose file' }}
+                                        </label>
+                                    </div>
+                                    @if ($menu->image)
+                                        <div>
+                                            <img src="{{ getImage($menu->image) }}" class="rounded mx-auto d-block"
+                                                alt="{{ $menu->name }}" width="200" height="200">
+                                        </div>
+                                    @endif
                                 </div>
 
                                 <div class="col-md-4">
@@ -233,6 +267,23 @@ $main_link = 'menu';
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="col-md-12">
+                                <label for="content" class="col-form-label text-md-right">{{ __('Content') }}</label>
+
+                                <div>
+                                    <div class="form-group">
+                                        <textarea id="ckeditor" class="form-control"
+                                            name="content">{!! $menu->content !!}</textarea>
+                                    </div>
+                                    @error('content')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
                             <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-4">
                                     <button type="submit" class="btn btn-primary">
@@ -247,3 +298,4 @@ $main_link = 'menu';
         </div>
     </div>
 @endsection
+@include('helper.ckeditor')

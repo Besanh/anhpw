@@ -44,9 +44,29 @@ class MenuController extends Controller
      */
     public function store(MenuStoreRequest $request)
     {
+        $image = null;
+        // if ($request->type_id == 2) {
+        if ($request->file('image')) {
+            $image = proccessUpload($request, 'menu', 700, 700);
+        }
+        // }
         if ($request->validated()) {
-            Menu::create($request->validated());
-            return redirect()->back()->with('message', 'Created menu successfully');
+            Menu::create([
+                'parent_id' => $request->parent_id,
+                'type_id' => $request->type_id,
+                'head' => $request->head,
+                'name' => $request->name,
+                'name_seo' => $request->name_seo,
+                'alias' => $request->alias,
+                'url' => $request->url,
+                'content' => $request->content,
+                'icon' => $request->icon,
+                'priority' => $request->priority,
+                'status' => $request->status,
+                'note' => $request->note,
+                'image' => $image ? $image : $request->image
+            ]);
+            return redirect()->back()->with('message', 'Create menu successfully');
         }
 
         return redirect()->back()->with('message', 'Somthing went wrong');
@@ -95,10 +115,30 @@ class MenuController extends Controller
      */
     public function update(MenuUpdateRequest $request, $id)
     {
+        $image = null;
+        // if ($request->type_id == 2) {
+        if ($request->file('image')) {
+            $image = proccessUpload($request, 'menu', 700, 700);
+        }
+        // }
         $menu = Menu::find($id);
         if ($menu) {
             if ($request->validated()) {
-                $menu->update($request->validated());
+                $menu->update([
+                    'parent_id' => $request->parent_id,
+                    'type_id' => $request->type_id,
+                    'head' => $request->head,
+                    'name' => $request->name,
+                    'name_seo' => $request->name_seo,
+                    'alias' => $request->alias,
+                    'url' => $request->url,
+                    'content' => $request->content,
+                    'icon' => $request->icon,
+                    'priority' => $request->priority,
+                    'status' => $request->status,
+                    'note' => $request->note,
+                    'image' => $image ? $image : $menu->image
+                ]);
                 return redirect()->back()->with('message', 'Updated successfully');
             }
         }

@@ -84,8 +84,6 @@ if (!function_exists('proccessUpload')) {
                 $constraint->aspectRatio();
             })->save(createImageUri($dir_thumb, $name));
 
-            $height = Image::make($file)->height();
-            $width = Image::make($file)->width();
             if ($width >= 900 && $height >= 450) {
                 if (Image::make($file->getRealPath())->resize($width, $height, function ($constraint) {
                     $constraint->aspectRatio();
@@ -95,7 +93,9 @@ if (!function_exists('proccessUpload')) {
 
                 // watermark
             } else {
-                if (Image::make($file->getRealPath())->save(createImageUri($dir, $name))) {
+                if (Image::make($file->getRealPath())->resize($width, $height, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->save(createImageUri($dir, $name))) {
                     $data = createImageUri($dir, $name);
                 }
             }
@@ -128,8 +128,6 @@ if (!function_exists('uploadMultipleImage')) {
                 $constraint->aspectRatio();
             })->save(createImageUri($dir_thumb, $name));
 
-            $height = Image::make($file)->height();
-            $width = Image::make($file)->width();
             if ($width >= 900 && $height >= 450) {
                 if (Image::make($file->getRealPath())->resize($width, $height, function ($constraint) {
                     $constraint->aspectRatio();

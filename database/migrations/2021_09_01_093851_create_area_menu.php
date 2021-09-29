@@ -32,12 +32,15 @@ class CreateAreaMenu extends Migration
             $table->bigIncrements('id');
             $table->integer('parent_id')->default(0);
             $table->foreignId('type_id')->constrained('menu_types')->onUpdate('cascade')->onUpdate('cascade');
+            $table->string('head')->nullable();
             $table->string('name', 100);
             $table->string('name_seo', 100);
             $table->string('alias', 100);
             $table->string('route', 100)->nullable();
+            $table->text('content')->nullable();
             $table->string('url');
             $table->string('icon', 30)->nullable();
+            $table->string('image', 100)->nullable();
             $table->text('note')->nullable();
             $table->integer('priority')->default(0);
             $table->integer('status')->default(0);

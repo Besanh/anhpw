@@ -73,11 +73,10 @@ class AppServiceProvider extends ServiceProvider
         ///////////////////////////// Menu Topbar ////////////////////////
         /////////////////////////////////////////////////////////////////
         View::composer('frontend.layouts.sub-files.menu-topbar', function ($view) {
-            $parent_menus = $this->getParentTopBar();
+            $parent_menus = $this->getParent($type = 6);
             $str = '';
             if ($parent_menus) {
                 foreach ($parent_menus as $k => $p) {
-                    $max_key[] = $k;
                     if ($p->route) {
                         $url = route($p->route);
                     } else {
@@ -111,7 +110,38 @@ class AppServiceProvider extends ServiceProvider
             ])
                 ->select('value_setting')
                 ->first();
-            $view->with(compact('logo'));
+            $str = '';
+            $parent_menus = $this->getParentNav();
+            if ($parent_menus) {
+                foreach ($parent_menus as $key => $v) {
+                    if ($v->route) {
+                        $real_path = route($v->route);
+                    } else {
+                        $real_path = $v->url == 'javascript:void(0)' ? $v->url : url($v->url);
+                    }
+                    if ($v->name == 'Home') {
+                        $str .= '<li class="nav-item g-ml-10--lg">';
+                        $str .= '<a class="nav-link text-uppercase g-color-primary--hover g-pl-5 g-pr-0 g-py-20"
+                        href="' . $real_path . '" >' .
+                            $v->name
+                            . '</a>';
+                        $str .= $this->getChildHomeNav($v->id, $v->type_id);
+                        $str .= '</li>';
+                    } elseif ($v->name == 'Categories') {
+                        $str .= '<li class="hs-has-mega-menu nav-item g-mx-10--lg g-mx-15--xl" data-animation-in="fadeIn"
+                        data-animation-out="fadeOut" data-position="right">
+                        <a id="mega-menu-label-3" class="nav-link text-uppercase g-color-primary--hover g-px-5 g-py-20"
+                            href="' . $real_path . '" aria-haspopup="true" aria-expanded="false">
+                            ' . $v->name . '
+                            <i class="hs-icon hs-icon-arrow-bottom g-font-size-11 g-ml-7"></i>
+                        </a>';
+                        $str .= $this->getChildCateNav($v->id, $v->type_id);
+
+                        $str .= '</li>';
+                    }
+                }
+            }
+            $view->with(['logo' => $logo, 'tree' => $str]);
         });
     }
 
@@ -170,12 +200,12 @@ class AppServiceProvider extends ServiceProvider
         return $childs;
     }
 
-    public function getParentTopBar()
+    public function getParent($type)
     {
         $menus = [];
         $menus = Menu::where([
             ['parent_id', '=', 0],
-            ['type_id', '=', 6],
+            ['type_id', '=', $type],
             ['status', '=', 1]
         ])
             ->select(['id', 'type_id', 'name', 'alias', 'route', 'url', 'note'])
@@ -214,6 +244,126 @@ class AppServiceProvider extends ServiceProvider
             }
         }
         $str .= '</ul>';
+        return $str;
+    }
+
+    public function getParentNav()
+    {
+        $menus = [];
+        $menus = Menu::where([
+            ['parent_id', '=', 0],
+            ['type_id', '=', 2],
+            ['status', '=', 1]
+        ])
+            ->select(['id', 'type_id', 'name', 'alias', 'route', 'url', 'note'])
+            ->get();
+
+        return $menus;
+    }
+
+    public function getChildHomeNav($parent_id, $type_id)
+    {
+        $str = '';
+        $child_menus = $this->queryChild($parent_id, $type_id);
+        if ($child_menus) {
+            foreach ($child_menus as $key => $v) {
+                if ($v->route) {
+                    $real_path = route($v->route);
+                } else {
+                    $real_path = $v->url == 'javascript:void(0)' ? $v->url : url($v->url);
+                }
+                $str .= '<ul id="nav-submenu--home"
+                                    class="hs-sub-menu list-unstyled u-shadow-v11 g-min-width-220 g-brd-top g-brd-primary g-brd-top-2 g-mt-17"
+                                    aria-labelledby="nav-link--home">';
+                $str .= '<li class="dropdown-item">';
+                $str .= '<a class="nav-link g-color-gray-dark-v4" href="' . $real_path . '">' . strtoupper($v->name) . '</a>';
+                $str .= '</li>';
+                $str .= '</ul>';
+            }
+        }
+
+        return $str;
+    }
+
+    public function getChildCateNav($parent_id, $type_id)
+    {
+        $str = '';
+        $str_link = '';
+        $child_menus = $this->queryChild($parent_id, $type_id);
+
+        if ($child_menus) {
+            $str .= '<div class="w-100 hs-mega-menu u-shadow-v11 g-text-transform-none g-brd-top g-brd-primary g-brd-top-2 g-bg-white g-pa-30 g-mt-17"
+            aria-labelledby="mega-menu-label-3">';
+            $str .= '<div class="row">';
+            foreach ($child_menus as $key => $v) {
+                if ($v->route) {
+                    $real_path = route($v->route);
+                } else {
+                    $real_path = $v->url == 'javascript:void(0)' ? $v->url : url($v->url);
+                }
+
+                $str .= '<div class="col-sm-6 col-lg-2 g-mb-30 g-mb-0--md">';
+                $str .= '<div class="mb-5">';
+                $str .= '<span class="d-block g-font-weight-500 text-uppercase mb-2">' . $v->name . '</span>';
+                $str .= $this->getCateSubNav($v->id, $v->type_id);
+                $str .= '</div>';
+                $str .= '</div>';
+
+                if ($v->image) {
+                    $str .= '<div class="col-md-6 col-lg-4 g-mb-30 g-mb-0--md">
+                    <article class="g-pos-rel">
+                        <img class="img-fluid" src="' . getImage($v->image) . '"
+                            alt="Image Description">
+        
+                        <div class="g-pos-abs g-bottom-30 g-left-30">
+                            <span class="d-block g-color-gray-dark-v4 mb-2">Modern
+                                Lighting</span>
+                            <span class="d-block h4">Desk Clock 65" Table Lamp</span>
+                            <span
+                                class="d-block g-color-gray-dark-v3 g-font-size-16 mb-4">$156.00</span>
+                            <a class="btn u-btn-primary u-shadow-v29 g-font-size-12 text-uppercase g-py-10 g-px-20"
+                                href="#">Add to Cart</a>
+                        </div>
+                    </article>
+                </div>';
+                }
+            }
+        }
+        $str .= '</div>';
+        $str .= '</div>';
+        return $str;
+    }
+
+    public function queryChild($parent_id, $type_id)
+    {
+        return Menu::where([
+            ["parent_id", '=', $parent_id],
+            ['type_id', '=', $type_id],
+            ['status', "=", 1]
+        ])
+            ->select(['id', 'type_id', 'name', 'alias', 'route', 'url', 'image', 'note'])
+            ->get();
+    }
+
+    public function getCateSubNav($parent_id, $type_id)
+    {
+        $str = '';
+        $sub_menu = $this->queryChild($parent_id, $type_id);
+        if ($sub_menu) {
+            foreach ($sub_menu as $s) {
+                if ($s->route) {
+                    $real_path = route($s->route);
+                } else {
+                    $real_path = $s->url == 'javascript:void(0)' ? $s->url : url($s->url);
+                }
+                $str .= '<ul class="list-unstyled">';
+                $str .= '<li>';
+                $str .= '<a class="d-block g-color-text g-color-primary--hover g-text-underline--none--hover g-py-5"
+                href="' . $real_path . '">' . $s->name . '</a>';
+                $str .= '</li>';
+                $str .= '</ul>';
+            }
+        }
         return $str;
     }
 }

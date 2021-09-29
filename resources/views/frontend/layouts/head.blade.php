@@ -7,7 +7,7 @@
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 
 <!-- Favicon -->
-<link rel="shortcut icon" href="{{ asset('frontend/favicon.ico') }}">
+<link rel="shortcut icon" href="{{ asset('userfiles/images/logo/home-2.png') }}">
 
 <!-- Google Fonts -->
 <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700,900">

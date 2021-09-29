@@ -35,7 +35,7 @@ $title = 'Menu - Create';
                     </div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('menu.store') }}">
+                        <form method="POST" action="{{ route('menu.store') }}" enctype="multipart/form-data">
                             @csrf
                             <div class="row">
                                 <div class="col-md-4">
@@ -99,9 +99,24 @@ $title = 'Menu - Create';
                                             </span>
                                         @enderror
                                     </div>
+
+                                    <label for="head" class="col-form-label text-md-right">
+                                        {{ __('Head') }}
+                                    </label>
+                                    <div>
+                                        <input id="route" type="text"
+                                            class="form-control @error('head') is-invalid @enderror" name="head"
+                                            value="{{ old('head') }}" autocomplete="head" autofocus>
+
+                                        @error('head')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
                                 </div>
 
-                                <div class="col-md-4">
+                                <div class="col-md-4 mb-5">
                                     <label for="name" class="col-form-label text-md-right">
                                         {{ __('Name') }}
                                     </label>
@@ -159,6 +174,18 @@ $title = 'Menu - Create';
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
+                                    </div>
+
+                                    <label for="image" class="col-form-label text-md-right" data-toggle="tooltip"
+                                        data-placement="top" title="700x700">
+                                        {{ __('Image') }}
+                                    </label>
+                                    <div class="custom-file" data-toggle="tooltip" data-placement="top" title="700x700">
+                                        <input type="file" name="image" class="custom-file-input" id="image"
+                                            accept="image/png, image/gif, image/jpeg">
+                                        <label class="custom-file-label" for="image">
+                                            Choose File
+                                        </label>
                                     </div>
                                 </div>
 
@@ -221,6 +248,23 @@ $title = 'Menu - Create';
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="col-md-12">
+                                <label for="content"
+                                    class="col-form-label text-md-right">{{ __('Content') }}</label>
+
+                                <div>
+                                    <div class="form-group">
+                                        <textarea class="ckeditor form-control" name="content"></textarea>
+                                    </div>
+                                    @error('content')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
                             <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-4">
                                     <button type="submit" class="btn btn-primary">
@@ -235,3 +279,4 @@ $title = 'Menu - Create';
         </div>
     </div>
 @endsection
+@include('helper.ckeditor')

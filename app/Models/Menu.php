@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\DB;
 
 class Menu extends Model
 {
@@ -16,8 +15,14 @@ class Menu extends Model
     const MENU_ADMIN = "admin";
     const MENU_NAV = "navigation";
     const MENU_FOOTER = "footer";
+    const MENU_TOPBAR = 'topbar';
 
-    protected $fillable = ['parent_id', 'type_id', 'name', 'name_seo', 'alias', 'route', 'url', 'icon', 'priority', 'status', 'note'];
+    protected $fillable = [
+        'parent_id', 'type_id', 'head', 'name',
+        'name_seo', 'alias', 'route', 'url',
+        'content', 
+        'icon', 'image', 'priority', 'status', 'note'
+    ];
 
     public $level = 0;
 
