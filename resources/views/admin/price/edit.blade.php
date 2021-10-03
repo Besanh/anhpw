@@ -81,7 +81,7 @@ $main_link = 'price';
                                     </div>
 
                                     <label for="barcode" class="col-form-label text-md-right">
-                                        {{ __('barcode') }}
+                                        {{ __('Barcode') }}
                                     </label>
                                     <div>
                                         <input id="barcode" type="text"
@@ -252,7 +252,7 @@ $main_link = 'price';
                                 </div>
                             </div>
 
-                            <div class="form-group row mb-0">
+                            <div class="form-group row mb-0 text-center">
                                 <div class="col-md-12 offset-md-12">
                                     <button type="submit" class="btn btn-primary">
                                         {{ __('Update') }}

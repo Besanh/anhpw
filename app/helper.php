@@ -84,21 +84,13 @@ if (!function_exists('proccessUpload')) {
                 $constraint->aspectRatio();
             })->save(createImageUri($dir_thumb, $name));
 
-            if ($width >= 900 && $height >= 450) {
-                if (Image::make($file->getRealPath())->resize($width, $height, function ($constraint) {
-                    $constraint->aspectRatio();
-                })->save(createImageUri($dir, $name))) {
-                    $data = createImageUri($dir, $name);
-                }
-
-                // watermark
-            } else {
-                if (Image::make($file->getRealPath())->resize($width, $height, function ($constraint) {
-                    $constraint->aspectRatio();
-                })->save(createImageUri($dir, $name))) {
-                    $data = createImageUri($dir, $name);
-                }
+            if (Image::make($file->getRealPath())->resize($width, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(createImageUri($dir, $name))) {
+                $data = createImageUri($dir, $name);
             }
+
+            // watermark
             return $data;
         } catch (\Throwable $th) {
             throw $th;

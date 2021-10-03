@@ -10,9 +10,8 @@ use App\Http\Controllers\Frontend\WishListController;
 use Illuminate\Support\Facades\Route;
 
 // Home
-Route::get('/', function () {
-    return redirect()->route('frontend.home');
-});
+Route::get('/', [HomeController::class, 'index'])->name('frontend.home');
+
 Route::get('home', [HomeController::class, 'index'])->name('frontend.home');
 
 // Top bar

@@ -32,7 +32,7 @@ class MenuStoreRequest extends FormRequest
             'alias' => ['required', 'string', 'max:100'],
             'route' => ['string', 'max:100', 'nullable'],
             'url' => ['required', 'string', 'max:255'],
-            'content' => ['string', 'nullable'],
+            'content' => ['nullable'],
             'icon' => ['string', 'max:50', 'nullable'],
             'image' => 'mimes:jpeg,png,jpg|max:2048',
             'note' => ['string', 'max:50', 'nullable'],

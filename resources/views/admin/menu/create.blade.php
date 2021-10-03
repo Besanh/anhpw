@@ -279,4 +279,4 @@ $title = 'Menu - Create';
         </div>
     </div>
 @endsection
-@include('helper.ckeditor')
+{{-- @include('helper.ckeditor') --}}

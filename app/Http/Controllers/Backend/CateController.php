@@ -40,8 +40,8 @@ class CateController extends Controller
     public function store(CateStoreRequest $request, Category $cate)
     {
         if ($request->validated()) {
-            if ($request->file('image')->isValid()) {
-                proccessUpload($request, 'category');
+            if ($request->hasFile('image')) {
+                $request->image = proccessUpload($request, 'category', 650, 750);
             }
 
             $cate->create([
@@ -88,7 +88,7 @@ class CateController extends Controller
     {
         if ($request->validated()) {
             if ($request->hasFile('image')) {
-                $request->image = proccessUpload($request, 'category', 900, 450);
+                $request->image = proccessUpload($request, 'category', 650, 850);
             }
 
             $category->update([

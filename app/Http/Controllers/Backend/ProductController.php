@@ -43,17 +43,17 @@ class ProductController extends Controller
      */
     public function store(ProductStoreRequest $request, Product $product)
     {
+        $galleries = null;
         if ($request->hasFile('image')) {
             $request->image = proccessUpload($request, 'product', 650, 750);
         }
         if ($request->hasFile('galleries')) {
-            $galleries = [];
             foreach ($request->file('galleries') as $node) {
                 $galleries[] = uploadMultipleImage($node, 'product_galleries', 650, 750);
             }
         }
         if ($request->validated()) {
-            $product->update([
+            $product->create([
                 'cate_id' => $request->cate_id,
                 'bid' => $request->bid,
                 'name' => $request->name,
@@ -108,7 +108,6 @@ class ProductController extends Controller
             $request->image = proccessUpload($request, 'product', 650, 750);
         }
         if ($request->hasFile('galleries')) {
-            $galleries = [];
             foreach ($request->file('galleries') as $node) {
                 $galleries[] = uploadMultipleImage($node, 'product_galleries', 650, 750);
             }

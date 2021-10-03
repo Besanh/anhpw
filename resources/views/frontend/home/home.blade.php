@@ -9,11 +9,11 @@ $title = "Trang chu";
     <!-- End Revolution Slider -->
 
     <!-- Categories -->
-    @include('frontend.home.sub_home._category')
+    @include('frontend.home.sub_home._category', compact('cates')))
     <!-- End Categories -->
 
     <!-- Products -->
-    @include('frontend.home.sub_home._featured_product')
+    @include('frontend.home.sub_home._featured_product', compact('products'))
     <!-- End Products -->
 
     <!-- Promo Block -->

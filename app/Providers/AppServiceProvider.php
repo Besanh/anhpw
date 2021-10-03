@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Brand;
 use App\Models\Menu;
+use App\Models\Product;
 use App\Models\Setting;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\View;
@@ -55,21 +57,6 @@ class AppServiceProvider extends ServiceProvider
         });
 
         ///////////////////////////////////////////////////////////////////
-        ///////////////////////////// Topbar /////////////////////////////
-        /////////////////////////////////////////////////////////////////
-        View::composer('frontend.layouts.topbar', function ($view) {
-            $socials = Setting::where('status', 1)
-                ->where('name', 'socials')
-                ->select('value_setting')
-                ->first();
-            $phone = Setting::where('status', 1)
-                ->where('name', 'phone')
-                ->select('value_setting')
-                ->first();
-            $view->with(compact(['socials', 'phone']));
-        });
-
-        ///////////////////////////////////////////////////////////////////
         ///////////////////////////// Menu Topbar ////////////////////////
         /////////////////////////////////////////////////////////////////
         View::composer('frontend.layouts.sub-files.menu-topbar', function ($view) {
@@ -119,7 +106,7 @@ class AppServiceProvider extends ServiceProvider
                     } else {
                         $real_path = $v->url == 'javascript:void(0)' ? $v->url : url($v->url);
                     }
-                    if ($v->name == 'Home') {
+                    if ($v->id == 27) {
                         $str .= '<li class="nav-item g-ml-10--lg">';
                         $str .= '<a class="nav-link text-uppercase g-color-primary--hover g-pl-5 g-pr-0 g-py-20"
                         href="' . $real_path . '" >' .
@@ -127,7 +114,7 @@ class AppServiceProvider extends ServiceProvider
                             . '</a>';
                         $str .= $this->getChildHomeNav($v->id, $v->type_id);
                         $str .= '</li>';
-                    } elseif ($v->name == 'Categories') {
+                    } elseif ($v->id == 28) {
                         $str .= '<li class="hs-has-mega-menu nav-item g-mx-10--lg g-mx-15--xl" data-animation-in="fadeIn"
                         data-animation-out="fadeOut" data-position="right">
                         <a id="mega-menu-label-3" class="nav-link text-uppercase g-color-primary--hover g-px-5 g-py-20"
@@ -138,10 +125,79 @@ class AppServiceProvider extends ServiceProvider
                         $str .= $this->getChildCateNav($v->id, $v->type_id);
 
                         $str .= '</li>';
+                    } elseif ($v->id == 31) {
+                        $str .= '<li class="hs-has-mega-menu nav-item g-ml-10--lg g-ml-15--xl" data-animation-in="fadeIn"
+                        data-animation-out="fadeOut" data-position="right">';
+                        $str .= '<a id="mega-menu-label-5" class="nav-link text-uppercase g-color-primary--hover g-px-5 g-py-20"
+                            href="#" aria-haspopup="true" aria-expanded="false">
+                            ' . $v->name . '
+                            <i class="hs-icon hs-icon-arrow-bottom g-font-size-11 g-ml-7"></i>
+                        </a>';
+                        $str .= $this->getChildArrival($v->id, $v->type_id);
+                        $str .= '</li>';
+                    } else {
+                        $str .= '<li class="nav-item g-ml-10--lg">';
+                        $str .= '<a class="nav-link text-uppercase g-color-primary--hover g-pl-5 g-pr-0 g-py-20"
+                        href="' . $real_path . '" >' .
+                            $v->name
+                            . '</a>';
+                        $str .= $this->getChildHomeNav($v->id, $v->type_id);
+                        $str .= '</li>';
                     }
                 }
             }
             $view->with(['logo' => $logo, 'tree' => $str]);
+        });
+
+        ///////////////////////////////////////////////////////////////////
+        ///////////////////////////// Footer /////////////////////////////
+        /////////////////////////////////////////////////////////////////
+        View::composer('frontend.layouts.footer', function ($view) {
+            $menus_footer = '';
+            $menus_product = Menu::where([
+                ['status', '=', '1'],
+                ['id', '=', 37]
+            ])
+                ->select(['id', 'name', 'name_seo', 'url', 'alias'])
+                ->first();
+            $menus_brand = Menu::where([
+                ['status', '=', '1'],
+                ['id', '=', 38]
+            ])
+                ->select(['id', 'name', 'name_seo', 'url', 'alias'])
+                ->first();
+            $products = Product::where('status', 1)
+                ->orderBy('promote', 'DESC')
+                ->orderBy('id', 'ASC')
+                ->limit(15)
+                ->get();
+            $brands = Brand::where('status', 1)
+                ->orderBy('priority', 'DESC')
+                ->orderBy('id', 'ASC')
+                ->limit(8)
+                ->get();
+
+            $view->with(compact(['menus_product', 'menus_brand', 'products', 'brands']));
+        });
+
+        View::composer(['frontend.layouts.footer', 'frontend.layouts.topbar'], function ($view) {
+            $phone = Setting::where('status', 1)
+                ->where('name', 'phone')
+                ->select('value_setting')
+                ->first();
+            $address = Setting::where('status', 1)
+                ->where('name', 'address')
+                ->select('value_setting')
+                ->first();
+            $email = Setting::where('status', 1)
+                ->where('name', 'email')
+                ->select('value_setting')
+                ->first();
+            $socials = Setting::where('status', 1)
+                ->where('name', 'socials')
+                ->select('value_setting')
+                ->first();
+            $view->with(compact(['phone', 'address', 'email', 'socials']));
         });
     }
 
@@ -288,7 +344,7 @@ class AppServiceProvider extends ServiceProvider
     public function getChildCateNav($parent_id, $type_id)
     {
         $str = '';
-        $str_link = '';
+        $real_path = '';
         $child_menus = $this->queryChild($parent_id, $type_id);
 
         if ($child_menus) {
@@ -314,7 +370,7 @@ class AppServiceProvider extends ServiceProvider
                     <article class="g-pos-rel">
                         <img class="img-fluid" src="' . getImage($v->image) . '"
                             alt="Image Description">
-        
+
                         <div class="g-pos-abs g-bottom-30 g-left-30">
                             <span class="d-block g-color-gray-dark-v4 mb-2">Modern
                                 Lighting</span>
@@ -348,6 +404,7 @@ class AppServiceProvider extends ServiceProvider
     public function getCateSubNav($parent_id, $type_id)
     {
         $str = '';
+        $real_path = '';
         $sub_menu = $this->queryChild($parent_id, $type_id);
         if ($sub_menu) {
             foreach ($sub_menu as $s) {
@@ -363,6 +420,44 @@ class AppServiceProvider extends ServiceProvider
                 $str .= '</li>';
                 $str .= '</ul>';
             }
+        }
+        return $str;
+    }
+
+    public function getChildArrival($parent_id, $type_id)
+    {
+        $str = '';
+        $real_path = '';
+        $sub_menu = $this->queryChild($parent_id, $type_id);
+        if ($sub_menu) {
+            $str .= '<!-- Mega Menu -->
+                <div class="w-100 hs-mega-menu u-shadow-v11 g-text-transform-none g-brd-top g-brd-primary g-brd-top-2 g-bg-white g-pa-30 g-mt-17"
+                    aria-labelledby="mega-menu-label-5">
+                    <div class="row">';
+            foreach ($sub_menu as $s) {
+                if ($s->route) {
+                    $real_path = route($s->route);
+                } else {
+                    $real_path = $s->url == 'javascript:void(0)' ? $s->url : url($s->url);
+                }
+                $str .= '<div class="col-md-4 g-mb-30 g-mb-0--md">
+                    <!-- Article -->
+                    <article
+                        class="g-bg-size-cover g-bg-pos-center g-bg-cover g-bg-bluegray-opacity-0_3--after text-center g-px-40 g-py-80"
+                        data-bg-img-src="' . getImage($s->image) . '">
+                        <div class="g-pos-rel g-z-index-1">
+                            <span
+                                class="d-block g-color-white g-font-weight-400 text-uppercase mb-3">Blouse</span>
+                            <span class="d-block h2 g-color-white mb-4">' . $s->name . '</span>
+                            <a class="btn u-btn-white g-brd-primary--hover g-color-white--hover g-bg-primary--hover g-font-size-11 text-uppercase g-py-10 g-px-20"
+                                href="' . $real_path . '">Shop Now</a>
+                        </div>
+                    </article>
+                    <!-- End Article -->
+                </div>';
+            }
+            $str .= '</div>
+            </div>';
         }
         return $str;
     }

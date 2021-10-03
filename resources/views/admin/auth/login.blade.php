@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>ANH PW Login</title>
+    <title>ANH Perfume Login</title>
 
     <!-- Custom fonts for this template-->
     <link href="{{ asset('css/admin/all.min.css') }}" rel="stylesheet" type="text/css">

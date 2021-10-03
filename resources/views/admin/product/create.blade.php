@@ -135,7 +135,7 @@ $main_link = 'product';
                                             <input id="public_year" type="text"
                                                 class="form-control @error('designer') is-invalid @enderror"
                                                 name="public_year"
-                                                value="{{ old('public_year', $product->public_year) }}"
+                                                value="{{ old('public_year') }}"
                                                 autocomplete="public_year" autofocus>
                                             @error('public_year')
                                                 <span class="invalid-feedback" role="alert">
@@ -221,7 +221,7 @@ $main_link = 'product';
                                 </div>
                             </div>
 
-                            <div class="form-group row mb-0">
+                            <div class="form-group row mb-0 text-center">
                                 <div class="col-md-12 offset-md-12">
                                     <button type="submit" class="btn btn-primary">
                                         {{ __('Create') }}

@@ -273,7 +273,7 @@ $main_link = 'menu';
 
                                 <div>
                                     <div class="form-group">
-                                        <textarea id="ckeditor" class="form-control"
+                                        <textarea class="form-control"
                                             name="content">{!! $menu->content !!}</textarea>
                                     </div>
                                     @error('content')
@@ -298,4 +298,4 @@ $main_link = 'menu';
         </div>
     </div>
 @endsection
-@include('helper.ckeditor')
+{{-- @include('helper.ckeditor') --}}
