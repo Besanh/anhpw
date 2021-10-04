@@ -13,7 +13,7 @@ $title = "Trang chu";
     <!-- End Categories -->
 
     <!-- Products -->
-    @include('frontend.home.sub_home._featured_product', compact('products'))
+    @include('frontend.home.sub_home._featured_product', compact(['products', 'slogan_f_p']))
     <!-- End Products -->
 
     <!-- Promo Block -->

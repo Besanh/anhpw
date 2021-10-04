@@ -13,5 +13,6 @@ article.u-block-hover > .img-cate
 figure > .img-product-home
 {
     width: 500px;
-    height: auto;
+    height: 250px;
+    max-width: 100%;
 }

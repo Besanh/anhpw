@@ -104,7 +104,7 @@ $title = 'Menu - Create';
                                         {{ __('Head') }}
                                     </label>
                                     <div>
-                                        <input id="route" type="text"
+                                        <input id="head" type="text"
                                             class="form-control @error('head') is-invalid @enderror" name="head"
                                             value="{{ old('head') }}" autocomplete="head" autofocus>
 

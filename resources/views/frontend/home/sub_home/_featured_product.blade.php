@@ -1,8 +1,11 @@
 <div class="container g-pb-100">
     <div class="text-center mx-auto g-max-width-600 g-mb-50">
-        <h2 class="g-color-black mb-4">Featured Products</h2>
-        <p class="lead">We want to create a range of beautiful, practical and modern outerwear that doesn't cost
-            the earth – but let's you still live life in style.</p>
+        @if ($slogan_f_p && isJson($slogan_f_p->value_setting))
+            @foreach (json_decode($slogan_f_p->value_setting, true) as $s)
+                <h2 class="g-color-black mb-4">{!! Arr::get($s, 'name') !!}</h2>
+                <p class="lead">{!! Arr::get($s, 'slogan') !!}</p>
+            @endforeach
+        @endif
     </div>
 
     <div id="carouselCus1" class="js-carousel g-pb-100 g-mx-minus-10" data-infinite="true" data-slides-show="4"
@@ -40,7 +43,7 @@
                                 <a class="d-inline-block g-color-gray-dark-v5 g-font-size-13"
                                     href="#">{{ $p->cate_name }}</a>
                                 <span class="d-block g-color-black g-font-size-17">
-                                    {{ number_format($p->price) }}đ
+                                    {{ number_format($p->price) }}&dstrok;
                                 </span>
                             </div>
                             <!-- End Product Info -->

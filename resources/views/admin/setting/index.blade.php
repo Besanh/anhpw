@@ -1,7 +1,7 @@
 <?php
 
 $title = 'Setting - Index';
-$head_table = ['#', 'Name', 'Value Setting', 'Type', 'Status', 'Action'];
+$head_table = ['#', 'Name', 'Value Setting', 'Status', 'Action'];
 $main_link = 'setting';
 ?>
 @section('title', $title)
@@ -53,7 +53,7 @@ $main_link = 'setting';
                                         <th scope="row">{!! $k !!}</th>
                                         <th>{!! $node->name !!}</th>
                                         <td>{{ $node->value_setting }}</td>
-                                        <td>{{ $node->type }}</td>
+                                        {{-- <td>{{ $node->type }}</td> --}}
                                         <td>
                                             @include('helper.stick', ['status' => $node->status,
                                             'id' => $node->id,

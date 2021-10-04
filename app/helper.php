@@ -81,11 +81,11 @@ if (!function_exists('proccessUpload')) {
             Image::make($file->getRealPath())->save(createImageUri($dir_org, $name));
             // Save thumb
             Image::make($file->getRealPath())->resize(150, 150, function ($constraint) {
-                $constraint->aspectRatio();
+                // $constraint->aspectRatio();
             })->save(createImageUri($dir_thumb, $name));
 
-            if (Image::make($file->getRealPath())->resize($width, null, function ($constraint) {
-                $constraint->aspectRatio();
+            if (Image::make($file->getRealPath())->resize($width, $height, function ($constraint) {
+                // $constraint->aspectRatio();
             })->save(createImageUri($dir, $name))) {
                 $data = createImageUri($dir, $name);
             }

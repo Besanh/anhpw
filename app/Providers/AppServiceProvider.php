@@ -39,18 +39,29 @@ class AppServiceProvider extends ServiceProvider
             $other_tree = '';
             if ($parent_other_tree) {
                 foreach ($parent_other_tree as $node) {
-                    $other_tree .= '<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-                    aria-expanded="true" aria-controls="collapseUtilities">
+                    if ($node->route) {
+                        $url = route($node->route);
+                    } else {
+                        $url = $node->url == 'javascript:void(0)' ? $node->url : url($node->url);
+                    }
+                    if (!$node->head) {
+                        $other_tree .= '<a class="nav-link" href="' . $url . '">
+                        <i class="' . $node->icon . '"></i>
+                        <span>' . $node->name . '</span></a>';
+                    } else {
+                        $other_tree .= '<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#' . $node->note . '"
+                    aria-expanded="true" aria-controls="' . $node->note . '">
                     <i class="' . $node->icon . '"></i>
                     <span>' . $node->head . '</span>
                 </a>';
-                    $other_tree .= '<div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                        $other_tree .= '<div id="' . $node->note . '" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                             <div class="bg-white py-2 collapse-inner rounded">
                                 <h6 class="collapse-header">Custom Utilities:</h6>';
-                    $other_tree .= $this->getChildOther($node->id, $node->type_id);
-                    $other_tree .= '</div>
+                        $other_tree .= $this->getChildOther($node->id, $node->type_id);
+                        $other_tree .= '</div>
                         </div>';
-                    $other_tree .= '<hr class="sidebar-divider">';
+                        $other_tree .= '<hr class="sidebar-divider">';
+                    }
                 }
             }
 
