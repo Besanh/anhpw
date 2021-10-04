@@ -32,28 +32,29 @@ class AppServiceProvider extends ServiceProvider
         Paginator::useBootstrap();
 
         ///////////////////////////////////////////////////////////////////
-        ///////////////////////////// MENU ///////////////////////////////
+        ///////////////////////////// Admin Other ////////////////////////
         /////////////////////////////////////////////////////////////////
-        View::composer('admin.sidebar.menu_parents', function ($view) {
-            $backend = $this->getMenuParents();
-            $view->with(compact('backend'));
-        });
+        View::composer('admin.layouts.sidebar', function ($view) {
+            $parent_other_tree = $this->getParent(1);
+            $other_tree = '';
+            if ($parent_other_tree) {
+                foreach ($parent_other_tree as $node) {
+                    $other_tree .= '<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+                    aria-expanded="true" aria-controls="collapseUtilities">
+                    <i class="' . $node->icon . '"></i>
+                    <span>' . $node->head . '</span>
+                </a>';
+                    $other_tree .= '<div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                            <div class="bg-white py-2 collapse-inner rounded">
+                                <h6 class="collapse-header">Custom Utilities:</h6>';
+                    $other_tree .= $this->getChildOther($node->id, $node->type_id);
+                    $other_tree .= '</div>
+                        </div>';
+                    $other_tree .= '<hr class="sidebar-divider">';
+                }
+            }
 
-        View::composer('admin.sidebar.menu_childs', function ($view) {
-            $childs = $this->getChilds($this->getMenuParents());
-            $view->with(compact('childs'));
-        });
-
-        ///////////////////////////////////////////////////////////////////
-        ///////////////////////////// USERS //////////////////////////////
-        /////////////////////////////////////////////////////////////////
-        View::composer('admin.sidebar.user_parents', function ($view) {
-            $users = $this->getUserParents();
-            $view->with(compact('users'));
-        });
-        View::composer('admin.sidebar.user_childs', function ($view) {
-            $user_childs = $this->getChilds($this->getUserParents());
-            $view->with(compact('user_childs'));
+            $view->with(compact('other_tree'));
         });
 
         ///////////////////////////////////////////////////////////////////
@@ -201,40 +202,6 @@ class AppServiceProvider extends ServiceProvider
         });
     }
 
-    public function getMenuParents()
-    {
-        $backend = [];
-        $backend = Menu::where([
-            ["type_id", "=", 1],
-            ['status', "=", 1]
-        ])
-            ->where(function ($query) {
-                $query->where('parent_id', 0)
-                    ->whereIn('id', [1, 8]);
-            })
-            ->get();
-        if ($backend) {
-            return $backend;
-        }
-    }
-
-    public function getUserParents()
-    {
-        $backend = [];
-        $backend = Menu::where([
-            ["type_id", "=", 1],
-            ["name", "=", 'Users'],
-            ['status', "=", 1]
-        ])
-            ->where(function ($query) {
-                $query->where('parent_id', 0);
-            })
-            ->get();
-        if ($backend) {
-            return $backend;
-        }
-    }
-
     public function getChilds($parents)
     {
         $childs = [];
@@ -264,7 +231,6 @@ class AppServiceProvider extends ServiceProvider
             ['type_id', '=', $type],
             ['status', '=', 1]
         ])
-            ->select(['id', 'type_id', 'name', 'alias', 'route', 'url', 'note'])
             ->get();
 
         return $menus;
@@ -397,7 +363,6 @@ class AppServiceProvider extends ServiceProvider
             ['type_id', '=', $type_id],
             ['status', "=", 1]
         ])
-            ->select(['id', 'type_id', 'name', 'alias', 'route', 'url', 'image', 'note'])
             ->get();
     }
 
@@ -458,6 +423,19 @@ class AppServiceProvider extends ServiceProvider
             }
             $str .= '</div>
             </div>';
+        }
+        return $str;
+    }
+
+    public function getChildOther($parent_id, $type_id)
+    {
+        $str = '';
+        $menu_child = $this->queryChild($parent_id, $type_id);
+
+        if ($menu_child) {
+            foreach ($menu_child as $child) {
+                $str .= '<a class="collapse-item" href="' . $child->url . '">' . $child->name . '</a>';
+            }
         }
         return $str;
     }

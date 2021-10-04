@@ -38,7 +38,7 @@ Route::group(['middleware' => ['admin'], 'prefix' => 'admin'], function () {
     $only_action_resource = ['index', 'create', 'update', 'store', 'show', 'edit'];
 
     // Home
-    Route::get('dashboard', [BackendController::class, 'index'])->name('admin-home');
+    Route::get('dashboard', [BackendController::class, 'index'])->name('admin.dashboard');
 
     // Menu
     Route::get('menu/{alias}', [MenuController::class, 'index'])->name('menu.index');

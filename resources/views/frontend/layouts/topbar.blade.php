@@ -26,7 +26,9 @@
                 class="col-sm-auto g-hidden-sm-down g-color-white-opacity-0_6 g-font-weight-400 g-pl-15 g-pl-0--sm g-py-14">
                 <i
                     class="icon-communication-163 u-line-icon-pro g-font-size-18 g-valign-middle g-color-white-opacity-0_8 g-mr-10 g-mt-minus-2"></i>
-                {{ $phone->value_setting }}
+                @if ($phone)
+                    {{ $phone->value_setting }}
+                @endif
             </div>
 
             @include('frontend.layouts.sub-files.menu-topbar')

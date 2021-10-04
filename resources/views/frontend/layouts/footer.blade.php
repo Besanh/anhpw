@@ -3,27 +3,6 @@ $b_str = '';
 $b_main = '';
 $b_child = '';
 ?>
-{{-- @if ($brands)
-    @foreach ($brands as $k => $b)
-        @if ($k <= 4)
-            <?php
-            $b_child .= '<li class="g-mb-10">';
-            $b_child .= '<a class="u-link-v5 g-color-gray-dark-v5 g-color-primary--hover" href="#">' . $b->name . '</a>';
-            $b_child .= '</li>';
-            ?>
-        @endif
-
-    @endforeach
-    @foreach ($brands as $b)
-        <?php
-        $b_main .= '<div class="col-6 g-mb-20">
-            <ul class="list-unstyled g-font-size-13 mb-0">';
-        $b_main .= $b_child;
-        $b_main .= '</ul>
-        </div>';
-        ?>
-    @endforeach
-@endif --}}
 
 <!-- Footer -->
 <footer class="g-bg-main-light-v1">
@@ -148,19 +127,25 @@ $b_child = '';
                         <li class="media my-3">
                             <i class="d-flex mt-1 mr-3 icon-hotel-restaurant-235 u-line-icon-pro"></i>
                             <div class="media-body">
-                                {{ $address->value_setting }}
+                                @if ($address)
+                                    {{ $address->value_setting }}
+                                @endif
                             </div>
                         </li>
                         <li class="media my-3">
                             <i class="d-flex mt-1 mr-3 icon-communication-062 u-line-icon-pro"></i>
                             <div class="media-body">
-                                {{ $email->value_setting }}
+                                @if ($email)
+                                    {{ $email->value_setting }}
+                                @endif
                             </div>
                         </li>
                         <li class="media my-3">
                             <i class="d-flex mt-1 mr-3 icon-communication-033 u-line-icon-pro"></i>
                             <div class="media-body">
-                                {{ $phone->value_setting }}
+                                @if ($phone)
+                                    {{ $phone->value_setting }}
+                                @endif
                             </div>
                         </li>
                     </ul>

@@ -17,7 +17,7 @@
             <!-- Logo -->
             <a class="navbar-brand" href="home-page-1.html">
                 <img class="img img-responsive img-logo"
-                    src="{{ $logo->value_setting != 'no-image.png' ? $logo->value_setting : getNoImage() }}"
+                    src="{{ $logo && $logo->value_setting != 'no-image.png' ? $logo->value_setting : getNoImage() }}"
                     alt="Logo">
             </a>
             <!-- End Logo -->
@@ -26,7 +26,9 @@
             <div id="navBar" class="collapse navbar-collapse align-items-center flex-sm-row g-pt-15 g-pt-0--lg">
                 <ul class="navbar-nav ml-auto">
                     <!-- Home - Submenu -->
-                    {!! $tree !!}
+                    @if ($tree)
+                        {!! $tree !!}
+                    @endif
                     <!-- End Home - Submenu -->
                 </ul>
             </div>
