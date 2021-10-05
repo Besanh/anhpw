@@ -39,15 +39,16 @@ class CateController extends Controller
      */
     public function store(CateStoreRequest $request, Category $cate)
     {
+        $img_org = $thumb = $img = '';
         if ($request->validated()) {
             if ($request->hasFile('image')) {
-                $request->image = proccessUpload($request, 'category', 650, 750);
+                [$img_org, $thumb, $img] = proccessUpload($request, 'category', 650, 750);
             }
 
             $cate->create([
                 'name' => $request->name,
                 'name_seo' => $request->name_seo,
-                'image' => $request->image,
+                'image' => $img,
                 'status' => $request->status,
                 'description' => $request->description
             ]);
@@ -86,15 +87,16 @@ class CateController extends Controller
      */
     public function update(CateUpdateRequest $request, Category $category)
     {
+        $img_org = $thumb = $img = '';
         if ($request->validated()) {
             if ($request->hasFile('image')) {
-                $request->image = proccessUpload($request, 'category', 650, 850);
+                [$img_org, $thumb, $img] = proccessUpload($request, 'category', 650, 850);
             }
 
             $category->update([
                 'name' => $request->name,
                 'name_seo' => $request->name_seo,
-                'image' => $request->file('image') ? $request->image : $category->image,
+                'image' => $img ? $img : $category->image,
                 'status' => $request->status,
                 'description' => $request->description
             ]);

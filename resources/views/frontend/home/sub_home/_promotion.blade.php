@@ -3,7 +3,8 @@
         <div class="row justify-content-between align-items-center">
             <div class="col-md-8 col-lg-6 order-md-2 g-mb-30">
                 <div class="g-pos-rel">
-                    <img class="img-fluid w-100" src="{{asset('frontend/img-temp/725x725/img1.png')}}" alt="Image Description">
+                    <img class="img-fluid w-100" src="{{ asset('frontend/img-temp/725x725/img1.png') }}"
+                        alt="Image Description">
                     <span
                         class="u-icon-v1 g-width-85 g-height-85 g-brd-3 g-brd-white g-color-white g-bg-primary g-font-weight-300 g-font-size-22 rounded-circle g-pos-abs g-top-100 g-left-0 g-brd-around">
                         <i class="g-font-style-normal">$60
@@ -27,7 +28,7 @@
                 <!-- Countdown -->
                 <div class="text-uppercase">
                     <div class="js-countdown u-countdown-v3 g-line-height-1_3 g-color-black"
-                        data-end-date="2019/08/20" data-month-format="%m" data-days-format="%D"
+                        data-end-date="{{ $countdown->value_setting }}" data-month-format="%m" data-days-format="%D"
                         data-hours-format="%H" data-minutes-format="%M" data-seconds-format="%S">
                         <div class="d-inline-block text-center g-mx-15 mb-3">
                             <div class="js-cd-days g-color-lightred g-font-weight-500 g-font-size-15">12</div>
@@ -61,3 +62,21 @@
         </div>
     </div>
 </section>
+@push('counter-time')
+    {{-- Counter comming soon homepage --}}
+    <script src="{{ asset('frontend/js/counter-time/jquery.countdown.min') }}"></script>
+    <script type="text/javascript">
+        /* Countdown Timer - The Final Countdown */
+        $('#clock').countdown('2021/12/27 08:50:56') /* change here your "countdown to" date */
+            .on('update.countdown', function(event) {
+                var format =
+                    '<span class="counter-number">%D<br><span class="timer-text">Days</span></span><span class="counter-number">%H<br><span class="timer-text">Hours</span></span><span class="counter-number">%M<br><span class="timer-text">Minutes</span></span><span class="counter-number">%S<br><span class="timer-text">Seconds</span></span>';
+                $(this).html(event.strftime(format));
+            })
+            .on('finish.countdown', function(event) {
+                $(this).html('This offer has expired!')
+                    .parent().addClass('disabled');
+            });
+
+    </script>
+@endpush

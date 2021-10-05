@@ -1,31 +1,38 @@
 <?php
-$title = "Trang chu";
-?>
+$title = 'Trang chu'; ?>
 @section('title', $title)
-@extends('frontend.layouts.main')
+    @extends('frontend.layouts.main')
 @section('content')
     <!-- Revolution Slider -->
     @include('frontend.home.sub_home._revolution_slider')
     <!-- End Revolution Slider -->
 
     <!-- Categories -->
-    @include('frontend.home.sub_home._category', compact('cates')))
+    @if ($cates)
+        @include('frontend.home.sub_home._category', compact('cates')))
+    @endif
     <!-- End Categories -->
 
     <!-- Products -->
-    @include('frontend.home.sub_home._featured_product', compact(['products', 'slogan_f_p']))
+    @if ($products)
+        @include('frontend.home.sub_home._featured_product', compact(['products', 'slogan_f_p']))
+    @endif
     <!-- End Products -->
 
     <!-- Promo Block -->
-    @include('frontend.home.sub_home._promotion')
+    @if ($countdown)
+        @include('frontend.home.sub_home._promotion', compact('countdown'))
+    @endif
     <!-- End Promo Block -->
 
     <!-- New Arrivals -->
-    @include('frontend.home.sub_home._new_arrival')
+    @if ($arrival_products)
+        @include('frontend.home.sub_home._new_arrival', compact('arrival_products'))
+    @endif
     <!-- End New Arrivals -->
 
     <!-- Categories -->
-    @include('frontend.home.sub_home._seasons')
+    {{-- @include('frontend.home.sub_home._seasons') --}}
     <!-- End Categories -->
 
     <!-- News -->

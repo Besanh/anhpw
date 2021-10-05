@@ -32,8 +32,7 @@
 </script>
 <script src="{{ asset('frontend/js/revolution-slider/extensions/revolution.extension.parallax.min.js') }}">
 </script>
-<script
-    src="{{ asset('frontend/js/revolution-slider/extensions/revolution.extension.slideanims.min.js') }}">
+<script src="{{ asset('frontend/js/revolution-slider/extensions/revolution.extension.slideanims.min.js') }}">
 </script>
 <script src="{{ asset('frontend/js/revolution-slider/extensions/revolution.extension.video.min.js') }}">
 </script>

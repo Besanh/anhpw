@@ -14,7 +14,8 @@ class Product extends Model
 
     protected $fillable = [
         'cate_id', 'bid', 'name', 'name_seo',
-        'designer', 'public_year', 'image', 'description',
+        'designer', 'public_year', 'image', 'thumb',
+        'description',
         'galleries', 'promote', 'status'
     ];
 
@@ -63,5 +64,56 @@ class Product extends Model
         }
 
         return $combined;
+    }
+
+    /**
+     * Lay featured product homepage
+     */
+    public function getFeaturedProduct()
+    {
+        return $this->queryDataProduct()->get();
+    }
+
+    /**
+     * Lay product trang chu
+     */
+    public function getArrivalProduct()
+    {
+        $now_date = date('Y-m-d H:i:s');
+        $minus_date = dateBeforeAfter($now_date, '-');
+        $data = $this->queryDataProduct()
+            ->where(function ($query) use ($now_date, $minus_date) {
+                $query->where([
+                    ['products.updated_at', '>=', $minus_date],
+                    ['products.updated_at', '<=', $now_date]
+                ]);
+            })
+            ->get();
+        return $data;
+    }
+
+    public function queryDataProduct()
+    {
+        return self::select([
+            'products.id',
+            'products.name',
+            'products.name_seo',
+            'products.image',
+            'prices.price',
+            'prices.barcode',
+            'categories.name as cate_name',
+            'products.image',
+            'products.thumb'
+        ])
+            ->join('prices', 'prices.pid', '=', 'products.id')
+            ->join('categories', 'categories.id', '=', 'products.cate_id')
+            ->where([
+                ['prices.status', '=', 1],
+                ['products.status', '=', 1],
+                ['categories.status', '=', 1],
+                ['prices.stock', '>', 0]
+            ])
+            ->orderBy('products.promote', 'DESC')
+            ->orderBy('prices.promote', 'DESC');
     }
 }

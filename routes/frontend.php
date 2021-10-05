@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Frontend\CateController;
+use App\Http\Controllers\Frontend\CommingSoonController;
 use App\Http\Controllers\Frontend\HelpController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\LoginController;
@@ -21,3 +23,9 @@ Route::get('login', [LoginController::class, 'index'])->name('login');
 Route::get('signup', [SignupController::class, 'index'])->name('signup');
 Route::get('wish-list', [WishListController::class, 'index'])->name('wish-list');
 Route::get('order', [OrderController::class, 'index'])->name('order');
+
+// Cate
+Route::get('cate/{alias}', [CateController::class, 'getCate'])->name('get-cate');
+
+// Comming soon
+Route::get('comming-soon', [CommingSoonController::class, 'index'])->name('comming-soon');

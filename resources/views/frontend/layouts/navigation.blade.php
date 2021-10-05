@@ -15,7 +15,7 @@
             <!-- End Responsive Toggle Button -->
 
             <!-- Logo -->
-            <a class="navbar-brand" href="home-page-1.html">
+            <a class="navbar-brand" href="{!!route('frontend.home')!!}">
                 <img class="img img-responsive img-logo"
                     src="{{ $logo && $logo->value_setting != 'no-image.png' ? $logo->value_setting : getNoImage() }}"
                     alt="Logo">

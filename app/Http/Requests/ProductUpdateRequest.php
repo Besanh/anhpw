@@ -31,6 +31,7 @@ class ProductUpdateRequest extends FormRequest
             'designer' => 'string|nullable',
             'public_year' => 'date_format:Y|nullable',
             'image' => 'mimes:jpeg,png,jpg|max:2048',
+            'thumb' => 'string|nullable',
             'description' => 'string|nullable',
             'promote' => 'required|integer',
             'status' => 'required|integer'

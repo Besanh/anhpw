@@ -43,9 +43,10 @@ class ProductController extends Controller
      */
     public function store(ProductStoreRequest $request, Product $product)
     {
+        $img_org = $thumb = $img = '';
         $galleries = null;
         if ($request->hasFile('image')) {
-            $request->image = proccessUpload($request, 'product', 650, 750);
+            [$img_org, $thumb, $image] = proccessUpload($request, 'product', 650, 750);
         }
         if ($request->hasFile('galleries')) {
             foreach ($request->file('galleries') as $node) {
@@ -63,7 +64,8 @@ class ProductController extends Controller
                 'promote' => $request->promote,
                 'status' => $request->status,
                 'description' => $request->description,
-                'image' => $request->image,
+                'image' => $image,
+                'thumb' => $thumb,
                 'galleries' => json_encode($galleries)
             ]);
             return redirect()->back()->with('message', 'Created product successfully');
@@ -104,8 +106,9 @@ class ProductController extends Controller
     public function update(ProductUpdateRequest $request, Product $product)
     {
         $galleries = null;
+        $img_org = $thumb = $img = '';
         if ($request->hasFile('image')) {
-            $request->image = proccessUpload($request, 'product', 650, 750);
+            [$img_org, $thumb, $img] = proccessUpload($request, 'product', 650, 750);
         }
         if ($request->hasFile('galleries')) {
             foreach ($request->file('galleries') as $node) {
@@ -123,7 +126,8 @@ class ProductController extends Controller
                 'promote' => $request->promote,
                 'status' => $request->status,
                 'description' => $request->description,
-                'image' => $request->image,
+                'image' => $img,
+                'thumb' => $thumb,
                 'galleries' => $galleries ? json_encode($galleries) : $product->galleries
             ]);
             return redirect()->back()->with('message', 'Updated product successfully');

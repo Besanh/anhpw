@@ -33,7 +33,7 @@ class Menu extends Model
             'type_id' => $type_id,
             'parent_id' => 0
         ])
-            ->orderByRaw('status desc, priority desc, id');
+            ->orderByRaw('priority desc');
 
         if (is_numeric($status)) {
             $query->where(function ($query) use ($status) {

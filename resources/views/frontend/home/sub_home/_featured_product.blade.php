@@ -37,11 +37,11 @@
                             <div class="d-flex flex-column">
                                 <h4 class="h6 g-color-black mb-1">
                                     <a class="u-link-v5 g-color-black g-color-primary--hover" href="#">
-                                        {{ $p->name }}
+                                        {{ getTeaser($p->name, 5) }}
                                     </a>
                                 </h4>
                                 <a class="d-inline-block g-color-gray-dark-v5 g-font-size-13"
-                                    href="#">{{ $p->cate_name }}</a>
+                                    href="#">{{ getTeaser($p->cate_name, 5) }}</a>
                                 <span class="d-block g-color-black g-font-size-17">
                                     {{ number_format($p->price) }}&dstrok;
                                 </span>

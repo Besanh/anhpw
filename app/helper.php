@@ -67,7 +67,9 @@ if (!function_exists('createDir')) {
 if (!function_exists('proccessUpload')) {
     function proccessUpload($request, $model = 'default', $width = 500, $height = 500)
     {
-        $data = '';
+        $img = '';
+        $img_thumb = '';
+        $img_org = '';
         try {
             $dir = 'userfiles/images/' . $model . '/';
             $dir_org = 'userfiles/images/' . $model . '_org/';
@@ -78,20 +80,23 @@ if (!function_exists('proccessUpload')) {
             !is_dir($dir) ? createDir($dir) : (!is_dir($dir_org) ? createDir($dir_org) : (!is_dir($dir_thumb) ? createDir($dir_thumb) : null));
 
             // Save org
-            Image::make($file->getRealPath())->save(createImageUri($dir_org, $name));
+            if (Image::make($file->getRealPath())->save(createImageUri($dir_org, $name))) {
+                $img_org = createImageUri($dir_org, $name);
+            }
             // Save thumb
-            Image::make($file->getRealPath())->resize(150, 150, function ($constraint) {
+            if (Image::make($file->getRealPath())->resize(150, 150, function ($constraint) {
                 // $constraint->aspectRatio();
-            })->save(createImageUri($dir_thumb, $name));
+            })->save(createImageUri($dir_thumb, $name))) {
+                $img_thumb = createImageUri($dir_thumb, $name);
+            }
 
             if (Image::make($file->getRealPath())->resize($width, $height, function ($constraint) {
                 // $constraint->aspectRatio();
             })->save(createImageUri($dir, $name))) {
-                $data = createImageUri($dir, $name);
+                $img = createImageUri($dir, $name);
             }
-
             // watermark
-            return $data;
+            return [$img_org, $img_thumb, $img];
         } catch (\Throwable $th) {
             throw $th;
             return false;
@@ -188,5 +193,27 @@ if (!function_exists('isJson')) {
     {
         json_decode($string);
         return (json_last_error() == JSON_ERROR_NONE);
+    }
+}
+
+if (!function_exists('minusDateBefore')) {
+    function dateBeforeAfter($date, $operator)
+    {
+        return date('Y-m-d H:i:s', strtotime($operator . '30 day', strtotime($date)));
+    }
+}
+
+/**
+ * Dem so tu trong chuoi va hien thi dung so tu theo y muon
+ */
+if (!function_exists('getTeaser')) {
+    function getTeaser($string, $count)
+    {
+        $words = explode(' ', $string);
+        if (count($words) > $count) {
+            $words = array_slice($words, 0, $count);
+            $string = implode(' ', $words) . '...';
+        }
+        return $string;
     }
 }

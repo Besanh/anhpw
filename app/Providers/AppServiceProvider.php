@@ -242,6 +242,7 @@ class AppServiceProvider extends ServiceProvider
             ['type_id', '=', $type],
             ['status', '=', 1]
         ])
+            ->orderBy('priority', 'ASC')
             ->get();
 
         return $menus;
