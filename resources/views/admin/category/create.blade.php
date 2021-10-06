@@ -70,6 +70,21 @@ $main_link = 'category';
                                         @enderror
                                     </div>
 
+                                    <label for="alias" class="col-form-label text-md-right">
+                                        {{ __('Alias') }}
+                                    </label>
+                                    <div>
+                                        <input id="alias" type="text"
+                                            class="form-control @error('alias') is-invalid @enderror" name="alias"
+                                            value="{{ old('alias') }}" required autocomplete="alias" autofocus>
+
+                                        @error('alias')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+
                                     <label for="status" class="col-form-label text-md-right">
                                         {{ __('Status') }}
                                     </label>

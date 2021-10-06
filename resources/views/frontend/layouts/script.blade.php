@@ -48,6 +48,9 @@
 <script src="{{ asset('frontend/js/hs-components/hs.go-to.js') }}"></script>
 <script src="{{ asset('frontend/js/hs-components/hs.count-qty.js') }}"></script>
 
+<!-- Js Implement Plugin -->
+@stack('script-cate')
+
 <!-- JS Customization -->
 <script src="{{ asset('frontend/js/custom.js') }}"></script>
 

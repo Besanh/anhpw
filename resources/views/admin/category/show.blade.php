@@ -4,6 +4,7 @@ $head_table = [
 'Id' => $category->id,
 'Name' => $category->name,
 'Name SEO' => $category->name_seo,
+'Alias' => $category->alias,
 'Image' => $category->image,
 'Status' => $category->status,
 'Created At' => $category->created_at,

@@ -37,3 +37,6 @@
 
 <!-- CSS Customization -->
 <link rel="stylesheet" href="{{ asset('frontend/css/custom.css') }}">
+
+<!--  Page category-->
+@stack('link-cate')

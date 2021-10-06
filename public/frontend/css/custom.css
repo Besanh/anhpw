@@ -16,3 +16,10 @@ figure > .img-product-home
     height: 250px;
     max-width: 100%;
 }
+
+figure > .img-product-cate
+{
+    width: 500px;
+    height: 300px;
+    max-width: 100%;
+}

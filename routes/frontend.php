@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Route;
 
 // Home
 Route::get('/', [HomeController::class, 'index'])->name('frontend.home');
-
 Route::get('home', [HomeController::class, 'index'])->name('frontend.home');
 
 // Top bar
@@ -25,7 +24,7 @@ Route::get('wish-list', [WishListController::class, 'index'])->name('wish-list')
 Route::get('order', [OrderController::class, 'index'])->name('order');
 
 // Cate
-Route::get('cate/{alias}', [CateController::class, 'getCate'])->name('get-cate');
+Route::get('cate/{alias}', [CateController::class, 'getCate'])->name('cate');
 
 // Comming soon
 Route::get('comming-soon', [CommingSoonController::class, 'index'])->name('comming-soon');

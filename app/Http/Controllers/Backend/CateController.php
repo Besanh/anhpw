@@ -37,18 +37,20 @@ class CateController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CateStoreRequest $request, Category $cate)
+    public function store(CateStoreRequest $request, Category $category)
     {
-        $img_org = $thumb = $img = '';
+        $img_org = $thumb = $img = $big_thumb = '';
         if ($request->validated()) {
             if ($request->hasFile('image')) {
-                [$img_org, $thumb, $img] = proccessUpload($request, 'category', 650, 750);
+                [$img_org, $thumb, $img, $big_thumb] = $category->proccessUpload($request, 'category', 650, 750);
             }
 
-            $cate->create([
+            $category->create([
                 'name' => $request->name,
                 'name_seo' => $request->name_seo,
+                'alias' => $request->alias,
                 'image' => $img,
+                'big_thumb' => $big_thumb,
                 'status' => $request->status,
                 'description' => $request->description
             ]);
@@ -87,16 +89,18 @@ class CateController extends Controller
      */
     public function update(CateUpdateRequest $request, Category $category)
     {
-        $img_org = $thumb = $img = '';
+        $img_org = $thumb = $img = $big_thumb = '';
         if ($request->validated()) {
             if ($request->hasFile('image')) {
-                [$img_org, $thumb, $img] = proccessUpload($request, 'category', 650, 850);
+                [$img_org, $thumb, $img, $big_thumb] = $category->proccessUpload($request, 'category', 650, 850);
             }
 
             $category->update([
                 'name' => $request->name,
                 'name_seo' => $request->name_seo,
+                'alias' => $request->alias,
                 'image' => $img ? $img : $category->image,
+                'big_thumb' => $big_thumb ? $big_thumb : $category->big_thumb,
                 'status' => $request->status,
                 'description' => $request->description
             ]);

@@ -217,3 +217,13 @@ if (!function_exists('getTeaser')) {
         return $string;
     }
 }
+
+/**
+ * Lay gia theo don vi 'VND'
+ */
+if (!function_exists('getPrice')) {
+    function getPrice($price, $currency = '&dstrok;')
+    {
+        return number_format($price) . $currency;
+    }
+}

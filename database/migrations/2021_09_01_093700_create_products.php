@@ -39,8 +39,10 @@ class CreateProducts extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('name_seo');
+            $table->string('alias');
             $table->text('description')->nullable();
             $table->string('image')->nullable();
+            $table->string('big_thumb')->nullable();
             $table->integer('status')->default(0);
             $table->integer('created_by')->default(0)->nullable();
             $table->integer('updated_by')->default(0)->nullable();

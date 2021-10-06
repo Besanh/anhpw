@@ -17,7 +17,7 @@ $title = 'Comming Soon'; ?>
 
             <div class="container">
                 <!-- Countdown -->
-                <div class="js-countdown u-countdown-v1 text-center g-mb-70" data-end-date="2021/11/01"
+                <div class="js-countdown u-countdown-v1 text-center g-mb-70" data-end-date="{!!$countdown ? $countdown->value_setting : date('Y/m/d')!!}"
                     data-month-format="%m" data-days-format="%D" data-hours-format="%H" data-minutes-format="%M"
                     data-seconds-format="%S">
                     <div

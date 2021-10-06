@@ -14,7 +14,7 @@ class HomeController extends Controller
     {
         $model_product = new Product();
         $cates = Category::where('status', 1)
-            ->select(['id', 'name_seo', 'image'])
+            ->select(['id', 'name_seo', 'alias', 'image'])
             ->limit(3)
             ->get();
         $products = $model_product->getFeaturedProduct();

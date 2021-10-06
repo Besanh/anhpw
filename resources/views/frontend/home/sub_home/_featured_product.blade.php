@@ -19,7 +19,7 @@
                     <div class="g-px-10">
                         <!-- Product -->
                         <figure class="g-pos-rel g-mb-20">
-                            <img class="img-product-home img-fluid"
+                            <img class="img img-responsive img-product-home img-fluid"
                                 data-lazy="{{ $p->image ? getImage($p->image) : getNoImage() }}"
                                 alt="{{ $p->name }}">
 
@@ -43,7 +43,7 @@
                                 <a class="d-inline-block g-color-gray-dark-v5 g-font-size-13"
                                     href="#">{{ getTeaser($p->cate_name, 5) }}</a>
                                 <span class="d-block g-color-black g-font-size-17">
-                                    {{ number_format($p->price) }}&dstrok;
+                                    {!! getPrice($p->price) !!}
                                 </span>
                             </div>
                             <!-- End Product Info -->

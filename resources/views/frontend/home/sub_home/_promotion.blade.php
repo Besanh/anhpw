@@ -28,7 +28,7 @@
                 <!-- Countdown -->
                 <div class="text-uppercase">
                     <div class="js-countdown u-countdown-v3 g-line-height-1_3 g-color-black"
-                        data-end-date="{{ $countdown->value_setting }}" data-month-format="%m" data-days-format="%D"
+                        data-end-date="{{ $countdown ? $countdown->value_setting : date('Y/m/d') }}" data-month-format="%m" data-days-format="%D"
                         data-hours-format="%H" data-minutes-format="%M" data-seconds-format="%S">
                         <div class="d-inline-block text-center g-mx-15 mb-3">
                             <div class="js-cd-days g-color-lightred g-font-weight-500 g-font-size-15">12</div>
