@@ -43,3 +43,4 @@ $title = 'Trang chu'; ?>
     @include('frontend.home.sub_home._features')
     <!-- End Features -->
 @endsection
+@include('frontend.home.stack')

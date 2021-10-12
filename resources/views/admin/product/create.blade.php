@@ -134,8 +134,7 @@ $main_link = 'product';
                                         <div>
                                             <input id="public_year" type="text"
                                                 class="form-control @error('designer') is-invalid @enderror"
-                                                name="public_year"
-                                                value="{{ old('public_year') }}"
+                                                name="public_year" value="{{ old('public_year') }}"
                                                 autocomplete="public_year" autofocus>
                                             @error('public_year')
                                                 <span class="invalid-feedback" role="alert">
@@ -186,7 +185,8 @@ $main_link = 'product';
 
                                     <div>
                                         <div class="form-group">
-                                            <textarea class="ckeditor form-control" name="description"></textarea>
+                                            <textarea id="description" class="ckeditor form-control"
+                                                name="description"></textarea>
                                         </div>
                                         @error('description')
                                             <span class="invalid-feedback" role="alert">
@@ -235,5 +235,14 @@ $main_link = 'product';
         </div>
     </div>
 @endsection
-@include('helper.ckeditor')
 @include('helper.datetimepicker')
+@push('ckeditor')
+    <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+    <script>
+        CKEDITOR.replace('description', {
+            filebrowserUploadUrl: "{{ route('upload', ['_token' => csrf_token()]) }}",
+            filebrowserUploadMethod: 'form'
+        });
+
+    </script>
+@endpush

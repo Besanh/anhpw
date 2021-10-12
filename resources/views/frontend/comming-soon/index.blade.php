@@ -17,7 +17,7 @@ $title = 'Comming Soon'; ?>
 
             <div class="container">
                 <!-- Countdown -->
-                <div class="js-countdown u-countdown-v1 text-center g-mb-70" data-end-date="{!!$countdown ? $countdown->value_setting : date('Y/m/d')!!}"
+                <div class="js-countdown u-countdown-v1 text-center g-mb-70" data-end-date="{!! $countdown ? $countdown->value_setting : date('Y/m/d') !!}"
                     data-month-format="%m" data-days-format="%D" data-hours-format="%H" data-minutes-format="%M"
                     data-seconds-format="%S">
                     <div
@@ -81,8 +81,9 @@ $title = 'Comming Soon'; ?>
         </div>
 
         <div class="g-pos-abs g-bottom-0 g-right-minus-50 g-right-0--lg">
-            <img class="img-fluid" src="assets/img-temp/444x359/img1.png" alt="Image Description">
+            <img class="img-fluid" src="{{ asset('frontend/img-temp/444x359/img1.png') }}" alt="Comming Soon">
         </div>
     </div>
     <!-- End Coming Soon -->
 @endsection
+@include('frontend.comming-soon.stack')

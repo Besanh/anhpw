@@ -26,3 +26,18 @@ http://image.intervention.io/getting_started/installation
 
 Sua loi route resource khi dang ki route moi, check list thi co nhung request 404:
 Dua route resource ve cuoi, cac route khac dua len tren
+
+Page category chi hien thi ten sp
+Con page chi tiet thi hien het cac sp
+
+Upload image trong ckeditor
+https://www.tutsmake.com/laravel-8-ckeditor-image-upload-tutorial-example/?ref=morioh.com&utm_source=morioh.com
+De luu image upload chay cmd: php artisan storage:link
+
+Custom pagination
+https://www.codecheef.org/article/laravel-7-custom-pagination-example-tutorial
+
+Laravel spatie pjax
+https://www.youtube.com/watch?v=2DtkGT8JgMg
+https://github.com/spatie/laravel-pjax
+https://github.com/defunkt/jquery-pjax

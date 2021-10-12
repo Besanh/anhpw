@@ -12,7 +12,7 @@ use App\Http\Controllers\Frontend\WishListController;
 use Illuminate\Support\Facades\Route;
 
 // Home
-Route::get('/', [HomeController::class, 'index'])->name('frontend.home');
+Route::get('/', [HomeController::class, 'index'])->name('frontend.default');
 Route::get('home', [HomeController::class, 'index'])->name('frontend.home');
 
 // Top bar
@@ -24,7 +24,7 @@ Route::get('wish-list', [WishListController::class, 'index'])->name('wish-list')
 Route::get('order', [OrderController::class, 'index'])->name('order');
 
 // Cate
-Route::get('cate/{alias}', [CateController::class, 'getCate'])->name('cate');
+Route::get('cate/{alias}/{limit?}/{sort?}', [CateController::class, 'getCate'])->where(['limit' => '[0-9]+', 'sort' => '[A-Za-z]+'])->name('cate');
 
 // Comming soon
 Route::get('comming-soon', [CommingSoonController::class, 'index'])->name('comming-soon');

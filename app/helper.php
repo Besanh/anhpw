@@ -220,9 +220,11 @@ if (!function_exists('getTeaser')) {
 
 /**
  * Lay gia theo don vi 'VND'
+ * &dstrok;
+ * đ
  */
 if (!function_exists('getPrice')) {
-    function getPrice($price, $currency = '&dstrok;')
+    function getPrice($price, $currency = 'đ')
     {
         return number_format($price) . $currency;
     }

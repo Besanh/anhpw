@@ -51,8 +51,8 @@ $main_link = 'product';
                                     <?php $k++; ?>
                                     <tr>
                                         <th scope="row">{!! $k !!}</th>
-                                        <th>{{ $node->cate_id }}</th>
-                                        <th>{{ $node->bid }}</th>
+                                        <th>{{ $node->cate_id . ' - ' . $node->getCates->name }}</th>
+                                        <th>{{ $node->bid . ' - ' . $node->getBrands->name }}</th>
                                         <th>{!! $node->name !!}</th>
                                         <td>
                                             @include('helper.stick', ['status' => $node->status,

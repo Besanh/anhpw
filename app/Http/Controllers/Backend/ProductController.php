@@ -126,8 +126,8 @@ class ProductController extends Controller
                 'promote' => $request->promote,
                 'status' => $request->status,
                 'description' => $request->description,
-                'image' => $img,
-                'thumb' => $thumb,
+                'image' => $img ? $img : $product->image,
+                'thumb' => $thumb ? $thumb : $product->thumb,
                 'galleries' => $galleries ? json_encode($galleries) : $product->galleries
             ]);
             return redirect()->back()->with('message', 'Updated product successfully');

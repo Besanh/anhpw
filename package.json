@@ -27,6 +27,7 @@
         "webpack": "^5.51.1"
     },
     "dependencies": {
+        "jquery-pjax": "^2.0.1",
         "moment": "^2.29.1"
     }
 }

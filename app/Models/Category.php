@@ -64,4 +64,18 @@ class Category extends Model
             return false;
         }
     }
+
+    /**
+     * Lay array de filter trong page cate
+     */
+    public static function arrayFilterProduct()
+    {
+        return [
+            // 'default' => 'Default',
+            'bestseller' => 'Bestseller',
+            'trending' => 'Trending',
+            'price_low_to_high' => 'Price low to high',
+            'price-high_to_low' => 'Price high to low'
+        ];
+    }
 }

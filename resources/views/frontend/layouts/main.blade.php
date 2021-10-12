@@ -18,8 +18,9 @@
             @include('frontend.layouts.navigation')
         </header>
         <!-- End Header -->
-
+        {{-- <div id="pjax-container"> --}}
         @yield('content')
+        {{-- </div> --}}
 
         @include('frontend.layouts.footer')
 
