@@ -176,6 +176,34 @@ $main_link = 'product';
                                                 </span>
                                             @enderror
                                         </div>
+
+                                        <label for="benefit"
+                                            class="col-form-label text-md-right">{{ __('Benefit') }}</label>
+
+                                        <div>
+                                            <div class="form-group">
+                                                <textarea id="benefit" class="form-control" name="benefit"></textarea>
+                                            </div>
+                                            @error('benefit')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+
+                                        <label for="ingredient"
+                                            class="col-form-label text-md-right">{{ __('Ingredient') }}</label>
+
+                                        <div>
+                                            <div class="form-group">
+                                                <textarea id="ingredient" class="form-control" name="ingredient"></textarea>
+                                            </div>
+                                            @error('ingredient')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
                                     </div>
                                 </div>
 

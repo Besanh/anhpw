@@ -23,8 +23,6 @@
             </li>
         @endif
 
-
-
         @foreach ($elements as $element)
 
             @if (is_string($element))

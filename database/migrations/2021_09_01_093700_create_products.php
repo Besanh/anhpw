@@ -26,6 +26,8 @@ class CreateProducts extends Migration
             $table->string('image')->nullable();
             $table->string('thumb')->nullable();
             $table->text('description')->nullable();
+            $table->text('benefit')->nullable();
+            $table->text('ingredient')->nullable();
             $table->json('galleries')->nullable();
             $table->integer('promote')->default(0);
             $table->integer('status')->default(0);

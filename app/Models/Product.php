@@ -15,7 +15,7 @@ class Product extends Model
     protected $fillable = [
         'cate_id', 'bid', 'name', 'name_seo',
         'designer', 'public_year', 'image', 'thumb',
-        'description',
+        'description', 'benefit', 'ingredient',
         'galleries', 'promote', 'status'
     ];
 
@@ -101,12 +101,17 @@ class Product extends Model
             'products.image',
             'prices.price',
             'prices.barcode',
+            'prices.stock',
             'categories.name as cate_name',
             'products.image',
-            'products.thumb'
+            'products.thumb',
+            'products.benefit',
+            'products.ingredient',
+            'products.created_at'
         ])
             ->join('prices', 'prices.pid', '=', 'products.id')
             ->join('categories', 'categories.id', '=', 'products.cate_id')
+            ->join('brands', 'brands.id', 'products.bid')
             ->where([
                 ['prices.status', '=', 1],
                 ['products.status', '=', 1],

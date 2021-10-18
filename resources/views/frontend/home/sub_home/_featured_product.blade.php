@@ -1,3 +1,5 @@
+<?php
+use Carbon\Carbon; ?>
 <div class="container g-pb-100">
     <div class="text-center mx-auto g-max-width-600 g-mb-50">
         @if ($slogan_f_p && isJson($slogan_f_p->value_setting))
@@ -23,13 +25,24 @@
                                 data-lazy="{{ $p->image ? getImage($p->image) : getNoImage() }}"
                                 alt="{{ $p->name }}">
 
-                            <figcaption
-                                class="w-100 g-bg-primary g-bg-black--hover text-center g-pos-abs g-bottom-0 g-transition-0_2 g-py-5">
-                                <a class="g-color-white g-font-size-11 text-uppercase g-letter-spacing-1 g-text-underline--none--hover"
-                                    href="#">New Arrival</a>
-                            </figcaption>
-                            <span
-                                class="u-ribbon-v1 g-width-40 g-height-40 g-color-white g-bg-primary g-font-size-13 text-center text-uppercase g-rounded-50x g-top-10 g-right-minus-10 g-px-2 g-py-10">-40%</span>
+                            @if ($p->stock < minStock())
+                                <figcaption
+                                    class="w-100 g-bg-lightred text-center g-pos-abs g-bottom-0 g-transition-0_2 g-py-5">
+                                    <span class="g-color-white g-font-size-11 text-uppercase g-letter-spacing-1">Sold
+                                        Out</span>
+                                </figcaption>
+                            @else
+                                @if (validateArrival($p->created_at))
+                                    <figcaption
+                                        class="w-100 g-bg-primary g-bg-black--hover text-center g-pos-abs g-bottom-0 g-transition-0_2 g-py-5">
+                                        <a class="g-color-white g-font-size-11 text-uppercase g-letter-spacing-1 g-text-underline--none--hover"
+                                            href="#">New Arrival</a>
+                                    </figcaption>
+                                @endif
+                            @endif
+
+                            {{-- <span
+                                class="u-ribbon-v1 g-width-40 g-height-40 g-color-white g-bg-primary g-font-size-13 text-center text-uppercase g-rounded-50x g-top-10 g-right-minus-10 g-px-2 g-py-10">-40%</span> --}}
                         </figure>
 
                         <div class="media">

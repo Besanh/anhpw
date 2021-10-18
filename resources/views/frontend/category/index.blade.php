@@ -4,7 +4,7 @@
     @include('frontend.category.sub_files.breadcrumb')
     <!-- End Breadcrumbs -->
     <!-- Products -->
-    <div class="container" id="pjax-cate-container">
+    <div class="container">
         <div class="row">
             <!-- Content -->
             <div class="col-md-9 order-md-2">
@@ -22,74 +22,13 @@
                     <!-- End Banner -->
 
                     <!-- Filters -->
-                    @include('frontend.category.sub_files.filter_show', compact(['alias', 'limit']))
+                    @include('frontend.category.sub_files.filter_show', compact(['alias', 'limit', 'sort', 'show']))
                     <!-- End Filters -->
-
-                    <!-- Products -->
-                    <div class="row g-pt-30 g-mb-50">
-                        @if ($products)
-                            @foreach ($products as $k => $item)
-                                <div class="col-6 col-lg-4 g-mb-30">
-                                    <!-- Product -->
-                                    <figure class="g-pos-rel g-mb-20">
-                                        <img class="im img-responsive img-product-cate img-fluid"
-                                            src="{{ $item->image ? getImage($item->image) : asset('frontend/img-temp/480x700/img1.jpg') }}"
-                                            alt="{{ $item->name }}">
-
-                                        <figcaption
-                                            class="w-100 g-bg-primary g-bg-black--hover text-center g-pos-abs g-bottom-0 g-transition-0_2 g-py-5">
-                                            <a class="g-color-white g-font-size-11 text-uppercase g-letter-spacing-1 g-text-underline--none--hover"
-                                                href="#">New Arrival</a>
-                                        </figcaption>
-                                    </figure>
-
-                                    <div class="media">
-                                        <!-- Product Info -->
-                                        <div class="d-flex flex-column">
-                                            <h4 class="h6 g-color-black mb-1">
-                                                <a class="u-link-v5 g-color-black g-color-primary--hover" href="">
-                                                    {{ getTeaser($item->name, 3) }}
-                                                </a>
-                                            </h4>
-                                            <a class="d-inline-block g-color-gray-dark-v5 g-font-size-13"
-                                                href="#">{{ $item->cate_name }}</a>
-                                            <span
-                                                class="d-block g-color-black g-font-size-17">{!! getPrice($item->price) !!}</span>
-                                        </div>
-                                        <!-- End Product Info -->
-
-                                        <!-- Products Icons -->
-                                        <ul class="list-inline media-body text-right">
-                                            <li class="list-inline-item align-middle mx-0">
-                                                <a class="u-icon-v1 u-icon-size--sm g-color-gray-dark-v5 g-color-primary--hover g-font-size-15 rounded-circle"
-                                                    href="#" data-toggle="tooltip" data-placement="top" title="Add to Cart">
-                                                    <i class="icon-finance-100 u-line-icon-pro"></i>
-                                                </a>
-                                            </li>
-                                            <li class="list-inline-item align-middle mx-0">
-                                                <a class="u-icon-v1 u-icon-size--sm g-color-gray-dark-v5 g-color-primary--hover g-font-size-15 rounded-circle"
-                                                    href="#" data-toggle="tooltip" data-placement="top"
-                                                    title="Add to Wishlist">
-                                                    <i class="icon-medical-022 u-line-icon-pro"></i>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                        <!-- End Products Icons -->
-                                    </div>
-                                    <!-- End Product -->
-                                </div>
-                            @endforeach
-                        @else
-                            {!! 'No product found' !!}
-                        @endif
-
-                    </div>
-                    <!-- End Products -->
-
-                    <hr class="g-mb-60">
-
-                    <!-- Pagination -->
-                    {{ $products->links('vendor.pagination.custom-pagination') }}
+                    @if ($show && $show=='list')
+                    @include('frontend.category.list.item', compact(['products']))
+                    @else
+                    @include('frontend.category.sub_files.item', compact(['products']))
+                    @endif
                     {{-- <nav class="g-mb-100" aria-label="Page Navigation">
                         <ul class="list-inline mb-0">
                             <li class="list-inline-item hidden-down">
@@ -133,7 +72,7 @@
             <!-- End Content -->
 
             <!-- Filters -->
-            @include('frontend.category.sub_files.filter', compact(['brands', 'other_cate', 'capas']))
+            @include('frontend.category.sub_files.filter', compact(['brands', 'other_cate', 'capas', 'alias']))
             <!-- End Filters -->
         </div>
     </div>
@@ -146,3 +85,30 @@
 @endsection
 
 @include('frontend.category/stack-cate')
+@push('script-cate-pjax')
+    <script>
+        // $(document).ready(function() {
+        //     $(document).pjax('a', '.pjax-cate-container')
+        //     if ($.support.pjax) {
+        //         $(document).on('click', 'a[data-pjax]', function(event) {
+        //             var container = $(this).closest('[data-pjax-container]')
+        //             var containerSelector = '#' + container.id
+        //             $.pjax.click(event, {
+        //                 container: containerSelector
+        //             })
+        //         })
+        //         $.pjax.defaults.timeout = 1200
+        //     }
+
+        //     function applyFilters() {
+        //         var url = urlForFilters()
+        //         $.pjax({
+        //             url: url,
+        //             container: '#pjax-cate-container'
+        //         })
+        //     }
+        // });
+
+    </script>
+
+@endpush

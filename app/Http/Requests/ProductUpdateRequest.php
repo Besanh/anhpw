@@ -33,6 +33,8 @@ class ProductUpdateRequest extends FormRequest
             'image' => 'mimes:jpeg,png,jpg|max:2048',
             'thumb' => 'string|nullable',
             'description' => 'string|nullable',
+            'benefit' => 'string|nullable',
+            'ingredient' => 'string|nullable',
             'promote' => 'required|integer',
             'status' => 'required|integer'
         ];

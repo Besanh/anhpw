@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Setting;
+use Carbon\Carbon;
 use Illuminate\Support\Arr;
 use Intervention\Image\Facades\Image;
 
@@ -227,5 +228,152 @@ if (!function_exists('getPrice')) {
     function getPrice($price, $currency = 'đ')
     {
         return number_format($price) . $currency;
+    }
+}
+
+if (!function_exists('arrayIndex')) {
+    function arrayIndex($array, $key, $groups = [])
+    {
+        $result = [];
+        $groups = (array) $groups;
+
+        foreach ($array as $element) {
+            $lastArray = &$result;
+
+            foreach ($groups as $group) {
+                $value = Arr::get($element, $group);
+                if (!array_key_exists($value, $lastArray)) {
+                    $lastArray[$value] = [];
+                }
+                $lastArray = &$lastArray[$value];
+            }
+
+            if ($key === null) {
+                if (!empty($groups)) {
+                    $lastArray[] = $element;
+                }
+            } else {
+                $value = Arr::get($element, $key);
+                if ($value !== null) {
+                    if (is_float($value)) {
+                        $value = floatToString($value);
+                    }
+                    $lastArray[$value] = $element;
+                }
+            }
+            unset($lastArray);
+        }
+
+        return $result;
+    }
+}
+
+/**
+ * Safely casts a float to string independent of the current locale.
+ *
+ * The decimal separator will always be `.`.
+ * @param float|int $number a floating point number or integer.
+ * @return string the string representation of the number.
+ */
+if (!function_exists('floatToString')) {
+    function floatToString($number)
+    {
+        // . and , are the only decimal separators known in ICU data,
+        // so its safe to call str_replace here
+        return str_replace(',', '.', (string) $number);
+    }
+}
+
+/**
+ * Builds a map (key-value pairs) from a multidimensional array or an array of objects.
+ * The `$from` and `$to` parameters specify the key names or property names to set up the map.
+ * Optionally, one can further group the map according to a grouping field `$group`.
+ *
+ * For example,
+ *
+ * ```php
+ * $array = [
+ *     ['id' => '123', 'name' => 'aaa', 'class' => 'x'],
+ *     ['id' => '124', 'name' => 'bbb', 'class' => 'x'],
+ *     ['id' => '345', 'name' => 'ccc', 'class' => 'y'],
+ * ];
+ *
+ * $result = ArrayHelper::map($array, 'id', 'name');
+ * // the result is:
+ * // [
+ * //     '123' => 'aaa',
+ * //     '124' => 'bbb',
+ * //     '345' => 'ccc',
+ * // ]
+ *
+ * $result = ArrayHelper::map($array, 'id', 'name', 'class');
+ * // the result is:
+ * // [
+ * //     'x' => [
+ * //         '123' => 'aaa',
+ * //         '124' => 'bbb',
+ * //     ],
+ * //     'y' => [
+ * //         '345' => 'ccc',
+ * //     ],
+ * // ]
+ * ```
+ *
+ * @param array $array
+ * @param string|\Closure $from
+ * @param string|\Closure $to
+ * @param string|\Closure $group
+ * @return array
+ */
+if (!function_exists('arrayMap')) {
+    function map($array, $from, $to, $group = null)
+    {
+        $result = [];
+        foreach ($array as $element) {
+            $key = Arr::get($element, $from);
+            $value = Arr::get($element, $to);
+            if ($group !== null) {
+                $result[Arr::get($element, $group)][$key] = $value;
+            } else {
+                $result[$key] = $value;
+            }
+        }
+
+        return $result;
+    }
+}
+
+/**
+ * Lay ton kho toi thieu
+ */
+if (!function_exists('minStock')) {
+    function minStock()
+    {
+        $data = Setting::where([
+            ['name', '=', 'min_stock'],
+            ['status', '=', 1]
+        ])
+            ->select('value_setting')
+            ->first();
+
+        return $data ? $data->value_setting : 0;
+    }
+}
+
+/**
+ * Kt hang moi ve hay khong
+ */
+if (!function_exists('validateArrival')) {
+    function validateArrival($date)
+    {
+        if (DateTime::createFromFormat('Y-m-d H:i:s', $date) !== false) {
+            $first_date_month = Carbon::now()->firstOfMonth();
+            $last_date_month = Carbon::now()->lastOfMonth();
+            if ($date >= $first_date_month && $date <= $last_date_month) {
+                return true;
+            }
+            return false;
+        }
+        return false;
     }
 }

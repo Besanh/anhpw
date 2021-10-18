@@ -5,12 +5,12 @@
             <div class="g-mb-30">
                 <h3 class="h5 mb-3">Categories</h3>
                 <ul class="list-unstyled">
-                    @foreach ($other_cate as $item)
+                    @foreach (arrayIndex($other_cate, 'id') as $item)
                         <li class="my-3">
                             <a class="d-block u-link-v5 g-color-gray-dark-v4 g-color-primary--hover"
                                 href="{!! route('cate', $item->alias) !!}">
                                 {!! $item->name !!}
-                                <span class="float-right g-font-size-12">{!! $item->sum_pro_cate !!}</span></a>
+                                <span class="float-right g-font-size-12">{!! $item->get_products_count !!}</span></a>
                         </li>
                     @endforeach
 
@@ -20,23 +20,25 @@
         <!-- End Categories -->
 
         <hr>
-
         <!-- Brand -->
         @if ($brands && $brands->count() > 0)
             <div class="g-mb-30">
                 <h3 class="h5 mb-3">Brand</h3>
 
-                <ul class="list-unstyled">
-                    @foreach ($brands as $b)
+                <ul class="list-unstyled list-brand">
+                    @foreach (arrayIndex($brands, 'id') as $b)
                         <li class="my-2">
                             <label
                                 class="form-check-inline u-check d-block u-link-v5 g-color-gray-dark-v4 g-color-primary--hover g-pl-30">
-                                <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="brand" type="checkbox">
+                                <input class="filter-bid g-hidden-xs-up g-pos-abs g-top-0 g-left-0"
+                                    value="{{ $b->id }}" name="bid" type="checkbox"
+                                    {{ in_array($b->id, explode(',', request()->input('filter.bid'))) ? 'checked' : '' }}
+                                    data-name="bid">
                                 <span class="d-block u-check-icon-checkbox-v4 g-absolute-centered--y g-left-0">
                                     <i class="fa" data-check-icon="&#xf00c"></i>
                                 </span>
                                 {!! getTeaser($b->name, 3) !!}
-                                <span class="float-right g-font-size-13">{!! $b->sum_brand !!}</span>
+                                <span class="float-right g-font-size-13">{!! $b->get_products_count !!}</span>
                             </label>
                         </li>
                     @endforeach
@@ -64,15 +66,18 @@
         <!-- Size -->
         @if ($capas && $capas->count() > 0)
             <div class="g-mb-30">
-                <h3 class="h5 mb-3">Size</h3>
+                <h3 class="h5 mb-3">Capacity</h3>
 
-                <ul class="list-unstyled">
+                <ul class="list-unstyled list-capa">
 
                     @foreach ($capas as $c)
                         <li class="my-2">
                             <label
                                 class="form-check-inline u-check d-block u-link-v5 g-color-gray-dark-v4 g-color-primary--hover g-pl-30">
-                                <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" type="checkbox">
+                                <input class="filter-capa g-hidden-xs-up g-pos-abs g-top-0 g-left-0"
+                                    value="{{ $c->capa }}" name="capa" type="checkbox"
+                                    {{ in_array($c->capa, explode(',', request()->input('filter.capa'))) ? 'checked' : '' }}
+                                    data-name="capa">
                                 <span class="d-block u-check-icon-checkbox-v4 g-absolute-centered--y g-left-0">
                                     <i class="fa" data-check-icon="&#xf00c"></i>
                                 </span>
@@ -113,9 +118,10 @@
         </div>
         <!-- End Rating -->
 
+        <input class="cate" type="hidden" name="cate" value="{{ $alias }}" />
         <hr>
 
-        <button class="btn btn-block u-btn-black g-font-size-12 text-uppercase g-py-12 g-px-25"
-            type="button">Reset</button>
+        <button id="filter" class="btn btn-block u-btn-black g-font-size-12 text-uppercase g-py-12 g-px-25"
+            type="button" data-href="{{ route('cate', ['alias' => $alias]) }}">Find</button>
     </div>
 </div>

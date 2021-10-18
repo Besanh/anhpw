@@ -64,6 +64,8 @@ class ProductController extends Controller
                 'promote' => $request->promote,
                 'status' => $request->status,
                 'description' => $request->description,
+                'benefit' => $request->benefit,
+                'ingredient' => $request->ingredient,
                 'image' => $image,
                 'thumb' => $thumb,
                 'galleries' => json_encode($galleries)
@@ -126,6 +128,8 @@ class ProductController extends Controller
                 'promote' => $request->promote,
                 'status' => $request->status,
                 'description' => $request->description,
+                'benefit' => $request->benefit,
+                'ingredient' => $request->ingredient,
                 'image' => $img ? $img : $product->image,
                 'thumb' => $thumb ? $thumb : $product->thumb,
                 'galleries' => $galleries ? json_encode($galleries) : $product->galleries

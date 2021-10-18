@@ -41,3 +41,14 @@ Laravel spatie pjax
 https://www.youtube.com/watch?v=2DtkGT8JgMg
 https://github.com/spatie/laravel-pjax
 https://github.com/defunkt/jquery-pjax
+
+Count model via relationship
+https://laravel.com/docs/8.x/eloquent-relationships
+
+// Send serialize data ajax to array php
+https://www.phpflow.com/jquery/serialization-of-object-in-php-and-jquery/
+https://codingdriver.com/ajax-post-request-laravel-example.html
+
+Filter page category
+https://github.com/Besanh/laravel-query-builder
+https://navcodes.dev/blog/laravel-query-builder-checkboxes/
