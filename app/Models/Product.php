@@ -71,7 +71,7 @@ class Product extends Model
      */
     public function getFeaturedProduct()
     {
-        return $this->queryDataProduct()->get();
+        return self::queryDataProduct()->get();
     }
 
     /**
@@ -81,7 +81,7 @@ class Product extends Model
     {
         $now_date = date('Y-m-d H:i:s');
         $minus_date = dateBeforeAfter($now_date, '-');
-        $data = $this->queryDataProduct()
+        $data = self::queryDataProduct()
             ->where(function ($query) use ($now_date, $minus_date) {
                 $query->where([
                     ['products.updated_at', '>=', $minus_date],
@@ -92,22 +92,21 @@ class Product extends Model
         return $data;
     }
 
-    public function queryDataProduct()
+    public static function queryDataProduct()
     {
         return self::select([
             'products.id',
             'products.name',
             'products.name_seo',
             'products.image',
+            'products.thumb',
+            'products.benefit',
+            'products.ingredient',
+            'products.created_at',
             'prices.price',
             'prices.barcode',
             'prices.stock',
             'categories.name as cate_name',
-            'products.image',
-            'products.thumb',
-            'products.benefit',
-            'products.ingredient',
-            'products.created_at'
         ])
             ->join('prices', 'prices.pid', '=', 'products.id')
             ->join('categories', 'categories.id', '=', 'products.cate_id')
@@ -118,6 +117,7 @@ class Product extends Model
                 ['categories.status', '=', 1],
                 ['prices.stock', '>', 0]
             ])
+            ->orderBy('prices.stock', 'DESC')
             ->orderBy('products.promote', 'DESC')
             ->orderBy('prices.promote', 'DESC');
     }

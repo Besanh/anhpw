@@ -6,6 +6,7 @@ use App\Http\Controllers\Frontend\HelpController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\LoginController;
 use App\Http\Controllers\Frontend\OrderController;
+use App\Http\Controllers\Frontend\ProductController;
 use App\Http\Controllers\Frontend\SignupController;
 use App\Http\Controllers\Frontend\StoreController;
 use App\Http\Controllers\Frontend\TestController;
@@ -28,6 +29,14 @@ Route::get('order', [OrderController::class, 'index'])->name('order');
 Route::get('cate/{alias}/{limit?}', [CateController::class, 'getCate'])->where(['limit' => '[0-9]+'])->name('cate');
 Route::post('post-filter', [CateController::class, 'postFilter'])->name('post-filter-cate');
 Route::get('get-filter/{alias}', [CateController::class, 'getFilter'])->where(['limit' => '[0-9]+'])->name('get-filter-cate');
+
+// Product
+Route::get('{brand_alias}/{id}-{product_name}.html', [ProductController::class, 'index'])->where([
+    'brand_alias' => '[A-Za-Z]+',
+    'id' => '[0-9]+',
+    'product_alias' => '[A-Za-Z]+'
+])
+    ->name('product-detail');
 
 // Comming soon
 Route::get('comming-soon', [CommingSoonController::class, 'index'])->name('comming-soon');

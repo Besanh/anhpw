@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Product;
 use App\Models\Setting;
 use Carbon\Carbon;
 use Illuminate\Support\Arr;
@@ -375,5 +376,39 @@ if (!function_exists('validateArrival')) {
             return false;
         }
         return false;
+    }
+}
+
+/**
+ * Lay 3 sp arrival trong product
+ * Hien thi tren menu home
+ */
+if (!function_exists('getArrivalProduct')) {
+    function getArrivalProduct($limit = 3)
+    {
+        $first_date_month = Carbon::now()->firstOfMonth();
+        $last_date_month = Carbon::now()->lastOfMonth();
+        $data = Product::select([
+            'products.id',
+            'products.name',
+            'products.name_seo',
+            'products.image',
+            'products.thumb',
+            'prices.barcode',
+            'categories.name as cate_name',
+        ])
+            ->join('prices', 'prices.pid', '=', 'products.id')
+            ->join('categories', 'categories.id', '=', 'products.cate_id')
+            ->where([
+                ['prices.status', '=', 1],
+                ['products.status', '=', 1],
+                ['categories.status', '=', 1],
+                ['prices.stock', '>', 0],
+                ['products.created_at', '>=', $first_date_month],
+                ['products.created_at', '<=', $last_date_month]
+            ])
+            ->limit($limit)
+            ->get();
+        return $data ? $data : null;
     }
 }

@@ -19,17 +19,17 @@ $title = 'Trang chu'; ?>
     @endif
     <!-- End Products -->
 
-    <!-- Promo Block -->
-    @if ($countdown)
-        @include('frontend.home.sub_home._promotion', compact('countdown'))
-    @endif
-    <!-- End Promo Block -->
-
     <!-- New Arrivals -->
     @if ($arrival_products)
         @include('frontend.home.sub_home._new_arrival', compact('arrival_products'))
     @endif
     <!-- End New Arrivals -->
+
+    <!-- Promo Block -->
+    @if ($countdown)
+        @include('frontend.home.sub_home._promotion', compact('countdown'))
+    @endif
+    <!-- End Promo Block -->
 
     <!-- Categories -->
     {{-- @include('frontend.home.sub_home._seasons') --}}

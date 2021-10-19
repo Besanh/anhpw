@@ -338,28 +338,32 @@ class AppServiceProvider extends ServiceProvider
 
                 $str .= '<div class="col-sm-6 col-lg-2 g-mb-30 g-mb-0--md">';
                 $str .= '<div class="mb-5">';
-                $str .= '<span class="d-block g-font-weight-500 text-uppercase mb-2">' . $v->name . '</span>';
+                $str .= '<span class="d-block g-font-weight-500 text-uppercase mb-2">';
+                $str .= '<a class="nav-link g-color-primary--hover" href="' . $real_path . '">';
+                $str .= $v->name;
+                $str .= '</a>';
+                $str .= '</span>';
                 $str .= $this->getCateSubNav($v->id, $v->type_id);
                 $str .= '</div>';
                 $str .= '</div>';
 
                 if ($v->image) {
-                    $str .= '<div class="col-md-6 col-lg-4 g-mb-30 g-mb-0--md">
-                    <article class="g-pos-rel">
-                        <img class="img-fluid" src="' . getImage($v->image) . '"
-                            alt="Image Description">
+                //     $str .= '<div class="col-md-6 col-lg-4 g-mb-30 g-mb-0--md">
+                //     <article class="g-pos-rel">
+                //         <img class="img-fluid" src="' . getImage($v->image) . '"
+                //             alt="' . $v->name . '">
 
-                        <div class="g-pos-abs g-bottom-30 g-left-30">
-                            <span class="d-block g-color-gray-dark-v4 mb-2">Modern
-                                Lighting</span>
-                            <span class="d-block h4">Desk Clock 65" Table Lamp</span>
-                            <span
-                                class="d-block g-color-gray-dark-v3 g-font-size-16 mb-4">$156.00</span>
-                            <a class="btn u-btn-primary u-shadow-v29 g-font-size-12 text-uppercase g-py-10 g-px-20"
-                                href="#">Add to Cart</a>
-                        </div>
-                    </article>
-                </div>';
+                //         <div class="g-pos-abs g-bottom-30 g-left-30">
+                //             <span class="d-block g-color-gray-dark-v4 mb-2">Modern
+                //                 Lighting</span>
+                //             <span class="d-block h4">Desk Clock 65" Table Lamp</span>
+                //             <span
+                //                 class="d-block g-color-gray-dark-v3 g-font-size-16 mb-4">$156.00</span>
+                //             <a class="btn u-btn-primary u-shadow-v29 g-font-size-12 text-uppercase g-py-10 g-px-20"
+                //                 href="#">Add to Cart</a>
+                //         </div>
+                //     </article>
+                // </div>';
                 }
             }
         }
@@ -411,28 +415,48 @@ class AppServiceProvider extends ServiceProvider
                 <div class="w-100 hs-mega-menu u-shadow-v11 g-text-transform-none g-brd-top g-brd-primary g-brd-top-2 g-bg-white g-pa-30 g-mt-17"
                     aria-labelledby="mega-menu-label-5">
                     <div class="row">';
-            foreach ($sub_menu as $s) {
-                if ($s->route) {
-                    $real_path = route($s->route);
-                } else {
-                    $real_path = $s->url == 'javascript:void(0)' ? $s->url : url($s->url);
-                }
-                $str .= '<div class="col-md-4 g-mb-30 g-mb-0--md">
+            $arrival_products = getArrivalProduct();
+            if ($arrival_products) {
+                foreach ($arrival_products as $p) {
+                    $str .= '<div class="col-md-4 g-mb-30 g-mb-0--md">
                     <!-- Article -->
                     <article
                         class="g-bg-size-cover g-bg-pos-center g-bg-cover g-bg-bluegray-opacity-0_3--after text-center g-px-40 g-py-80"
-                        data-bg-img-src="' . getImage($s->image) . '">
+                        data-bg-img-src="' . getImage($p->thumb) . '">
                         <div class="g-pos-rel g-z-index-1">
                             <span
-                                class="d-block g-color-white g-font-weight-400 text-uppercase mb-3">Blouse</span>
-                            <span class="d-block h2 g-color-white mb-4">' . $s->name . '</span>
+                                class="d-block g-color-white g-font-weight-400 text-uppercase mb-3">' . $p->cate_name . '</span>
+                            <span class="d-block h2 g-color-white mb-4"></span>
                             <a class="btn u-btn-white g-brd-primary--hover g-color-white--hover g-bg-primary--hover g-font-size-11 text-uppercase g-py-10 g-px-20"
-                                href="' . $real_path . '">Shop Now</a>
+                                href="javascript:void(0)">Shop Now</a>
                         </div>
                     </article>
                     <!-- End Article -->
                 </div>';
+                }
             }
+            // foreach ($sub_menu as $s) {
+            //     if ($s->route) {
+            //         $real_path = route($s->route);
+            //     } else {
+            //         $real_path = $s->url == 'javascript:void(0)' ? $s->url : url($s->url);
+            //     }
+            //     $str .= '<div class="col-md-4 g-mb-30 g-mb-0--md">
+            //         <!-- Article -->
+            //         <article
+            //             class="g-bg-size-cover g-bg-pos-center g-bg-cover g-bg-bluegray-opacity-0_3--after text-center g-px-40 g-py-80"
+            //             data-bg-img-src="' . getImage($s->image) . '">
+            //             <div class="g-pos-rel g-z-index-1">
+            //                 <span
+            //                     class="d-block g-color-white g-font-weight-400 text-uppercase mb-3">Blouse</span>
+            //                 <span class="d-block h2 g-color-white mb-4">' . $s->name . '</span>
+            //                 <a class="btn u-btn-white g-brd-primary--hover g-color-white--hover g-bg-primary--hover g-font-size-11 text-uppercase g-py-10 g-px-20"
+            //                     href="' . $real_path . '">Shop Now</a>
+            //             </div>
+            //         </article>
+            //         <!-- End Article -->
+            //     </div>';
+            // }
             $str .= '</div>
             </div>';
         }

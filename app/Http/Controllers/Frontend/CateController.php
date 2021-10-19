@@ -22,7 +22,6 @@ class CateController extends Controller
         $products = null;
         $brands = null;
         $other_cate = null;
-        $model_product = new Product();
         $mode_price = new Price();
         $cate = Category::where([
             ['alias', '=', $alias],
@@ -31,6 +30,7 @@ class CateController extends Controller
             ->select([
                 'id',
                 'name',
+                'name_seo',
                 'alias',
                 'description',
                 'image',
@@ -42,7 +42,7 @@ class CateController extends Controller
             if (Arr::get($query, 'filter')) {
                 $filter_bid = explode(',', Arr::get($query, 'filter.bid'));
                 $filter_capa = explode(',', Arr::get($query, 'filter.capa'));
-                $query_data = $model_product->queryDataProduct();
+                $query_data = Product::queryDataProduct();
                 if (Arr::get($query, 'filter.bid')) {
                     $query_data->where(function ($query) use ($filter_bid) {
                         $query->whereIn('bid', $filter_bid);
@@ -54,7 +54,7 @@ class CateController extends Controller
                     });
                 }
             } else {
-                $query_data = $model_product->queryDataProduct()
+                $query_data = Product::queryDataProduct()
                     ->where(function ($query) use ($cate_id) {
                         $query->where('products.cate_id', '=', $cate_id);
                     });
@@ -62,9 +62,9 @@ class CateController extends Controller
                     $first_date_month = Carbon::now()->firstOfMonth();
                     $last_date_month = Carbon::now()->lastOfMonth();
                     // join bang best seller
-                    $model_product->join('product_bestseller', 'best.pid', '=', 'p.id')
+                    $$query_data->join('product_bestseller', 'best.pid', '=', 'p.id')
                         ->where(function ($query) use ($first_date_month, $last_date_month) {
-                            $query->where('product_bestseller.status', '1')
+                            $query->where('product_bestseller.status', 1)
                                 ->whereBetween('date_saved', [$first_date_month, $last_date_month]);
                         });
                 } elseif ($sort == 'trending') {
@@ -133,7 +133,6 @@ class CateController extends Controller
      */
     public function postFilter(Request $request)
     {
-        $model = new Product();
         $products = null;
         $bids = [];
         $capas = [];
@@ -165,7 +164,7 @@ class CateController extends Controller
                 ->first();
             if ($cate) {
                 $cate_id = $cate->id;
-                $query_data = $model->queryDataProduct()
+                $query_data = Product::queryDataProduct()
                     ->where(function ($query) use ($cate_id, $bids, $capas) {
                         $query->where([
                             ['products.cate_id', '=', $cate_id]

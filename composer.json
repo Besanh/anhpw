@@ -2,11 +2,12 @@
     "name": "laravel/laravel",
     "type": "project",
     "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "keywords": ["framework", "laravel", "anhpw", "perfume"],
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
         "ckfinder/ckfinder-laravel-package": "v3.5.2.1",
+        "diglactic/laravel-breadcrumbs": "^7.0",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "intervention/image": "^2.6",

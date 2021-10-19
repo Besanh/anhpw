@@ -1,7 +1,7 @@
 @extends('frontend.layouts.main')
 @section('content')
     <!-- Breadcrumbs -->
-    @include('frontend.category.sub_files.breadcrumb')
+    @include('frontend.category.sub_files.breadcrumb', compact(['cate']))
     <!-- End Breadcrumbs -->
     <!-- Products -->
     <div class="container">
@@ -13,10 +13,10 @@
                     <div class="g-bg-size-cover g-bg-pos-center g-mt-30 g-py-40"
                         style="background-image: url({{ $cate ? getImage($cate->big_thumb) : asset('frontend/img-temp/900x450/img1.jpg') }}">
                         <div class="g-pos-rel g-z-index-1 g-pa-50">
-                            <span class="d-block g-color-primary g-font-weight-700 g-font-size-40 mb-0">-40%</span>
-                            <h2 class="g-color-white g-font-size-50 mb-3">Summer Collection</h2>
-                            <a class="btn u-btn-white g-brd-primary--hover g-color-primary g-color-white--hover g-bg-primary--hover g-font-size-12 text-uppercase g-py-12 g-px-25"
-                                href="home-page-1.html">Shop Now</a>
+                            <span class="d-block g-color-primary g-font-weight-700 g-font-size-40 mb-0"></span>
+                            <h2 class="g-color-white g-font-size-50 mb-3">{{$cate->name_seo}} Collection</h2>
+                            {{-- <a class="btn u-btn-white g-brd-primary--hover g-color-primary g-color-white--hover g-bg-primary--hover g-font-size-12 text-uppercase g-py-12 g-px-25"
+                                href="home-page-1.html">Shop Now</a> --}}
                         </div>
                     </div>
                     <!-- End Banner -->
