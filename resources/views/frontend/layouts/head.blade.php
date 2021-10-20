@@ -29,3 +29,6 @@
 
 <!-- Comming soon -->
 @stack('link-comming-soon')
+
+<!-- Product detail -->
+@stack('link-product-detail')

@@ -85,6 +85,7 @@ class CreateProducts extends Migration
 
         Schema::create('brands', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('alias');
             $table->string('name');
             $table->string('name_seo');
             $table->text('description')->nullable();

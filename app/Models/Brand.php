@@ -11,7 +11,7 @@ class Brand extends Model
 
     public $timestamps = true;
 
-    protected $fillable = ['name', 'name_seo', 'description', 'priority', 'status', 'image'];
+    protected $fillable = ['name', 'name_seo', 'alias', 'description', 'priority', 'status', 'image'];
 
     public function getProducts()
     {

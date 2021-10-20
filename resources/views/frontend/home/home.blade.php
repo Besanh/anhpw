@@ -15,7 +15,7 @@ $title = 'Trang chu'; ?>
 
     <!-- Products -->
     @if ($products)
-        @include('frontend.home.sub_home._featured_product', compact(['products', 'slogan_f_p']))
+        @include('frontend.home.sub_home._featured_product', compact(['products', 'slogan_f_p', 'cates']))
     @endif
     <!-- End Products -->
 

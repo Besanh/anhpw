@@ -24,6 +24,7 @@ class BrandStoreRequest extends FormRequest
     public function rules()
     {
         return [
+            'alias' => 'required|string',
             'name' => 'required|string',
             'name_seo' => 'required|string',
             'description' => 'string|nullable',

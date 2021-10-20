@@ -36,7 +36,8 @@ use Carbon\Carbon; ?>
                                     <figcaption
                                         class="w-100 g-bg-primary g-bg-black--hover text-center g-pos-abs g-bottom-0 g-transition-0_2 g-py-5">
                                         <a class="g-color-white g-font-size-11 text-uppercase g-letter-spacing-1 g-text-underline--none--hover"
-                                            href="#">New Arrival</a>
+                                            href="{{ route('product-detail', ['brand_alias' => $p->b_alias, 'id' => $p->id, 'product_alias' => toAlias($p->name)]) }}">New
+                                            Arrival</a>
                                     </figcaption>
                                 @endif
                             @endif
@@ -49,12 +50,13 @@ use Carbon\Carbon; ?>
                             <!-- Product Info -->
                             <div class="d-flex flex-column">
                                 <h4 class="h6 g-color-black mb-1">
-                                    <a class="u-link-v5 g-color-black g-color-primary--hover" href="#">
+                                    <a class="u-link-v5 g-color-black g-color-primary--hover"
+                                        href="{{ route('product-detail', ['brand_alias' => $p->b_alias, 'id' => $p->id, 'product_alias' => toAlias($p->name)]) }}">
                                         {{ getTeaser($p->name, 5) }}
                                     </a>
                                 </h4>
                                 <a class="d-inline-block g-color-gray-dark-v5 g-font-size-13"
-                                    href="#">{{ getTeaser($p->cate_name, 5) }}</a>
+                            href="">{{ getTeaser($p->cate_name, 5) }}</a>
                                 <span class="d-block g-color-black g-font-size-17">
                                     {!! getPrice($p->price) !!}
                                 </span>

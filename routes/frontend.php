@@ -31,11 +31,10 @@ Route::post('post-filter', [CateController::class, 'postFilter'])->name('post-fi
 Route::get('get-filter/{alias}', [CateController::class, 'getFilter'])->where(['limit' => '[0-9]+'])->name('get-filter-cate');
 
 // Product
-Route::get('{brand_alias}/{id}-{product_name}.html', [ProductController::class, 'index'])->where([
-    'brand_alias' => '[A-Za-Z]+',
-    'id' => '[0-9]+',
-    'product_alias' => '[A-Za-Z]+'
-])
+Route::get('{brand_alias}/{id}-{product_alias}.html', [ProductController::class, 'index'])
+    ->whereAlphaNumeric('brand_alias')
+    ->whereNumber('id')
+    // ->whereAlphaNumeric('product_alias')
     ->name('product-detail');
 
 // Comming soon

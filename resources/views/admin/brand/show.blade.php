@@ -2,6 +2,7 @@
 $title = $brand->name;
 $head_table = [
 'Id' => $brand->id,
+'Alias' => $brand->alias,
 'Name' => $brand->name,
 'Name SEO' => $brand->name_seo,
 'Description' => $brand->description,

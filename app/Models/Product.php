@@ -107,6 +107,7 @@ class Product extends Model
             'prices.barcode',
             'prices.stock',
             'categories.name as cate_name',
+            'brands.alias as b_alias'
         ])
             ->join('prices', 'prices.pid', '=', 'products.id')
             ->join('categories', 'categories.id', '=', 'products.cate_id')
