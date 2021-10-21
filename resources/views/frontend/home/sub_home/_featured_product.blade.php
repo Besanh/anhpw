@@ -56,7 +56,7 @@ use Carbon\Carbon; ?>
                                     </a>
                                 </h4>
                                 <a class="d-inline-block g-color-gray-dark-v5 g-font-size-13"
-                            href="">{{ getTeaser($p->cate_name, 5) }}</a>
+                                    href="{{ route('cate', ['alias' => $p->cate_alias]) }}">{{ getTeaser($p->cate_name, 3) }}</a>
                                 <span class="d-block g-color-black g-font-size-17">
                                     {!! getPrice($p->price) !!}
                                 </span>

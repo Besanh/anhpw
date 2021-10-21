@@ -1,14 +1,9 @@
 <div class="container">
     <div class="g-brd-y g-brd-gray-light-v4 g-pt-100 g-pb-70">
         <h2 class="h4 mb-3">Description</h2>
-
         <div class="row">
             <div class="col-md-4 g-mb-30">
-                <p>The streak started in late October. Canelas 2010, an unheralded amateur soccer team, suddenly could
-                    not stop winning.</p>
-                <p>It went 10 straight matches without dropping a point, without so much as conceding a goal, a surge
-                    that brought the prospect of promotion out of its local league and into the comparative big time of
-                    the national third division.</p>
+                <p>{!! $product ? $product->description : null !!}</p>
             </div>
 
             <div class="col-md-4 g-mb-0 g-mb-30--md">
@@ -16,9 +11,9 @@
                 <ul class="list-unstyled g-color-text">
                     <li class="g-brd-bottom--dashed g-brd-gray-light-v3 pt-1 mb-3">
                         <span>Brand Name:</span>
-                        <span class="float-right g-color-black">Lacoste</span>
+                    <span class="float-right g-color-black">{{$product ? $product->brand_name : null }}</span>
                     </li>
-                    <li class="g-brd-bottom--dashed g-brd-gray-light-v3 pt-1 mb-3">
+                    {{-- <li class="g-brd-bottom--dashed g-brd-gray-light-v3 pt-1 mb-3">
                         <span>Sleeve Length:</span>
                         <span class="float-right g-color-black">Full</span>
                     </li>
@@ -33,12 +28,12 @@
                     <li class="g-brd-bottom--dashed g-brd-gray-light-v3 pt-1 mb-3">
                         <span>Style:</span>
                         <span class="float-right g-color-black">Casual</span>
-                    </li>
+                    </li> --}}
                 </ul>
                 <!-- End List -->
             </div>
 
-            <div class="col-md-4 g-mb-30">
+            {{-- <div class="col-md-4 g-mb-30">
                 <!-- List -->
                 <ul class="list-unstyled g-color-text">
                     <li class="g-brd-bottom--dashed g-brd-gray-light-v3 pt-1 mb-3">
@@ -63,7 +58,7 @@
                     </li>
                 </ul>
                 <!-- End List -->
-            </div>
+            </div> --}}
         </div>
     </div>
 </div>

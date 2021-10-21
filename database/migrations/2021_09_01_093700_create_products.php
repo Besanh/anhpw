@@ -25,6 +25,7 @@ class CreateProducts extends Migration
             $table->year('public_year')->nullable();
             $table->string('image')->nullable();
             $table->string('thumb')->nullable();
+            $table->string('thumb_small')->nullable();
             $table->text('description')->nullable();
             $table->text('benefit')->nullable();
             $table->text('ingredient')->nullable();

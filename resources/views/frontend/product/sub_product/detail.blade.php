@@ -1,17 +1,16 @@
 <!-- Product Info -->
 <div class="g-mb-30">
-    <h1 class="g-font-weight-300 mb-4">Men's Water<br>Resistant Jacket</h1>
-    <p>Dress is the "rain mac" version of our beloved essential the Unify Parka. Crafted from a water resistant fluid
-        memory fabric to create an elegant draped effect when thrown on, this lightweight shell will take you from
-        season to season and protect you from that unexpected shower.</p>
+    <h1 class="g-font-weight-300 mb-4">{{ $product ? $product->p_name : null }}</h1>
+    <p>{!! $product ? $product->ingredient : null !!}</p>
 </div>
 <!-- End Product Info -->
 
 <!-- Price -->
 <div class="g-mb-30">
     <h2 class="g-color-gray-dark-v5 g-font-weight-400 g-font-size-12 text-uppercase mb-2">Price</h2>
-    <span class="g-color-black g-font-weight-500 g-font-size-30 mr-2">$99.00</span>
-    <s class="g-color-gray-dark-v4 g-font-weight-500 g-font-size-16">$101.00</s>
+    <span
+        class="g-color-black g-font-weight-500 g-font-size-30 mr-2">{{ $product ? getPrice($product->price) : null }}</span>
+    {{-- <s class="g-color-gray-dark-v4 g-font-weight-500 g-font-size-16">$101.00</s> --}}
 </div>
 <!-- End Price -->
 
@@ -27,19 +26,14 @@
     </div>
     <div id="accordion-01-body-01" class="collapse" role="tabpanel" aria-labelledby="accordion-01-heading-01">
         <div class="g-py-10">
-            <p class="g-font-size-12 mb-2">SHELL: 100% POLYESTER</p>
-            <p class="g-font-size-12 mb-2">Always check the care label instructions.</p>
-            <p class="g-font-size-12 mb-2">Professional dry clean only. Remove all detachable parts before cleaning. Do
-                not iron.</p>
-            <p class="g-font-size-12 mb-2">(Navy: Avoid contact with light coloured fabrics and upholstery especially
-                whilst damp.)</p>
+            <p class="g-font-size-12 mb-2">{!! $product ? $product->benefit : null !!}</p>
         </div>
     </div>
 </div>
 <!-- End Accordion -->
 
 <!-- Colour -->
-<div class="d-flex justify-content-between align-items-center g-brd-bottom g-brd-gray-light-v3 py-3" role="tab">
+{{-- <div class="d-flex justify-content-between align-items-center g-brd-bottom g-brd-gray-light-v3 py-3" role="tab">
     <h5 class="g-color-gray-dark-v5 g-font-weight-400 g-font-size-default mb-0">Colour</h5>
 
     <!-- Checkbox -->
@@ -68,42 +62,18 @@
         </span>
     </label>
     <!-- End Checkbox -->
-</div>
+</div> --}}
 <!-- End Colour -->
 
 <!-- Size -->
 <div class="d-flex justify-content-between align-items-center g-brd-bottom g-brd-gray-light-v3 py-3" role="tab">
-    <h5 class="g-color-gray-dark-v5 g-font-weight-400 g-font-size-default mb-0">Size</h5>
+    <h5 class="g-color-gray-dark-v5 g-font-weight-400 g-font-size-default mb-0">Capacity</h5>
 
     <!-- Checkbox -->
     <label class="form-check-inline u-check mb-0 ml-auto g-mr-15">
-        <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="radInline2_1" type="radio">
+        <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="capacity" type="radio">
         <span class="d-block g-font-size-12 g-color-primary--checked">
-            S
-        </span>
-    </label>
-    <label class="form-check-inline u-check mb-0 g-mx-15">
-        <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="radInline2_1" type="radio">
-        <span class="d-block g-font-size-12 g-color-primary--checked">
-            M
-        </span>
-    </label>
-    <label class="form-check-inline u-check mb-0 g-mx-15">
-        <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="radInline2_1" type="radio">
-        <span class="d-block g-font-size-12 g-color-primary--checked">
-            L
-        </span>
-    </label>
-    <label class="form-check-inline u-check mb-0 g-mx-15">
-        <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="radInline2_1" type="radio">
-        <span class="d-block g-font-size-12 g-color-primary--checked">
-            XL
-        </span>
-    </label>
-    <label class="form-check-inline u-check mb-0 g-ml-15">
-        <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="radInline2_1" type="radio">
-        <span class="d-block g-font-size-12 g-color-primary--checked">
-            XXL
+            {{ $product ? $product->capa : null }}
         </span>
     </label>
     <!-- End Checkbox -->
@@ -115,7 +85,8 @@
     <h5 class="g-color-gray-dark-v5 g-font-weight-400 g-font-size-default mb-0">Quantity</h5>
 
     <div class="js-quantity input-group u-quantity-v1 g-width-80 g-brd-primary--focus">
-        <input class="js-result form-control text-center g-font-size-13 rounded-0" type="text" value="1" readonly>
+        <input class="js-result form-control text-center g-font-size-13 rounded-0" name="quantity" type="text" value="1"
+            readonly>
 
         <div
             class="input-group-addon d-flex align-items-center g-width-30 g-brd-gray-light-v2 g-bg-white g-font-size-13 rounded-0 g-pa-5">
@@ -150,10 +121,10 @@
         <a class="nav-link active g-color-primary--parent-active g-pa-0 g-pb-1" data-toggle="tab"
             href="#nav-1-1-default-hor-left--3" role="tab">Returns</a>
     </li>
-    <li class="nav-item g-brd-bottom g-brd-gray-dark-v4">
+    {{-- <li class="nav-item g-brd-bottom g-brd-gray-dark-v4">
         <a class="nav-link g-color-primary--parent-active g-pa-0 g-pb-1" data-toggle="tab"
             href="#nav-1-1-default-hor-left--1" role="tab">View Size Guide</a>
-    </li>
+    </li> --}}
     <li class="nav-item g-brd-bottom g-brd-gray-dark-v4">
         <a class="nav-link g-color-primary--parent-active g-pa-0 g-pb-1" data-toggle="tab"
             href="#nav-1-1-default-hor-left--2" role="tab">Delivery</a>
@@ -170,7 +141,7 @@
         </p>
     </div>
 
-    <div class="tab-pane fade g-pt-30" id="nav-1-1-default-hor-left--1" role="tabpanel">
+    {{-- <div class="tab-pane fade g-pt-30" id="nav-1-1-default-hor-left--1" role="tabpanel">
         <h4 class="g-font-size-15 mb-3">General Clothing Size Guide</h4>
 
         <!-- Size -->
@@ -227,7 +198,7 @@
             </tbody>
         </table>
         <!-- End Size -->
-    </div>
+    </div> --}}
 
     <div class="tab-pane fade g-pt-30" id="nav-1-1-default-hor-left--2" role="tabpanel">
         <!-- Shipping Mehtod -->

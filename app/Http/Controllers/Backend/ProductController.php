@@ -9,6 +9,7 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Intervention\Image\Facades\Image;
 
 class ProductController extends Controller
 {
@@ -43,14 +44,16 @@ class ProductController extends Controller
      */
     public function store(ProductStoreRequest $request, Product $product)
     {
+        $galleries = $thumb_small = $img_thumb_small = null;
         $img_org = $thumb = $img = '';
-        $galleries = null;
         if ($request->hasFile('image')) {
             [$img_org, $thumb, $image] = proccessUpload($request, 'product', 650, 750);
+            $img_thumb_small = $this->uploadThumbSmall($request->file('image'), 'product_image', 250, 125);
         }
         if ($request->hasFile('galleries')) {
             foreach ($request->file('galleries') as $node) {
-                $galleries[] = uploadMultipleImage($node, 'product_galleries', 650, 750);
+                $galleries[] = $this->uploadGalleries($node, 'product_galleries', 650, 750);
+                $thumb_small[] = $this->uploadThumbSmall($node, 'product', 250, 125);
             }
         }
         if ($request->validated()) {
@@ -67,7 +70,9 @@ class ProductController extends Controller
                 'benefit' => $request->benefit,
                 'ingredient' => $request->ingredient,
                 'image' => $image,
+                'image_thumb_small' => $img_thumb_small,
                 'thumb' => $thumb,
+                'thumb_small' => json_encode($thumb_small),
                 'galleries' => json_encode($galleries)
             ]);
             return redirect()->back()->with('message', 'Created product successfully');
@@ -107,16 +112,19 @@ class ProductController extends Controller
      */
     public function update(ProductUpdateRequest $request, Product $product)
     {
-        $galleries = null;
+        $galleries = $thumb_small = $img_thumb_small = null;
         $img_org = $thumb = $img = '';
         if ($request->hasFile('image')) {
             [$img_org, $thumb, $img] = proccessUpload($request, 'product', 650, 750);
+            $img_thumb_small = $this->uploadThumbSmall($request->file('image'), 'product_image', 250, 125);
         }
         if ($request->hasFile('galleries')) {
             foreach ($request->file('galleries') as $node) {
-                $galleries[] = uploadMultipleImage($node, 'product_galleries', 650, 750);
+                $galleries[] = $this->uploadGalleries($node, 'product_galleries', 650, 750);
+                $thumb_small[] = $this->uploadThumbSmall($node, 'product', 250, 125);
             }
         }
+
         if ($request->validated()) {
             $product->update([
                 'cate_id' => $request->cate_id,
@@ -131,7 +139,9 @@ class ProductController extends Controller
                 'benefit' => $request->benefit,
                 'ingredient' => $request->ingredient,
                 'image' => $img ? $img : $product->image,
+                'image_thumb_small' => $img_thumb_small ? $img_thumb_small : $product->img_thumb_small,
                 'thumb' => $thumb ? $thumb : $product->thumb,
+                'thumb_small' => $thumb_small ? json_encode($thumb_small) : $product->thumb_small,
                 'galleries' => $galleries ? json_encode($galleries) : $product->galleries
             ]);
             return redirect()->back()->with('message', 'Updated product successfully');
@@ -164,5 +174,78 @@ class ProductController extends Controller
             return response()->json($msg);
         }
         return redirect()->back()->with('message', 'Nothing change');
+    }
+
+    public function uploadGalleries($file, $model = 'default', $width = 500, $height = 500)
+    {
+        $data = '';
+        try {
+            $dir = 'userfiles/images/' . $model . '/';
+            $dir_org = 'userfiles/images/' . $model . '_org/';
+            $dir_thumb = 'userfiles/images/' . $model . '_thumb/';
+            $dir_thumb_small = 'userfiles/images/' . $model . '_thumb_small/';
+
+            $name = microtime(true) . '.' . $file->extension();
+            !is_dir($dir) ? createDir($dir) : (!is_dir($dir_org) ? createDir($dir_org) : (!is_dir($dir_thumb) ? createDir($dir_thumb) : (!is_dir($dir_thumb_small) ? createDir($dir_thumb_small) : null)));
+
+            // Save org
+            Image::make($file->getRealPath())->save(createImageUri($dir_org, $name));
+            // Save thumb
+            Image::make($file->getRealPath())->resize(150, 150, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(createImageUri($dir_thumb, $name));
+
+            // Thumb small
+            Image::make($file->getRealPath())->resize(250, 170, function ($constraint) {
+                // $constraint->aspectRatio();
+            })->save(createImageUri($dir_thumb_small, $name));
+
+            if (Image::make($file->getRealPath())->resize($width, $height, function ($constraint) {
+                // $constraint->aspectRatio();
+            })->save(createImageUri($dir, $name))) {
+                $data = createImageUri($dir, $name);
+            }
+
+            // if ($width >= 900 && $height >= 450) {
+            //     if (Image::make($file->getRealPath())->resize($width, $height, function ($constraint) {
+            //         $constraint->aspectRatio();
+            //     })->save(createImageUri($dir, $name))) {
+            //         $data = createImageUri($dir, $name);
+            //     }
+
+            //     // watermark
+            // } else {
+            //     if (Image::make($file->getRealPath())->save(createImageUri($dir, $name))) {
+            //         $data = createImageUri($dir, $name);
+            //     }
+            // }
+            return $data;
+        } catch (\Throwable $th) {
+            throw $th;
+            return false;
+        }
+    }
+
+    public function uploadThumbSmall($file, $model = 'default', $width = 250, $height = 125)
+    {
+        $data = '';
+        try {
+            $dir_thumb_small = 'userfiles/images/' . $model . '_thumb_small/';
+
+            $name = microtime(true) . '.' . $file->extension();
+            !is_dir($dir_thumb_small) ? createDir($dir_thumb_small) : null;
+
+            // Thumb small
+            if (Image::make($file->getRealPath())->resize($width, $height, function ($constraint) {
+                // $constraint->aspectRatio();
+            })->save(createImageUri($dir_thumb_small, $name))) {
+                $data = createImageUri($dir_thumb_small, $name);
+            }
+
+            return $data;
+        } catch (\Throwable $th) {
+            throw $th;
+            return false;
+        }
     }
 }

@@ -18,13 +18,13 @@
 
 <div id="carouselCus2" class="js-carousel text-center u-carousel-v3 g-mx-minus-5" data-infinite="true"
     data-center-mode="true" data-slides-show="3" data-is-thumbs="true" data-nav-for="#carouselCus1">
-    @if ($image)
+    @if ($image_thumb_small)
         <div class="js-slide g-cursor-pointer g-px-5">
-            <img class="img-fluid" src="{{ getImage($image) }}" alt="Image Description">
+            <img class="img-fluid" src="{{ getImage($image_thumb_small) }}" alt="Image Description">
         </div>
     @endif
-    @if ($galleries && is_array(json_decode($galleries)))
-        @foreach (json_decode($galleries) as $item)
+    @if ($thumb_small && is_array(json_decode($thumb_small)))
+        @foreach (json_decode($thumb_small) as $item)
             <div class="js-slide g-cursor-pointer g-px-5">
                 <img class="img-fluid" src="{{ getImage($item) }}" alt="Image Description">
             </div>
