@@ -16,7 +16,7 @@
             <input class="form-control g-font-size-13" type="search" placeholder="Search Here...">
             <div class="input-group-append p-0">
                 <button class="btn u-btn-primary g-font-size-12 text-uppercase g-py-13 g-px-15"
-                    type="submit">Go</button>
+                    type="submit">{{ __('Go') }}</button>
             </div>
         </div>
     </form>

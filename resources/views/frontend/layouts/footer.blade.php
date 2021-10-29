@@ -13,7 +13,7 @@ $b_child = '';
                 <div class="col-md-5 g-mb-30">
                     <h2 class="h5 g-color-gray-light-v3 mb-4">
                         @if ($menus_product)
-                            {{ $menus_product->name }}
+                            {{ $menus_product->name_seo }}
                         @endif
                     </h2>
 
@@ -27,7 +27,7 @@ $b_child = '';
                                         @if ($k <= 4)
                                             <li class="g-mb-10">
                                                 <a class="u-link-v5 g-color-gray-dark-v5 g-color-primary--hover"
-                                                    href="{{ $p->url }}">{{ $p->name }}</a>
+                                                    href="{{ $p->url }}">{{ getTeaser($p->name_seo, 3) }}</a>
                                             </li>
                                         @endif
 
@@ -45,7 +45,7 @@ $b_child = '';
                                         @if ($k > 4 && $k <= 9)
                                             <li class="g-mb-10">
                                                 <a class="u-link-v5 g-color-gray-dark-v5 g-color-primary--hover"
-                                                    href="{{ $p->url }}">{{ $p->name }}</a>
+                                                    href="{{ $p->url }}">{{ getTeaser($p->name_seo, 3) }}</a>
                                             </li>
                                         @endif
 
@@ -63,7 +63,7 @@ $b_child = '';
                                         @if ($k > 9)
                                             <li class="g-mb-10">
                                                 <a class="u-link-v5 g-color-gray-dark-v5 g-color-primary--hover"
-                                                    href="{{ $p->url }}">{{ $p->name }}</a>
+                                                    href="{{ $p->url }}">{{ getTeaser($p->name_seo, 3) }}</a>
                                             </li>
                                         @endif
 
@@ -79,7 +79,7 @@ $b_child = '';
                 <div class="col-sm-6 col-md-3 g-mb-30 g-mb-0--sm">
                     <h2 class="h5 g-color-gray-light-v3 mb-4">
                         @if ($menus_brand)
-                            {{ $menus_brand->name }}
+                            {{ getTeaser($menus_brand->name_seo, 3) }}
                         @endif
                     </h2>
 
@@ -93,7 +93,7 @@ $b_child = '';
                                         @if ($k < 4)
                                             <li class="g-mb-10">
                                                 <a class="u-link-v5 g-color-gray-dark-v5 g-color-primary--hover"
-                                                    href="{{ $item->url }}">{{ $item->name }}</a>
+                                                    href="{{ $item->url }}">{{ getTeaser($item->name_seo, 3) }}</a>
                                             </li>
                                         @endif
                                     @endforeach
@@ -109,7 +109,7 @@ $b_child = '';
                                         @if ($k >= 4)
                                             <li class="g-mb-10">
                                                 <a class="u-link-v5 g-color-gray-dark-v5 g-color-primary--hover"
-                                                    href="{{ $item->url }}">{{ $item->name }}</a>
+                                                    href="{{ $item->url }}">{{ getTeaser($item->name_seo, 3) }}</a>
                                             </li>
                                         @endif
                                     @endforeach
@@ -120,7 +120,7 @@ $b_child = '';
                 </div>
 
                 <div class="col-sm-5 col-md-3 ml-auto g-mb-30 g-mb-0--sm">
-                    <h2 class="h5 g-color-gray-light-v3 mb-4">Contacts</h2>
+                    <h2 class="h5 g-color-gray-light-v3 mb-4">{{ __('Contacts') }}</h2>
 
                     <!-- Links -->
                     <ul class="list-unstyled g-color-gray-dark-v5 g-font-size-13">
@@ -156,7 +156,7 @@ $b_child = '';
             <!-- Secondary Content -->
             <div class="row">
                 <div class="col-md-4 g-mb-50">
-                    <h2 class="h5 g-color-gray-light-v3 mb-4">Subscribe</h2>
+                    <h2 class="h5 g-color-gray-light-v3 mb-4">{{ __('Subscribe') }}</h2>
 
                     <!-- Subscribe Form -->
                     <form action="" method="POST" class="input-group u-shadow-v19 rounded">
@@ -173,7 +173,7 @@ $b_child = '';
                 </div>
 
                 <div class="col-6 col-md-3 ml-auto g-mb-30">
-                    <h2 class="h5 g-color-gray-light-v3 mb-4">Follow Us On:</h2>
+                    <h2 class="h5 g-color-gray-light-v3 mb-4">{{ __('Follow Us On') }}:</h2>
 
                     <!-- Social Icons -->
                     <ul class="list-inline mb-50">
@@ -205,8 +205,9 @@ $b_child = '';
     <div class="container g-pt-30 g-pb-10">
         <div class="row justify-content-between align-items-center">
             <div class="col-md-6 g-mb-20">
-                <p class="g-font-size-13 mb-0">{{ date('Y') }} &copy; {{ config('app.name') }}. All Rights
-                    Reserved.
+                <p class="g-font-size-13 mb-0">{{ date('Y') }} &copy; {{ config('app.name') }}.
+                    {{ __('All Rights
+                    Reserved') }}.
                 </p>
             </div>
 

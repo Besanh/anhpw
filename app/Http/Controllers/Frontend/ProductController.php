@@ -10,6 +10,8 @@ class ProductController extends Controller
     public function index($brand_alias, $id, $product_alias)
     {
         $product = Product::select([
+            'categories.name as cate_name',
+            'categories.name_seo as cate_name_seo',
             'products.id as p_id',
             'products.name as p_name',
             'products.name_seo as p_name_seo',
@@ -20,6 +22,10 @@ class ProductController extends Controller
             'products.image_thumb_small',
             'products.galleries',
             'products.thumb_small',
+            'products.designer',
+            'products.public_year',
+            'products.incense_group',
+            'products.styles',
             'brands.name as brand_name',
             'brands.name_seo as brand_name_seo',
             'prices.sap_id',
@@ -31,9 +37,11 @@ class ProductController extends Controller
             'prices.capa_id',
             'prices.stock'
         ])
+            ->join('categories', 'categories.id', '=', 'products.cate_id')
             ->join('brands', 'brands.id', '=', 'products.bid')
             ->join('prices', 'prices.pid', '=', 'products.id')
             ->where([
+                ['categories.status', '=', 1],
                 ['brands.alias', '=', $brand_alias],
                 ['products.id', '=', $id],
                 ['brands.status', '=', 1],

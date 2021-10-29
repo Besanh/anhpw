@@ -1,6 +1,6 @@
 <?php
 use Carbon\Carbon; ?>
-<div class="container g-pb-100">
+<div class="container g-pb-5 mt-5">
     <div class="text-center mx-auto g-max-width-600 g-mb-50">
         @if ($slogan_f_p && isJson($slogan_f_p->value_setting))
             @foreach (json_decode($slogan_f_p->value_setting, true) as $s)
@@ -21,27 +21,30 @@ use Carbon\Carbon; ?>
                     <div class="g-px-10">
                         <!-- Product -->
                         <figure class="g-pos-rel g-mb-20">
-                            <img class="img img-responsive img-product-home img-fluid"
-                                data-lazy="{{ $p->image ? getImage($p->image) : getNoImage() }}"
-                                alt="{{ $p->name }}">
+                            <a
+                                href="{{ $p->stock < minStock() ? 'javascript:void(0)' : route('product-detail', ['brand_alias' => $p->b_alias, 'id' => $p->id, 'product_alias' => toAlias($p->name)]) }}">
+                                <img class="img-thumbnail"
+                                    data-lazy="{{ $p->image ? getImage($p->image) : getNoImage() }}"
+                                    alt="{{ $p->name }}">
 
-                            @if ($p->stock < minStock())
-                                <figcaption
-                                    class="w-100 g-bg-lightred text-center g-pos-abs g-bottom-0 g-transition-0_2 g-py-5">
-                                    <span class="g-color-white g-font-size-11 text-uppercase g-letter-spacing-1">Sold
-                                        Out</span>
-                                </figcaption>
-                            @else
-                                @if (validateArrival($p->created_at))
+                                @if ($p->stock < minStock())
                                     <figcaption
-                                        class="w-100 g-bg-primary g-bg-black--hover text-center g-pos-abs g-bottom-0 g-transition-0_2 g-py-5">
-                                        <a class="g-color-white g-font-size-11 text-uppercase g-letter-spacing-1 g-text-underline--none--hover"
-                                            href="{{ route('product-detail', ['brand_alias' => $p->b_alias, 'id' => $p->id, 'product_alias' => toAlias($p->name)]) }}">New
-                                            Arrival</a>
+                                        class="w-100 g-bg-lightred text-center g-pos-abs g-bottom-0 g-transition-0_2 g-py-5">
+                                        <span
+                                            class="g-color-white g-font-size-11 text-uppercase g-letter-spacing-1">Sold
+                                            Out</span>
                                     </figcaption>
+                                @else
+                                    @if (validateArrival($p->created_at))
+                                        <figcaption
+                                            class="w-100 g-bg-primary g-bg-black--hover text-center g-pos-abs g-bottom-0 g-transition-0_2 g-py-5">
+                                            <a class="g-color-white g-font-size-11 text-uppercase g-letter-spacing-1 g-text-underline--none--hover"
+                                                href="{{ route('product-detail', ['brand_alias' => $p->b_alias, 'id' => $p->id, 'product_alias' => toAlias($p->name)]) }}">New
+                                                Arrival</a>
+                                        </figcaption>
+                                    @endif
                                 @endif
-                            @endif
-
+                            </a>
                             {{-- <span
                                 class="u-ribbon-v1 g-width-40 g-height-40 g-color-white g-bg-primary g-font-size-13 text-center text-uppercase g-rounded-50x g-top-10 g-right-minus-10 g-px-2 g-py-10">-40%</span> --}}
                         </figure>
@@ -52,11 +55,11 @@ use Carbon\Carbon; ?>
                                 <h4 class="h6 g-color-black mb-1">
                                     <a class="u-link-v5 g-color-black g-color-primary--hover"
                                         href="{{ route('product-detail', ['brand_alias' => $p->b_alias, 'id' => $p->id, 'product_alias' => toAlias($p->name)]) }}">
-                                        {{ getTeaser($p->name, 5) }}
+                                        {{ subString($p->name_seo, 10) }}
                                     </a>
                                 </h4>
-                                <a class="d-inline-block g-color-gray-dark-v5 g-font-size-13"
-                                    href="{{ route('cate', ['alias' => $p->cate_alias]) }}">{{ getTeaser($p->cate_name, 3) }}</a>
+                                <a class="u-link-v5 d-inline-block g-color-gray-dark-v5 g-font-size-13"
+                                    href="{{ route('cate', ['alias' => $p->cate_alias]) }}">{{ getTeaser($p->cate_name_seo, 5) }}</a>
                                 <span class="d-block g-color-black g-font-size-17">
                                     {!! getPrice($p->price) !!}
                                 </span>

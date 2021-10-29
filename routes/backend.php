@@ -16,6 +16,7 @@ use App\Http\Controllers\Backend\StoreController;
 use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\DistrictController;
 use App\Http\Controllers\Backend\HomeController as BackendController;
+use App\Http\Controllers\Backend\RevolutionSliderController;
 use App\Http\Controllers\ProvinceController;
 use Illuminate\Support\Facades\Route;
 
@@ -116,4 +117,12 @@ Route::group(['middleware' => ['admin'], 'prefix' => 'admin'], function () {
     Route::get('setting/field-json', [SettingController::class, 'fieldJson'])->name('setting.field-json');
     Route::get('setting/field-image', [SettingController::class, 'fieldImage'])->name('setting.field-image');
     Route::resource('setting', SettingController::class)->only($only_action_resource);
+
+    // Revolution Slider
+    Route::get('revolution-slider/update-status/{id}', [RevolutionSliderController::class, 'updateStatus'])->name('revolution-slider.status');
+    Route::get('revolution-slider/destroy/{id}', [RevolutionSliderController::class, 'destroy'])->name('revolution-slider.destroy');
+    Route::get('revolution-slider/field-{txtField}', [RevolutionSliderController::class, 'fieldChange'])->name('revolution-slider.field-change')
+        ->whereAlpha('txtField');
+    Route::post('revolution-slider/sort-slide', [RevolutionSliderController::class, 'sortSlide'])->name('revolution-slider.sort-slide');
+    Route::resource('revolution-slider', RevolutionSliderController::class)->only($only_action_resource);
 });

@@ -10,6 +10,8 @@
 
     {{-- @livewireStyles --}}
 
+    <link rel="shortcut icon" href="{{ asset('userfiles/images/logo/home-2.png') }}">
+
     <!-- Custom fonts for this template-->
     <link href="{{ asset('css/admin/all.min.css') }}" rel="stylesheet" type="text/css">
     <link

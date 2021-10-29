@@ -5,14 +5,17 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\RevolutionSlider;
 use App\Models\Setting;
-use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
     public function index()
     {
         $model_product = new Product();
+        $sliders = RevolutionSlider::where('status', 1)
+            ->orderBy('priority', 'DESC')
+            ->get();
         $cates = Category::where('status', 1)
             ->select(['id', 'name_seo', 'alias', 'image'])
             ->limit(3)
@@ -35,6 +38,7 @@ class HomeController extends Controller
             ->first();
 
         return view('frontend.home.home', compact([
+            'sliders',
             'cates',
             'products',
             'slogan_f_p',

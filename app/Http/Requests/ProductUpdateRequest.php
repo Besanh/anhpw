@@ -37,6 +37,8 @@ class ProductUpdateRequest extends FormRequest
             'description' => 'string|nullable',
             'benefit' => 'string|nullable',
             'ingredient' => 'string|nullable',
+            'incense_group' => 'string|nullable',
+            'styles' => 'string|nullable',
             'promote' => 'required|integer',
             'status' => 'required|integer'
         ];

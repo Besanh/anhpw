@@ -29,3 +29,4 @@
 @stack('select-product')
 @stack('append-input')
 @stack('ckfinder-input')
+@stack('jquery-ui')

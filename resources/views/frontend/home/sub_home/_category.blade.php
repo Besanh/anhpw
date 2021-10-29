@@ -4,7 +4,7 @@
             @foreach ($cates as $c)
                 <div class="col-sm-6 col-md-4 g-px-10 g-mb-30">
                     <article class="u-block-hover">
-                        <img class="img img-cate img-responsive w-100 u-block-hover__main--zoom-v1 g-mb-minus-8"
+                        <img class="img img-thumbnail w-100 u-block-hover__main--zoom-v1 g-mb-minus-8"
                             src="{{ asset($c->image) }}" alt="Image Description">
                         <div class="g-pos-abs g-bottom-30 g-left-30">
                             <span class="d-block g-color-black">Collections</span>

@@ -56,7 +56,7 @@
     <!-- Logout Modal-->
     @include('helper.popup')
 
-    @include('admin.layouts.script'))
+    @include('admin.layouts.script')
 
 </body>
 

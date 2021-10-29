@@ -7,7 +7,7 @@
 
 <!-- Price -->
 <div class="g-mb-30">
-    <h2 class="g-color-gray-dark-v5 g-font-weight-400 g-font-size-12 text-uppercase mb-2">Price</h2>
+    <h2 class="g-color-gray-dark-v5 g-font-weight-400 g-font-size-12 text-uppercase mb-2">{{ __('Price') }}</h2>
     <span
         class="g-color-black g-font-weight-500 g-font-size-30 mr-2">{{ $product ? getPrice($product->price) : null }}</span>
     {{-- <s class="g-color-gray-dark-v4 g-font-weight-500 g-font-size-16">$101.00</s> --}}
@@ -67,7 +67,7 @@
 
 <!-- Size -->
 <div class="d-flex justify-content-between align-items-center g-brd-bottom g-brd-gray-light-v3 py-3" role="tab">
-    <h5 class="g-color-gray-dark-v5 g-font-weight-400 g-font-size-default mb-0">Capacity</h5>
+    <h5 class="g-color-gray-dark-v5 g-font-weight-400 g-font-size-default mb-0">{{ __('Capacity') }}</h5>
 
     <!-- Checkbox -->
     <label class="form-check-inline u-check mb-0 ml-auto g-mr-15">
@@ -82,7 +82,7 @@
 
 <!-- Quantity -->
 <div class="d-flex justify-content-between align-items-center g-brd-bottom g-brd-gray-light-v3 py-3 g-mb-30" role="tab">
-    <h5 class="g-color-gray-dark-v5 g-font-weight-400 g-font-size-default mb-0">Quantity</h5>
+    <h5 class="g-color-gray-dark-v5 g-font-weight-400 g-font-size-default mb-0">{{ __('Quantity') }}</h5>
 
     <div class="js-quantity input-group u-quantity-v1 g-width-80 g-brd-primary--focus">
         <input class="js-result form-control text-center g-font-size-13 rounded-0" name="quantity" type="text" value="1"
@@ -101,14 +101,14 @@
 <div class="row g-mx-minus-5 g-mb-20">
     <div class="col g-px-5 g-mb-10">
         <button class="btn btn-block u-btn-primary g-font-size-12 text-uppercase g-py-15 g-px-25" type="button">
-            Add to Cart <i class="align-middle ml-2 icon-finance-100 u-line-icon-pro"></i>
+            {{ __('Add to Cart') }} <i class="align-middle ml-2 icon-finance-100 u-line-icon-pro"></i>
         </button>
     </div>
     <div class="col g-px-5 g-mb-10">
         <button
             class="btn btn-block u-btn-outline-black g-brd-gray-dark-v5 g-brd-black--hover g-color-gray-dark-v4 g-color-white--hover g-font-size-12 text-uppercase g-py-15 g-px-25"
             type="button">
-            Add to Wishlist <i class="align-middle ml-2 icon-medical-022 u-line-icon-pro"></i>
+            {{ __('Add to Wishlist') }} <i class="align-middle ml-2 icon-medical-022 u-line-icon-pro"></i>
         </button>
     </div>
 </div>

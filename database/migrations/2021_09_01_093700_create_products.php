@@ -27,6 +27,8 @@ class CreateProducts extends Migration
             $table->string('thumb')->nullable();
             $table->string('thumb_small')->nullable();
             $table->text('description')->nullable();
+            $table->text('incense_group')->nullable()->comment('Nhóm hương');
+            $table->text('styles')->nullable()->comment('Phong cách');
             $table->text('benefit')->nullable();
             $table->text('ingredient')->nullable();
             $table->json('galleries')->nullable();

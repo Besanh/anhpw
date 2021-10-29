@@ -177,7 +177,9 @@ return [
         Spatie\Permission\PermissionServiceProvider::class,
 
         // Intervation image
-        Intervention\Image\ImageServiceProvider::class
+        Intervention\Image\ImageServiceProvider::class,
+        // Elastic search
+        Elasticquent\ElasticquentServiceProvider::class,
     ],
 
     /*

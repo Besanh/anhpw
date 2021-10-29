@@ -1,6 +1,6 @@
 <div class="container g-pt-100 g-pb-70">
     <div class="text-center mx-auto g-max-width-600 g-mb-50">
-        <h2 class="g-color-black mb-4">Related Products</h2>
+        <h2 class="g-color-black mb-4">{{ __('Related Products') }}</h2>
     </div>
 
     <!-- Products -->
@@ -16,16 +16,18 @@
                         @if ($item->stock < minStock())
                             <figcaption
                                 class="w-100 g-bg-lightred text-center g-pos-abs g-bottom-0 g-transition-0_2 g-py-5">
-                                <span class="g-color-white g-font-size-11 text-uppercase g-letter-spacing-1">Sold
-                                    Out</span>
+                                <span class="g-color-white g-font-size-11 text-uppercase g-letter-spacing-1">
+                                    {{ __('Sold Out') }}
+                                </span>
                             </figcaption>
                         @else
                             @if (validateArrival($item->created_at))
                                 <figcaption
                                     class="w-100 g-bg-primary g-bg-black--hover text-center g-pos-abs g-bottom-0 g-transition-0_2 g-py-5">
                                     <a class="g-color-white g-font-size-11 text-uppercase g-letter-spacing-1 g-text-underline--none--hover"
-                                        href="{{ route('product-detail', ['brand_alias' => $item->b_alias, 'id' => $item->id, 'product_alias' => toAlias($item->name)]) }}">New
-                                        Arrival</a>
+                                        href="{{ route('product-detail', ['brand_alias' => $item->b_alias, 'id' => $item->id, 'product_alias' => toAlias($item->name)]) }}">
+                                        {{ __('New Arrival') }}
+                                    </a>
                                 </figcaption>
                             @endif
                         @endif
@@ -37,11 +39,11 @@
                             <h4 class="h6 g-color-black mb-1">
                                 <a class="u-link-v5 g-color-black g-color-primary--hover"
                                     href="{{ route('product-detail', ['brand_alias' => $item->b_alias, 'id' => $item->id, 'product_alias' => toAlias($item->name)]) }}">
-                                    {{ $item->name }}
+                                    {{ $item->name_seo }}
                                 </a>
                             </h4>
-                            <a class="d-inline-block g-color-gray-dark-v5 g-font-size-13"
-                                href="{{ route('cate', ['alias' => $item->cate_alias]) }}">{{ getTeaser($item->cate_name, 3) }}</a>
+                            <a class="u-link-v5 d-inline-block g-color-gray-dark-v5 g-font-size-13"
+                                href="{{ route('cate', ['alias' => $item->cate_alias]) }}">{{ getTeaser($item->cate_name_seo, 3) }}</a>
                             <span class="d-block g-color-black g-font-size-17">{{ getPrice($item->price) }}</span>
                         </div>
                         <!-- End Product Info -->

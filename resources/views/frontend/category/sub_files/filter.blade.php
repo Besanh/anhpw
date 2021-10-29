@@ -3,13 +3,13 @@
         <!-- Categories -->
         @if ($other_cate && $other_cate->count() > 0)
             <div class="g-mb-30">
-                <h3 class="h5 mb-3">Categories</h3>
+                <h3 class="h5 mb-3">{{ __('Categories') }}</h3>
                 <ul class="list-unstyled">
                     @foreach (arrayIndex($other_cate, 'id') as $item)
                         <li class="my-3">
                             <a class="d-block u-link-v5 g-color-gray-dark-v4 g-color-primary--hover"
                                 href="{!! route('cate', $item->alias) !!}">
-                                {!! $item->name !!}
+                                {!! $item->name_seo !!}
                                 <span class="float-right g-font-size-12">{!! $item->get_products_count !!}</span></a>
                         </li>
                     @endforeach
@@ -23,7 +23,7 @@
         <!-- Brand -->
         @if ($brands && $brands->count() > 0)
             <div class="g-mb-30">
-                <h3 class="h5 mb-3">Brand</h3>
+                <h3 class="h5 mb-3">{{ __('Brand') }}</h3>
 
                 <ul class="list-unstyled list-brand">
                     @foreach (arrayIndex($brands, 'id') as $b)
@@ -51,7 +51,7 @@
 
         <!-- Pricing -->
         <div class="g-mb-30">
-            <h3 class="h5 mb-3">Pricing</h3>
+            <h3 class="h5 mb-3">{{ __('Pricing') }}</h3>
 
             <div class="text-center">
                 <span class="d-block g-color-primary mb-4">(<span id="rangeSliderAmount3">0</span>)đ</span>
@@ -66,7 +66,7 @@
         <!-- Size -->
         @if ($capas && $capas->count() > 0)
             <div class="g-mb-30">
-                <h3 class="h5 mb-3">Capacity</h3>
+                <h3 class="h5 mb-3">{{ __('Capacity') }}</h3>
 
                 <ul class="list-unstyled list-capa">
 
@@ -95,7 +95,7 @@
 
         <!-- Rating -->
         <div class="g-mb-30">
-            <h3 class="h5 mb-3">Rating</h3>
+            <h3 class="h5 mb-3">{{ __('Rating') }}</h3>
 
             <ul class="js-rating u-rating-v1 g-font-size-20 g-color-gray-light-v3 mb-0"
                 data-hover-classes="g-color-primary">

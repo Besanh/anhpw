@@ -228,6 +228,7 @@ if (!function_exists('getTeaser')) {
 if (!function_exists('getPrice')) {
     function getPrice($price, $currency = 'đ')
     {
+        $currency = ' VND';
         return number_format($price) . $currency;
     }
 }
@@ -396,6 +397,7 @@ if (!function_exists('getArrivalProduct')) {
             'products.thumb',
             'prices.barcode',
             'categories.name as cate_name',
+            'categories.name_seo as cate_name_seo'
         ])
             ->join('prices', 'prices.pid', '=', 'products.id')
             ->join('categories', 'categories.id', '=', 'products.cate_id')
@@ -453,5 +455,26 @@ if (!function_exists('toAscii')) {
         $str = preg_replace("/[.,]/", "", $str);
         $str = preg_replace("/[^ A-Za-z0-9]/", " ", $str);
         return $str;
+    }
+}
+
+/**
+ * Lay so ki tu theo chieu dai
+ */
+if (!function_exists('subString')) {
+    function subString($string, $number)
+    {
+        if (strlen($string) <= $number) {
+            return $string;
+        } else {
+            if (strpos($string, " ", $number) > $number) {
+                $n = strpos($string, " ", $number);
+                $s = substr($string, 0, $n) . "...";
+                return $s;
+            }
+            // trường hợp còn lại không ảnh hưởng tới kết quả 
+            $s = substr($string, 0, $number) . "...";
+            return $s;
+        }
     }
 }

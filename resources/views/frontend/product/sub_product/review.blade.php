@@ -2,7 +2,7 @@
     <div class="g-brd-y g-brd-gray-light-v4 g-py-100">
         <div class="row justify-content-center">
             <div class="col-lg-9">
-                <h2 class="h4 mb-5">Review</h2>
+                <h2 class="h4 mb-5">{{ __('Review') }}</h2>
 
                 <!-- Review -->
                 <div class="g-brd-bottom g-brd-gray-light-v4 g-pb-30 g-mb-50">
@@ -181,7 +181,7 @@
                 </div>
                 <!-- End Review -->
 
-                <h2 class="h4 mb-5">Add Review</h2>
+                <h2 class="h4 mb-5">{{ __('Add Review') }}</h2>
 
                 <!-- Comment Form -->
                 <form>
@@ -210,12 +210,12 @@
                 <div class="row align-items-center">
                     <div class="col-5 col-sm-4 col-md-3">
                         <button class="btn u-btn-primary g-font-size-12 text-uppercase g-py-15 g-px-25" type="submit"
-                            role="button">Add Comment</button>
+                            role="button">{{ __('Add Comment') }}</button>
                     </div>
 
                     <!-- Rating -->
                     <div class="col-5 col-sm-4 col-md-3">
-                        <h3 class="h6 mb-1">Rate:</h3>
+                        <h3 class="h6 mb-1">{{ __('Rate') }}:</h3>
 
                         <ul class="js-rating u-rating-v1 g-font-size-20 g-color-gray-light-v3 mb-0"
                             data-hover-classes="g-color-primary">

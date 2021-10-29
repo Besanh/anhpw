@@ -4,13 +4,13 @@ $title = 'Trang chu'; ?>
     @extends('frontend.layouts.main')
 @section('content')
     <!-- Revolution Slider -->
-    @include('frontend.home.sub_home._revolution_slider')
+    @include('frontend.home.sub_home._revolution_slider', compact('sliders'))
     <!-- End Revolution Slider -->
 
     <!-- Categories -->
-    @if ($cates)
+    {{-- @if ($cates)
         @include('frontend.home.sub_home._category', compact('cates')))
-    @endif
+    @endif --}}
     <!-- End Categories -->
 
     <!-- Products -->

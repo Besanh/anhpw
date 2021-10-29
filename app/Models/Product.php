@@ -5,9 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
+use Elasticquent\ElasticquentTrait;
 
 class Product extends Model
 {
+    use ElasticquentTrait;
     use HasFactory;
 
     public $timestamps = true;
@@ -16,6 +18,7 @@ class Product extends Model
         'cate_id', 'bid', 'name', 'name_seo',
         'designer', 'public_year', 'image', 'image_thumb_small', 'thumb',
         'description', 'benefit', 'ingredient',
+        'incense_group', 'styles',
         'galleries', 'thumb_small', 'promote', 'status'
     ];
 
@@ -107,6 +110,7 @@ class Product extends Model
             'prices.barcode',
             'prices.stock',
             'categories.name as cate_name',
+            'categories.name_seo as cate_name_seo',
             'categories.alias as cate_alias',
             'brands.alias as b_alias'
         ])

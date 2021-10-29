@@ -289,7 +289,7 @@ class AppServiceProvider extends ServiceProvider
             ['type_id', '=', 2],
             ['status', '=', 1]
         ])
-            ->select(['id', 'type_id', 'name', 'alias', 'route', 'url', 'note'])
+            ->select(['id', 'type_id', 'name', 'name_seo', 'alias', 'route', 'url', 'note'])
             ->get();
 
         return $menus;
@@ -348,22 +348,22 @@ class AppServiceProvider extends ServiceProvider
                 $str .= '</div>';
 
                 if ($v->image) {
-                //     $str .= '<div class="col-md-6 col-lg-4 g-mb-30 g-mb-0--md">
-                //     <article class="g-pos-rel">
-                //         <img class="img-fluid" src="' . getImage($v->image) . '"
-                //             alt="' . $v->name . '">
+                    //     $str .= '<div class="col-md-6 col-lg-4 g-mb-30 g-mb-0--md">
+                    //     <article class="g-pos-rel">
+                    //         <img class="img-fluid" src="' . getImage($v->image) . '"
+                    //             alt="' . $v->name . '">
 
-                //         <div class="g-pos-abs g-bottom-30 g-left-30">
-                //             <span class="d-block g-color-gray-dark-v4 mb-2">Modern
-                //                 Lighting</span>
-                //             <span class="d-block h4">Desk Clock 65" Table Lamp</span>
-                //             <span
-                //                 class="d-block g-color-gray-dark-v3 g-font-size-16 mb-4">$156.00</span>
-                //             <a class="btn u-btn-primary u-shadow-v29 g-font-size-12 text-uppercase g-py-10 g-px-20"
-                //                 href="#">Add to Cart</a>
-                //         </div>
-                //     </article>
-                // </div>';
+                    //         <div class="g-pos-abs g-bottom-30 g-left-30">
+                    //             <span class="d-block g-color-gray-dark-v4 mb-2">Modern
+                    //                 Lighting</span>
+                    //             <span class="d-block h4">Desk Clock 65" Table Lamp</span>
+                    //             <span
+                    //                 class="d-block g-color-gray-dark-v3 g-font-size-16 mb-4">$156.00</span>
+                    //             <a class="btn u-btn-primary u-shadow-v29 g-font-size-12 text-uppercase g-py-10 g-px-20"
+                    //                 href="#">Add to Cart</a>
+                    //         </div>
+                    //     </article>
+                    // </div>';
                 }
             }
         }
@@ -425,7 +425,7 @@ class AppServiceProvider extends ServiceProvider
                         data-bg-img-src="' . getImage($p->thumb) . '">
                         <div class="g-pos-rel g-z-index-1">
                             <span
-                                class="d-block g-color-white g-font-weight-400 text-uppercase mb-3">' . $p->cate_name . '</span>
+                                class="d-block g-color-white g-font-weight-400 text-uppercase mb-3">' . $p->cate_name_seo . '</span>
                             <span class="d-block h2 g-color-white mb-4"></span>
                             <a class="btn u-btn-white g-brd-primary--hover g-color-white--hover g-bg-primary--hover g-font-size-11 text-uppercase g-py-10 g-px-20"
                                 href="javascript:void(0)">Shop Now</a>
