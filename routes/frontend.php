@@ -7,6 +7,7 @@ use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\LoginController;
 use App\Http\Controllers\Frontend\OrderController;
 use App\Http\Controllers\Frontend\ProductController;
+use App\Http\Controllers\Frontend\SearchController;
 use App\Http\Controllers\Frontend\SignupController;
 use App\Http\Controllers\Frontend\StoreController;
 use App\Http\Controllers\Frontend\TestController;
@@ -42,3 +43,11 @@ Route::get('comming-soon', [CommingSoonController::class, 'index'])->name('commi
 
 // Test
 Route::get('test/index', [TestController::class, 'index'])->name('text-index');
+
+// Typeahead js Search
+Route::get('/autocomplete-search', [SearchController::class, 'autocompleteSearch'])->name('autocomplete-search');
+Route::get('/search-product/product', [SearchController::class, 'searchByProduct'])->name('search-product');
+Route::get('search-price/price', [SearchController::class, 'searchByPrice'])->name('search-price');
+Route::get('search-cate/cate', [SearchController::class, 'searchByCate'])->name('search-cate');
+Route::get('search-brand/brand', [SearchController::class, 'searchByBrand'])->name('search-brand');
+Route::get('search-blog/blog', [SearchController::class, 'searchByBlog'])->name('search-blog');

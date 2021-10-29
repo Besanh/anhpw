@@ -13,12 +13,163 @@
     <form id="searchform-1"
         class="u-searchform-v1 u-dropdown--css-animation u-dropdown--hidden u-shadow-v20 g-brd-around g-brd-gray-light-v4 g-bg-white g-right-0 rounded g-pa-10 1g-mt-8">
         <div class="input-group">
-            <input class="form-control g-font-size-13" type="search" placeholder="Search Here...">
+            <input class="form-control g-font-size-13" id="typeahead-search" type="search" name="search"
+                placeholder="Search Here...">
             <div class="input-group-append p-0">
-                <button class="btn u-btn-primary g-font-size-12 text-uppercase g-py-13 g-px-15"
+                <button class="btn u-btn-primary g-font-size-12 text-uppercase g-px-15"
                     type="submit">{{ __('Go') }}</button>
             </div>
         </div>
     </form>
     <!-- End Search Form -->
 </div>
+@push('typeahead-search')
+    <script type="text/javascript">
+        jQuery(document).ready(function($) {
+            // Set the Options for "Bloodhound" suggestion engine
+            var products = new Bloodhound({
+                remote: {
+                    url: '/search-product/product?search=%QUERY%',
+                    wildcard: '%QUERY%'
+                },
+                datumTokenizer: Bloodhound.tokenizers.whitespace('search'),
+                queryTokenizer: Bloodhound.tokenizers.whitespace
+            });
+
+            var prices = new Bloodhound({
+                remote: {
+                    url: '/search-price/price?search=%QUERY%',
+                    wildcard: '%QUERY%'
+                },
+                datumTokenizer: Bloodhound.tokenizers.whitespace('search'),
+                queryTokenizer: Bloodhound.tokenizers.whitespace
+            });
+
+            var cates = new Bloodhound({
+                remote: {
+                    url: '/search-cate/cate?search=%QUERY%',
+                    wildcard: '%QUERY%'
+                },
+                datumTokenizer: Bloodhound.tokenizers.whitespace('search'),
+                queryTokenizer: Bloodhound.tokenizers.whitespace
+            });
+
+            var brands = new Bloodhound({
+                remote: {
+                    url: '/search-brand/brand?search=%QUERY%',
+                    wildcard: '%QUERY%'
+                },
+                datumTokenizer: Bloodhound.tokenizers.whitespace('search'),
+                queryTokenizer: Bloodhound.tokenizers.whitespace
+            });
+
+            // var blogs = new Bloodhound({
+            //     remote: {
+            //         url: '/search-blogs/blogs?search=%QUERY%',
+            //         wildcard: '%QUERY%'
+            //     },
+            //     datumTokenizer: Bloodhound.tokenizers.whitespace('search'),
+            //     queryTokenizer: Bloodhound.tokenizers.whitespace
+            // });
+
+            $("#typeahead-search").typeahead({
+                    hint: true,
+                    highlight: true,
+                    minLength: 1
+                }, {
+                    source: products.ttAdapter(),
+
+                    // This will be appended to "tt-dataset-" to form the class name of the suggestion menu.
+                    name: 'product-name',
+
+                    // the key from the array we want to display (name,id,email,etc...)
+                    templates: {
+                        // empty: [
+                        //     '<div class="list-group-item">Nothing found.</div>'
+                        // ],
+                        header: [
+                            '<div class="header-title" style="padding: 5px 10px;background: #dadada;font-weight: bold;">Products</div><div class="list-group search-results-dropdown"></div>'
+                        ],
+                        suggestion: function(data) {
+                            return '<a href="" class="list-group-item">' + data.name + '</a>'
+                        }
+                    }
+                }, {
+                    source: prices.ttAdapter(),
+
+                    // This will be appended to "tt-dataset-" to form the class name of the suggestion menu.
+                    name: 'prices-name',
+
+                    // the key from the array we want to display (name,id,email,etc...)
+                    templates: {
+                        // empty: [
+                        //     '<div class="list-group-item">Nothing found.</div>'
+                        // ],
+                        header: [
+                            '<div class="header-title" style="padding: 5px 10px;background: #dadada;font-weight: bold;">Prices</div><div class="list-group search-results-dropdown"></div>'
+                        ],
+                        suggestion: function(data) {
+                            return '<a href="" class="list-group-item">' + data.name + '</a>'
+                        }
+                    }
+                }, {
+                    source: cates.ttAdapter(),
+
+                    // This will be appended to "tt-dataset-" to form the class name of the suggestion menu.
+                    name: 'cates-name',
+
+                    // the key from the array we want to display (name,id,email,etc...)
+                    templates: {
+                        // empty: [
+                        //     '<div class="list-group-item">Nothing found.</div>'
+                        // ],
+                        header: [
+                            '<div class="header-title" style="padding: 5px 10px;background: #dadada;font-weight: bold;">Categories</div><div class="list-group search-results-dropdown"></div>'
+                        ],
+                        suggestion: function(data) {
+                            return '<a href="" class="list-group-item">' + data.name + '</a>'
+                        }
+                    }
+                }, {
+                    source: brands.ttAdapter(),
+
+                    // This will be appended to "tt-dataset-" to form the class name of the suggestion menu.
+                    name: 'brands-name',
+
+                    // the key from the array we want to display (name,id,email,etc...)
+                    templates: {
+                        // empty: [
+                        //     '<div class="list-group-item">Nothing found.</div>'
+                        // ],
+                        header: [
+                            '<div class="header-title" style="padding: 5px 10px;background: #dadada;font-weight: bold;">Brands</div><div class="list-group search-results-dropdown"></div>'
+                        ],
+                        suggestion: function(data) {
+                            return '<a href="" class="list-group-item">' + data.name + '</a>'
+                        }
+                    }
+                },
+                // {
+                //     source: blogs.ttAdapter(),
+
+                //     // This will be appended to "tt-dataset-" to form the class name of the suggestion menu.
+                //     name: 'blogs-name',
+
+                //     // the key from the array we want to display (name,id,email,etc...)
+                //     templates: {
+                //         // empty: [
+                //         //     '<div class="list-group-item">Nothing found.</div>'
+                //         // ],
+                //         header: [
+                //             '<div class="header-title" style="padding: 5px 10px;background: #dadada;font-weight: bold;">Blogs</div><div class="list-group search-results-dropdown"></div>'
+                //         ],
+                //         suggestion: function(data) {
+                //             return '<a href="" class="list-group-item">' + data.name + '</a>'
+                //         }
+                //     }
+                // },
+            );
+        });
+
+    </script>
+@endpush

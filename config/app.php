@@ -178,8 +178,6 @@ return [
 
         // Intervation image
         Intervention\Image\ImageServiceProvider::class,
-        // Elastic search
-        Elasticquent\ElasticquentServiceProvider::class,
     ],
 
     /*

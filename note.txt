@@ -52,3 +52,13 @@ https://codingdriver.com/ajax-post-request-laravel-example.html
 Filter page category
 https://github.com/Besanh/laravel-query-builder
 https://navcodes.dev/blog/laravel-query-builder-checkboxes/
+
+// Typeahead JS
+// Dung bootstrap
+https://www.positronx.io/create-autocomplete-search-in-laravel-with-typeahead-js/
+https://twitter.github.io/typeahead.js/examples/
+// Khong dung bootstrap
+https://viblo.asia/p/xay-dung-chuc-nang-tim-kiem-thong-minh-trong-laravel-voi-typeaheadjs-aWj53ko856m
+https://scotch.io/tutorials/implementing-smart-search-with-laravel-and-typeahead-js
+
+// Pattern product variant
