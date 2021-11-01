@@ -99,7 +99,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
         ///////////////////////////////////////////////////////////////////
-        ///////////////////////////// Logo ///////////////////////////////
+        ///////////////////////////// Navigation /////////////////////////
         /////////////////////////////////////////////////////////////////
         View::composer('frontend.layouts.navigation', function ($view) {
             $logo = 'no-image.png';
@@ -178,9 +178,21 @@ class AppServiceProvider extends ServiceProvider
             ])
                 ->select(['id', 'name', 'name_seo', 'url', 'alias'])
                 ->first();
-            $products = Product::where('status', 1)
-                ->orderBy('promote', 'DESC')
-                ->orderBy('id', 'ASC')
+            $products = Product::select([
+                'products.id',
+                'products.name',
+                'products.name_seo',
+                'brands.alias as b_alias'
+            ])
+                ->join('brands', 'brands.id', '=', 'products.bid')
+                ->join('prices', 'prices.pid', '=', 'products.id')
+                ->where([
+                    ['brands.status', '=', 1],
+                    ['products.status', '=', 1],
+                    ['prices.status', '=', 1]
+                ])
+                ->orderBy('products.promote', 'DESC')
+                ->orderBy('products.id', 'ASC')
                 ->limit(15)
                 ->get();
             $brands = Brand::where('status', 1)
@@ -243,6 +255,7 @@ class AppServiceProvider extends ServiceProvider
             ['status', '=', 1]
         ])
             ->orderBy('priority', 'ASC')
+            ->orderBy('id', 'DESC')
             ->get();
 
         return $menus;
@@ -290,6 +303,8 @@ class AppServiceProvider extends ServiceProvider
             ['status', '=', 1]
         ])
             ->select(['id', 'type_id', 'name', 'name_seo', 'alias', 'route', 'url', 'note'])
+            ->orderBy('priority', 'ASC')
+            ->orderBy('id', 'DESC')
             ->get();
 
         return $menus;
@@ -417,7 +432,9 @@ class AppServiceProvider extends ServiceProvider
                     <div class="row">';
             $arrival_products = getArrivalProduct();
             if ($arrival_products) {
+                $route = '';
                 foreach ($arrival_products as $p) {
+                    $route = route('product-detail', ['brand_alias' => $p->b_alias, 'id' => $p->id, 'product_alias' => toAlias($p->name_seo)]);
                     $str .= '<div class="col-md-4 g-mb-30 g-mb-0--md">
                     <!-- Article -->
                     <article
@@ -428,7 +445,7 @@ class AppServiceProvider extends ServiceProvider
                                 class="d-block g-color-white g-font-weight-400 text-uppercase mb-3">' . $p->cate_name_seo . '</span>
                             <span class="d-block h2 g-color-white mb-4"></span>
                             <a class="btn u-btn-white g-brd-primary--hover g-color-white--hover g-bg-primary--hover g-font-size-11 text-uppercase g-py-10 g-px-20"
-                                href="javascript:void(0)">Shop Now</a>
+                                href="' . $route . '">Shop Now</a>
                         </div>
                     </article>
                     <!-- End Article -->

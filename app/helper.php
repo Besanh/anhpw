@@ -390,6 +390,7 @@ if (!function_exists('getArrivalProduct')) {
         $first_date_month = Carbon::now()->firstOfMonth();
         $last_date_month = Carbon::now()->lastOfMonth();
         $data = Product::select([
+            'brands.alias as b_alias',
             'products.id',
             'products.name',
             'products.name_seo',
@@ -399,6 +400,7 @@ if (!function_exists('getArrivalProduct')) {
             'categories.name as cate_name',
             'categories.name_seo as cate_name_seo'
         ])
+            ->join('brands', 'brands.id', '=', 'products.bid')
             ->join('prices', 'prices.pid', '=', 'products.id')
             ->join('categories', 'categories.id', '=', 'products.cate_id')
             ->where([
@@ -411,7 +413,15 @@ if (!function_exists('getArrivalProduct')) {
             ])
             ->limit($limit)
             ->get();
-        return $data ? $data : null;
+        if ($data->count() > 0) {
+            return $data;
+        }
+        $products = Product::queryDataProduct()
+            ->limit($limit)
+            ->get();
+        if ($products->count() > 0) {
+            return $products;
+        }
     }
 }
 

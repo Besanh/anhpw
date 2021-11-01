@@ -1,5 +1,5 @@
 <!-- Title -->
-<title>E-commerce Home Page 1 | Unify - Responsive Website Template</title>
+<title>@yield('title')</title>
 
 <!-- Required Meta Tags Always Come First -->
 <meta name="csrf-token" content="{{ csrf_token() }}">

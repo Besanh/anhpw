@@ -5,26 +5,11 @@
     max-height: 60px;
 }
 
-article.u-block-hover > .img-cate
-{
-    width: 650px;
-    height: 350px;
-}
-figure > .img-product-home
-{
-    width: 500px;
-    height: 250px;
-    max-width: 100%;
-}
-
-figure > .img-product-cate
-{
-    width: 500px;
-    height: 300px;
-    max-width: 100%;
-}
-
 .disabled {
     pointer-events: none;
     opacity: 0.6;
+}
+
+.bg-main{
+    background: linear-gradient(133deg,#ed1b23,#2e3091,#253494) !important;
 }

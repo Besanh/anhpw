@@ -27,7 +27,7 @@ $b_child = '';
                                         @if ($k <= 4)
                                             <li class="g-mb-10">
                                                 <a class="u-link-v5 g-color-gray-dark-v5 g-color-primary--hover"
-                                                    href="{{ $p->url }}">{{ getTeaser($p->name_seo, 3) }}</a>
+                                                    href="{{ route('product-detail', ['brand_alias' => $p->b_alias, 'id' => $p->id, 'product_alias' => toAlias($p->name_seo)]) }}">{{ getTeaser($p->name_seo, 3) }}</a>
                                             </li>
                                         @endif
 
@@ -45,7 +45,7 @@ $b_child = '';
                                         @if ($k > 4 && $k <= 9)
                                             <li class="g-mb-10">
                                                 <a class="u-link-v5 g-color-gray-dark-v5 g-color-primary--hover"
-                                                    href="{{ $p->url }}">{{ getTeaser($p->name_seo, 3) }}</a>
+                                                    href="{{ route('product-detail', ['brand_alias' => $p->b_alias, 'id' => $p->id, 'product_alias' => toAlias($p->name_seo)]) }}">{{ getTeaser($p->name_seo, 3) }}</a>
                                             </li>
                                         @endif
 
@@ -63,7 +63,7 @@ $b_child = '';
                                         @if ($k > 9)
                                             <li class="g-mb-10">
                                                 <a class="u-link-v5 g-color-gray-dark-v5 g-color-primary--hover"
-                                                    href="{{ $p->url }}">{{ getTeaser($p->name_seo, 3) }}</a>
+                                                    href="{{ route('product-detail', ['brand_alias' => $p->b_alias, 'id' => $p->id, 'product_alias' => toAlias($p->name_seo)]) }}">{{ getTeaser($p->name_seo, 3) }}</a>
                                             </li>
                                         @endif
 
@@ -93,7 +93,7 @@ $b_child = '';
                                         @if ($k < 4)
                                             <li class="g-mb-10">
                                                 <a class="u-link-v5 g-color-gray-dark-v5 g-color-primary--hover"
-                                                    href="{{ $item->url }}">{{ getTeaser($item->name_seo, 3) }}</a>
+                                                    href="{{ route('brand', ['alias' => $item->alias]) }}">{{ getTeaser($item->name_seo, 3) }}</a>
                                             </li>
                                         @endif
                                     @endforeach
@@ -109,7 +109,7 @@ $b_child = '';
                                         @if ($k >= 4)
                                             <li class="g-mb-10">
                                                 <a class="u-link-v5 g-color-gray-dark-v5 g-color-primary--hover"
-                                                    href="{{ $item->url }}">{{ getTeaser($item->name_seo, 3) }}</a>
+                                                    href="{{ route('brand', ['alias' => $item->alias]) }}">{{ getTeaser($item->name_seo, 3) }}</a>
                                             </li>
                                         @endif
                                     @endforeach
@@ -182,10 +182,12 @@ $b_child = '';
                                 @foreach ($s as $item)
                                     @if (isJson($item))
                                         <li class="list-inline-item g-mr-2">
-                                            <a class="u-icon-v1 u-icon-slide-up--hover g-color-gray-dark-v4 g-color-white--hover g-bg-facebook--hover rounded"
+                                            <a class="u-icon-v1 u-icon-slide-up--hover g-color-gray-dark-v4 g-color-white--hover {{ json_decode($item)->background_hover }} rounded"
                                                 href="{{ json_decode($item)->link }}">
                                                 <i
                                                     class="g-font-size-18 g-line-height-1 u-icon__elem-regular {{ json_decode($item)->class }}"></i>
+                                                <i
+                                                    class="g-color-white g-font-size-18 g-line-height-0_8 u-icon__elem-hover {{ json_decode($item)->class }}"></i>
                                             </a>
                                         </li>
                                     @endif
@@ -205,7 +207,7 @@ $b_child = '';
     <div class="container g-pt-30 g-pb-10">
         <div class="row justify-content-between align-items-center">
             <div class="col-md-6 g-mb-20">
-                <p class="g-font-size-13 mb-0">{{ date('Y') }} &copy; {{ config('app.name') }}.
+                <p class="g-font-size-13 mb-0">{{ date('Y') }} &copy; {{ __(config('app.name')) }}.
                     {{ __('All Rights
                     Reserved') }}.
                 </p>

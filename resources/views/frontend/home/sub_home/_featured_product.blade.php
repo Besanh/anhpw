@@ -22,7 +22,7 @@ use Carbon\Carbon; ?>
                         <!-- Product -->
                         <figure class="g-pos-rel g-mb-20">
                             <a
-                                href="{{ $p->stock < minStock() ? 'javascript:void(0)' : route('product-detail', ['brand_alias' => $p->b_alias, 'id' => $p->id, 'product_alias' => toAlias($p->name)]) }}">
+                                href="{{ $p->stock < minStock() ? 'javascript:void(0)' : route('product-detail', ['brand_alias' => $p->b_alias, 'id' => $p->id, 'product_alias' => toAlias($p->name_seo)]) }}">
                                 <img class="img-thumbnail"
                                     data-lazy="{{ $p->image ? getImage($p->image) : getNoImage() }}"
                                     alt="{{ $p->name }}">
@@ -31,16 +31,16 @@ use Carbon\Carbon; ?>
                                     <figcaption
                                         class="w-100 g-bg-lightred text-center g-pos-abs g-bottom-0 g-transition-0_2 g-py-5">
                                         <span
-                                            class="g-color-white g-font-size-11 text-uppercase g-letter-spacing-1">Sold
-                                            Out</span>
+                                            class="g-color-white g-font-size-11 text-uppercase g-letter-spacing-1">{{ __('Sold Out') }}</span>
                                     </figcaption>
                                 @else
                                     @if (validateArrival($p->created_at))
                                         <figcaption
                                             class="w-100 g-bg-primary g-bg-black--hover text-center g-pos-abs g-bottom-0 g-transition-0_2 g-py-5">
                                             <a class="g-color-white g-font-size-11 text-uppercase g-letter-spacing-1 g-text-underline--none--hover"
-                                                href="{{ route('product-detail', ['brand_alias' => $p->b_alias, 'id' => $p->id, 'product_alias' => toAlias($p->name)]) }}">New
-                                                Arrival</a>
+                                                href="{{ route('product-detail', ['brand_alias' => $p->b_alias, 'id' => $p->id, 'product_alias' => toAlias($p->name_seo)]) }}">
+                                                {{ __('New Arrival') }}
+                                            </a>
                                         </figcaption>
                                     @endif
                                 @endif
@@ -54,7 +54,7 @@ use Carbon\Carbon; ?>
                             <div class="d-flex flex-column">
                                 <h4 class="h6 g-color-black mb-1">
                                     <a class="u-link-v5 g-color-black g-color-primary--hover"
-                                        href="{{ route('product-detail', ['brand_alias' => $p->b_alias, 'id' => $p->id, 'product_alias' => toAlias($p->name)]) }}">
+                                        href="{{ route('product-detail', ['brand_alias' => $p->b_alias, 'id' => $p->id, 'product_alias' => toAlias($p->name_seo)]) }}">
                                         {{ subString($p->name_seo, 10) }}
                                     </a>
                                 </h4>

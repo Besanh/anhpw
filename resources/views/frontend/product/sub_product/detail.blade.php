@@ -1,15 +1,17 @@
 <!-- Product Info -->
 <div class="g-mb-30">
-    <h1 class="g-font-weight-300 mb-4">{{ $product ? $product->p_name : null }}</h1>
+    <h1 class="g-font-weight-500 mb-4 g-color-primary">{{ $product ? $product->p_name_seo : null }}</h1>
     <p>{!! $product ? $product->ingredient : null !!}</p>
 </div>
 <!-- End Product Info -->
 
 <!-- Price -->
 <div class="g-mb-30">
-    <h2 class="g-color-gray-dark-v5 g-font-weight-400 g-font-size-12 text-uppercase mb-2">{{ __('Price') }}</h2>
+    <h2 class="g-color-gray-dark-v5 g-font-weight-400 g-font-size-12 text-uppercase mb-2">
+        {{ $product ? $product->barcode : null }}
+    </h2>
     <span
-        class="g-color-black g-font-weight-500 g-font-size-30 mr-2">{{ $product ? getPrice($product->price) : null }}</span>
+        class="g-color-black g-font-weight-300 g-font-size-30 mr-2">{{ $product ? getPrice($product->price) : null }}</span>
     {{-- <s class="g-color-gray-dark-v4 g-font-weight-500 g-font-size-16">$101.00</s> --}}
 </div>
 <!-- End Price -->

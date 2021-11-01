@@ -14,7 +14,7 @@
                         <!-- Article Image -->
                         <div class="g-max-width-100 g-mr-15">
                             <a
-                                href="{{ route('product-detail', ['brand_alias' => $item->b_alias, 'id' => $item->id, 'product_alias' => toAlias($item->name)]) }}">
+                                href="{{ route('product-detail', ['brand_alias' => $item->b_alias, 'id' => $item->id, 'product_alias' => toAlias($item->name_seo)]) }}">
                                 <img class="d-flex w-100"
                                     src="{{ $item->thumb ? getImage($item->thumb) : getNoImage() }}"
                                     alt="{{ $item->name_seo }}">
@@ -26,7 +26,7 @@
                         <div class="media-body align-self-center">
                             <h4 class="h5 g-mb-7">
                                 <a class="g-color-black g-color-primary--hover g-text-underline--none--hover"
-                                    href="{{ route('product-detail', ['brand_alias' => $item->b_alias, 'id' => $item->id, 'product_alias' => toAlias($item->name)]) }}">
+                                    href="{{ route('product-detail', ['brand_alias' => $item->b_alias, 'id' => $item->id, 'product_alias' => toAlias($item->name_seo)]) }}">
                                     {!! subString($item->name_seo, 10) !!}
                                 </a>
                             </h4>

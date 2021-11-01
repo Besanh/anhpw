@@ -10,6 +10,7 @@
     </div>
 
     <!-- Search Form -->
+    <!-- Dung google search cho form khi submit -->
     <form id="searchform-1"
         class="u-searchform-v1 u-dropdown--css-animation u-dropdown--hidden u-shadow-v20 g-brd-around g-brd-gray-light-v4 g-bg-white g-right-0 rounded g-pa-10 1g-mt-8">
         <div class="input-group">
@@ -25,7 +26,7 @@
 </div>
 @push('typeahead-search')
     <script type="text/javascript">
-        jQuery(document).ready(function($) {
+        $(document).ready(function($) {
             // Set the Options for "Bloodhound" suggestion engine
             var products = new Bloodhound({
                 remote: {
@@ -91,7 +92,11 @@
                             '<div class="header-title" style="padding: 5px 10px;background: #dadada;font-weight: bold;">Products</div><div class="list-group search-results-dropdown"></div>'
                         ],
                         suggestion: function(data) {
-                            return '<a href="" class="list-group-item">' + data.name + '</a>'
+                            let path =
+                                '/' + data.b_alias + '/' + data.id + '-' + convertToSlug(data.name) +
+                                '.html';
+                            return '<a href="' + path + '" class="list-group-item">' + data.name_seo +
+                                '</a>'
                         }
                     }
                 }, {
@@ -109,7 +114,11 @@
                             '<div class="header-title" style="padding: 5px 10px;background: #dadada;font-weight: bold;">Prices</div><div class="list-group search-results-dropdown"></div>'
                         ],
                         suggestion: function(data) {
-                            return '<a href="" class="list-group-item">' + data.name + '</a>'
+                            let path =
+                                '/' + data.b_alias + '/' + data.id + '-' + convertToSlug(data.name) +
+                                '.html';
+                            return '<a href="' + path + '" class="list-group-item">' + data.name_seo +
+                                '</a>'
                         }
                     }
                 }, {
@@ -127,7 +136,9 @@
                             '<div class="header-title" style="padding: 5px 10px;background: #dadada;font-weight: bold;">Categories</div><div class="list-group search-results-dropdown"></div>'
                         ],
                         suggestion: function(data) {
-                            return '<a href="" class="list-group-item">' + data.name + '</a>'
+                            let path = '/cate/' + data.alias;
+                            return '<a href="' + path + '" class="list-group-item">' + data.name_seo +
+                                '</a>'
                         }
                     }
                 }, {
@@ -145,7 +156,10 @@
                             '<div class="header-title" style="padding: 5px 10px;background: #dadada;font-weight: bold;">Brands</div><div class="list-group search-results-dropdown"></div>'
                         ],
                         suggestion: function(data) {
-                            return '<a href="" class="list-group-item">' + data.name + '</a>'
+                            let path =
+                                '/brand/' + data.alias;
+                            return '<a href="' + path + '" class="list-group-item">' + data.name_seo +
+                                '</a>'
                         }
                     }
                 },
@@ -164,11 +178,18 @@
                 //             '<div class="header-title" style="padding: 5px 10px;background: #dadada;font-weight: bold;">Blogs</div><div class="list-group search-results-dropdown"></div>'
                 //         ],
                 //         suggestion: function(data) {
-                //             return '<a href="" class="list-group-item">' + data.name + '</a>'
+                //             return '<a href="" class="list-group-item">' + data.name_seo + '</a>'
                 //         }
                 //     }
                 // },
             );
+
+            function convertToSlug(Text) {
+                return Text
+                    .toLowerCase()
+                    .replace(/ /g, '-')
+                    .replace(/[^\w-]+/g, '');
+            }
         });
 
     </script>

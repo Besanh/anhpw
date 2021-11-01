@@ -19,13 +19,25 @@ class SearchController extends Controller
         $query = $request->get('search');
         if ($query) {
             $rs = '';
-            $rs = Product::where('name', 'like',  '%' . $query . '%')
-                ->orWhere('name_seo', 'like', '%' . $query . '%')
+            $rs = Product::select([
+                'products.id',
+                'products.name',
+                'products.name_seo',
+                'products.image',
+                'brands.alias as b_alias'
+            ])
+                ->join('brands', 'brands.id', '=', 'products.bid')
+                ->where('products.name', 'like',  '%' . $query . '%')
+                ->orWhere('products.name_seo', 'like', '%' . $query . '%')
                 ->where(function ($query) {
-                    $query->where('status', 1);
+                    $query->where([
+                        ['products.status', '=', 1],
+                        ['brands.status', '=', 1]
+                    ]);
                 })
+                ->limit(5)
                 ->get();
-            return $rs ? response()->json($rs) : 'No data found';
+            return response()->json($rs);
         }
         return redirect()->route('comming-soon');
     }
@@ -38,14 +50,29 @@ class SearchController extends Controller
         $query = $request->get('search');
         if ($query) {
             $rs = '';
-            $rs = Price::where('price', 'like', '%' . $query . '%')
-                ->orWhere('name', 'like', '%' . $query . '%')
-                ->orWhere('name_seo', 'like', '%' . $query . '%')
+            $rs = Price::select([
+                'prices.name as price_name',
+                'prices.name_seo as price_name_seo',
+                'products.id',
+                'products.name',
+                'products.name_seo',
+                'brands.alias as b_alias'
+            ])
+                ->join('products', 'products.id', '=', 'prices.pid')
+                ->join('brands', 'brands.id', '=', 'products.bid')
+                ->where('price', 'like', '%' . $query . '%')
+                ->orWhere('prices.name', 'like', '%' . $query . '%')
+                ->orWhere('prices.name_seo', 'like', '%' . $query . '%')
                 ->where(function ($query) {
-                    $query->where('status', 1);
+                    $query->where([
+                        ['prices.status', '=', 1],
+                        ['products.status', '=', 1],
+                        ['brands.status', '=', 1]
+                    ]);
                 })
+                ->limit(5)
                 ->get();
-            return $rs ? response()->json($rs) : 'No data found';
+            return response()->json($rs);
         }
         return redirect()->route('comming-soon');
     }
@@ -63,8 +90,9 @@ class SearchController extends Controller
                 ->where(function ($query) {
                     $query->where('status', 1);
                 })
+                ->limit(5)
                 ->get();
-            return $rs ? response()->json($rs) : 'No data found';
+            return response()->json($rs);
         }
         return redirect()->route('comming-soon');
     }
@@ -82,8 +110,9 @@ class SearchController extends Controller
                 ->where(function ($query) {
                     $query->where('status', 1);
                 })
+                ->limit(5)
                 ->get();
-            return $rs ? response()->json($rs) : 'No data found';
+            return response()->json($rs);
         }
         return redirect()->route('comming-soon');
     }
@@ -93,7 +122,6 @@ class SearchController extends Controller
      */
     public function searchByBlog(Request $request)
     {
-
     }
 
     /**

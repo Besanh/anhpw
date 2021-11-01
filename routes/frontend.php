@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Frontend\BrandController;
 use App\Http\Controllers\Frontend\CateController;
 use App\Http\Controllers\Frontend\CommingSoonController;
 use App\Http\Controllers\Frontend\HelpController;
@@ -51,3 +52,7 @@ Route::get('search-price/price', [SearchController::class, 'searchByPrice'])->na
 Route::get('search-cate/cate', [SearchController::class, 'searchByCate'])->name('search-cate');
 Route::get('search-brand/brand', [SearchController::class, 'searchByBrand'])->name('search-brand');
 Route::get('search-blog/blog', [SearchController::class, 'searchByBlog'])->name('search-blog');
+
+// Brand
+Route::get('list-brand', [BrandController::class, 'listBrand'])->name('list-brand');
+Route::get('brand/{alias}', [BrandController::class, 'brandIndex'])->name('brand')->whereAlpha('alias');

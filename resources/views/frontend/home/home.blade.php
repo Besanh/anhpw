@@ -1,6 +1,4 @@
-<?php
-$title = 'Trang chu'; ?>
-@section('title', $title)
+@section('title', __(env('APP_NAME')))
     @extends('frontend.layouts.main')
 @section('content')
     <!-- Revolution Slider -->

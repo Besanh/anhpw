@@ -1,4 +1,4 @@
-<div class="u-header__section g-brd-bottom g-brd-gray-light-v4 g-bg-black g-transition-0_3">
+<div class="u-header__section g-brd-bottom g-brd-gray-light-v4 bg-main g-transition-0_3">
     <div class="container">
         <div class="row justify-content-between align-items-center g-mx-0--lg">
             <div class="col-sm-auto g-hidden-sm-down">
@@ -34,13 +34,13 @@
             @include('frontend.layouts.sub-files.menu-topbar')
 
             <div class="col-sm-auto g-pr-15 g-pr-0--sm">
-                <!-- Basket -->
-                @include('frontend.layouts.sub-files.shopping-cart')
-                <!-- End Basket -->
-
                 <!-- Search -->
                 @include('frontend.layouts.sub-files.search')
                 <!-- End Search -->
+
+                <!-- Basket -->
+                @include('frontend.layouts.sub-files.shopping-cart')
+                <!-- End Basket -->
             </div>
         </div>
     </div>

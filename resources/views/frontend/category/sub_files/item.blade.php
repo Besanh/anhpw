@@ -10,22 +10,24 @@
                             href="{{ $item->stock < minStock() ? 'javascript:void(0)' : route('product-detail', ['brand_alias' => $item->b_alias, 'id' => $item->id, 'product_alias' => toAlias($item->name)]) }}">
                             <img class="img-thumbnail"
                                 src="{{ $item->image ? getImage($item->image) : asset('frontend/img-temp/480x700/img1.jpg') }}"
-                                alt="{{ $item->name }}">
+                                alt="{{ $item->name_seo }}">
                         </a>
 
                         @if ($item->stock < minStock())
                             <figcaption
                                 class="w-100 g-bg-lightred text-center g-pos-abs g-bottom-0 g-transition-0_2 g-py-5">
-                                <span class="g-color-white g-font-size-11 text-uppercase g-letter-spacing-1">Sold
-                                    Out</span>
+                                <span class="g-color-white g-font-size-11 text-uppercase g-letter-spacing-1">
+                                    {{ __('Sold Out') }}
+                                </span>
                             </figcaption>
                         @else
                             @if (validateArrival($item->created_at))
                                 <figcaption
                                     class="w-100 g-bg-primary g-bg-black--hover text-center g-pos-abs g-bottom-0 g-transition-0_2 g-py-5">
                                     <a class="g-color-white g-font-size-11 text-uppercase g-letter-spacing-1 g-text-underline--none--hover"
-                                        href="{{ route('product-detail', ['brand_alias' => $item->b_alias, 'id' => $item->id, 'product_alias' => toAlias($item->name)]) }}">New
-                                        Arrival</a>
+                                        href="{{ route('product-detail', ['brand_alias' => $item->b_alias, 'id' => $item->id, 'product_alias' => toAlias($item->name_seo)]) }}">
+                                        {{ __('New Arrival') }}
+                                    </a>
                                 </figcaption>
                             @endif
                         @endif
@@ -36,7 +38,7 @@
                         <div class="d-flex flex-column">
                             <h4 class="h6 g-color-black mb-1">
                                 <a class="u-link-v5 g-color-black g-color-primary--hover"
-                                    href="{{ route('product-detail', ['brand_alias' => $item->b_alias, 'id' => $item->id, 'product_alias' => toAlias($item->name)]) }}">
+                                    href="{{ route('product-detail', ['brand_alias' => $item->b_alias, 'id' => $item->id, 'product_alias' => toAlias($item->name_seo)]) }}">
                                     {{ getTeaser($item->name_seo, 3) }}
                                 </a>
                             </h4>
@@ -67,7 +69,7 @@
                 </div>
             @endforeach
         @else
-            {!! 'No product found' !!}
+            {!! __('No product found') !!}
         @endif
 
     </div>

@@ -43,8 +43,8 @@ class ProductController extends Controller
             ->where([
                 ['categories.status', '=', 1],
                 ['brands.alias', '=', $brand_alias],
-                ['products.id', '=', $id],
                 ['brands.status', '=', 1],
+                ['products.id', '=', $id],
                 ['products.status', '=', 1],
                 ['prices.status', '=', 1]
             ])
