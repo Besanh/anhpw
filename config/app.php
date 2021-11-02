@@ -234,4 +234,8 @@ return [
         'Image' => Intervention\Image\Facades\Image::class
     ],
 
+    // SEO
+    'seo_author' => env('APP_SEO_AUTHOR', 'ANH PW'),
+    'seo_desc' => env('APP_SEO_DESC', ''),
+    'seo_keyword' => env('APP_SEO_KEYWORD', '')
 ];

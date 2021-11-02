@@ -8,7 +8,7 @@ use App\Http\Requests\ProductUpdateRequest;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
-use Illuminate\Http\Request;
+use App\Models\SeoPage;
 use Intervention\Image\Facades\Image;
 
 class ProductController extends Controller
@@ -77,8 +77,17 @@ class ProductController extends Controller
                 'thumb_small' => json_encode($thumb_small),
                 'galleries' => json_encode($galleries)
             ]);
-            return redirect()->back()->with('message', 'Created product successfully');
+            $seo_page = SeoPage::where(['pid' => $product->id]);
+            if ($seo_page) {
+                $seo_page->update([
+                    'title' => $request->name_seo,
+                    'seo_desc' => $request->seo_desc,
+                    'seo_keyword' => $request->seo_keyword
+                ]);
+                return redirect()->back()->with('message', 'Create product successfully');
+            }
         }
+        return redirect()->back()->with('error', 'Something went wrong');
     }
 
     /**
@@ -148,8 +157,17 @@ class ProductController extends Controller
                 'thumb_small' => $thumb_small ? json_encode($thumb_small) : $product->thumb_small,
                 'galleries' => $galleries ? json_encode($galleries) : $product->galleries
             ]);
-            return redirect()->back()->with('message', 'Updated product successfully');
+            $seo_page = SeoPage::where(['pid' => $product->id]);
+            if ($seo_page) {
+                $seo_page->update([
+                    'title' => $request->name_seo,
+                    'seo_desc' => $request->seo_desc,
+                    'seo_keyword' => $request->seo_keyword
+                ]);
+                return redirect()->back()->with('message', 'Updated product successfully');
+            }
         }
+        return redirect()->back()->with('error', 'Something went wrong');
     }
 
     /**
@@ -209,20 +227,6 @@ class ProductController extends Controller
             })->save(createImageUri($dir, $name))) {
                 $data = createImageUri($dir, $name);
             }
-
-            // if ($width >= 900 && $height >= 450) {
-            //     if (Image::make($file->getRealPath())->resize($width, $height, function ($constraint) {
-            //         $constraint->aspectRatio();
-            //     })->save(createImageUri($dir, $name))) {
-            //         $data = createImageUri($dir, $name);
-            //     }
-
-            //     // watermark
-            // } else {
-            //     if (Image::make($file->getRealPath())->save(createImageUri($dir, $name))) {
-            //         $data = createImageUri($dir, $name);
-            //     }
-            // }
             return $data;
         } catch (\Throwable $th) {
             throw $th;

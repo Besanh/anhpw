@@ -7,7 +7,7 @@ $main_link = 'product';
     @extends('admin.layouts.main')
 @section('content')
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">{{ 'Product' }}</h1>
+        <h1 class="h3 mb-0 text-gray-800">{{ __('Product') }}</h1>
     </div>
     <div class="container">
         <div class="row justify-content-center">
@@ -31,28 +31,33 @@ $main_link = 'product';
                     @endif
                     <div class="card-header">
                         {{ $title }}
-                        <a href="{{ route($main_link . '.index') }}" class="float-right">Products</a>
+                        <a href="{{ route($main_link . '.index') }}" class="float-right">{{ __('Products') }}</a>
                     </div>
 
                     <div class="card-body">
                         <form method="POST" action="{{ route($main_link . '.store') }}" enctype="multipart/form-data">
                             @csrf
-                            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                            <ul class="nav nav-tabs" id="pills-tab" role="tablist">
                                 <li class="nav-item">
                                     <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home"
-                                        role="tab" aria-controls="pills-home" aria-selected="true">Index</a>
+                                        role="tab" aria-controls="pills-home" aria-selected="true">{{ __('Index') }}</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" id="pills-content-tab" data-toggle="pill" href="#pills-content"
-                                        role="tab" aria-controls="pills-content" aria-selected="false">Content</a>
+                                        role="tab" aria-controls="pills-content"
+                                        aria-selected="false">{{ __('Content') }}</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" id="pills-style-tab" data-toggle="pill" href="#pills-style"
-                                        role="tab" aria-controls="pills-style" aria-selected="false">Style</a>
+                                        role="tab" aria-controls="pills-style" aria-selected="false">{{ __('Style') }}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="pills-seo-tab" data-toggle="pill" href="#pills-seo" role="tab"
+                                        aria-controls="pills-seo" aria-selected="false">{{ __('SEO') }}</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" id="pills-image-tab" data-toggle="pill" href="#pills-image"
-                                        role="tab" aria-controls="pills-image" aria-selected="false">Image</a>
+                                        role="tab" aria-controls="pills-image" aria-selected="false">{{ __('Image') }}</a>
                                 </li>
                             </ul>
                             <div class="tab-content" id="pills-tabContent">
@@ -63,7 +68,6 @@ $main_link = 'product';
                                             <div>
                                                 <label for="cate_id"
                                                     class="col-form-label text-md-right">{{ __('Cate') }}</label>
-
                                                 <div>
                                                     <select name="cate_id" class="form-control" aria-label="Default select"
                                                         required>
@@ -90,7 +94,7 @@ $main_link = 'product';
                                                 <div>
                                                     <select name="bid" class="form-control" aria-label="Default select"
                                                         required>
-                                                        <option value="" selected>Select Brand</option>
+                                                        <option value="" selected>{{ __('Select Brand') }}</option>
                                                         @foreach ($brands as $k => $b)
                                                             <option value="{!! $b->id !!}"
                                                                 class="@error('p') is-invalid @enderror">
@@ -254,6 +258,40 @@ $main_link = 'product';
                                         </div>
                                     </div>
                                 </div>
+                                <div class="tab-pane fade" id="pills-seo" role="tabpanel" aria-labelledby="pills-seo-tab">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label for="seo_desc"
+                                                class="col-form-label text-md-right">{{ __('Description') }}</label>
+                                            <div>
+                                                <div class="form-group">
+                                                    <textarea id="seo_desc" class="form-control" name="seo_desc"></textarea>
+                                                </div>
+                                                @error('seo_desc')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="seo_keyword"
+                                                class="col-form-label text-md-right">{{ __('Keyword') }}</label>
+
+                                            <div>
+                                                <div class="form-group">
+                                                    <textarea id="seo_keyword" class="form-control"
+                                                        name="seo_keyword"></textarea>
+                                                </div>
+                                                @error('seo_keyword')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="tab-pane fade" id="pills-style" role="tabpanel"
                                     aria-labelledby="pills-style-tab">
                                     <div class="row">
@@ -302,7 +340,8 @@ $main_link = 'product';
                                                     title="650x750">
                                                     <input type="file" name="image" class="custom-file-input" id="image"
                                                         accept="image/png, image/gif, image/jpeg">
-                                                    <label class="custom-file-label" for="image">Choose file</label>
+                                                    <label class="custom-file-label"
+                                                        for="image">{{ __('Choose file') }}</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -317,7 +356,8 @@ $main_link = 'product';
                                                     <input type="file" name="galleries[]" class="custom-file-input"
                                                         id="galleries" accept="image/png, image/gif, image/jpeg"
                                                         multiple="multiple">
-                                                    <label class="custom-file-label" for="galleries">Choose file</label>
+                                                    <label class="custom-file-label"
+                                                        for="galleries">{{ __('Choose file') }}</label>
                                                 </div>
                                             </div>
                                         </div>

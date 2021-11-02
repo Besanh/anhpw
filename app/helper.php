@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Product;
+use App\Models\SeoPage;
 use App\Models\Setting;
 use Carbon\Carbon;
 use Illuminate\Support\Arr;
@@ -486,5 +487,21 @@ if (!function_exists('subString')) {
             $s = substr($string, 0, $number) . "...";
             return $s;
         }
+    }
+}
+
+/**
+ * Lay seo data
+ */
+if (!function_exists('metaData')) {
+    function metaData($param)
+    {
+        $seoData = SeoPage::select(['title', 'seo_desc', 'seo_keyword']);
+        if (is_numeric($param)) {
+            $seoData->where('pid', $param);
+        } else {
+            $seoData->where('page_name', $param);
+        }
+        return $seoData->first();
     }
 }

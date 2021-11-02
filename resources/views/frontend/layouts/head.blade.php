@@ -6,6 +6,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
+@stack('meta')
+<meta name="author" content="{{ __(config('app.seo_author')) }}">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="{{ url()->current() }}">
 
 <!-- Favicon -->
 <link rel="shortcut icon" href="{{ asset('userfiles/images/logo/home-2.png') }}">

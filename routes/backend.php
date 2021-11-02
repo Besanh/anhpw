@@ -17,6 +17,7 @@ use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\DistrictController;
 use App\Http\Controllers\Backend\HomeController as BackendController;
 use App\Http\Controllers\Backend\RevolutionSliderController;
+use App\Http\Controllers\Backend\SeoPageController;
 use App\Http\Controllers\ProvinceController;
 use Illuminate\Support\Facades\Route;
 
@@ -125,4 +126,8 @@ Route::group(['middleware' => ['admin'], 'prefix' => 'admin'], function () {
         ->whereAlpha('txtField');
     Route::post('revolution-slider/sort-slide', [RevolutionSliderController::class, 'sortSlide'])->name('revolution-slider.sort-slide');
     Route::resource('revolution-slider', RevolutionSliderController::class)->only($only_action_resource);
+
+    // Seo page
+    Route::get('seo-page/destroy/{id}', [SeoPageController::class, 'destroy'])->name('seo-page.destroy');
+    Route::resource('seo-page', SeoPageController::class)->only($only_action_resource);
 });

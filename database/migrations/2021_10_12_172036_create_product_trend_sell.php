@@ -28,6 +28,17 @@ class CreateProductTrendSell extends Migration
         // Schema::create('product_trending', function(Blueprint $table){
 
         // });
+
+        Schema::create('seo_page', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('title', 125)->nullable();
+            $table->integer('pid')->nullable();
+            $table->string('page_name', 125)->nullable();
+            $table->text('seo_desc')->nullable();
+            $table->string('seo_keyword', 255);
+            $table->timestamps();
+            $table->engine = self::$myisam;
+        });
     }
 
     /**
@@ -38,5 +49,6 @@ class CreateProductTrendSell extends Migration
     public function down()
     {
         Schema::dropIfExists('product_bestseller');
+        Schema::dropIfExists('seo_page');
     }
 }

@@ -35,6 +35,11 @@ class Product extends Model
         return $this->hasMany(Price::class, 'pid', 'id');
     }
 
+    public function getSeo()
+    {
+        return $this->hasOne(SeoPage::class, 'pid', 'id');
+    }
+
     public function getCateMap()
     {
         $combined = [];

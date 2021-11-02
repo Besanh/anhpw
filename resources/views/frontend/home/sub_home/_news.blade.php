@@ -1,7 +1,7 @@
-<div class="container g-pt-100 g-pb-70">
+<div class="container g-pb-70">
     <div class="text-center mx-auto g-max-width-600 g-mb-50">
-        <h2 class="g-color-black mb-4">Blog News</h2>
-        <p class="lead">Keep in touch with the latest blogs &amp; news.</p>
+        <h2 class="g-color-black mb-4">{{ __('Blog News') }}</h2>
+        <p class="lead">{!! __('Keep in touch with the latest blogs &amp; news.') !!}</p>
     </div>
 
     <div class="row g-mx-minus-10">
@@ -16,8 +16,9 @@
                     <div class="u-block-hover__visible g-pa-25">
                         <span class="d-block g-color-white-opacity-0_7 g-font-size-13 mb-2">sport</span>
                         <h2 class="h4 g-color-white g-font-weight-400 mb-3">
-                            <a class="u-link-v5 g-color-white g-color-primary--hover g-cursor-pointer" href="#">24 Hours
-                                in Shopping</a>
+                            <a class="u-link-v5 g-color-white g-color-primary--hover g-cursor-pointer" href="#">
+                                {{ __('24 Hours in Shopping') }}
+                            </a>
                         </h2>
                         <h4 class="d-inline-block g-color-white-opacity-0_7 g-font-size-11 mb-0">
                             By,
@@ -29,7 +30,7 @@
                     </div>
 
                     <a class="d-inline-block g-brd-bottom g-brd-white g-color-white g-font-weight-500 g-font-size-12 text-uppercase g-text-underline--none--hover g-mb-30"
-                        href="#">Read more</a>
+                        href="#">{{ __('Read more') }}</a>
                 </div>
             </article>
             <!-- End Blog Background Overlay Blocks -->

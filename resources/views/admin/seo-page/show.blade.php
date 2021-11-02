@@ -1,33 +1,21 @@
 <?php
-$title = __('Product - Show');
+$title = __('Seo Page - Show');
 $head_table = [
-'Id' => $product->id,
-'Cate_id' => $product->cate_id,
-'Bid' => $product->bid,
-'Name' => $product->name,
-'Name SEO' => $product->name_seo,
-'Designer' => $product->designer,
-'Public Year' => $product->public_year,
-'Image' => $product->image,
-'Description' => $product->description,
-'Benefit' => $product->benefit,
-'Ingredient' => $product->ingredient,
-'Incense Group' => $product->incense_group,
-'Styles' => $product->styles,
-'Galleries' => $product->galleries,
-'Promote' => $product->promote,
-'Status' => $product->status,
-'Created At' => $product->created_at,
-'Updated At' => $product->updated_at,
+'Id' => $seoPage->id,
+'Title' => $seoPage->title,
+'Pid' => $seoPage->pid,
+'Page Name' => $seoPage->page_name,
+'Created At' => $seoPage->created_at,
+'Updated At' => $seoPage->updated_at,
 'Action' => '',
 ];
-$main_link = 'product';
+$main_link = 'seo-page';
 ?>
 @section('title', $title)
     @extends('admin.layouts.main')
 @section('content')
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">{{ __('Product') }}</h1>
+        <h1 class="h3 mb-0 text-gray-800">{{ __($seoPage->pid ? $seoPage->getSeo->name_seo : $seoPage->page_name) }}</h1>
     </div>
     <div class="card mx-auto">
         @if (Session::has('message'))
@@ -46,7 +34,7 @@ $main_link = 'product';
         <div class="card-header border-bottom-primary">
             <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
-                    <a href="{!! route($main_link . '.index') !!}" class="float-right">{{ __('Product') }}</a>
+                    <a href="{!! route($main_link . '.index') !!}" class="float-right">{{ __('SEO Page') }}</a>
                 </div>
             </div>
         </div>
@@ -55,13 +43,13 @@ $main_link = 'product';
                 <div class="table-responsive">
                     <table class="table table-bordered" width="100%" cellspacing="0">
                         <tbody>
-                            @if ($product)
+                            @if ($seoPage)
                                 @foreach ($head_table as $head => $item)
                                     <tr>
                                         <th>{{ $head }}</th>
                                         <td>
                                             @if ($head == 'Action')
-                                                @include('helper.action', ['uri' => $main_link, 'id' => $product->id])
+                                                @include('helper.action', ['uri' => $main_link, 'id' => $seoPage->id])
                                             @else
                                                 {{ $item }}
                                             @endif
