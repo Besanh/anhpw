@@ -301,6 +301,23 @@ $main_link = 'product';
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label for="seo_robot"
+                                                class="col-form-label text-md-right">{{ __('Robot') }}</label>
+                                            <div>
+                                                <div class="form-group">
+                                                    <textarea id="seo_robot" class="form-control"
+                                                        name="seo_robot">{{ old('seo_robot', $product->getSeo->seo_robot) }}</textarea>
+                                                </div>
+                                                @error('seo_robot')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="tab-pane fade" id="pills-style" role="tabpanel"
                                     aria-labelledby="pills-style-tab">

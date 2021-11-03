@@ -49,8 +49,7 @@ $main_link = 'seo-page';
                                     <div>
                                         <input id="title" type="text"
                                             class="form-control @error('title') is-invalid @enderror" name="title"
-                                            value="{{ old('title', $seoPage->title) }}" required autocomplete="title"
-                                            autofocus>
+                                            value="{{ old('title', $seoPage->title) }}" autocomplete="title" autofocus>
 
                                         @error('title')
                                             <span class="invalid-feedback" role="alert">
@@ -66,8 +65,8 @@ $main_link = 'seo-page';
                                     <div>
                                         <input id="page_name" type="text"
                                             class="form-control @error('page_name') is-invalid @enderror" name="page_name"
-                                            value="{{ old('page_name', $seoPage->page_name) }}" required
-                                            autocomplete="page_name" autofocus>
+                                            value="{{ old('page_name', $seoPage->page_name) }}" autocomplete="page_name"
+                                            autofocus>
 
                                         @error('page_name')
                                             <span class="invalid-feedback" role="alert">
@@ -103,6 +102,23 @@ $main_link = 'seo-page';
                                                 name="seo_keyword">{{ $seoPage->seo_keyword }}</textarea>
                                         </div>
                                         @error('seo_keyword')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label for="seo_robot" class="col-form-label text-md-right">{{ __('Robot') }}</label>
+                                    <div>
+                                        <div class="form-group">
+                                            <textarea id="seo_robot" class="form-control"
+                                                name="seo_robot">{{ $seoPage->seo_robot }}</textarea>
+                                        </div>
+                                        @error('seo_robot')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>

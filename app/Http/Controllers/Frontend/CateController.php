@@ -42,7 +42,10 @@ class CateController extends Controller
             if (Arr::get($query, 'filter')) {
                 $filter_bid = explode(',', Arr::get($query, 'filter.bid'));
                 $filter_capa = explode(',', Arr::get($query, 'filter.capa'));
-                $query_data = Product::queryDataProduct();
+                $query_data = Product::queryDataProduct()
+                    ->where(function ($query) use ($cate_id) {
+                        $query->where('products.cate_id', '=', $cate_id);
+                    });
                 if (Arr::get($query, 'filter.bid')) {
                     $query_data->where(function ($query) use ($filter_bid) {
                         $query->whereIn('bid', $filter_bid);

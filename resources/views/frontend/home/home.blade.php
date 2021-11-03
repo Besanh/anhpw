@@ -1,12 +1,17 @@
 <?php
 use Illuminate\Support\Arr;
 $seo = metaData('home_page');
+$title = $seo && $seo->count() > 0 ? $seo->title : config('app.name');
 ?>
 @push('meta')
     <meta name="description" content="{{ __($seo && $seo->count() > 0 ? $seo->seo_desc : config('app.seo_desc')) }}">
     <meta name="keyword" content="{{ __($seo && $seo->count() > 0 ? $seo->seo_keyword : config('app.seo_keyword')) }}">
+    <link rel="canonical" href="{{ url()->current() }}">
+    @if ($seo && $seo->count() > 0)
+        <meta name="robots" content="{{ __($seo->seo_robot ? $seo->seo_robot : config('app.seo_robot')) }}">
+    @endif
 @endpush
-@section('title', __(($seo && $seo->count() > 0) ? $seo->title : config('app.name')))
+@section('title', __($title))
     @extends('frontend.layouts.main')
 @section('content')
     <!-- Revolution Slider -->

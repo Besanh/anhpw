@@ -496,7 +496,7 @@ if (!function_exists('subString')) {
 if (!function_exists('metaData')) {
     function metaData($param)
     {
-        $seoData = SeoPage::select(['title', 'seo_desc', 'seo_keyword']);
+        $seoData = SeoPage::select(['title', 'seo_desc', 'seo_keyword', 'seo_robot']);
         if (is_numeric($param)) {
             $seoData->where('pid', $param);
         } else {

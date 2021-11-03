@@ -35,7 +35,8 @@ class CreateProductTrendSell extends Migration
             $table->integer('pid')->nullable();
             $table->string('page_name', 125)->nullable();
             $table->text('seo_desc')->nullable();
-            $table->string('seo_keyword', 255);
+            $table->string('seo_keyword', 255)->nullable();
+            $table->string('seo_robot', 50)->nullable();
             $table->timestamps();
             $table->engine = self::$myisam;
         });

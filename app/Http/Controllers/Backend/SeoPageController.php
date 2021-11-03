@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SeoPageStoreRequest;
 use App\Http\Requests\SeoPageUpdateRequest;
 use App\Models\SeoPage;
-use Illuminate\Http\Request;
 
 class SeoPageController extends Controller
 {

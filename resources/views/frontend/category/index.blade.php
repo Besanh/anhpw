@@ -1,4 +1,16 @@
-@section('title', __($cate->name_seo))
+<?php
+$title = __('Category' . ' - ' . $cate->name_seo);
+$seo_keyword = 'category' . ', ';
+$seo_keyword .= $cate->name . ', ' . $cate->name_seo;
+?>
+@push('meta')
+    <meta name="description"
+        content="{{ getTeaser($cate->description ? $cate->description : config('app.seo_desc'), 50) }}">
+    <meta name="keyword" content="{{ $seo_keyword }}">
+    <link rel="canonical" href="{{ url()->current() }}">
+    <meta name="robots" content="{{ config('app.seo_robot') }}">
+@endpush
+@section('title', $title)
     @extends('frontend.layouts.main')
 @section('content')
     <!-- Breadcrumbs -->
@@ -48,30 +60,3 @@
 @endsection
 
 @include('frontend.category/stack-cate')
-@push('script-cate-pjax')
-    <script>
-        // $(document).ready(function() {
-        //     $(document).pjax('a', '.pjax-cate-container')
-        //     if ($.support.pjax) {
-        //         $(document).on('click', 'a[data-pjax]', function(event) {
-        //             var container = $(this).closest('[data-pjax-container]')
-        //             var containerSelector = '#' + container.id
-        //             $.pjax.click(event, {
-        //                 container: containerSelector
-        //             })
-        //         })
-        //         $.pjax.defaults.timeout = 1200
-        //     }
-
-        //     function applyFilters() {
-        //         var url = urlForFilters()
-        //         $.pjax({
-        //             url: url,
-        //             container: '#pjax-cate-container'
-        //         })
-        //     }
-        // });
-
-    </script>
-
-@endpush

@@ -12,7 +12,7 @@ class ProductController extends Controller
         $product = Product::select([
             'categories.name as cate_name',
             'categories.name_seo as cate_name_seo',
-            'products.id as p_id',
+            'products.id',
             'products.name as p_name',
             'products.name_seo as p_name_seo',
             'products.benefit',

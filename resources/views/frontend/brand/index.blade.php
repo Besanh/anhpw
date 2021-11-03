@@ -1,8 +1,22 @@
 <?php
 use Illuminate\Support\Arr;
 
-$title = Arr::get($products, '0.b_name_seo', __('All Brand'));
+$title = __('Brand' . ' - ' . $brand->name_seo);
+$seo_keyword = '';
+
+foreach ($products as $p) {
+$seo_keyword .= $p->name . ', ';
+$seo_keyword .= $p->name_seo . ', ';
+}
+$seo_keyword .= $brand->name . ', ' . $brand->name_seo;
 ?>
+@push('meta')
+    <meta name="description"
+        content="{{ getTeaser($brand->description ? $brand->description : config('app.seo_desc'), 50) }}">
+    <meta name="keyword" content="{{ $seo_keyword }}">
+    <link rel="canonical" href="{{ url()->current() }}">
+    <meta name="robots" content="{{ config('app.seo_robot') }}">
+@endpush
 @extends('frontend.layouts.main')
 @section('title', $title)
 @section('content')

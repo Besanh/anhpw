@@ -1,4 +1,15 @@
-@section('title', $product->p_name_seo)
+<?php
+$title = __('Product' . ' - ' . $product->p_name_seo); ?>
+@push('meta')
+    <meta name="description"
+        content="{{ getTeaser($product->getSeo->seo_desc ? $product->getSeo->seo_desc : config('app.seo_desc'), 50) }}">
+    <meta name="keyword"
+        content="{{ $product->getSeo->seo_keyword ? $product->getSeo->seo_keyword : config('app.seo_keyword') }}">
+    <link rel="canonical" href="{{ url()->current() }}">
+    <meta name="robots"
+        content="{{ $product->getSeo->seo_robot ? $product->getSeo->seo_robot : config('app.seo_robot') }}">
+@endpush
+@section('title', $title)
     @extends('frontend.layouts.main')
 @section('content')
     <!-- Product Description -->

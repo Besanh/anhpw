@@ -82,7 +82,8 @@ class ProductController extends Controller
                 $seo_page->update([
                     'title' => $request->name_seo,
                     'seo_desc' => $request->seo_desc,
-                    'seo_keyword' => $request->seo_keyword
+                    'seo_keyword' => $request->seo_keyword,
+                    'seo_robot' => $request->seo_robot
                 ]);
                 return redirect()->back()->with('message', 'Create product successfully');
             }
@@ -162,7 +163,8 @@ class ProductController extends Controller
                 $seo_page->update([
                     'title' => $request->name_seo,
                     'seo_desc' => $request->seo_desc,
-                    'seo_keyword' => $request->seo_keyword
+                    'seo_keyword' => $request->seo_keyword,
+                    'seo_robot' => $request->seo_robot
                 ]);
                 return redirect()->back()->with('message', 'Updated product successfully');
             }

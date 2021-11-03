@@ -16,7 +16,8 @@ class SeoPage extends Model
         'pid',
         'page_name',
         'seo_desc',
-        'seo_keyword'
+        'seo_keyword',
+        'seo_robot'
     ];
 
     public function getProduct()

@@ -1,5 +1,7 @@
 <?php
-$title = 'Comming Soon'; ?>
+use Illuminate\Support\Arr;
+$title = __('Comming Soon');
+?>
 @extends('frontend.layouts.main')
 
 @section('title', $title)

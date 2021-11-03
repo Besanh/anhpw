@@ -235,7 +235,8 @@ return [
     ],
 
     // SEO
-    'seo_author' => env('APP_SEO_AUTHOR', 'ANH PW'),
+    'seo_author' => env('APP_SEO_AUTHOR', config('app.name')),
     'seo_desc' => env('APP_SEO_DESC', ''),
-    'seo_keyword' => env('APP_SEO_KEYWORD', '')
+    'seo_keyword' => env('APP_SEO_KEYWORD', ''),
+    'seo_robot' => 'INDEX, FOLLOW'
 ];

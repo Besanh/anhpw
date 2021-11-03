@@ -28,7 +28,8 @@ class SeoPageUpdateRequest extends FormRequest
             'pid' => 'integer|nullable',
             'page_name' => 'string|nullable',
             'seo_desc' => 'string|nullable',
-            'seo_keyword' => 'string|nullable'
+            'seo_keyword' => 'string|nullable',
+            'seo_robot' => 'string|nullable'
         ];
     }
 }
