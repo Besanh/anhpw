@@ -9,6 +9,7 @@ use App\Models\Setting;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Cache;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -64,8 +65,10 @@ class AppServiceProvider extends ServiceProvider
                     }
                 }
             }
-
-            $view->with(compact('other_tree'));
+            Cache::remember('OTHER_TREE', timeToLive(), function () use ($other_tree) {
+                return $other_tree;
+            });
+            // $view->with(compact('other_tree'));
         });
 
         ///////////////////////////////////////////////////////////////////
@@ -95,7 +98,10 @@ class AppServiceProvider extends ServiceProvider
                     $str .= '<li class="list-inline-item g-color-white-opacity-0_3 g-mx-4">|</li>';
                 }
             }
-            $view->with(['tree_topbar' => $str]);
+            Cache::remember('TREE_TOPBAR', timeToLive(), function () use ($str) {
+                return $str;
+            });
+            // $view->with(['tree_topbar' => $str]);
         });
 
         ///////////////////////////////////////////////////////////////////
@@ -137,17 +143,8 @@ class AppServiceProvider extends ServiceProvider
                         $str .= $this->getChildCateNav($v->id, $v->type_id);
 
                         $str .= '</li>';
-                    } elseif ($v->id == 31) {
-                        $str .= '<li class="hs-has-mega-menu nav-item g-ml-10--lg g-ml-15--xl" data-animation-in="fadeIn"
-                        data-animation-out="fadeOut" data-position="right">';
-                        $str .= '<a id="mega-menu-label-5" class="nav-link text-uppercase g-color-primary--hover g-px-5 g-py-20"
-                            href="#" aria-haspopup="true" aria-expanded="false">
-                            ' . $v->name . '
-                            <i class="hs-icon hs-icon-arrow-bottom g-font-size-11 g-ml-7"></i>
-                        </a>';
-                        $str .= $this->getChildArrival($v->id, $v->type_id);
-                        $str .= '</li>';
-                    } else {
+                    }
+                    else {
                         $str .= '<li class="nav-item g-ml-10--lg">';
                         $str .= '<a class="nav-link text-uppercase g-color-primary--hover g-pl-5 g-pr-0 g-py-20"
                         href="' . $real_path . '" >' .
@@ -158,69 +155,97 @@ class AppServiceProvider extends ServiceProvider
                     }
                 }
             }
-            $view->with(['logo' => $logo, 'tree' => $str]);
+            Cache::remember('TREE_NAV', timeToLive(), function () use ($str) {
+                return $str;
+            });
+            $view->with(compact('logo'));
+            // $view->with(['logo' => $logo, 'tree' => $str]);
         });
 
         ///////////////////////////////////////////////////////////////////
         ///////////////////////////// Footer /////////////////////////////
         /////////////////////////////////////////////////////////////////
         View::composer('frontend.layouts.footer', function ($view) {
-            $menus_footer = '';
-            $menus_product = Menu::where([
-                ['status', '=', '1'],
-                ['id', '=', 37]
-            ])
-                ->select(['id', 'name', 'name_seo', 'url', 'alias'])
-                ->first();
-            $menus_brand = Menu::where([
-                ['status', '=', '1'],
-                ['id', '=', 38]
-            ])
-                ->select(['id', 'name', 'name_seo', 'url', 'alias'])
-                ->first();
-            $products = Product::select([
-                'products.id',
-                'products.name',
-                'products.name_seo',
-                'brands.alias as b_alias'
-            ])
-                ->join('brands', 'brands.id', '=', 'products.bid')
-                ->join('prices', 'prices.pid', '=', 'products.id')
-                ->where([
-                    ['brands.status', '=', 1],
-                    ['products.status', '=', 1],
-                    ['prices.status', '=', 1]
+            Cache::remember('menus_product_footer', timeToLive(), function () {
+                return Menu::where([
+                    ['status', '=', '1'],
+                    ['id', '=', 37]
                 ])
-                ->orderBy('products.promote', 'DESC')
-                ->orderBy('products.id', 'ASC')
-                ->limit(15)
-                ->get();
-            $brands = Brand::where('status', 1)
-                ->orderBy('priority', 'DESC')
-                ->orderBy('id', 'ASC')
-                ->limit(8)
-                ->get();
+                    ->select(['id', 'name', 'name_seo', 'url', 'alias'])
+                    ->first();
+            });
+            Cache::remember('menus_brand_footer', timeToLive(), function () {
+                return Menu::where([
+                    ['status', '=', '1'],
+                    ['id', '=', 38]
+                ])
+                    ->select(['id', 'name', 'name_seo', 'url', 'alias'])
+                    ->first();
+            });
+            Cache::remember('product_in_menu_footer', timeToLive(), function () {
+                return Product::select([
+                    'products.id',
+                    'products.name',
+                    'products.name_seo',
+                    'brands.alias as b_alias'
+                ])
+                    ->join('brands', 'brands.id', '=', 'products.bid')
+                    ->join('prices', 'prices.pid', '=', 'products.id')
+                    ->where([
+                        ['brands.status', '=', 1],
+                        ['products.status', '=', 1],
+                        ['prices.status', '=', 1]
+                    ])
+                    ->orderBy('products.promote', 'DESC')
+                    ->orderBy('products.id', 'ASC')
+                    ->limit(8)
+                    ->get();
+            });
+            Cache::remember('brands_footer', timeToLive(), function () {
+                return Brand::where('status', 1)
+                    ->orderBy('priority', 'DESC')
+                    ->orderBy('id', 'ASC')
+                    ->limit(8)
+                    ->select([
+                        'id',
+                        'name',
+                        'name_seo',
+                        'alias'
+                    ])
+                    ->get();
+            });
 
-            $view->with(compact(['menus_product', 'menus_brand', 'products', 'brands']));
+            // $view->with(compact(['menus_product', 'menus_brand', 'products', 'brands']));
         });
 
+        ///////////////////////////////////////////////////////////////////
+        ///////////////////////// Topbar, Footer /////////////////////////
+        /////////////////////////////////////////////////////////////////
         View::composer(['frontend.layouts.footer', 'frontend.layouts.topbar'], function ($view) {
-            $phone = Setting::where('status', 1)
-                ->where('name', 'phone')
-                ->select('value_setting')
-                ->first();
-            $address = Setting::where('status', 1)
-                ->where('name', 'address')
-                ->select('value_setting')
-                ->first();
-            $email = Setting::where('status', 1)
-                ->where('name', 'email')
-                ->select('value_setting')
-                ->first();
-            $socials = Setting::where('status', 1)
-                ->where('name', 'socials')
-                ->select('value_setting')
-                ->first();
+            $phone = Cache::remember('phone', timeToLive(), function () {
+                return Setting::where('status', 1)
+                    ->where('name', 'phone')
+                    ->select('value_setting')
+                    ->first();
+            });
+            $address = Cache::remember('address', timeToLive(), function () {
+                return Setting::where('status', 1)
+                    ->where('name', 'address')
+                    ->select('value_setting')
+                    ->first();
+            });
+            $email = Cache::remember('email', timeToLive(), function () {
+                return Setting::where('status', 1)
+                    ->where('name', 'email')
+                    ->select('value_setting')
+                    ->first();
+            });
+            $socials = Cache::remember('socials', timeToLive(), function () {
+                return Setting::where('status', 1)
+                    ->where('name', 'socials')
+                    ->select('value_setting')
+                    ->first();
+            });
             $view->with(compact(['phone', 'address', 'email', 'socials']));
         });
     }
@@ -256,6 +281,19 @@ class AppServiceProvider extends ServiceProvider
         ])
             ->orderBy('priority', 'ASC')
             ->orderBy('id', 'DESC')
+            ->select([
+                'id',
+                'parent_id',
+                'type_id',
+                'head',
+                'name',
+                'name_seo',
+                'alias',
+                'route',
+                'url',
+                'icon',
+                'note'
+            ])
             ->get();
 
         return $menus;
@@ -394,6 +432,19 @@ class AppServiceProvider extends ServiceProvider
             ['type_id', '=', $type_id],
             ['status', "=", 1]
         ])
+            ->select([
+                'id',
+                'parent_id',
+                'type_id',
+                'head',
+                'name',
+                'name_seo',
+                'route',
+                'url',
+                'icon',
+                'status',
+                'note'
+            ])
             ->get();
     }
 
@@ -420,65 +471,65 @@ class AppServiceProvider extends ServiceProvider
         return $str;
     }
 
-    public function getChildArrival($parent_id, $type_id)
-    {
-        $str = '';
-        $real_path = '';
-        $sub_menu = $this->queryChild($parent_id, $type_id);
-        if ($sub_menu) {
-            $str .= '<!-- Mega Menu -->
-                <div class="w-100 hs-mega-menu u-shadow-v11 g-text-transform-none g-brd-top g-brd-primary g-brd-top-2 g-bg-white g-pa-30 g-mt-17"
-                    aria-labelledby="mega-menu-label-5">
-                    <div class="row">';
-            $arrival_products = getArrivalProduct();
-            if ($arrival_products) {
-                $route = '';
-                foreach ($arrival_products as $p) {
-                    $route = route('product-detail', ['brand_alias' => $p->b_alias, 'id' => $p->id, 'product_alias' => toAlias($p->name_seo)]);
-                    $str .= '<div class="col-md-4 g-mb-30 g-mb-0--md">
-                    <!-- Article -->
-                    <article
-                        class="g-bg-size-cover g-bg-pos-center g-bg-cover g-bg-bluegray-opacity-0_3--after text-center g-px-40 g-py-80"
-                        data-bg-img-src="' . getImage($p->thumb) . '">
-                        <div class="g-pos-rel g-z-index-1">
-                            <span
-                                class="d-block g-color-white g-font-weight-400 text-uppercase mb-3">' . $p->cate_name_seo . '</span>
-                            <span class="d-block h2 g-color-white mb-4"></span>
-                            <a class="btn u-btn-white g-brd-primary--hover g-color-white--hover g-bg-primary--hover g-font-size-11 text-uppercase g-py-10 g-px-20"
-                                href="' . $route . '">Shop Now</a>
-                        </div>
-                    </article>
-                    <!-- End Article -->
-                </div>';
-                }
-            }
-            // foreach ($sub_menu as $s) {
-            //     if ($s->route) {
-            //         $real_path = route($s->route);
-            //     } else {
-            //         $real_path = $s->url == 'javascript:void(0)' ? $s->url : url($s->url);
-            //     }
-            //     $str .= '<div class="col-md-4 g-mb-30 g-mb-0--md">
-            //         <!-- Article -->
-            //         <article
-            //             class="g-bg-size-cover g-bg-pos-center g-bg-cover g-bg-bluegray-opacity-0_3--after text-center g-px-40 g-py-80"
-            //             data-bg-img-src="' . getImage($s->image) . '">
-            //             <div class="g-pos-rel g-z-index-1">
-            //                 <span
-            //                     class="d-block g-color-white g-font-weight-400 text-uppercase mb-3">Blouse</span>
-            //                 <span class="d-block h2 g-color-white mb-4">' . $s->name . '</span>
-            //                 <a class="btn u-btn-white g-brd-primary--hover g-color-white--hover g-bg-primary--hover g-font-size-11 text-uppercase g-py-10 g-px-20"
-            //                     href="' . $real_path . '">Shop Now</a>
-            //             </div>
-            //         </article>
-            //         <!-- End Article -->
-            //     </div>';
-            // }
-            $str .= '</div>
-            </div>';
-        }
-        return $str;
-    }
+    // public function getChildArrival($parent_id, $type_id)
+    // {
+    //     $str = '';
+    //     $real_path = '';
+    //     $sub_menu = $this->queryChild($parent_id, $type_id);
+    //     if ($sub_menu) {
+    //         $str .= '<!-- Mega Menu -->
+    //             <div class="w-100 hs-mega-menu u-shadow-v11 g-text-transform-none g-brd-top g-brd-primary g-brd-top-2 g-bg-white g-pa-30 g-mt-17"
+    //                 aria-labelledby="mega-menu-label-5">
+    //                 <div class="row">';
+    //         $arrival_products = getArrivalProduct();
+    //         if ($arrival_products) {
+    //             $route = '';
+    //             foreach ($arrival_products as $p) {
+    //                 $route = route('product-detail', ['brand_alias' => $p->b_alias, 'id' => $p->id, 'product_alias' => toAlias($p->name_seo)]);
+    //                 $str .= '<div class="col-md-4 g-mb-30 g-mb-0--md">
+    //                 <!-- Article -->
+    //                 <article
+    //                     class="g-bg-size-cover g-bg-pos-center g-bg-cover g-bg-bluegray-opacity-0_3--after text-center g-px-40 g-py-80"
+    //                     data-bg-img-src="' . getImage($p->thumb) . '">
+    //                     <div class="g-pos-rel g-z-index-1">
+    //                         <span
+    //                             class="d-block g-color-white g-font-weight-400 text-uppercase mb-3">' . $p->cate_name_seo . '</span>
+    //                         <span class="d-block h2 g-color-white mb-4"></span>
+    //                         <a class="btn u-btn-white g-brd-primary--hover g-color-white--hover g-bg-primary--hover g-font-size-11 text-uppercase g-py-10 g-px-20"
+    //                             href="' . $route . '">Shop Now</a>
+    //                     </div>
+    //                 </article>
+    //                 <!-- End Article -->
+    //             </div>';
+    //             }
+    //         }
+    //         // foreach ($sub_menu as $s) {
+    //         //     if ($s->route) {
+    //         //         $real_path = route($s->route);
+    //         //     } else {
+    //         //         $real_path = $s->url == 'javascript:void(0)' ? $s->url : url($s->url);
+    //         //     }
+    //         //     $str .= '<div class="col-md-4 g-mb-30 g-mb-0--md">
+    //         //         <!-- Article -->
+    //         //         <article
+    //         //             class="g-bg-size-cover g-bg-pos-center g-bg-cover g-bg-bluegray-opacity-0_3--after text-center g-px-40 g-py-80"
+    //         //             data-bg-img-src="' . getImage($s->image) . '">
+    //         //             <div class="g-pos-rel g-z-index-1">
+    //         //                 <span
+    //         //                     class="d-block g-color-white g-font-weight-400 text-uppercase mb-3">Blouse</span>
+    //         //                 <span class="d-block h2 g-color-white mb-4">' . $s->name . '</span>
+    //         //                 <a class="btn u-btn-white g-brd-primary--hover g-color-white--hover g-bg-primary--hover g-font-size-11 text-uppercase g-py-10 g-px-20"
+    //         //                     href="' . $real_path . '">Shop Now</a>
+    //         //             </div>
+    //         //         </article>
+    //         //         <!-- End Article -->
+    //         //     </div>';
+    //         // }
+    //         $str .= '</div>
+    //         </div>';
+    //     }
+    //     return $str;
+    // }
 
     public function getChildOther($parent_id, $type_id)
     {

@@ -126,6 +126,7 @@ class Product extends Model
                 ['categories.status', '=', 1],
                 ['prices.stock', '>', 0]
             ])
+            ->groupBy('prices.id')
             ->orderBy('prices.stock', 'DESC')
             ->orderBy('products.promote', 'DESC')
             ->orderBy('prices.promote', 'DESC');

@@ -1,3 +1,5 @@
+<?php
+use Illuminate\Support\Facades\Cache; ?>
 <div class="u-header__section u-header__section--light g-bg-white g-transition-0_3 g-py-10">
     <nav class="js-mega-menu navbar navbar-expand-lg">
         <div class="container">
@@ -15,7 +17,7 @@
             <!-- End Responsive Toggle Button -->
 
             <!-- Logo -->
-            <a class="navbar-brand" href="{!!route('frontend.default')!!}">
+            <a class="navbar-brand" href="{!! route('frontend.default') !!}">
                 <img class="img img-responsive img-logo"
                     src="{{ $logo && $logo->value_setting != 'no-image.png' ? $logo->value_setting : getNoImage() }}"
                     alt="Logo">
@@ -26,8 +28,8 @@
             <div id="navBar" class="collapse navbar-collapse align-items-center flex-sm-row g-pt-15 g-pt-0--lg">
                 <ul class="navbar-nav ml-auto">
                     <!-- Home - Submenu -->
-                    @if ($tree)
-                        {!! $tree !!}
+                    @if (Cache::has('TREE_NAV'))
+                        {!! Cache::get('TREE_NAV') !!}
                     @endif
                     <!-- End Home - Submenu -->
                 </ul>

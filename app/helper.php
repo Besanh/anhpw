@@ -5,6 +5,7 @@ use App\Models\SeoPage;
 use App\Models\Setting;
 use Carbon\Carbon;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Cache;
 use Intervention\Image\Facades\Image;
 
 // Status
@@ -390,30 +391,32 @@ if (!function_exists('getArrivalProduct')) {
     {
         $first_date_month = Carbon::now()->firstOfMonth();
         $last_date_month = Carbon::now()->lastOfMonth();
-        $data = Product::select([
-            'brands.alias as b_alias',
-            'products.id',
-            'products.name',
-            'products.name_seo',
-            'products.image',
-            'products.thumb',
-            'prices.barcode',
-            'categories.name as cate_name',
-            'categories.name_seo as cate_name_seo'
-        ])
-            ->join('brands', 'brands.id', '=', 'products.bid')
-            ->join('prices', 'prices.pid', '=', 'products.id')
-            ->join('categories', 'categories.id', '=', 'products.cate_id')
-            ->where([
-                ['prices.status', '=', 1],
-                ['products.status', '=', 1],
-                ['categories.status', '=', 1],
-                ['prices.stock', '>', 0],
-                ['products.created_at', '>=', $first_date_month],
-                ['products.created_at', '<=', $last_date_month]
+        $data = Cache::remember('arrival_product_home', timeToLive(), function () use ($limit, $first_date_month, $last_date_month) {
+            return Product::select([
+                'brands.alias as b_alias',
+                'products.id',
+                'products.name',
+                'products.name_seo',
+                'products.image',
+                'products.thumb',
+                'prices.barcode',
+                'categories.name as cate_name',
+                'categories.name_seo as cate_name_seo'
             ])
-            ->limit($limit)
-            ->get();
+                ->join('brands', 'brands.id', '=', 'products.bid')
+                ->join('prices', 'prices.pid', '=', 'products.id')
+                ->join('categories', 'categories.id', '=', 'products.cate_id')
+                ->where([
+                    ['prices.status', '=', 1],
+                    ['products.status', '=', 1],
+                    ['categories.status', '=', 1],
+                    ['prices.stock', '>', 0],
+                    ['products.created_at', '>=', $first_date_month],
+                    ['products.created_at', '<=', $last_date_month]
+                ])
+                ->limit($limit)
+                ->get();
+        });
         if ($data->count() > 0) {
             return $data;
         }
@@ -503,5 +506,15 @@ if (!function_exists('metaData')) {
             $seoData->where('page_name', $param);
         }
         return $seoData->first();
+    }
+}
+
+/**
+ * Set expire time cache
+ */
+if (!function_exists('timeToLive')) {
+    function timeToLive()
+    {
+        return 24 * 60 * 60;
     }
 }

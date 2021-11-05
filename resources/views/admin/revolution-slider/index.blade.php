@@ -53,7 +53,10 @@ $main_link = 'revolution-slider';
                                     <?php $k++; ?>
                                     <tr data-id="{{ $k }}" data-node="{{ $node->id }}">
                                         <th scope="row">{!! $k !!}</th>
-                                        <th>{!! $node->image !!}</th>
+                                        <th>
+                                            <img class="rounded mx-auto d-block img img-fluid" src="{{ $node->image }}"
+                                                alt="Banner {{ $node->id }}" />
+                                        </th>
                                         <td>
                                             @include('helper.stick', ['status' => $node->status,
                                             'id' => $node->id,

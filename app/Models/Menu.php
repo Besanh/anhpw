@@ -20,7 +20,7 @@ class Menu extends Model
     protected $fillable = [
         'parent_id', 'type_id', 'head', 'name',
         'name_seo', 'alias', 'route', 'url',
-        'content', 
+        'content',
         'icon', 'image', 'priority', 'status', 'note'
     ];
 
@@ -33,6 +33,19 @@ class Menu extends Model
             'type_id' => $type_id,
             'parent_id' => 0
         ])
+            ->select([
+                'id',
+                'parent_id',
+                'type_id',
+                'head',
+                'name',
+                'name_seo',
+                'route',
+                'url',
+                'icon',
+                'status',
+                'note'
+            ])
             ->orderByRaw('priority desc');
 
         if (is_numeric($status)) {
@@ -63,6 +76,19 @@ class Menu extends Model
         ])
             // ->whereStatus($status != '')
             ->orderByRaw('priority desc, id')
+            ->select([
+                'id',
+                'parent_id',
+                'type_id',
+                'head',
+                'name',
+                'name_seo',
+                'route',
+                'url',
+                'icon',
+                'status',
+                'note'
+            ])
             ->get();
         if ($query) {
             foreach ($query as $n) {
@@ -139,6 +165,12 @@ class Menu extends Model
         $query = MenuType::select(['id', 'name'])
             ->where("id", $type_id)
             ->orderByRaw('updated_at desc, id')
+            ->select([
+                'id',
+                'name',
+                'alias',
+                'status'
+            ])
             ->first();
         if ($query) {
             return Arr::get($collection->combine(['name' => strtoupper($query->name)]), 'name');

@@ -3,25 +3,28 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
 use App\Models\Product;
 use App\Models\RevolutionSlider;
 use App\Models\Setting;
+use Illuminate\Support\Facades\Cache;
 
 class HomeController extends Controller
 {
     public function index()
     {
         $model_product = new Product();
-        $sliders = RevolutionSlider::where('status', 1)
-            ->orderBy('priority', 'DESC')
-            ->get();
-        $cates = Category::where('status', 1)
-            ->select(['id', 'name_seo', 'alias', 'image'])
-            ->limit(3)
-            ->get();
-        $products = $model_product->getFeaturedProduct();
-        $arrival_products = $model_product->getArrivalProduct();
+        Cache::remember('sliders', timeToLive(), function () {
+            return RevolutionSlider::where('status', 1)
+                ->select(['image', 'link', 'type', 'title', 'type_writter', 'btn_name'])
+                ->orderBy('priority', 'DESC')
+                ->get();
+        });
+        Cache::remember('home_products', timeToLive(), function () use ($model_product) {
+            return $model_product->getFeaturedProduct();
+        });
+        Cache::remember('home_arrival_products', timeToLive(), function () use ($model_product) {
+            return $model_product->getArrivalProduct();
+        });
 
         $slogan_f_p = Setting::where([
             ['name', '=', 'featured_product'],
@@ -38,12 +41,8 @@ class HomeController extends Controller
             ->first();
 
         return view('frontend.home.home', compact([
-            'sliders',
-            'cates',
-            'products',
             'slogan_f_p',
             'countdown',
-            'arrival_products'
         ]));
     }
 }

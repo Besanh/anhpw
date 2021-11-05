@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Brand;
 use App\Models\Product;
+use Illuminate\Support\Facades\Cache;
 
 class BrandController extends Controller
 {
@@ -49,6 +50,7 @@ class BrandController extends Controller
                 ->join('brands', 'brands.id', '=', 'products.bid')
                 ->join('categories', 'categories.id', '=', 'products.cate_id')
                 ->join('prices', 'prices.pid', '=', 'products.id')
+                ->groupBy('prices.id')
                 ->where([
                     ['categories.status', '=', 1],
                     ['brands.alias', '=', $alias],

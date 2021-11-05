@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Frontend\BrandController;
 use App\Http\Controllers\Frontend\CateController;
+use App\Http\Controllers\Frontend\ClearController;
 use App\Http\Controllers\Frontend\CommingSoonController;
 use App\Http\Controllers\Frontend\HelpController;
 use App\Http\Controllers\Frontend\HomeController;
@@ -56,3 +57,6 @@ Route::get('search-blog/blog', [SearchController::class, 'searchByBlog'])->name(
 // Brand
 Route::get('list-brand', [BrandController::class, 'listBrand'])->name('list-brand');
 Route::get('brand/{alias}', [BrandController::class, 'brandIndex'])->name('brand')->whereAlpha('alias');
+
+// Clear cache
+Route::get('clear-cache', [ClearController::class, 'clearCache'])->name('clear-cache');

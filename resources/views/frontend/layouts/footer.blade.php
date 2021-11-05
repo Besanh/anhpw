@@ -1,7 +1,12 @@
 <?php
+use Illuminate\Support\Facades\Cache;
 $b_str = '';
 $b_main = '';
 $b_child = '';
+$menus_product_footer = Cache::get('menus_product_footer');
+$product_in_menu_footer = Cache::get('product_in_menu_footer');
+$brands_footer = Cache::get('brands_footer');
+$menus_brand_footer = Cache::get('menus_brand_footer');
 ?>
 
 <!-- Footer -->
@@ -12,8 +17,8 @@ $b_child = '';
             <div class="row justify-content-start g-mb-30 g-mb-0--md">
                 <div class="col-md-5 g-mb-30">
                     <h2 class="h5 g-color-gray-light-v3 mb-4">
-                        @if ($menus_product)
-                            {{ $menus_product->name_seo }}
+                        @if ($menus_product_footer)
+                            {{ $menus_product_footer->name_seo }}
                         @endif
                     </h2>
 
@@ -22,8 +27,8 @@ $b_child = '';
                         <div class="col-4 g-mb-20">
                             <!-- Links -->
                             <ul class="list-unstyled g-font-size-13 mb-0">
-                                @if ($products)
-                                    @foreach ($products as $k => $p)
+                                @if ($product_in_menu_footer)
+                                    @foreach ($product_in_menu_footer as $k => $p)
                                         @if ($k <= 4)
                                             <li class="g-mb-10">
                                                 <a class="u-link-v5 g-color-gray-dark-v5 g-color-primary--hover"
@@ -40,8 +45,8 @@ $b_child = '';
                         <div class="col-4 g-mb-20">
                             <!-- Links -->
                             <ul class="list-unstyled g-font-size-13 mb-0">
-                                @if ($products)
-                                    @foreach ($products as $k => $p)
+                                @if ($product_in_menu_footer)
+                                    @foreach ($product_in_menu_footer as $k => $p)
                                         @if ($k > 4 && $k <= 9)
                                             <li class="g-mb-10">
                                                 <a class="u-link-v5 g-color-gray-dark-v5 g-color-primary--hover"
@@ -58,8 +63,8 @@ $b_child = '';
                         <div class="col-4 g-mb-20">
                             <!-- Links -->
                             <ul class="list-unstyled g-font-size-13 mb-0">
-                                @if ($products)
-                                    @foreach ($products as $k => $p)
+                                @if ($product_in_menu_footer)
+                                    @foreach ($product_in_menu_footer as $k => $p)
                                         @if ($k > 9)
                                             <li class="g-mb-10">
                                                 <a class="u-link-v5 g-color-gray-dark-v5 g-color-primary--hover"
@@ -78,8 +83,8 @@ $b_child = '';
 
                 <div class="col-sm-6 col-md-3 g-mb-30 g-mb-0--sm">
                     <h2 class="h5 g-color-gray-light-v3 mb-4">
-                        @if ($menus_brand)
-                            {{ getTeaser($menus_brand->name_seo, 3) }}
+                        @if ($menus_brand_footer)
+                            {{ getTeaser($menus_brand_footer->name_seo, 3) }}
                         @endif
                     </h2>
 
@@ -88,8 +93,8 @@ $b_child = '';
                         <div class="col-6 g-mb-20">
                             <!-- Links -->
                             <ul class="list-unstyled g-font-size-13 mb-0">
-                                @if ($brands)
-                                    @foreach ($brands as $k => $item)
+                                @if ($brands_footer)
+                                    @foreach ($brands_footer as $k => $item)
                                         @if ($k < 4)
                                             <li class="g-mb-10">
                                                 <a class="u-link-v5 g-color-gray-dark-v5 g-color-primary--hover"
@@ -104,8 +109,8 @@ $b_child = '';
                         <div class="col-6 g-mb-20">
                             <!-- Links -->
                             <ul class="list-unstyled g-font-size-13 mb-0">
-                                @if ($brands)
-                                    @foreach ($brands as $k => $item)
+                                @if ($brands_footer)
+                                    @foreach ($brands_footer as $k => $item)
                                         @if ($k >= 4)
                                             <li class="g-mb-10">
                                                 <a class="u-link-v5 g-color-gray-dark-v5 g-color-primary--hover"

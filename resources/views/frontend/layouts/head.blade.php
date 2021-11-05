@@ -14,7 +14,7 @@
 <link rel="shortcut icon" href="{{ asset('userfiles/images/logo/home-2.png') }}">
 
 <!-- Google Fonts -->
-<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700,900">
+<link rel="preload" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700,900">
 
 <!-- CSS Global Compulsory -->
 <link rel="stylesheet" href="{{ asset('frontend/css/bootstrap/bootstrap.min.css') }}">

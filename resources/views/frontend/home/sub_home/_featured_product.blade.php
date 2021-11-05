@@ -1,5 +1,10 @@
 <?php
-use Carbon\Carbon; ?>
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Cache;
+
+$minStock = minStock();
+$products = Cache::get('home_products');
+?>
 <div class="container g-pb-5 mt-5">
     <div class="text-center mx-auto g-max-width-600 g-mb-50">
         @if ($slogan_f_p && isJson($slogan_f_p->value_setting))
@@ -22,12 +27,12 @@ use Carbon\Carbon; ?>
                         <!-- Product -->
                         <figure class="g-pos-rel g-mb-20">
                             <a
-                                href="{{ $p->stock < minStock() ? 'javascript:void(0)' : route('product-detail', ['brand_alias' => $p->b_alias, 'id' => $p->id, 'product_alias' => toAlias($p->name_seo)]) }}">
+                                href="{{ $p->stock < $minStock ? 'javascript:void(0)' : route('product-detail', ['brand_alias' => $p->b_alias, 'id' => $p->id, 'product_alias' => toAlias($p->name_seo)]) }}">
                                 <img class="img-thumbnail"
                                     data-lazy="{{ $p->image ? getImage($p->image) : getNoImage() }}"
-                                    alt="{{ $p->name }}">
+                                    alt="{{ $p->name_seo }}">
 
-                                @if ($p->stock < minStock())
+                                @if ($p->stock < $minStock)
                                     <figcaption
                                         class="w-100 g-bg-lightred text-center g-pos-abs g-bottom-0 g-transition-0_2 g-py-5">
                                         <span

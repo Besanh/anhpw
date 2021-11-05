@@ -1,3 +1,7 @@
+<?php
+use Illuminate\Support\Facades\Cache;
+$sliders = Cache::get('sliders');
+?>
 <div class="g-overflow-hidden">
     <div id="rev_slider_1014_1_wrapper" class="rev_slider_wrapper fullscreen-container" data-alias="typewriter-effect"
         data-source="gallery" style="background-color:transparent;padding:0px;">

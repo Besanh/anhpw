@@ -167,6 +167,10 @@ class MenuController extends Controller
     public function findMenuType($alias)
     {
         $model = MenuType::where('alias', $alias)
+            ->select([
+                'id',
+                'name'
+            ])
             ->first();
         if ($model) {
             return $model;

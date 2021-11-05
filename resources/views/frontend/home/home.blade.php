@@ -15,19 +15,15 @@ $title = $seo && $seo->count() > 0 ? $seo->title : config('app.name');
     @extends('frontend.layouts.main')
 @section('content')
     <!-- Revolution Slider -->
-    @include('frontend.home.sub_home._revolution_slider', compact('sliders'))
+    @include('frontend.home.sub_home._revolution_slider')
     <!-- End Revolution Slider -->
 
     <!-- Products -->
-    @if ($products)
-        @include('frontend.home.sub_home._featured_product', compact(['products', 'slogan_f_p', 'cates']))
-    @endif
+    @include('frontend.home.sub_home._featured_product', compact(['slogan_f_p']))
     <!-- End Products -->
 
     <!-- New Arrivals -->
-    @if ($arrival_products)
-        @include('frontend.home.sub_home._new_arrival', compact('arrival_products'))
-    @endif
+    @include('frontend.home.sub_home._new_arrival')
     <!-- End New Arrivals -->
 
     <!-- Promo Block -->

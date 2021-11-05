@@ -118,10 +118,10 @@ class CateController extends Controller
                 'alias',
                 'limit',
                 'brands',
-                'products',
-                'cate',
                 'other_cate',
                 'capas',
+                'products',
+                'cate',
                 'sort',
                 'show'
             ]));
