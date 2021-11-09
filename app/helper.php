@@ -176,14 +176,18 @@ if (!function_exists('getNoImage')) {
 if (!function_exists('getConfig')) {
     function getConfig($name, $attribute = null)
     {
-        $config = Setting::find($name);
+        $config = Setting::where([
+            ['name', '=', $name],
+            ['status', '=', 1]
+        ])
+            ->first();
         if ($config !== null) {
 
             if ($attribute === null) {
-                return $config->value;
+                return $config->value_setting;
             }
 
-            return Arr::get(json_decode($config->value), "{$attribute}.value");
+            return Arr::get(json_decode($config->value_setting), "{$attribute}.value");
         }
         return null;
     }

@@ -1,11 +1,14 @@
-@push('link-comming-soon')
+@push('link-cart-empty')
+
+    <!-- CSS Global Compulsory -->
     <link rel="stylesheet" href="{{ asset('frontend/css/bootstrap/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('frontend/css/icon-awesome/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/icon-line/simple-line-icons.css') }}">
 
     <!-- CSS Implementing Plugins -->
+    <link rel="stylesheet" href="{{ asset('frontend/css/icon-awesome/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/icon-line-pro/style.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/icon-hs/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('frontend/css/chosen/chosen.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/animate.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/hamburgers/hamburgers.min.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/hs-megamenu/hs.megamenu.css') }}">
@@ -15,9 +18,9 @@
     <link rel="stylesheet" href="{{ asset('frontend/css/styles.e-commerce.css') }}">
 
     <!-- CSS Customization -->
-    <link rel="stylesheet" href="{{ asset('frontend/css/custom.css') }}">
+    <link rel="stylesheet" href="{{asset('frontend/css/custom.css')}}">
 @endpush
-@push('script-comming-soon')
+@push('script-cart')
     <!-- JS Global Compulsory -->
     <script src="{{ asset('frontend/js/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('frontend/js/jquery-migrate/jquery-migrate.min.js') }}"></script>
@@ -27,7 +30,9 @@
     <!-- JS Implementing Plugins -->
     <script src="{{ asset('frontend/js/hs-megamenu/hs.megamenu.js') }}"></script>
     <script src="{{ asset('frontend/js/malihu-scrollbar/jquery.mCustomScrollbar.concat.min.js') }}"></script>
-    <script src="{{ asset('frontend/js/jquery-countdown/jquery.countdown.min.js') }}"></script>
+    <script src="{{ asset('frontend/js/jquery-validation/jquery.validate.min.js') }}"></script>
+    <script src="{{ asset('frontend/js/chosen/chosen.jquery.min.js') }}"></script>
+    <script src="{{ asset('frontend/js/image-select/ImageSelect.jquery.js') }}"></script>
 
     <!-- JS Unify -->
     <script src="{{ asset('frontend/js/hs-core/hs.core.js') }}"></script>
@@ -35,11 +40,14 @@
     <script src="{{ asset('frontend/js/hs-helpers/hs.hamburgers.js') }}"></script>
     <script src="{{ asset('frontend/js/hs-components/hs.dropdown.js') }}"></script>
     <script src="{{ asset('frontend/js/hs-components/hs.scrollbar.js') }}"></script>
+    <script src="{{ asset('frontend/js/hs-components/hs.select.js') }}"></script>
+    <script src="{{ asset('frontend/js/hs-components/hs.count-qty.js') }}"></script>
+    <script src="{{ asset('frontend/js/hs-components/hs.step-form.js') }}"></script>
+    <script src="{{ asset('frontend/js/hs-components/hs.validation.js') }}"></script>
     <script src="{{ asset('frontend/js/hs-components/hs.go-to.js') }}"></script>
-    <script src="{{ asset('frontend/js/hs-components/hs.countdown.js') }}"></script>
 
+    <!-- JS Customization -->
     <script src="{{ asset('frontend/js/custom.js') }}"></script>
-
 
     <!-- JS Plugins Init. -->
     <script>
@@ -68,15 +76,17 @@
             // initialization of go to
             $.HSCore.components.HSGoTo.init('.js-go-to');
 
-            // initialization of countdowns
-            var countdowns = $.HSCore.components.HSCountdown.init('.js-countdown', {
-                yearsElSelector: '.js-cd-years',
-                monthElSelector: '.js-cd-month',
-                daysElSelector: '.js-cd-days',
-                hoursElSelector: '.js-cd-hours',
-                minutesElSelector: '.js-cd-minutes',
-                secondsElSelector: '.js-cd-seconds'
-            });
+            // initialization of form validation
+            $.HSCore.components.HSValidation.init('.js-validate');
+
+            // initialization of custom select
+            $.HSCore.components.HSSelect.init('.js-custom-select');
+
+            // initialization of quantity counter
+            $.HSCore.components.HSCountQty.init('.js-quantity');
+
+            // initialization of step form
+            $.HSCore.components.HSStepForm.init('.js-step-form');
         });
 
     </script>

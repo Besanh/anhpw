@@ -1,4 +1,6 @@
 @push('link-home')
+    <link rel="stylesheet" href="{{ asset('frontend/css/bootstrap/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('frontend/css/icon-awesome/font-awesome.min.css') }}">
     <!-- CSS Implementing Plugins -->
     <link rel="stylesheet" href="{{ asset('frontend/css/icon-line-pro/style.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/slick-carousel/slick.css') }}">
@@ -14,6 +16,12 @@
     <link rel="stylesheet" href="{{ asset('frontend/css/revolution-slider/layers.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/revolution-slider/navigation.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/revolution-slider/typewritter/typewritter.css') }}">
+
+    <!-- CSS Unify Theme -->
+    <link rel="stylesheet" href="{{ asset('frontend/css/styles.e-commerce.css') }}">
+
+    <!-- CSS Customization -->
+    <link rel="stylesheet" href="{{ asset('frontend/css/custom.css') }}">
 
 @endpush
 @push('script-home')
@@ -67,10 +75,6 @@
     <script src="{{ asset('frontend/js/hs-components/hs.go-to.js') }}"></script>
     <script src="{{ asset('frontend/js/hs-components/hs.count-qty.js') }}"></script>
 
-
-
-    <!-- JS Customization -->
-    <script src="{{ asset('frontend/js/custom.js') }}"></script>
     <!-- JS Plugins Init. -->
     <script>
         $(document).on('ready', function() {

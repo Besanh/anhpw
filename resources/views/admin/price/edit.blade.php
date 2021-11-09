@@ -35,7 +35,8 @@ $main_link = 'price';
                     </div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route($main_link . '.update', $price->id) }}" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route($main_link . '.update', $price->id) }}"
+                            enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
 
@@ -152,7 +153,7 @@ $main_link = 'price';
                                         @if ($capacities)
                                             <select name="capa_id" class="form-control" aria-label="Default select"
                                                 required>
-                                                <option>Choose capacity</option>
+                                                <option>{{ __('Choose capacity') }}</option>
                                                 @foreach ($capacities as $k => $c)
                                                     <option value="{!! $c->id !!}"
                                                         {{ $price->capa_id == $c->id ? 'selected' : '' }}

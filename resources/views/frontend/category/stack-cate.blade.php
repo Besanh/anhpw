@@ -1,4 +1,6 @@
 @push('link-cate')
+    <link rel="stylesheet" href="{{ asset('frontend/css/bootstrap/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('frontend/css/icon-awesome/font-awesome.min.css') }}">
     <!-- CSS Implementing Plugins -->
     <link rel="stylesheet" href="{{ asset('frontend/css/icon-line/simple-line-icons.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/icon-line-pro/style.css') }}">
@@ -10,6 +12,12 @@
     <link rel="stylesheet" href="{{ asset('frontend/css/hamburgers/hamburgers.min.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/hs-megamenu/hs.megamenu.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/malihu-scrollbar/jquery.mCustomScrollbar.min.css') }}">
+
+    <!-- CSS Unify Theme -->
+    <link rel="stylesheet" href="{{ asset('frontend/css/styles.e-commerce.css') }}">
+
+    <!-- CSS Customization -->
+    <link rel="stylesheet" href="{{ asset('frontend/css/custom.css') }}">
 @endpush
 @push('script-cate')
     <!-- JS Global Compulsory -->

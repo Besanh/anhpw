@@ -11,8 +11,9 @@ $title = $seo && $seo->count() > 0 ? $seo->title : config('app.name');
         <meta name="robots" content="{{ __($seo->seo_robot ? $seo->seo_robot : config('app.seo_robot')) }}">
     @endif
 @endpush
+@extends('frontend.layouts.main')
 @section('title', __($title))
-    @extends('frontend.layouts.main')
+
 @section('content')
     <!-- Revolution Slider -->
     @include('frontend.home.sub_home._revolution_slider')

@@ -37,4 +37,47 @@ class Price extends Model
             ->groupBy('prices.capa')
             ->get();
     }
+
+    /**
+     * Get item cart
+     */
+    public static function getItemCart($id, $selling_id = 0)
+    {
+        $data = self::select([
+            'prices.id',
+            'sap_id',
+            'barcode',
+            'pid',
+            'prices.name',
+            'prices.name_seo',
+            'capa',
+            'capa_id',
+            'price',
+            'stock',
+            'note',
+            'products.image'
+        ])
+            ->join('products', 'products.id', '=', 'prices.pid')
+            ->where([
+                ['pid', '!=', 0],
+                ['prices.status', '=', 1],
+                ['products.status', '=', 1],
+                ['prices.id', '=', $id]
+            ])
+            ->first();
+        return $data;
+    }
+
+    /**
+     * Get capa id name from cart
+     */
+    public static function getCapaNameViaCart($capa_id)
+    {
+        return Capacity::where([
+            ['status', '=', 1],
+            ['id', '=', $capa_id]
+        ])
+            ->select('name')
+            ->first();
+    }
 }

@@ -109,6 +109,7 @@ class Product extends Model
             'products.benefit',
             'products.ingredient',
             'products.created_at',
+            'prices.id as price_id',
             'prices.price',
             'prices.barcode',
             'prices.stock',

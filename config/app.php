@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Price;
+
 return [
 
     /*
@@ -178,6 +180,8 @@ return [
 
         // Intervation image
         Intervention\Image\ImageServiceProvider::class,
+        // Hardevine shopping cart
+        Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
     ],
 
     /*
@@ -231,7 +235,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        'Image' => Intervention\Image\Facades\Image::class
+        'Image' => Intervention\Image\Facades\Image::class,
+        'Cart' => Gloudemans\Shoppingcart\Facades\Cart::class,
     ],
 
     // SEO

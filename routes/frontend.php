@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Frontend\BrandController;
+use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\CateController;
 use App\Http\Controllers\Frontend\ClearController;
 use App\Http\Controllers\Frontend\CommingSoonController;
@@ -60,3 +61,12 @@ Route::get('brand/{alias}', [BrandController::class, 'brandIndex'])->name('brand
 
 // Clear cache
 Route::get('clear-cache', [ClearController::class, 'clearCache'])->name('clear-cache');
+
+// Cart
+Route::get('cart', [CartController::class, 'index'])->name('cart.index');
+Route::get('cart/add/{id}/{selling_id?}', [CartController::class, 'addItem'])->name('cart.add')
+    ->whereNumber(['id', 'selling_id']);
+Route::get('cart/delete/{rowId}', [CartController::class, 'deleteItem'])->name('cart.delete');
+Route::post('cart/post-cart', [CartController::class, 'postCart'])->name('cart.post-cart');
+Route::get('cart/update/{rowId}', [CartController::class, 'updateItem'])->name('cart.update');
+Route::get('cart/destroy', [CartController::class, 'destroyCart'])->name('cart.destroy');

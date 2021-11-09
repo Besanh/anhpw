@@ -21,13 +21,8 @@ Breadcrumbs::for('category', function (BreadcrumbTrail $trail, Category $cate) {
     $trail->push($cate->name_seo, route('cate', ['alias' => $cate->alias]));
 });
 
-// Home > Blog > [Category]
-// Breadcrumbs::for('category', function (BreadcrumbTrail $trail, Category $category) {
-//     if ($category->parent) {
-//         $trail->parent('category', $category->parent);
-//     } else {
-//         $trail->parent('blog');
-//     }
-
-//     $trail->push($category->title, route('category', $category->slug));
-// });
+// Home > Cart
+Breadcrumbs::for('shopping_cart', function (BreadcrumbTrail $trail) {
+    $trail->parent('home');
+    $trail->push('Shopping Cart');
+});

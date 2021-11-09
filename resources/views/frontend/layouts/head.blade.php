@@ -14,16 +14,16 @@
 <link rel="shortcut icon" href="{{ asset('userfiles/images/logo/home-2.png') }}">
 
 <!-- Google Fonts -->
-<link rel="preload" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700,900">
+{{-- <link rel="preload" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700,900" as="font"> --}}
 
 <!-- CSS Global Compulsory -->
-<link rel="stylesheet" href="{{ asset('frontend/css/bootstrap/bootstrap.min.css') }}">
-<link rel="stylesheet" href="{{ asset('frontend/css/icon-awesome/font-awesome.min.css') }}">
+{{-- <link rel="stylesheet" href="{{ asset('frontend/css/bootstrap/bootstrap.min.css') }}"> --}}
+{{-- <link rel="stylesheet" href="{{ asset('frontend/css/icon-awesome/font-awesome.min.css') }}"> --}}
 <!-- CSS Unify Theme -->
-<link rel="stylesheet" href="{{ asset('frontend/css/styles.e-commerce.css') }}">
+{{-- <link rel="stylesheet" href="{{ asset('frontend/css/styles.e-commerce.css') }}"> --}}
 
 <!-- CSS Customization -->
-<link rel="stylesheet" href="{{ asset('frontend/css/custom.css') }}">
+{{-- <link rel="stylesheet" href="{{ asset('frontend/css/custom.css') }}"> --}}
 
 <!-- Home -->
 @stack('link-home')
@@ -35,3 +35,7 @@
 
 <!-- Product detail -->
 @stack('link-product-detail')
+
+<!-- Cart -->
+@stack('link-cart-empty')
+@stack('link-cart')

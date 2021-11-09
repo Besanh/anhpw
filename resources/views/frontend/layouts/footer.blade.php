@@ -177,6 +177,10 @@ $menus_brand_footer = Cache::get('menus_brand_footer');
                     <!-- End Subscribe Form -->
                 </div>
 
+                <div class="col-6 col-md-3 offset-lg-1 g-mb-30">
+                    <h2 class="h5 g-color-gray-light-v3 mb-4">{{ __('This Is Version Demo') }}</h2>
+                </div>
+
                 <div class="col-6 col-md-3 ml-auto g-mb-30">
                     <h2 class="h5 g-color-gray-light-v3 mb-4">{{ __('Follow Us On') }}:</h2>
 

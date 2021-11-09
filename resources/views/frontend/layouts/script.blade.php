@@ -4,6 +4,9 @@
 @stack('script-comming-soon')
 @stack('script-cate-pjax')
 @stack('script-product-detail')
+@stack('script-cart-empty')
+@stack('script-cart')
+
 
 <script src="{{ asset('js/jquery.pjax.js') }}"></script>
 <script src="{{ asset('js/filter-cate.js') }}"></script>
