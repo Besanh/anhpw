@@ -30,8 +30,8 @@ Route::get('wish-list', [WishListController::class, 'index'])->name('wish-list')
 Route::get('order', [OrderController::class, 'index'])->name('order');
 
 // Cate
-Route::get('cate/{alias}/{limit?}', [CateController::class, 'getCate'])->where(['limit' => '[0-9]+'])->name('cate');
 Route::post('post-filter', [CateController::class, 'postFilter'])->name('post-filter-cate');
+Route::get('cate/{alias}/{limit?}', [CateController::class, 'getCate'])->where(['limit' => '[0-9]+'])->name('cate');
 Route::get('get-filter/{alias}', [CateController::class, 'getFilter'])->where(['limit' => '[0-9]+'])->name('get-filter-cate');
 
 // Product
@@ -63,10 +63,18 @@ Route::get('brand/{alias}', [BrandController::class, 'brandIndex'])->name('brand
 Route::get('clear-cache', [ClearController::class, 'clearCache'])->name('clear-cache');
 
 // Cart
+Route::post('cart/save-cart', [CartController::class, 'saveCart'])->name('cart.save-cart');
+Route::post('cart/post-cart', [CartController::class, 'postCart'])->name('cart.post-cart');
 Route::get('cart', [CartController::class, 'index'])->name('cart.index');
 Route::get('cart/add/{id}/{selling_id?}', [CartController::class, 'addItem'])->name('cart.add')
     ->whereNumber(['id', 'selling_id']);
 Route::get('cart/delete/{rowId}', [CartController::class, 'deleteItem'])->name('cart.delete');
-Route::post('cart/post-cart', [CartController::class, 'postCart'])->name('cart.post-cart');
 Route::get('cart/update/{rowId}', [CartController::class, 'updateItem'])->name('cart.update');
 Route::get('cart/destroy', [CartController::class, 'destroyCart'])->name('cart.destroy');
+Route::get('cart/get-district/{pr_id?}', [CartController::class, 'getDistrict'])->name('cart.get-district')
+    ->whereNumber(['pr_id']);
+Route::get('cart/get-province/{id?}', [CartController::class, 'getProvinceName'])->name('cart.get-province')
+    ->whereNumber(['id']);
+Route::get('cart/get-district-name/{id?}', [CartController::class, 'getDistrictName'])->name('cart.get-district-name')
+    ->whereNumber(['id']);
+Route::get('cart/complete/{bill_id}', [CartController::class, 'completeNotify'])->name('cart.complete')->whereNumber(['bill_id']);

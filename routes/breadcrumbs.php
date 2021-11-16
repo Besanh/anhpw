@@ -26,3 +26,7 @@ Breadcrumbs::for('shopping_cart', function (BreadcrumbTrail $trail) {
     $trail->parent('home');
     $trail->push('Shopping Cart');
 });
+Breadcrumbs::for('cart-complete', function (BreadcrumbTrail $trail) {
+    $trail->parent('home');
+    $trail->push('Cart Notify');
+});

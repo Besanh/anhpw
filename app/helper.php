@@ -334,7 +334,7 @@ if (!function_exists('floatToString')) {
  * @return array
  */
 if (!function_exists('arrayMap')) {
-    function map($array, $from, $to, $group = null)
+    function arrayMap($array, $from, $to, $group = null)
     {
         $result = [];
         foreach ($array as $element) {
@@ -520,5 +520,15 @@ if (!function_exists('timeToLive')) {
     function timeToLive()
     {
         return 24 * 60 * 60;
+    }
+}
+
+/**
+ * Get device
+ */
+if (!function_exists('getDevice')) {
+    function getDevice()
+    {
+        return Arr::get($_SERVER, 'HTTP_USER_AGENT');
     }
 }

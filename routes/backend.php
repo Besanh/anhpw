@@ -15,9 +15,10 @@ use App\Http\Controllers\Backend\SettingController;
 use App\Http\Controllers\Backend\StoreController;
 use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\DistrictController;
-use App\Http\Controllers\Backend\HomeController as BackendController;
+use App\Http\Controllers\Backend\HomeController;
 use App\Http\Controllers\Backend\RevolutionSliderController;
 use App\Http\Controllers\Backend\SeoPageController;
+use App\Http\Controllers\Backend\ShippingController;
 use App\Http\Controllers\ProvinceController;
 use Illuminate\Support\Facades\Route;
 
@@ -40,7 +41,7 @@ Route::group(['middleware' => ['admin'], 'prefix' => 'admin'], function () {
     $only_action_resource = ['index', 'create', 'update', 'store', 'show', 'edit'];
 
     // Home
-    Route::get('dashboard', [BackendController::class, 'index'])->name('admin.dashboard');
+    Route::get('dashboard', [HomeController::class, 'index'])->name('admin.dashboard');
 
     // Menu
     Route::get('menu/{alias}', [MenuController::class, 'index'])->name('menu.index');
@@ -130,4 +131,9 @@ Route::group(['middleware' => ['admin'], 'prefix' => 'admin'], function () {
     // Seo page
     Route::get('seo-page/destroy/{id}', [SeoPageController::class, 'destroy'])->name('seo-page.destroy');
     Route::resource('seo-page', SeoPageController::class)->only($only_action_resource);
+
+    // Shipping
+    Route::get('shipping-fee/update-status/{id}', [ShippingController::class, 'updateStatus'])->name('shipping-fee.status');
+    Route::get('shipping-fee/destroy/{id}', [ShippingController::class, 'destroy'])->name('shipping-fee.destroy');
+    Route::resource('shipping-fee', ShippingController::class)->only($only_action_resource);
 });

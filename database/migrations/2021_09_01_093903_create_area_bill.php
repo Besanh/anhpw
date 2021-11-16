@@ -16,8 +16,9 @@ class CreateAreaBill extends Migration
      */
     public function up()
     {
-        Schema::create('customers', function (Blueprint $table) {
+        Schema::create('bill_customers', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->foreignId('bill_id')->constrained('bills')->onDelete('cascade')->onUpdate('cascade');
             $table->string('fullname', 125);
             $table->integer('gender', 1);
             $table->string('phone', 15);
@@ -25,8 +26,8 @@ class CreateAreaBill extends Migration
             $table->integer('province', 10);
             $table->integer('district', 10);
             $table->string('address', 255);
-            $table->string('note', 255);
-            $table->string('zip_code', 15)->nullable();
+            $table->string('note', 255)->nullable();
+            $table->string('zipcode', 10)->nullable();
             $table->integer('created_by')->default(0)->nullable();
             $table->integer('updated_by')->default(0)->nullable();
             $table->timestamps();
@@ -35,11 +36,10 @@ class CreateAreaBill extends Migration
 
         Schema::create('bills', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('rowId', 500);
-            $table->foreignId('customer_id')->constrained('customers')->onDelete('cascade')->onUpdate('cascade');
             $table->integer('total_price')->default(0);
             $table->integer('total_discount')->default(0);
             $table->integer('total_cost')->default(0);
+            $table->integer('total_tax')->default(0);
             $table->integer('shipping_cost')->default(0);
             $table->string('payment', 100);
             $table->text('note')->nullable();
@@ -51,12 +51,12 @@ class CreateAreaBill extends Migration
 
         Schema::create('bill_details', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('rowId', 255);
             $table->foreignId('bill_id')->constrained('bills')->onDelete('cascade')->onUpdate('cascade');
-            $table->longText('products');
-            $table->string('channel_sale', 50);
+            $table->string('channel_sale', 50)->nullable();
             $table->text('devices');
-            $table->text('note')->nullable();
-            $table->integer('status')->default(0);
+            // $table->text('note')->nullable();
+            $table->integer('status', 2)->default(0);
             $table->integer('created_by')->default(0)->nullable();
             $table->integer('updated_by')->default(0)->nullable();
             $table->timestamps();
@@ -68,7 +68,7 @@ class CreateAreaBill extends Migration
             $table->bigIncrements('id');
             $table->foreignId('bill_id')->constrained('bills')->onDelete('cascade')->onUpdate('cascade');
             $table->string('fullname', 125);
-            $table->string('email', 125);
+            $table->string('email', 50)->nullable();
             $table->string('phone', 15);
             $table->string('address', 255);
             $table->string('note')->nullable();
@@ -81,13 +81,25 @@ class CreateAreaBill extends Migration
             $table->bigIncrements('id');
             $table->foreignId('bill_id')->constrained('bills')->onDelete('cascade')->onUpdate('cascade');
             $table->string('company', 255);
-            $table->string('tax_code', 100);
-            $table->string('email', 125);
+            $table->string('tax_code', 15);
+            $table->string('email', 100);
             $table->string('phone', 15);
             $table->string('address', 255);
             $table->string('note')->nullable();
             $table->timestamps();
             $table->engine = self::$innodb;
+        });
+
+        // Bang phi ship
+        Schema::create('shipping_fees', function (Blueprint $table) {
+            $table->id();
+            $table->string('destination', 100);
+            $table->string('delivery_type', 100);
+            $table->string('delivery_time', 150);
+            $table->string('cost', 50);
+            $table->integer('status', 1)->default(0);
+            $table->timestamps();
+            $table->engine = self::$myisam;
         });
     }
 
@@ -98,10 +110,12 @@ class CreateAreaBill extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('customers');
+        Schema::dropIfExists('bill_customers');
         Schema::dropIfExists('bills');
         Schema::dropIfExists('bill_details');
+        Schema::dropIfExists('bill_detail_products');
         Schema::dropIfExists('bill_consignees');
         Schema::dropIfExists('bill_invoice');
+        Schema::dropIfExists('shipping_fees');
     }
 }

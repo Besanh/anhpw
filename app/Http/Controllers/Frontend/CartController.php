@@ -3,15 +3,29 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Bill;
+use App\Models\BillConsignee;
+use App\Models\BillCustomer;
+use App\Models\BillDetail;
+use App\Models\BillInvoice;
 use App\Models\Price;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use App\Models\Carts;
+use App\Models\Districts;
+use App\Models\Provinces;
 use App\Models\Setting;
+use App\Models\ShippingFee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class CartController extends Controller
 {
+    /**
+     * Gio hang chinh
+     */
     public function index()
     {
         $title = __('Shopping Cart');
@@ -21,9 +35,23 @@ class CartController extends Controller
         ])
             ->select('value_setting')
             ->first();
-        return Cart::instance('shopping')->count() ? view('frontend.cart.index', compact('title')) : view('frontend.cart.empty-cart', compact(['title', 'notify']));
+        $shippingFees = Cache::rememberForever('shippingFees', function () {
+            return ShippingFee::where('status', '=', 1)
+                ->get();
+        });
+        $provinces = Provinces::select(['id', 'name'])
+            ->where('status', '=', 1)
+            ->get();
+        $districts = Districts::select(['id', 'name'])
+            ->where('status', '=', 1)
+            ->get();
+
+        return Cart::instance('shopping')->count() ? view('frontend.cart.index', compact(['title', 'shippingFees', 'provinces', 'districts'])) : view('frontend.cart.empty-cart', compact(['title', 'notify']));
     }
 
+    /**
+     * Add item
+     */
     public function addItem($price_id, $selling_id = 0)
     {
         $item = Price::getItemCart($price_id, $selling_id);
@@ -36,6 +64,7 @@ class CartController extends Controller
                 'options' => [
                     'taxRate' => 0,
                     'isSaved' => false,
+                    'discount' => 0,    // set tam = 0
                     'name_seo' => $item->name_seo,
                     'sap_id' => $item->sap_id,
                     'barcode' => $item->barcode,
@@ -45,7 +74,8 @@ class CartController extends Controller
                     'stock' => $item->stock,
                     'note' => $item->note,
                     'bookmark' => '',
-                    'image' => $item->image
+                    'image' => $item->image,
+                    'b_alias' => $item->b_alias
                 ]
             ]);
             Cart::associate($cartItem->rowId, Carts::class);
@@ -53,6 +83,9 @@ class CartController extends Controller
         return redirect()->route('cart.index');
     }
 
+    /**
+     * Xoa item theo rowId
+     */
     public function deleteItem($rowId)
     {
         $item = Cart::instance('shopping')->get($rowId);
@@ -62,6 +95,9 @@ class CartController extends Controller
         return redirect()->route('cart.index');
     }
 
+    /**
+     * Update qty them rowId cua item
+     */
     public function updateItem($rowId, $qty)
     {
         if (Cart::instance('shopping')->get($rowId)) {
@@ -70,10 +106,13 @@ class CartController extends Controller
         return redirect()->route('cart.index');
     }
 
+    /**
+     * Update cart
+     * Save cart
+     */
     public function postCart(Request $request)
     {
         $data = $request->all();
-
         // Update qty item
         if ($request->input('update_shopping_cart') == 'update_shopping_cart') {
             if (is_array(Arr::get($data, 'qty'))) {
@@ -85,11 +124,185 @@ class CartController extends Controller
             }
             return redirect()->route('cart.index');
         }
+
+        if ($request->input('make_payment') == 'make_payment') {
+            $bill_save = $bill_detail_save = $bill_customer_save = $bill_consignee_save = $bill_invoice_save = false;
+            try {
+                DB::beginTransaction();
+                $cart = Cart::instance('shopping');
+
+                $total_discount = 0;
+                foreach ($cart->content() as $node) {
+                    $total_discount += $node->options->discount;
+                }
+
+                $bill = new Bill();
+                $bill->total_price = $cart->subtotal(0, '', '');
+                $bill->total_discount = $total_discount;
+                $bill->total_cost = $cart->total(0, '', '') - $total_discount;
+                $bill->total_tax = $cart->tax(0, '', '');
+                $bill->shipping_cost = 0;
+                $bill->payment = Arr::get($data, 'payment');
+                $bill_save = $bill->save();
+
+                // Bill detail
+                if ($bill_save) {
+                    $bill_detail = new BillDetail();
+                    $bill_detail->bill_id = $bill->id;
+                    $bill_detail->channel_sale = '';   // tam set ''
+                    $bill_detail->devices = getDevice();
+                    $bill_detail->status = 1;
+                    $bill_detail_save = $bill_detail->save();
+                }
+
+                // Bill customer
+                if ($bill_save) {
+                    $bill_customer = new BillCustomer();
+                    $bill_customer->bill_id = $bill->id;
+                    $bill_customer->fullname = Arr::get($data, 'customers_fullname');
+                    $bill_customer->gender = Arr::get($data, 'customers_gender');
+                    $bill_customer->email = Arr::get($data, 'customers_email');
+                    $bill_customer->phone = Arr::get($data, 'customers_phone');
+                    $bill_customer->province = Arr::get($data, 'customers_province');
+                    $bill_customer->district = Arr::get($data, 'customers_district');
+                    $bill_customer->address = Arr::get($data, 'customers_address');
+                    $bill_customer->note = Arr::get($data, 'customers_note');
+                    $bill_customer->zipcode = Arr::get($data, 'customers_zipcode');
+                    $bill_customer_save = $bill_customer->save();
+                }
+
+                // Bill consignee
+                if ($bill_save) {
+                    if (Arr::get($data, 'consignee_fullname') || Arr::get($data, 'consignee_email') || Arr::get($data, 'consignee_phone') || Arr::get($data, 'consignee_address')) {
+                        $Validator_consignee = Validator::make($request->all(), [
+                            'consignee_fullname' => 'required|string',
+                            'consignee_email' => 'required|email',
+                            'consignee_phone' => 'required|string|max:15',
+                            'consignee_address' => 'required|string',
+                            'consignee_note' => 'string|nullable'
+                        ]);
+                        if ($Validator_consignee->fails()) {
+                            return back()
+                                ->withErrors($Validator_consignee)
+                                ->withInput();
+                        }
+                        $bill_consignee = new BillConsignee();
+                        $bill_consignee->bill_id = $bill->id;
+                        $bill_consignee->fullname = Arr::get($data, 'consignee_fullname');
+                        $bill_consignee->email = Arr::get($data, 'consignee_email');
+                        $bill_consignee->phone = Arr::get($data, 'consignee_phone');
+                        $bill_consignee->address = Arr::get($data, 'consignee_address');
+                        $bill_consignee->note = Arr::get($data, 'consignee_note');
+                        $bill_consignee_save = $bill_consignee->save();
+                    }
+                }
+
+                // Bill invoice
+                if ($bill_save) {
+                    if (Arr::get($data, 'invoice_company') || Arr::get($data, 'invoice_taxcode') || Arr::get($data, 'invoice_email') || Arr::get($data, 'invoice_phone') || Arr::get($data, 'invoice_address')) {
+                        $validator_invoice = Validator::make($data, [
+                            'invoice_company' => 'required|string',
+                            'invoice_taxcode' => 'required|string|max:15',
+                            'invoice_email' => 'required|email',
+                            'invoice_phone' => 'required|string|max:15',
+                            'invoice_address' => 'required|string',
+                            'invoice_note' => 'string|nullable'
+                        ]);
+                        if ($validator_invoice->fails()) {
+                            return back()
+                                ->withErrors($validator_invoice)
+                                ->withInput();
+                        }
+                        $bill_invoice = new BillInvoice();
+                        $bill_invoice->bill_id = $bill->id;
+                        $bill_invoice->company = Arr::get($data, 'invoice_company');
+                        $bill_invoice->taxcode = Arr::get($data, 'invoice_taxcode');
+                        $bill_invoice->email = Arr::get($data, 'invoice_email');
+                        $bill_invoice->phone = Arr::get($data, 'invoice_phone');
+                        $bill_invoice->address = Arr::get($data, 'invoice_address');
+                        $bill_invoice->note = Arr::get($data, 'invoice_note');
+                        $bill_invoice_save = $bill_invoice->save();
+                    }
+                }
+            } catch (\Throwable $e) {
+                DB::rollBack();
+                // Gui thong bao
+                return back()->with('message', $e->getMessage());
+            }
+
+            if ($bill_save && $bill_detail_save && $bill_customer_save) {
+                // Shopping cart
+                Cart::instance('shopping')->store($bill->id);
+                DB::commit();
+                $bill_id = $bill->id;
+                Cart::instance('shopping')->destroy();
+                return redirect()->route('cart.complete', compact('bill_id'));
+            } else {
+                DB::rollBack();
+            }
+        }
     }
 
+    /**
+     * Xoa tat ca item trong cart
+     */
     public function destroyCart()
     {
         Cart::instance('shopping')->destroy();
         return redirect()->route('cart.index');
+    }
+
+    /**
+     * Lay district theo province
+     */
+    public function getDistrict(int $pr_id = 0)
+    {
+        if ($pr_id != 0 || isset($pr_id)) {
+            $districts = Districts::where([
+                ['province_id', '=', $pr_id],
+                ['status', '=', 1]
+            ])
+                ->select(['id', 'name'])
+                ->get();
+            if ($districts) {
+                foreach ($districts as $key => $value) {
+                    echo '<option value="' . $value->id . '">' . $value->name . '</option>';
+                }
+            } else {
+                echo '<option></option>';
+            }
+        } else {
+            echo '<option></option>';
+        }
+    }
+
+    /**
+     * Get province name
+     */
+    public function getProvinceName(int $id)
+    {
+        return Provinces::where('id', '=', $id)
+            ->select('name')
+            ->first();
+    }
+
+    /**
+     * Get district name
+     */
+    public function getDistrictName(int $id)
+    {
+        return Districts::where('id', '=', $id)
+            ->select(['name'])
+            ->first();
+    }
+
+    /**
+     * Complete cart
+     */
+    public function completeNotify($bill_id)
+    {
+        // Send email notify or sms
+
+        return view('frontend.cart.complete', compact('bill_id'));
     }
 }

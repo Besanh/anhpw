@@ -6,6 +6,7 @@
 @stack('script-product-detail')
 @stack('script-cart-empty')
 @stack('script-cart')
+@stack('script-cart-notify')
 
 
 <script src="{{ asset('js/jquery.pjax.js') }}"></script>

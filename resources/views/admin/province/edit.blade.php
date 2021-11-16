@@ -31,7 +31,7 @@ $main_link = 'province';
                     @endif
                     <div class="card-header">
                         {{ $title }}
-                        <a href="{{ route($main_link . '.index') }}" class="float-right">Province</a>
+                        <a href="{{ route($main_link . '.index') }}" class="float-right">{{ __('Province') }}</a>
                     </div>
 
                     <div class="card-body">

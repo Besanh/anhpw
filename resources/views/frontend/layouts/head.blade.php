@@ -39,3 +39,4 @@
 <!-- Cart -->
 @stack('link-cart-empty')
 @stack('link-cart')
+@stack('link-cart-notify')

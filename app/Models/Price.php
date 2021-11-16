@@ -55,14 +55,17 @@ class Price extends Model
             'price',
             'stock',
             'note',
-            'products.image'
+            'products.image',
+            'brands.alias as b_alias'
         ])
             ->join('products', 'products.id', '=', 'prices.pid')
+            ->join('brands', 'brands.id', '=', 'products.bid')
             ->where([
                 ['pid', '!=', 0],
                 ['prices.status', '=', 1],
                 ['products.status', '=', 1],
-                ['prices.id', '=', $id]
+                ['prices.id', '=', $id],
+                ['brands.status', '=', 1]
             ])
             ->first();
         return $data;
