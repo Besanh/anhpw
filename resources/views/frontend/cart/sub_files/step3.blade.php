@@ -15,8 +15,8 @@ use App\Models\Price;
                         <span class="d-block u-check-icon-checkbox-v4 g-absolute-centered--y g-left-0">
                             <i class="fa" data-check-icon="&#xf00c"></i>
                         </span>
-                        {{ __('Pay with') }}
-                        <i class="fa fa-money fa-lg" title="Paypal" data-toggle="tooltip" data-placement="top"></i>
+                        {{ __('Pay with Cash') }}
+                        <i class="fa fa-money fa-lg" title="Cash" data-toggle="tooltip" data-placement="top"></i>
                     </label>
                 </li>
                 <li class="my-3">
@@ -27,7 +27,7 @@ use App\Models\Price;
                         <span class="d-block u-check-icon-checkbox-v4 g-absolute-centered--y g-left-0">
                             <i class="fa" data-check-icon="&#xf00c"></i>
                         </span>
-                        {{ __('Pay with Credit Card') }}
+                        {{ __('Pay with Vnpay') }}
                         <img class="g-width-50 ml-2" src="{{ getImage('img/vnpay.svg') }}" alt="{{ __('VNPAY') }}">
                     </label>
                 </li>
@@ -39,7 +39,7 @@ use App\Models\Price;
                         <span class="d-block u-check-icon-checkbox-v4 g-absolute-centered--y g-left-0">
                             <i class="fa" data-check-icon="&#xf00c"></i>
                         </span>
-                        {{ __('Pay with') }}
+                        {{ __('Pay with Paypal') }}
                         <i class="fa fa-cc-paypal fa-lg" title="Paypal" data-toggle="tooltip" data-placement="top"></i>
                     </label>
                 </li>
@@ -105,7 +105,7 @@ use App\Models\Price;
             </div>
 
             <!-- Accordion -->
-            <div id="accordion-04" class="g-max-width-300" role="tablist" aria-multiselectable="true">
+            {{-- <div id="accordion-04" class="g-max-width-300" role="tablist" aria-multiselectable="true">
                 <div id="accordion-04-heading-04" role="tab">
                     <h5 class="h6 text-uppercase mb-0">
                         <a class="g-color-black g-text-underline--none--hover" href="#accordion-04-body-04"
@@ -125,7 +125,7 @@ use App\Models\Price;
                         </span>
                     </div>
                 </div>
-            </div>
+            </div> --}}
             <!-- End Accordion -->
         </div>
 
@@ -174,7 +174,7 @@ use App\Models\Price;
                                 @foreach (Cart::instance('shopping')->content() as $item)
                                     <!-- Product -->
                                     <li class="d-flex justify-content-start">
-                                        <img class="g-width-100 g-height-100 mr-3" src="{{ getImage($item->image) }}"
+                                        <img class="g-width-100 g-height-100 mr-3" src="{{ getImage($item->options->image) }}"
                                             alt="{{ $item->options->name_seo }}">
                                         <div class="d-block">
                                             <h4 class="h6 g-color-black">{{ $item->options->name_seo }}
@@ -228,7 +228,7 @@ use App\Models\Price;
             <!-- End Ship To -->
 
             <!-- Shipping Method -->
-            <div class="g-px-20 mb-5">
+            {{-- <div class="g-px-20 mb-5">
                 <div class="d-flex justify-content-between g-brd-bottom g-brd-gray-light-v3 g-mb-15">
                     <h4 class="h6 text-uppercase mb-3">{{ __('Shipping Method') }}</h4>
                     <span class="g-color-gray-dark-v4 g-color-black--hover g-cursor-pointer">
@@ -236,7 +236,7 @@ use App\Models\Price;
                     </span>
                 </div>
                 <p class="g-color-gray-dark-v4 g-font-size-15">UK Standard Delivery - 2-3 Working Days</p>
-            </div>
+            </div> --}}
             <!-- End Shipping Method -->
         </div>
     </div>

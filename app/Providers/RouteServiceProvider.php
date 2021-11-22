@@ -58,11 +58,11 @@ class RouteServiceProvider extends ServiceProvider
                 ->group(base_path('routes/frontend.php'));
 
             /**
-             * Backend
+             * Admin
              */
             Route::middleware('web')
                 ->namespace($this->namespace)
-                ->group(base_path('routes/backend.php'));
+                ->group(base_path('routes/admin.php'));
         });
     }
 

@@ -1,7 +1,9 @@
 <?php
-use Diglactic\Breadcrumbs\Breadcrumbs; ?>
+use Diglactic\Breadcrumbs\Breadcrumbs;
+$data_msg = getConfig('order_msg_complete');
+?>
 @extends('frontend.layouts.main')
-@section('title', __('Notify'))
+@section('title', __('Notify - Order Complete'))
 @section('content')
     <!-- Breadcrumbs -->
     {{ Breadcrumbs::render('cart-complete') }}
@@ -16,19 +18,21 @@ use Diglactic\Breadcrumbs\Breadcrumbs; ?>
                     style="enable-background:new 0 0 497.5 497.5;" xml:space="preserve">
                     <g>
                         <path
-                            d="M487.75,78.125c-13-13-33-13-46,0l-272,272l-114-113c-13-13-33-13-46,0s-13,33,0,46l137,136
-                                                                  c6,6,15,10,23,10s17-4,23-10l295-294C500.75,112.125,500.75,91.125,487.75,78.125z"
+                            d="M487.75,78.125c-13-13-33-13-46,0l-272,272l-114-113c-13-13-33-13-46,0s-13,33,0,46l137,136,c6,6,15,10,23,10s17-4,23-10l295-294C500.75,112.125,500.75,91.125,487.75,78.125z"
                             fill="#fff" />
                     </g>
                 </svg>
             </span>
 
             <div class="mb-5">
-                <h2 class="mb-4">{{ __('Your Order is Completed!') }}</h2>
-                <p>{{ __('Thank you for your order! Your order is being processed and will be completed within 3-6 hours. You will
-                receive an email confirmation when your order is completed.') }}
+                @if ($data_msg && isJson($data_msg))
+                    @foreach (json_decode($data_msg, true) as $item)
+                        <h2 class="mb-4">{{ __(Arr::get($item, 'title')) }}</h2>
+                        <p>{{ __(Arr::get($item, 'content')) }}</p>
+                    @endforeach
+                @endif
+                <p>{{ __('Your track number is') }}: {{ $bill_id }}. <a href="#">{{ __('Track Order') }}</a>
                 </p>
-                <p>{{ __('Your track number is') }}: {{ $bill_id }}. <a href="#">{{ __('Track Order') }}</a></p>
             </div>
 
             <a class="btn u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25"
@@ -37,14 +41,15 @@ use Diglactic\Breadcrumbs\Breadcrumbs; ?>
             </a>
         </div>
     </div>
+    @include('frontend.home.sub_home._features')
 @endsection
 @push('link-cart-notify')
     <!-- CSS Global Compulsory -->
     <link rel="stylesheet" href="{{ asset('frontend/css/bootstrap/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('frontend/css/icon-line/css/simple-line-icons.css') }}">
+    <link rel="stylesheet" href="{{ asset('frontend/css/icon-line/simple-line-icons.css') }}">
 
     <!-- CSS Implementing Plugins -->
-    <link rel="stylesheet" href="{{ asset('frontend/css/icon-awesome/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('frontend/css/icon-awesome/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/icon-line-pro/style.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/icon-hs/style.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/animate.css') }}">
@@ -71,12 +76,12 @@ use Diglactic\Breadcrumbs\Breadcrumbs; ?>
     <script src="{{ asset('frontend/js/malihu-scrollbar/jquery.mCustomScrollbar.concat.min.js') }}"></script>
 
     <!-- JS Unify -->
-    <script src="{{ asset('frontend/js/core.js') }}"></script>
-    <script src="{{ asset('frontend/js/ponents/hs.header.js') }}"></script>
-    <script src="{{ asset('frontend/js/pers/hs.hamburgers.js') }}"></script>
-    <script src="{{ asset('frontend/js/ponents/hs.dropdown.js') }}"></script>
-    <script src="{{ asset('frontend/js/ponents/hs.scrollbar.js') }}"></script>
-    <script src="{{ asset('frontend/js/ponents/hs.go-to.js') }}"></script>
+    <script src="{{ asset('frontend/js/hs-core/hs.core.js') }}"></script>
+    <script src="{{ asset('frontend/js/hs-components/hs.header.js') }}"></script>
+    <script src="{{ asset('frontend/js/hs-helpers/hs.hamburgers.js') }}"></script>
+    <script src="{{ asset('frontend/js/hs-components/hs.dropdown.js') }}"></script>
+    <script src="{{ asset('frontend/js/hs-components/hs.scrollbar.js') }}"></script>
+    <script src="{{ asset('frontend/js/hs-components/hs.go-to.js') }}"></script>
 
     <!-- JS Customization -->
     <script src="{{ asset('frontend/js/custom.js') }}"></script>

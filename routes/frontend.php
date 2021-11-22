@@ -77,4 +77,4 @@ Route::get('cart/get-province/{id?}', [CartController::class, 'getProvinceName']
     ->whereNumber(['id']);
 Route::get('cart/get-district-name/{id?}', [CartController::class, 'getDistrictName'])->name('cart.get-district-name')
     ->whereNumber(['id']);
-Route::get('cart/complete/{bill_id}', [CartController::class, 'completeNotify'])->name('cart.complete')->whereNumber(['bill_id']);
+Route::get('cart/complete/{bill_id}', [CartController::class, 'completeNotify'])->name('cart.complete');

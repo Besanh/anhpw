@@ -10,8 +10,9 @@
                                 @foreach ($s as $item)
                                     @if (isJson($item))
                                         <a class="g-color-white-opacity-0_8 g-color-primary--hover g-pa-3"
-                                            href="{{ json_decode($item)->link }}" target="__blank">
-                                            {!! json_decode($item)->icon !!}
+                                            href="{{ isset(json_decode($item)->link) ? json_decode($item)->link : '' }}"
+                                            target="__blank">
+                                            {!! isset(json_decode($item)->icon) ? json_decode($item)->icon : '' !!}
                                         </a>
                                     @endif
                                 @endforeach

@@ -9,6 +9,8 @@ class BillDetail extends Model
 {
     use HasFactory;
 
+    public static $channel = ['website' => 'Website', 'facebook' => 'Facebook'];
+
     public $timestamps = true;
 
     public $table = 'bill_details';

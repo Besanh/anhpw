@@ -11,7 +11,9 @@ class SeoPage extends Model
 
     public $timestamps = true;
 
-    public $fillable = [
+    public $table = 'seo_pages';
+
+    protected $fillable = [
         'title',
         'pid',
         'page_name',

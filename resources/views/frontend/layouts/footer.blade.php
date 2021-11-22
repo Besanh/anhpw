@@ -191,12 +191,12 @@ $menus_brand_footer = Cache::get('menus_brand_footer');
                                 @foreach ($s as $item)
                                     @if (isJson($item))
                                         <li class="list-inline-item g-mr-2">
-                                            <a class="u-icon-v1 u-icon-slide-up--hover g-color-gray-dark-v4 g-color-white--hover {{ json_decode($item)->background_hover }} rounded"
-                                                href="{{ json_decode($item)->link }}">
+                                            <a class="u-icon-v1 u-icon-slide-up--hover g-color-gray-dark-v4 g-color-white--hover {{ isset(json_decode($item)->background_hover) ? json_decode($item)->background_hover : '' }} rounded"
+                                                href="{{ isset(json_decode($item)->link) ? json_decode($item)->link : '#' }}">
                                                 <i
-                                                    class="g-font-size-18 g-line-height-1 u-icon__elem-regular {{ json_decode($item)->class }}"></i>
+                                                    class="g-font-size-18 g-line-height-1 u-icon__elem-regular {{ isset(json_decode($item)->class) ? json_decode($item)->class : '' }}"></i>
                                                 <i
-                                                    class="g-color-white g-font-size-18 g-line-height-0_8 u-icon__elem-hover {{ json_decode($item)->class }}"></i>
+                                                    class="g-color-white g-font-size-18 g-line-height-0_8 u-icon__elem-hover {{ isset(json_decode($item)->class) ? json_decode($item)->class : '' }}"></i>
                                             </a>
                                         </li>
                                     @endif

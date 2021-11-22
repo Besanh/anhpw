@@ -22,7 +22,7 @@ class CreateSlider extends Migration
             $table->string('image')->nullable();
             $table->string('title', 125)->nullable();
             $table->string('type_writter')->nullable();
-            $table->string('button_name')->nullable();
+            $table->string('btn_name')->nullable();
             $table->string('link')->nullable();
             $table->integer('priority')->default(0);
             $table->string('status')->default(0);

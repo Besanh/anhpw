@@ -8,8 +8,9 @@
                     <i
                         class="d-flex g-color-white g-font-size-40 g-pos-rel g-top-3 mr-4 icon-real-estate-048 u-line-icon-pro"></i>
                     <div class="media-body">
-                        <span class="d-block g-color-white g-font-size-17 text-uppercase">Free Shipping</span>
-                        <span class="d-block g-color-white-opacity-0_8">In 2-3 Days</span>
+                        <span
+                            class="d-block g-color-white g-font-size-17 text-uppercase">{{ __('Free Shipping') }}</span>
+                        <span class="d-block g-color-white-opacity-0_8">{{ __('In 2-3 Days') }}</span>
                     </div>
                 </div>
                 <!-- End Media -->
@@ -21,8 +22,9 @@
                     <i
                         class="d-flex g-color-white g-font-size-40 g-pos-rel g-top-3 mr-4 icon-real-estate-040 u-line-icon-pro"></i>
                     <div class="media-body">
-                        <span class="d-block g-color-white g-font-size-17 text-uppercase">Free Returns</span>
-                        <span class="d-block g-color-white-opacity-0_8">No Questions Asked</span>
+                        <span
+                            class="d-block g-color-white g-font-size-17 text-uppercase">{{ __('Free Returns') }}</span>
+                        <span class="d-block g-color-white-opacity-0_8">{{ __('No Questions Asked') }}</span>
                     </div>
                 </div>
                 <!-- End Media -->
@@ -34,8 +36,8 @@
                     <i
                         class="d-flex g-color-white g-font-size-40 g-pos-rel g-top-3 mr-4 icon-hotel-restaurant-062 u-line-icon-pro"></i>
                     <div class="media-body text-left">
-                        <span class="d-block g-color-white g-font-size-17 text-uppercase">Free 24</span>
-                        <span class="d-block g-color-white-opacity-0_8">Days Storage</span>
+                        <span class="d-block g-color-white g-font-size-17 text-uppercase">{{ __('Free 24') }}</span>
+                        <span class="d-block g-color-white-opacity-0_8">{{ __('Days Storage') }}</span>
                     </div>
                 </div>
                 <!-- End Media -->

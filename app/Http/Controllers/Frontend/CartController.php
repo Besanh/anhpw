@@ -149,7 +149,7 @@ class CartController extends Controller
                 if ($bill_save) {
                     $bill_detail = new BillDetail();
                     $bill_detail->bill_id = $bill->id;
-                    $bill_detail->channel_sale = '';   // tam set ''
+                    $bill_detail->channel_sale = Arr::get(BillDetail::$channel, 'website');   // tam set ''
                     $bill_detail->devices = getDevice();
                     $bill_detail->status = 1;
                     $bill_detail_save = $bill_detail->save();
@@ -234,9 +234,9 @@ class CartController extends Controller
                 // Shopping cart
                 Cart::instance('shopping')->store($bill->id);
                 DB::commit();
-                $bill_id = $bill->id;
+                $bill_no = $bill->bill_no;
                 Cart::instance('shopping')->destroy();
-                return redirect()->route('cart.complete', compact('bill_id'));
+                return redirect()->route('cart.complete', compact('bill_no'));
             } else {
                 DB::rollBack();
             }
@@ -299,10 +299,14 @@ class CartController extends Controller
     /**
      * Complete cart
      */
-    public function completeNotify($bill_id)
+    public function completeNotify($bill_no)
     {
-        // Send email notify or sms
+        $data = Bill::where('bill_no', '=', $bill_no)->count();
+        if ($data > 0) {
+            // Send email notify or sms
 
-        return view('frontend.cart.complete', compact('bill_id'));
+            return view('frontend.cart.complete', compact('bill_no'));
+        }
+        return redirect()->route('comming-soon');
     }
 }

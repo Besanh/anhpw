@@ -12,4 +12,10 @@ class ClearController extends Controller
         Cache::flush();
         return redirect()->route('frontend.default');
     }
+
+    public function clearCacheAdmin()
+    {
+        Cache::flush();
+        return redirect()->route('admin.dashboard');
+    }
 }

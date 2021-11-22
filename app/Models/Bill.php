@@ -13,7 +13,7 @@ class Bill extends Model
 
     public $table = 'bills';
 
-    protected $fillable = ['total_price', 'total_discount', 'total_cost', 'total_tax', 'shipping_cost', 'payment', 'note'];
+    protected $fillable = ['bill_no', 'total_price', 'total_discount', 'total_cost', 'total_tax', 'shipping_cost', 'payment', 'note'];
 
     public function getCustomer()
     {

@@ -74,7 +74,7 @@ class CreateAreaInfo extends Migration
         Schema::create('settings', function(Blueprint $table){
             $table->bigIncrements('id');
             $table->string('name');
-            $table->string('value_setting');
+            $table->text('value_setting');
             $table->enum("type", ["json", "text", "image"]);
             $table->integer('status')->default(0);
             $table->timestamps();

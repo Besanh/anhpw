@@ -143,8 +143,7 @@ class AppServiceProvider extends ServiceProvider
                         $str .= $this->getChildCateNav($v->id, $v->type_id);
 
                         $str .= '</li>';
-                    }
-                    else {
+                    } else {
                         $str .= '<li class="nav-item g-ml-10--lg">';
                         $str .= '<a class="nav-link text-uppercase g-color-primary--hover g-pl-5 g-pr-0 g-py-20"
                         href="' . $real_path . '" >' .
@@ -538,7 +537,12 @@ class AppServiceProvider extends ServiceProvider
 
         if ($menu_child) {
             foreach ($menu_child as $child) {
-                $str .= '<a class="collapse-item" href="' . $child->url . '">' . $child->name . '</a>';
+                if ($child->route) {
+                    $url = route($child->route);
+                } else {
+                    $url = $child->url == 'javascript:void(0)' ? $child->url : url($child->url);
+                }
+                $str .= '<a class="collapse-item" href="' . $url . '">' . $child->name . '</a>';
             }
         }
         return $str;
