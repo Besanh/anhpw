@@ -17,5 +17,5 @@ class RevolutionSlider extends Model
 
     public $timestamps = true;
 
-    public $fillable = ['type', 'image', 'title', 'type_writter', 'btn_name', 'link', 'priority', 'status'];
+    public $fillable = ['type', 'image', 'title', 'type_writter', 'btn_name', 'link', 'priority', 'status', 'start_date', 'end_date'];
 }

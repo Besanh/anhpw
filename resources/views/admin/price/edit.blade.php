@@ -1,15 +1,15 @@
 <?php
-$title = 'Price - Edit';
+$title = __('Price - ' . $price->name);
 $status = getStatus();
 $main_link = 'price';
 ?>
 @section('title', $title)
     @extends('admin.layouts.main')
 @section('content')
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">{{ 'Price' }}</h1>
-    </div>
     <div class="container">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">{{ __('Price') }}</h1>
+        </div>
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
@@ -31,7 +31,7 @@ $main_link = 'price';
                     @endif
                     <div class="card-header">
                         {{ $title }}
-                        <a href="{{ route($main_link . '.index') }}" class="float-right">Prices</a>
+                        <a href="{{ route($main_link . '.index') }}" class="float-right">{{ __('Prices') }}</a>
                     </div>
 
                     <div class="card-body">

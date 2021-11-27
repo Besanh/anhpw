@@ -24,6 +24,7 @@ class CreateProducts extends Migration
             $table->string('designer')->nullable();
             $table->year('public_year')->nullable();
             $table->string('image')->nullable();
+            $table->string('image_thumb_small')->nullable();
             $table->string('thumb')->nullable();
             $table->string('thumb_small')->nullable();
             $table->text('description')->nullable();

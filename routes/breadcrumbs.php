@@ -30,3 +30,9 @@ Breadcrumbs::for('cart-complete', function (BreadcrumbTrail $trail) {
     $trail->parent('home');
     $trail->push('Cart Notify');
 });
+
+// Home > Store
+Breadcrumbs::for('store', function(BreadcrumbTrail $trail){
+    $trail->parent('home');
+    $trail->push('Store');
+});

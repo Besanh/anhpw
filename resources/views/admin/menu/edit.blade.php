@@ -1,17 +1,17 @@
 <?php
 use App\Models\Menu;
 
-$title = 'Menu - Edit';
+$title = __('Menu - Edit');
 $status = getStatus();
 $main_link = 'menu';
 ?>
 @section('title', $title)
     @extends('admin.layouts.main')
 @section('content')
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">{{ 'Menu' }}</h1>
-    </div>
     <div class="container">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">{{ __('Menu') }}</h1>
+        </div>
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
@@ -33,7 +33,7 @@ $main_link = 'menu';
                     @endif
                     <div class="card-header">
                         {{ $title }}
-                        <a href="{{ route($main_link . '.index', $alias) }}" class="float-right">Menus</a>
+                        <a href="{{ route($main_link . '.index', $alias) }}" class="float-right">{{ __('Menus') }}</a>
                     </div>
 
                     <div class="card-body">
@@ -273,8 +273,7 @@ $main_link = 'menu';
 
                                 <div>
                                     <div class="form-group">
-                                        <textarea class="form-control"
-                                            name="content">{!! $menu->content !!}</textarea>
+                                        <textarea class="form-control" name="content">{!! $menu->content !!}</textarea>
                                     </div>
                                     @error('content')
                                         <span class="invalid-feedback" role="alert">

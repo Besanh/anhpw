@@ -11,5 +11,5 @@ class Store extends Model
 
     public $timestamp = true;
 
-    protected $fillable = ['province_id', 'name', 'location', 'status'];
+    protected $fillable = ['province_id', 'name', 'location', 'link', 'tel', 'email', 'website', 'working_time', 'image', 'note', 'status'];
 }

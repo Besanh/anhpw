@@ -6,10 +6,10 @@ $main_link = 'product';
 @section('title', $title)
     @extends('admin.layouts.main')
 @section('content')
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">{{ __('Product') }}</h1>
-    </div>
     <div class="container">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">{{ __('Product') }}</h1>
+        </div>
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
@@ -400,8 +400,8 @@ $main_link = 'product';
 @include('helper.datetimepicker')
 @push('ckeditor')
     <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
-    <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
-    {{-- <script src="{{ asset('ckeditor/ckeditor.js') }}"></script> --}}
+    {{-- <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script> --}}
+    <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
     <script>
         CKEDITOR.replace('benefit', {
             filebrowserUploadUrl: "{{ route('upload', ['_token' => csrf_token()]) }}",

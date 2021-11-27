@@ -40,6 +40,13 @@ class CreateAreaInfo extends Migration
             $table->foreignId('province_id')->constrained('provinces')->onDelete('cascade')->onUpdate('cascade');
             $table->string('name');
             $table->string('location')->nullable();
+            $table->string('link')->nullable();
+            $table->string('tel', 15)->nullable();
+            $table->string('email', 100)->nullable();
+            $table->string('website', 125)->nullable();
+            $table->string('working_time')->nullable();
+            $table->string('image')->nullable();
+            $table->string('note')->nullable();
             $table->integer('status')->default(0);
             $table->integer('created_by')->default(0)->nullable();
             $table->integer('updated_by')->default(0)->nullable();
@@ -71,7 +78,7 @@ class CreateAreaInfo extends Migration
             $table->engine = self::$myisam;
         });
 
-        Schema::create('settings', function(Blueprint $table){
+        Schema::create('settings', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
             $table->text('value_setting');

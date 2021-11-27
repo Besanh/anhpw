@@ -200,9 +200,11 @@
                     lazyType: "none",
                     shadow: 0,
                     spinner: "off",
-                    stopLoop: "on",
-                    stopAfterLoops: 0,
-                    stopAtSlide: 1,
+                    // Auto slide
+                    stopLoop: "off",
+                    stopAfterLoops: -1,
+                    stopAtSlide: -1,
+                    /////
                     shuffle: "off",
                     autoHeight: "off",
                     fullScreenAutoWidth: "off",

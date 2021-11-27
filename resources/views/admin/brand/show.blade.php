@@ -6,7 +6,7 @@ $head_table = [
 'Name' => $brand->name,
 'Name SEO' => $brand->name_seo,
 'Description' => $brand->description,
-'Image' => $brand->description,
+'Image' => $brand->image,
 'Priority' => $brand->prioriy,
 'Status' => $brand->status,
 'Created At' => $brand->created_at,
@@ -19,7 +19,7 @@ $main_link = 'brand';
     @extends('admin.layouts.main')
 @section('content')
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">{{ 'Brand' }}</h1>
+        <h1 class="h3 mb-0 text-gray-800">{{ __('Brand') }}</h1>
     </div>
     <div class="card mx-auto">
         @if (Session::has('message'))
@@ -38,7 +38,7 @@ $main_link = 'brand';
         <div class="card-header border-bottom-primary">
             <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
-                    <a href="{!! route($main_link . '.index') !!}" class="float-right">Brands</a>
+                    <a href="{!! route($main_link . '.index') !!}" class="float-right">{{ __('Brands') }}</a>
                 </div>
             </div>
         </div>
@@ -53,7 +53,7 @@ $main_link = 'brand';
                                         <th>{{ $head }}</th>
                                         <td>
                                             @if ($head == 'Action')
-                                            @include('helper.action', ['uri' => $main_link, 'id' => $brand->id])
+                                                @include('helper.action', ['uri' => $main_link, 'id' => $brand->id])
                                             @else
                                                 {{ $item }}
                                             @endif

@@ -6,12 +6,12 @@ $main_link = 'seo-page';
 @section('title', $title)
     @extends('admin.layouts.main')
 @section('content')
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">
-            {{ $seoPage->pid ? __('Pid - ' . $seoPage->pid) : __('Page Name - ' . $seoPage->page_name) }}
-        </h1>
-    </div>
     <div class="container">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">
+                {{ $seoPage->pid ? __('Pid - ' . $seoPage->pid) : __('Page Name - ' . $seoPage->page_name) }}
+            </h1>
+        </div>
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">

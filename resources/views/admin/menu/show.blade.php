@@ -1,5 +1,5 @@
 <?php
-$title = 'Menu - Show';
+$title = __('Menu - Show');
 $head_table = [
 'Id' => $menu->id,
 'Parent Id' => $menu->parent_id,
@@ -27,7 +27,7 @@ $head_table = [
     @extends('admin.layouts.main')
 @section('content')
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">{{ 'Menu' }}</h1>
+        <h1 class="h3 mb-0 text-gray-800">{{ __('Menus') }}</h1>
     </div>
     <div class="card mx-auto">
         @if (Session::has('message'))
@@ -46,7 +46,7 @@ $head_table = [
         <div class="card-header border-bottom-primary">
             <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
-                    <a href="{!! route('menu.index', $alias) !!}" class="float-right">Menu</a>
+                    <a href="{!! route('menu.index', $alias) !!}" class="float-right">{{ __('Menus') }}</a>
                 </div>
             </div>
         </div>

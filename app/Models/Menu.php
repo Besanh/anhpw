@@ -88,6 +88,7 @@ class Menu extends Model
                 'url',
                 'icon',
                 'status',
+                'priority',
                 'note'
             ])
             ->get();

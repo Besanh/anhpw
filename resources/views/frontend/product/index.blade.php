@@ -40,7 +40,7 @@ $title = __('Product' . ' - ' . $product->p_name_seo); ?>
     <!-- End Description -->
 
     <!-- Review -->
-    @include('frontend.product.sub_product.review')
+    {{-- @include('frontend.product.sub_product.review') --}}
     <!-- End Review -->
 
     <!-- Products -->

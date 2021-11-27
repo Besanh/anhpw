@@ -22,7 +22,7 @@ Route::get('/', [HomeController::class, 'index'])->name('frontend.default');
 Route::get('home', [HomeController::class, 'index'])->name('frontend.home');
 
 // Top bar
-Route::get('stores', [StoreController::class, 'index'])->name('stores');
+Route::get('store', [StoreController::class, 'index'])->name('store');
 Route::get('help', [HelpController::class, 'index'])->name('help');
 Route::get('login', [LoginController::class, 'index'])->name('login');
 Route::get('signup', [SignupController::class, 'index'])->name('signup');

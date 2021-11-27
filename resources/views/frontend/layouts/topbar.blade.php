@@ -4,21 +4,21 @@
             <div class="col-sm-auto g-hidden-sm-down">
                 <!-- Social Icons -->
                 <ul class="list-inline g-py-14 mb-0">
-                    <li class="list-inline-item">
-                        @if ($socials && isJson($socials->value_setting))
-                            @foreach (json_decode($socials->value_setting, true) as $s)
-                                @foreach ($s as $item)
-                                    @if (isJson($item))
+                    @if ($socials && isJson($socials->value_setting))
+                        @foreach (json_decode($socials->value_setting, true) as $s)
+                            @foreach ($s as $item)
+                                @if (isJson($item))
+                                    <li class="list-inline-item">
                                         <a class="g-color-white-opacity-0_8 g-color-primary--hover g-pa-3"
                                             href="{{ isset(json_decode($item)->link) ? json_decode($item)->link : '' }}"
                                             target="__blank">
                                             {!! isset(json_decode($item)->icon) ? json_decode($item)->icon : '' !!}
                                         </a>
-                                    @endif
-                                @endforeach
+                                    </li>
+                                @endif
                             @endforeach
-                        @endif
-                    </li>
+                        @endforeach
+                    @endif
                 </ul>
                 <!-- End Social Icons -->
             </div>

@@ -1,10 +1,17 @@
 <?php
-$title = 'Store - Show';
+$title = __('Store - Show');
 $head_table = [
 'Id' => $store->id,
 'Province ID' => $store->province_id,
 'Name' => $store->name,
 'Location' => $store->location,
+'Link' => $store->link,
+'Tel' => $store->tel,
+'Email' => $store->email,
+'Website' => $store->website,
+'Working Time' => $store->working_time,
+'Image' => $store->image,
+'Note' => $store->note,
 'Status' => $store->status,
 'Created At' => $store->created_at,
 'Updated At' => $store->updated_at,
@@ -16,7 +23,7 @@ $main_link = 'store';
     @extends('admin.layouts.main')
 @section('content')
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">{{ 'Store' }}</h1>
+        <h1 class="h3 mb-0 text-gray-800">{{ __('Store') }}</h1>
     </div>
     <div class="card mx-auto">
         @if (Session::has('message'))
@@ -35,7 +42,7 @@ $main_link = 'store';
         <div class="card-header border-bottom-primary">
             <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
-                    <a href="{!! route($main_link . '.index') !!}" class="float-right">Stores</a>
+                    <a href="{!! route($main_link . '.index') !!}" class="float-right">{{ __('Stores') }}</a>
                 </div>
             </div>
         </div>

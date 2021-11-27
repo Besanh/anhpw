@@ -1,5 +1,5 @@
 <?php
-$title = 'Price - Show';
+$title = __('Price - Show');
 $head_table = [
 'Id' => $price->id,
 'Sap ID' => $price->sap_id,
@@ -42,7 +42,7 @@ $main_link = 'price';
         <div class="card-header border-bottom-primary">
             <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
-                    <a href="{!! route($main_link . '.index') !!}" class="float-right">Prices</a>
+                    <a href="{!! route($main_link . '.index') !!}" class="float-right">{{ __('Prices') }}</a>
                 </div>
             </div>
         </div>

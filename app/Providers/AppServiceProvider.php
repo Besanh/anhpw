@@ -36,7 +36,7 @@ class AppServiceProvider extends ServiceProvider
         ///////////////////////////// Admin Other ////////////////////////
         /////////////////////////////////////////////////////////////////
         View::composer('admin.layouts.sidebar', function ($view) {
-            $parent_other_tree = $this->getParent(1);
+            $parent_other_tree = $this->getParent(1, $cache_name = 'parent_admin');
             $other_tree = '';
             if ($parent_other_tree) {
                 foreach ($parent_other_tree as $node) {
@@ -58,7 +58,7 @@ class AppServiceProvider extends ServiceProvider
                         $other_tree .= '<div id="' . $node->note . '" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                             <div class="bg-white py-2 collapse-inner rounded">
                                 <h6 class="collapse-header">Custom Utilities:</h6>';
-                        $other_tree .= $this->getChildOther($node->id, $node->type_id);
+                        $other_tree .= $this->getChildOther($node->id, $node->type_id, 'child_admin');
                         $other_tree .= '</div>
                         </div>';
                         $other_tree .= '<hr class="sidebar-divider">';
@@ -75,7 +75,7 @@ class AppServiceProvider extends ServiceProvider
         ///////////////////////////// Menu Topbar ////////////////////////
         /////////////////////////////////////////////////////////////////
         View::composer('frontend.layouts.sub-files.menu-topbar', function ($view) {
-            $parent_menus = $this->getParent($type = 6);
+            $parent_menus = $this->getParent($type = 3, $cache_name = 'parent_topbar');
             $str = '';
             if ($parent_menus) {
                 foreach ($parent_menus as $k => $p) {
@@ -101,7 +101,6 @@ class AppServiceProvider extends ServiceProvider
             Cache::remember('TREE_TOPBAR', timeToLive(), function () use ($str) {
                 return $str;
             });
-            // $view->with(['tree_topbar' => $str]);
         });
 
         ///////////////////////////////////////////////////////////////////
@@ -109,12 +108,14 @@ class AppServiceProvider extends ServiceProvider
         /////////////////////////////////////////////////////////////////
         View::composer('frontend.layouts.navigation', function ($view) {
             $logo = 'no-image.png';
-            $logo = Setting::where([
-                ['name', '=', 'logo'],
-                ['status', '=', 1]
-            ])
-                ->select('value_setting')
-                ->first();
+            $logo = Cache::remember('logo', timeToLive(), function () {
+                return Setting::where([
+                    ['name', '=', 'logo'],
+                    ['status', '=', 1]
+                ])
+                    ->select('value_setting')
+                    ->first();
+            });
             $str = '';
             $parent_menus = $this->getParentNav();
             if ($parent_menus) {
@@ -127,12 +128,10 @@ class AppServiceProvider extends ServiceProvider
                     if ($v->id == 27) {
                         $str .= '<li class="nav-item g-ml-10--lg">';
                         $str .= '<a class="nav-link text-uppercase g-color-primary--hover g-pl-5 g-pr-0 g-py-20"
-                        href="' . $real_path . '" >' .
-                            $v->name
-                            . '</a>';
+                        href="' . $real_path . '" >' . $v->name . '</a>';
                         $str .= $this->getChildHomeNav($v->id, $v->type_id);
                         $str .= '</li>';
-                    } elseif ($v->id == 28) {
+                    } elseif ($v->id == 30) {
                         $str .= '<li class="hs-has-mega-menu nav-item g-mx-10--lg g-mx-15--xl" data-animation-in="fadeIn"
                         data-animation-out="fadeOut" data-position="right">
                         <a id="mega-menu-label-3" class="nav-link text-uppercase g-color-primary--hover g-px-5 g-py-20"
@@ -146,9 +145,7 @@ class AppServiceProvider extends ServiceProvider
                     } else {
                         $str .= '<li class="nav-item g-ml-10--lg">';
                         $str .= '<a class="nav-link text-uppercase g-color-primary--hover g-pl-5 g-pr-0 g-py-20"
-                        href="' . $real_path . '" >' .
-                            $v->name
-                            . '</a>';
+                        href="' . $real_path . '" >' . $v->name . '</a>';
                         $str .= $this->getChildHomeNav($v->id, $v->type_id);
                         $str .= '</li>';
                     }
@@ -158,7 +155,6 @@ class AppServiceProvider extends ServiceProvider
                 return $str;
             });
             $view->with(compact('logo'));
-            // $view->with(['logo' => $logo, 'tree' => $str]);
         });
 
         ///////////////////////////////////////////////////////////////////
@@ -213,8 +209,6 @@ class AppServiceProvider extends ServiceProvider
                     ])
                     ->get();
             });
-
-            // $view->with(compact(['menus_product', 'menus_brand', 'products', 'brands']));
         });
 
         ///////////////////////////////////////////////////////////////////
@@ -245,7 +239,13 @@ class AppServiceProvider extends ServiceProvider
                     ->select('value_setting')
                     ->first();
             });
-            $view->with(compact(['phone', 'address', 'email', 'socials']));
+            $payment = Cache::remember('payment', timeToLive(), function () {
+                return Setting::where('status', 1)
+                    ->where('name', 'payment')
+                    ->select('value_setting')
+                    ->first();
+            });
+            $view->with(compact(['phone', 'address', 'email', 'socials', 'payment']));
         });
     }
 
@@ -270,35 +270,37 @@ class AppServiceProvider extends ServiceProvider
         return $childs;
     }
 
-    public function getParent($type)
+    public function getParent($type, $cache_name = 'default_parent')
     {
         $menus = [];
-        $menus = Menu::where([
-            ['parent_id', '=', 0],
-            ['type_id', '=', $type],
-            ['status', '=', 1]
-        ])
-            ->orderBy('priority', 'ASC')
-            ->orderBy('id', 'DESC')
-            ->select([
-                'id',
-                'parent_id',
-                'type_id',
-                'head',
-                'name',
-                'name_seo',
-                'alias',
-                'route',
-                'url',
-                'icon',
-                'note'
+        $menus = Cache::remember($cache_name, timeToLive(), function () use ($type) {
+            return Menu::where([
+                ['parent_id', '=', 0],
+                ['type_id', '=', $type],
+                ['status', '=', 1]
             ])
-            ->get();
+                ->orderBy('priority', 'ASC')
+                ->orderBy('id', 'DESC')
+                ->select([
+                    'id',
+                    'parent_id',
+                    'type_id',
+                    'head',
+                    'name',
+                    'name_seo',
+                    'alias',
+                    'route',
+                    'url',
+                    'icon',
+                    'note'
+                ])
+                ->get();
+        });
 
         return $menus;
     }
 
-    public function getChildTopBar($parent_id, $type_id, $alias)
+    public function getChildTopBar($parent_id, $type_id, $alias, $cache_name = 'default_child_topbar')
     {
         $str = '';
         $child_menus = Menu::where([
@@ -331,18 +333,20 @@ class AppServiceProvider extends ServiceProvider
         return $str;
     }
 
-    public function getParentNav()
+    public function getParentNav($cache_name = 'default_parent_nav')
     {
         $menus = [];
-        $menus = Menu::where([
-            ['parent_id', '=', 0],
-            ['type_id', '=', 2],
-            ['status', '=', 1]
-        ])
-            ->select(['id', 'type_id', 'name', 'name_seo', 'alias', 'route', 'url', 'note'])
-            ->orderBy('priority', 'ASC')
-            ->orderBy('id', 'DESC')
-            ->get();
+        $menus = Cache::remember($cache_name, timeToLive(), function () {
+            return Menu::where([
+                ['parent_id', '=', 0],
+                ['type_id', '=', 2],
+                ['status', '=', 1]
+            ])
+                ->select(['id', 'type_id', 'name', 'name_seo', 'alias', 'route', 'url', 'note'])
+                ->orderBy('priority', 'ASC')
+                ->orderBy('id', 'DESC')
+                ->get();
+        });
 
         return $menus;
     }
@@ -371,11 +375,11 @@ class AppServiceProvider extends ServiceProvider
         return $str;
     }
 
-    public function getChildCateNav($parent_id, $type_id)
+    public function getChildCateNav($parent_id, $type_id, $cache_name = 'child_cate_nav')
     {
         $str = '';
         $real_path = '';
-        $child_menus = $this->queryChild($parent_id, $type_id);
+        $child_menus = $this->queryChild($parent_id, $type_id, $cache_name);
 
         if ($child_menus) {
             $str .= '<div class="w-100 hs-mega-menu u-shadow-v11 g-text-transform-none g-brd-top g-brd-primary g-brd-top-2 g-bg-white g-pa-30 g-mt-17"
@@ -395,7 +399,7 @@ class AppServiceProvider extends ServiceProvider
                 $str .= $v->name;
                 $str .= '</a>';
                 $str .= '</span>';
-                $str .= $this->getCateSubNav($v->id, $v->type_id);
+                $str .= $this->getCateSubNav($v->id, $v->type_id, 'cache_subnav');
                 $str .= '</div>';
                 $str .= '</div>';
 
@@ -424,7 +428,7 @@ class AppServiceProvider extends ServiceProvider
         return $str;
     }
 
-    public function queryChild($parent_id, $type_id)
+    public function queryChild($parent_id, $type_id, $cache_name = 'default_query_child')
     {
         return Menu::where([
             ["parent_id", '=', $parent_id],
@@ -447,11 +451,11 @@ class AppServiceProvider extends ServiceProvider
             ->get();
     }
 
-    public function getCateSubNav($parent_id, $type_id)
+    public function getCateSubNav($parent_id, $type_id, $cache_name = 'default_cache_subnav')
     {
         $str = '';
         $real_path = '';
-        $sub_menu = $this->queryChild($parent_id, $type_id);
+        $sub_menu = $this->queryChild($parent_id, $type_id, $cache_name);
         if ($sub_menu) {
             foreach ($sub_menu as $s) {
                 if ($s->route) {
@@ -530,10 +534,10 @@ class AppServiceProvider extends ServiceProvider
     //     return $str;
     // }
 
-    public function getChildOther($parent_id, $type_id)
+    public function getChildOther($parent_id, $type_id, $cache_name = 'default_child_admin')
     {
         $str = '';
-        $menu_child = $this->queryChild($parent_id, $type_id);
+        $menu_child = $this->queryChild($parent_id, $type_id, $cache_name);
 
         if ($menu_child) {
             foreach ($menu_child as $child) {

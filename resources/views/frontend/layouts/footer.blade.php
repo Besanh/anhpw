@@ -3,10 +3,8 @@ use Illuminate\Support\Facades\Cache;
 $b_str = '';
 $b_main = '';
 $b_child = '';
-$menus_product_footer = Cache::get('menus_product_footer');
 $product_in_menu_footer = Cache::get('product_in_menu_footer');
 $brands_footer = Cache::get('brands_footer');
-$menus_brand_footer = Cache::get('menus_brand_footer');
 ?>
 
 <!-- Footer -->
@@ -17,9 +15,7 @@ $menus_brand_footer = Cache::get('menus_brand_footer');
             <div class="row justify-content-start g-mb-30 g-mb-0--md">
                 <div class="col-md-5 g-mb-30">
                     <h2 class="h5 g-color-gray-light-v3 mb-4">
-                        @if ($menus_product_footer)
-                            {{ $menus_product_footer->name_seo }}
-                        @endif
+                        {{ __('Products') }}
                     </h2>
 
                     <div class="row">
@@ -83,9 +79,7 @@ $menus_brand_footer = Cache::get('menus_brand_footer');
 
                 <div class="col-sm-6 col-md-3 g-mb-30 g-mb-0--sm">
                     <h2 class="h5 g-color-gray-light-v3 mb-4">
-                        @if ($menus_brand_footer)
-                            {{ getTeaser($menus_brand_footer->name_seo, 3) }}
-                        @endif
+                        {{ __('Brands') }}
                     </h2>
 
                     <div class="row">
@@ -224,25 +218,7 @@ $menus_brand_footer = Cache::get('menus_brand_footer');
 
             <div class="col-md-6 text-md-right g-mb-20">
                 <ul class="list-inline g-color-gray-dark-v5 g-font-size-25 mb-0">
-                    <li class="list-inline-item g-cursor-pointer mr-1">
-                        <i class="fa fa-cc-visa" title="Visa" data-toggle="tooltip" data-placement="top"></i>
-                    </li>
-                    <li class="list-inline-item g-cursor-pointer mx-1">
-                        <i class="fa fa-cc-paypal" title="Paypal" data-toggle="tooltip" data-placement="top"></i>
-                    </li>
-                    <li class="list-inline-item g-cursor-pointer mx-1">
-                        <i class="fa fa-cc-mastercard" title="Master Card" data-toggle="tooltip"
-                            data-placement="top"></i>
-                    </li>
-                    <li class="list-inline-item g-cursor-pointer ml-1">
-                        <i class="fa fa-cc-stripe" title="Stripe" data-toggle="tooltip" data-placement="top"></i>
-                    </li>
-                    <li class="list-inline-item g-cursor-pointer ml-1">
-                        <i class="fa fa-cc-discover" title="Discover" data-toggle="tooltip" data-placement="top"></i>
-                    </li>
-                    <li class="list-inline-item g-cursor-pointer ml-1">
-                        <i class="fa fa-cc-jcb" title="JCB" data-toggle="tooltip" data-placement="top"></i>
-                    </li>
+                    {!! $payment ? $payment->value_setting : '' !!}
                 </ul>
             </div>
         </div>

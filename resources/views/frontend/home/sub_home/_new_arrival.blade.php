@@ -47,7 +47,8 @@ $arrival_products = Cache::get('home_arrival_products');
                                     <li
                                         class="list-inline-item align-middle g-brd-right g-brd-gray-light-v3 g-pr-10 g-mr-6">
                                         <a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover"
-                                            href="#" title="Add to Cart" data-toggle="tooltip" data-placement="top">
+                                            href="{{ route('cart.add', ['id' => $item->price_id]) }}"
+                                            title="Add to Cart" data-toggle="tooltip" data-placement="top">
                                             <i class="icon-finance-100 u-line-icon-pro"></i>
                                         </a>
                                     </li>

@@ -29,24 +29,35 @@ class CartController extends Controller
     public function index()
     {
         $title = __('Shopping Cart');
-        $notify = Setting::where([
-            ['name', '=', 'cart_empty'],
-            ['status', '=', 1]
-        ])
-            ->select('value_setting')
-            ->first();
-        $shippingFees = Cache::rememberForever('shippingFees', function () {
-            return ShippingFee::where('status', '=', 1)
-                ->get();
-        });
-        $provinces = Provinces::select(['id', 'name'])
-            ->where('status', '=', 1)
-            ->get();
-        $districts = Districts::select(['id', 'name'])
-            ->where('status', '=', 1)
-            ->get();
+        if (Cart::instance('shopping')->count()) {
 
-        return Cart::instance('shopping')->count() ? view('frontend.cart.index', compact(['title', 'shippingFees', 'provinces', 'districts'])) : view('frontend.cart.empty-cart', compact(['title', 'notify']));
+            $shippingFees = Cache::rememberForever('shippingFees', function () {
+                return ShippingFee::where('status', '=', 1)
+                    ->get();
+            });
+            $provinces = Cache::remember('province', timeToLive(), function () {
+                return Provinces::select(['id', 'name'])
+                    ->where('status', '=', 1)
+                    ->get();
+            });
+            $districts = Cache::remember('district', timeToLive(), function () {
+                return Districts::select(['id', 'name'])
+                    ->where('status', '=', 1)
+                    ->get();
+            });
+
+            return view('frontend.cart.index', compact(['title', 'shippingFees', 'provinces', 'districts']));
+        } else {
+            $notify = Cache::remember('notify_cart', timeToLive(), function () {
+                return Setting::where([
+                    ['name', '=', 'cart_empty'],
+                    ['status', '=', 1]
+                ])
+                    ->select('value_setting')
+                    ->first();
+            });
+            return view('frontend.cart.empty-cart', compact(['title', 'notify']));
+        }
     }
 
     /**

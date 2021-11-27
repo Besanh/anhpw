@@ -44,10 +44,10 @@ class ProductController extends Controller
      */
     public function store(ProductStoreRequest $request, Product $product)
     {
-        $galleries = $thumb_small = $img_thumb_small = null;
+        $galleries = $thumb_small = $img_thumb_small = '';
         $img_org = $thumb = $img = '';
         if ($request->hasFile('image')) {
-            [$img_org, $thumb, $image] = proccessUpload($request, 'product', 650, 750);
+            [$img_org, $thumb, $img] = proccessUpload($request, 'product', 650, 750);
             $img_thumb_small = $this->uploadThumbSmall($request->file('image'), 'product_image', 250, 125);
         }
         if ($request->hasFile('galleries')) {
@@ -57,7 +57,7 @@ class ProductController extends Controller
             }
         }
         if ($request->validated()) {
-            $product->create([
+            $product_create = $product->create([
                 'cate_id' => $request->cate_id,
                 'bid' => $request->bid,
                 'name' => $request->name,
@@ -71,22 +71,21 @@ class ProductController extends Controller
                 'ingredient' => $request->ingredient,
                 'incense_group' => $request->incense_group,
                 'styles' => $request->styles,
-                'image' => $image,
+                'image' => $img,
                 'image_thumb_small' => $img_thumb_small,
                 'thumb' => $thumb,
                 'thumb_small' => json_encode($thumb_small),
                 'galleries' => json_encode($galleries)
             ]);
-            $seo_page = SeoPage::where(['pid' => $product->id]);
-            if ($seo_page) {
-                $seo_page->update([
-                    'title' => $request->name_seo,
-                    'seo_desc' => $request->seo_desc,
-                    'seo_keyword' => $request->seo_keyword,
-                    'seo_robot' => $request->seo_robot
-                ]);
-                return redirect()->back()->with('message', 'Create product successfully');
-            }
+            $seo_page = new SeoPage();
+            $seo_page->create([
+                'pid' => $product_create->id,
+                'title' => $request->name_seo,
+                'seo_desc' => $request->seo_desc,
+                'seo_keyword' => $request->seo_keyword,
+                'seo_robot' => $request->seo_robot
+            ]);
+            return redirect()->back()->with('message', 'Create product successfully');
         }
         return redirect()->back()->with('error', 'Something went wrong');
     }
@@ -124,7 +123,7 @@ class ProductController extends Controller
      */
     public function update(ProductUpdateRequest $request, Product $product)
     {
-        $galleries = $thumb_small = $img_thumb_small = null;
+        $galleries = $thumb_small = $img_thumb_small = '';
         $img_org = $thumb = $img = '';
         if ($request->hasFile('image')) {
             [$img_org, $thumb, $img] = proccessUpload($request, 'product', 650, 750);
@@ -161,6 +160,7 @@ class ProductController extends Controller
             $seo_page = SeoPage::where(['pid' => $product->id]);
             if ($seo_page) {
                 $seo_page->update([
+                    'pid' => $product->id,
                     'title' => $request->name_seo,
                     'seo_desc' => $request->seo_desc,
                     'seo_keyword' => $request->seo_keyword,

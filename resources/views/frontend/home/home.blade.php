@@ -1,13 +1,13 @@
 <?php
 use Illuminate\Support\Arr;
 $seo = metaData('home_page');
-$title = $seo && $seo->count() > 0 ? $seo->title : config('app.name');
+$title = $seo ? $seo->title : config('app.name');
 ?>
 @push('meta')
-    <meta name="description" content="{{ __($seo && $seo->count() > 0 ? $seo->seo_desc : config('app.seo_desc')) }}">
-    <meta name="keyword" content="{{ __($seo && $seo->count() > 0 ? $seo->seo_keyword : config('app.seo_keyword')) }}">
+    <meta name="description" content="{{ __($seo ? $seo->seo_desc : config('app.seo_desc')) }}">
+    <meta name="keyword" content="{{ __($seo ? $seo->seo_keyword : config('app.seo_keyword')) }}">
     <link rel="canonical" href="{{ url()->current() }}">
-    @if ($seo && $seo->count() > 0)
+    @if ($seo)
         <meta name="robots" content="{{ __($seo->seo_robot ? $seo->seo_robot : config('app.seo_robot')) }}">
     @endif
 @endpush
@@ -20,7 +20,7 @@ $title = $seo && $seo->count() > 0 ? $seo->title : config('app.name');
     <!-- End Revolution Slider -->
 
     <!-- Products -->
-    @include('frontend.home.sub_home._featured_product', compact(['slogan_f_p']))
+    @include('frontend.home.sub_home._featured_product', compact('slogan_f_p'))
     <!-- End Products -->
 
     <!-- New Arrivals -->

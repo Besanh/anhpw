@@ -20,16 +20,18 @@ class BrandController extends Controller
 
     public function brandIndex($alias)
     {
-        $brand = Brand::where([
-            ['alias', '=', $alias],
-            ['status', '=', 1]
-        ])
-            ->select([
-                'description',
-                'name',
-                'name_seo'
+        $brand = Cache::remember('brand-index', timeToLive(), function () use ($alias) {
+            return Brand::where([
+                ['alias', '=', $alias],
+                ['status', '=', 1]
             ])
-            ->first();
+                ->select([
+                    'description',
+                    'name',
+                    'name_seo'
+                ])
+                ->first();
+        });
         if ($brand) {
             $products = Product::select([
                 'brands.id',
@@ -44,6 +46,7 @@ class BrandController extends Controller
                 'products.created_at',
                 'categories.name_seo as cate_name_seo',
                 'categories.alias as cate_alias',
+                'prices.id as price_id',
                 'prices.stock',
                 'prices.price'
             ])

@@ -1,15 +1,15 @@
 <?php
-$title = 'Menu Type - Edit';
+$title = __('Menu Type - Edit');
 $status = getStatus();
 $main_link = 'menu-type';
 ?>
 @section('title', $title)
     @extends('admin.layouts.main')
 @section('content')
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">{{ ('Menu Type') }}</h1>
-    </div>
     <div class="container">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">{{ __('Menu Type') }}</h1>
+        </div>
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
@@ -31,11 +31,11 @@ $main_link = 'menu-type';
                     @endif
                     <div class="card-header">
                         {{ $title }}
-                        <a href="{{ route($main_link.'.index') }}" class="float-right">Menu Types</a>
+                        <a href="{{ route($main_link . '.index') }}" class="float-right">{{ __('Menu Types') }}</a>
                     </div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route($main_link.'.update', $menuType->id) }}">
+                        <form method="POST" action="{{ route($main_link . '.update', $menuType->id) }}">
                             @csrf
                             @method('PUT')
 

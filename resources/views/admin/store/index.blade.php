@@ -1,14 +1,14 @@
 <?php
 
-$title = 'Store - Index';
-$head_table = ['#', 'Province', 'Name', 'Location', 'Status', 'Created At', 'Updated At', 'Action'];
+$title = __('Store - Index');
+$head_table = ['#', 'Province', 'Name', 'Location', 'Status', 'Action'];
 $main_link = 'store';
 ?>
 @section('title', $title)
     @extends('admin.layouts.main')
 @section('content')
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800"><a href="{{ route($main_link . '.index') }}">{{ 'Stores' }}</a></h1>
+        <h1 class="h3 mb-0 text-gray-800"><a href="{{ route($main_link . '.index') }}">{{ __('Stores') }}</a></h1>
     </div>
     <div class="card mx-auto">
         @if (Session::has('message'))
@@ -27,7 +27,7 @@ $main_link = 'store';
         <div class="card-header border-bottom-primary">
             <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
-                    <a href="{!! route($main_link . '.create') !!}" class="float-right">Create</a>
+                    <a href="{!! route($main_link . '.create') !!}" class="float-right">{{ __('Create') }}</a>
                 </div>
             </div>
         </div>
@@ -51,7 +51,7 @@ $main_link = 'store';
                                     <?php $k++; ?>
                                     <tr>
                                         <th scope="row">{!! $k !!}</th>
-                                    <td>{{$node->province_id}}</td>
+                                        <td>{{ $node->province_id }}</td>
                                         <th>{!! $node->name !!}</th>
                                         <td>{{ $node->location }}</td>
                                         <td>
@@ -59,8 +59,6 @@ $main_link = 'store';
                                             'id' => $node->id,
                                             'uri' => route($main_link.'.status', $node->id)])
                                         </td>
-                                        <td>{{ $node->created_at }}</td>
-                                        <td>{{ $node->updated_at }}</td>
                                         <td>
                                             @include('helper.action', ['uri' => $main_link, 'id' => $node->id])
                                         </td>

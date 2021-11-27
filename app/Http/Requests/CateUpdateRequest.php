@@ -26,7 +26,7 @@ class CateUpdateRequest extends FormRequest
         return [
             'name' => 'required|string',
             'name_seo' => 'required|string',
-            'alias' => 'required|string|unique:categories',
+            // 'alias' => 'required|string|unique:categories',
             'description' => 'string|nullable',
             'image' => 'mimes:jpeg,png,jpg|max:2048',
             'big_thumb' => 'mimes:jpeg,png,jpg|max:2048',

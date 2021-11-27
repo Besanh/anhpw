@@ -54,7 +54,7 @@ $cart = Cart::instance('shopping');
                     <!-- End Product -->
                 @endforeach
             @else
-                {{ __('Empty Cart') }}
+                {{-- {{ __('Empty Cart') }} --}}
             @endif
         </div>
 

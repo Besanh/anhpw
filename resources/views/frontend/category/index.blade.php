@@ -10,8 +10,8 @@ $seo_keyword .= $cate->name . ', ' . $cate->name_seo;
     <link rel="canonical" href="{{ url()->current() }}">
     <meta name="robots" content="{{ config('app.seo_robot') }}">
 @endpush
+@extends('frontend.layouts.main')
 @section('title', $title)
-    @extends('frontend.layouts.main')
 @section('content')
     <!-- Breadcrumbs -->
     @include('frontend.category.sub_files.breadcrumb', compact(['cate']))

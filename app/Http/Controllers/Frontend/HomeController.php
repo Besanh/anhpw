@@ -26,19 +26,23 @@ class HomeController extends Controller
             return $model_product->getArrivalProduct();
         });
 
-        $slogan_f_p = Setting::where([
-            ['name', '=', 'featured_product'],
-            ['status', '=', 1]
-        ])
-            ->select('value_setting')
-            ->first();
+        $slogan_f_p = Cache::remember('slogan_f_p', timeToLive(), function () {
+            return Setting::where([
+                ['name', '=', 'featured_product'],
+                ['status', '=', 1]
+            ])
+                ->select('value_setting')
+                ->first();
+        });
 
-        $countdown = Setting::where([
-            ['name', '=', 'countdown'],
-            ['status', '=', 1]
-        ])
-            ->select('value_setting')
-            ->first();
+        $countdown = Cache::remember('countdown', timeToLive(), function () {
+            return Setting::where([
+                ['name', '=', 'countdown'],
+                ['status', '=', 1]
+            ])
+                ->select('value_setting')
+                ->first();
+        });
 
         return view('frontend.home.home', compact([
             'slogan_f_p',

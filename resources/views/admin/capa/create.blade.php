@@ -1,15 +1,15 @@
 <?php
-$title = 'Capacity - Create';
+$title = __('Capacity - Create');
 $status = getStatus();
 $main_link = 'capa';
 ?>
 @section('title', $title)
     @extends('admin.layouts.main')
 @section('content')
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">{{ 'Capacity' }}</h1>
-    </div>
     <div class="container">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">{{ __('Capacity') }}</h1>
+        </div>
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
@@ -31,7 +31,7 @@ $main_link = 'capa';
                     @endif
                     <div class="card-header">
                         {{ $title }}
-                        <a href="{{ route($main_link . '.index') }}" class="float-right">Capacities</a>
+                        <a href="{{ route($main_link . '.index') }}" class="float-right">{{ __('Capacities') }}</a>
                     </div>
 
                     <div class="card-body">
@@ -76,7 +76,7 @@ $main_link = 'capa';
                             </div>
 
                             <div class="form-group row mb-0">
-                                <div class="col-md-6 offset-md-4">
+                                <div class="col-md-6 offset-md-4 text-center">
                                     <button type="submit" class="btn btn-primary">
                                         {{ __('Create') }}
                                     </button>

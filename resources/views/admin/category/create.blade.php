@@ -1,15 +1,15 @@
 <?php
-$title = 'Category - Create';
+$title = __('Category - Create');
 $status = getStatus();
 $main_link = 'category';
 ?>
 @section('title', $title)
     @extends('admin.layouts.main')
 @section('content')
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">{{ 'Category' }}</h1>
-    </div>
     <div class="container">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">{{ __('Category') }}</h1>
+        </div>
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
@@ -31,7 +31,7 @@ $main_link = 'category';
                     @endif
                     <div class="card-header">
                         {{ $title }}
-                        <a href="{{ route($main_link . '.index') }}" class="float-right">Categories</a>
+                        <a href="{{ route($main_link . '.index') }}" class="float-right">{{ __('Categories') }}</a>
                     </div>
 
                     <div class="card-body">
@@ -105,7 +105,8 @@ $main_link = 'category';
                                     </div>
 
                                     <div>
-                                        <label for="image" class="col-form-label text-md-right" data-toggle="tooltip" data-placement="top" title="900x450">
+                                        <label for="image" class="col-form-label text-md-right" data-toggle="tooltip"
+                                            data-placement="top" title="900x450">
                                             {{ __('Image') }}
                                         </label>
                                         <div class="custom-file" data-toggle="tooltip" data-placement="top" title="900x450">

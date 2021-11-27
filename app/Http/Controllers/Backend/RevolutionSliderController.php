@@ -18,7 +18,7 @@ class RevolutionSliderController extends Controller
      */
     public function index()
     {
-        $sliders = RevolutionSlider::select(['id', 'image', 'status', 'created_at', 'updated_at'])
+        $sliders = RevolutionSlider::select(['id', 'image', 'status', 'start_date', 'end_date'])
             ->orderBy('priority', 'DESC')
             ->get();
         return view('admin.revolution-slider.index', compact('sliders'));

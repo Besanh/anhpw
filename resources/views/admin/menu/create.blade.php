@@ -1,15 +1,15 @@
 <?php
 use App\Models\Menu;
 use Illuminate\Support\Arr;
-$title = 'Menu - Create';
+$title = __('Menu - Create');
 ?>
 @section('title', $title)
     @extends('admin.layouts.main')
 @section('content')
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">{{ 'Menu' }}</h1>
-    </div>
     <div class="container">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">{{ __('Menu') }}</h1>
+        </div>
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
@@ -31,7 +31,7 @@ $title = 'Menu - Create';
                     @endif
                     <div class="card-header">
                         {{ $title }}
-                        <a href="{{ route('menu.index', $alias) }}" class="float-right">Menus</a>
+                        <a href="{{ route('menu.index', $alias) }}" class="float-right">{{ __('Menus') }}</a>
                     </div>
 
                     <div class="card-body">
@@ -250,8 +250,7 @@ $title = 'Menu - Create';
                             </div>
 
                             <div class="col-md-12">
-                                <label for="content"
-                                    class="col-form-label text-md-right">{{ __('Content') }}</label>
+                                <label for="content" class="col-form-label text-md-right">{{ __('Content') }}</label>
 
                                 <div>
                                     <div class="form-group">

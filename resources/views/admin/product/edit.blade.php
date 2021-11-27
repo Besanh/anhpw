@@ -6,10 +6,10 @@ $main_link = 'product';
 @section('title', $title)
     @extends('admin.layouts.main')
 @section('content')
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">{{ $title }}</h1>
-    </div>
     <div class="container">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">{{ $title }}</h1>
+        </div>
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
@@ -275,7 +275,7 @@ $main_link = 'product';
                                             <div>
                                                 <div class="form-group">
                                                     <textarea id="seo_desc" class="form-control"
-                                                        name="seo_desc">{{ old('seo_desc', $product->getSeo->seo_desc) }}</textarea>
+                                                        name="seo_desc">{{ old('seo_desc', $product->getSeo ? $product->getSeo->seo_desc : '') }}</textarea>
                                                 </div>
                                                 @error('seo_desc')
                                                     <span class="invalid-feedback" role="alert">
@@ -291,7 +291,7 @@ $main_link = 'product';
                                             <div>
                                                 <div class="form-group">
                                                     <textarea id="seo_keyword" class="form-control"
-                                                        name="seo_keyword">{{ old('seo_keyword', $product->getSeo->seo_keyword) }}</textarea>
+                                                        name="seo_keyword">{{ old('seo_keyword', $product->getSeo ? $product->getSeo->seo_keyword : '') }}</textarea>
                                                 </div>
                                                 @error('seo_keyword')
                                                     <span class="invalid-feedback" role="alert">
@@ -308,7 +308,7 @@ $main_link = 'product';
                                             <div>
                                                 <div class="form-group">
                                                     <textarea id="seo_robot" class="form-control"
-                                                        name="seo_robot">{{ old('seo_robot', $product->getSeo->seo_robot) }}</textarea>
+                                                        name="seo_robot">{{ old('seo_robot', $product->getSeo ? $product->getSeo->seo_robot : '') }}</textarea>
                                                 </div>
                                                 @error('seo_robot')
                                                     <span class="invalid-feedback" role="alert">

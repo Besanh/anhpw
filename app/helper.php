@@ -357,14 +357,15 @@ if (!function_exists('arrayMap')) {
 if (!function_exists('minStock')) {
     function minStock()
     {
-        $data = Setting::where([
-            ['name', '=', 'min_stock'],
-            ['status', '=', 1]
-        ])
-            ->select('value_setting')
-            ->first();
-
-        return $data ? $data->value_setting : 0;
+        return Cache::remember('minStock',  timeToLive(), function () {
+            $data = Setting::where([
+                ['name', '=', 'min_stock'],
+                ['status', '=', 1]
+            ])
+                ->select('value_setting')
+                ->first();
+            return $data ? $data->value_setting : 0;
+        });
     }
 }
 
@@ -503,13 +504,15 @@ if (!function_exists('subString')) {
 if (!function_exists('metaData')) {
     function metaData($param)
     {
-        $seoData = SeoPage::select(['title', 'seo_desc', 'seo_keyword', 'seo_robot']);
-        if (is_numeric($param)) {
-            $seoData->where('pid', $param);
-        } else {
-            $seoData->where('page_name', $param);
-        }
-        return $seoData->first();
+        return Cache::remember('metaData', timeToLive(), function () use ($param) {
+            $query = SeoPage::select(['title', 'seo_desc', 'seo_keyword', 'seo_robot']);
+            if (is_numeric($param)) {
+                $query->where('pid', $param);
+            } else {
+                $query->where('page_name', $param);
+            }
+            return $query->first();
+        });
     }
 }
 

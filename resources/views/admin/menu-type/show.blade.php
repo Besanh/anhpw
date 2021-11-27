@@ -1,5 +1,5 @@
 <?php
-$title = 'Menu Type - Show';
+$title = __('Menu Type - Show');
 $head_table = [
 'Id' => $menuType->id,
 'Name' => $menuType->name,
@@ -12,12 +12,13 @@ $head_table = [
 'Updated By' => $menuType->updated_by,
 'Action' => '',
 ];
+$main_link = 'menu-type';
 ?>
 @section('title', $title)
     @extends('admin.layouts.main')
 @section('content')
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">{{ 'Menu Type' }}</h1>
+        <h1 class="h3 mb-0 text-gray-800">{{ __('Menu Type') }}</h1>
     </div>
     <div class="card mx-auto">
         @if (Session::has('message'))
@@ -36,7 +37,7 @@ $head_table = [
         <div class="card-header border-bottom-primary">
             <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
-                    <a href="{!! route('menu-type.index') !!}" class="float-right">Menu Types</a>
+                    <a href="{!! route('menu-type.index') !!}" class="float-right">{{ __('Menu Types') }}</a>
                 </div>
             </div>
         </div>

@@ -1,6 +1,6 @@
 <?php
 
-$title = 'Price - Index';
+$title = __('Price - Index');
 $head_table = ['#', 'SAP ID', 'Barcode', 'Name', 'Price', 'Status', 'Created At', 'Updated At', 'Action'];
 $main_link = 'price';
 ?>
@@ -8,7 +8,9 @@ $main_link = 'price';
     @extends('admin.layouts.main')
 @section('content')
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800"><a href="{{ route($main_link . '.index') }}">{{ 'Prices' }}</a></h1>
+        <h1 class="h3 mb-0 text-gray-800">
+            <a href="{{ route($main_link . '.index') }}">{{ 'Prices' }}</a>
+        </h1>
     </div>
     <div class="card mx-auto">
         @if (Session::has('message'))
@@ -27,7 +29,7 @@ $main_link = 'price';
         <div class="card-header border-bottom-primary">
             <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
-                    <a href="{!! route($main_link . '.create') !!}" class="float-right">Create</a>
+                    <a href="{!! route($main_link . '.create') !!}" class="float-right">{{ __('Create') }}</a>
                 </div>
             </div>
         </div>
@@ -51,9 +53,9 @@ $main_link = 'price';
                                     <?php $k++; ?>
                                     <tr>
                                         <th scope="row">{!! $k !!}</th>
-                                        <th>{{ $node->sap_id }}</th>
-                                        <th>{{ $node->barcode }}</th>
-                                        <th>{!! $node->name !!}</th>
+                                        <td>{{ $node->sap_id }}</td>
+                                        <td>{{ $node->barcode }}</td>
+                                        <td>{!! $node->name !!}</td>
                                         <td>{{ $node->price }}</td>
                                         <td>
                                             @include('helper.stick', ['status' => $node->status,

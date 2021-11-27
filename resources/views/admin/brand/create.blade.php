@@ -1,15 +1,15 @@
 <?php
-$title = 'Brand - Create';
+$title = __('Brand - Create');
 $status = getStatus();
 $main_link = 'brand';
 ?>
 @section('title', $title)
     @extends('admin.layouts.main')
 @section('content')
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">{{ 'Brand' }}</h1>
-    </div>
     <div class="container">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">{{ __('Brand') }}</h1>
+        </div>
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
@@ -31,7 +31,7 @@ $main_link = 'brand';
                     @endif
                     <div class="card-header">
                         {{ $title }}
-                        <a href="{{ route($main_link . '.index') }}" class="float-right">Brands</a>
+                        <a href="{{ route($main_link . '.index') }}" class="float-right">{{ __('Brands') }}</a>
                     </div>
 
                     <div class="card-body">

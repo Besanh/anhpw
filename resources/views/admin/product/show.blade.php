@@ -1,5 +1,5 @@
 <?php
-$title = __('Product - Show');
+$title = __($product->name);
 $head_table = [
 'Id' => $product->id,
 'Cate_id' => $product->cate_id,
@@ -9,6 +9,9 @@ $head_table = [
 'Designer' => $product->designer,
 'Public Year' => $product->public_year,
 'Image' => $product->image,
+'Image Thumb Small' => $product->image_thumb_small,
+'Thumb' => $product->thumb,
+'Thumb Small' => $product->thumb_small,
 'Description' => $product->description,
 'Benefit' => $product->benefit,
 'Ingredient' => $product->ingredient,

@@ -1,14 +1,13 @@
 <?php
-
-$title = 'Category - Index';
-$head_table = ['#', 'Name', 'Description', 'Status', 'Created At', 'Updated At', 'Action'];
+$title = __('Category - Index');
+$head_table = ['#', 'Name', 'Alias', 'Status', 'Created At', 'Updated At', 'Action'];
 $main_link = 'category';
 ?>
 @section('title', $title)
     @extends('admin.layouts.main')
 @section('content')
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800"><a href="{{ route($main_link . '.index') }}">{{ 'Categories' }}</a></h1>
+        <h1 class="h3 mb-0 text-gray-800"><a href="{{ route($main_link . '.index') }}">{{ __('Categories') }}</a></h1>
     </div>
     <div class="card mx-auto">
         @if (Session::has('message'))
@@ -27,7 +26,7 @@ $main_link = 'category';
         <div class="card-header border-bottom-primary">
             <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
-                    <a href="{!! route($main_link . '.create') !!}" class="float-right">Create</a>
+                    <a href="{!! route($main_link . '.create') !!}" class="float-right">{{ __('Create') }}</a>
                 </div>
             </div>
         </div>
@@ -52,7 +51,7 @@ $main_link = 'category';
                                     <tr>
                                         <th scope="row">{!! $k !!}</th>
                                         <th>{!! $node->name !!}</th>
-                                        <td>{{ $node->description }}</td>
+                                        <td>{!! $node->alias !!}</td>
                                         <td>
                                             @include('helper.stick', ['status' => $node->status,
                                             'id' => $node->id,

@@ -6,10 +6,10 @@ $main_link = 'brand';
 @section('title', $title)
     @extends('admin.layouts.main')
 @section('content')
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">{{ 'Brand' }}</h1>
-    </div>
     <div class="container">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">{{ __('Brand') }}</h1>
+        </div>
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
@@ -31,7 +31,7 @@ $main_link = 'brand';
                     @endif
                     <div class="card-header">
                         {{ $title }}
-                        <a href="{{ route($main_link . '.index') }}" class="float-right">Brands</a>
+                        <a href="{{ route($main_link . '.index') }}" class="float-right">{{ __('Brands') }}</a>
                     </div>
 
                     <div class="card-body">
@@ -80,7 +80,8 @@ $main_link = 'brand';
                                     <div>
                                         <input id="name" type="text"
                                             class="form-control @error('alias') is-invalid @enderror" name="alias"
-                                            value="{{ old('alias', $brand->alias) }}" required autocomplete="alias" autofocus>
+                                            value="{{ old('alias', $brand->alias) }}" required autocomplete="alias"
+                                            autofocus>
 
                                         @error('alias')
                                             <span class="invalid-feedback" role="alert">
@@ -134,9 +135,8 @@ $main_link = 'brand';
 
                                     <div>
                                         <div class="form-group">
-                                            <textarea class="ckeditor form-control" name="description">
-                                                                        {!! $brand->description !!}
-                                                                    </textarea>
+                                            <textarea class="ckeditor form-control"
+                                                name="description">{!! $brand->description !!}</textarea>
                                         </div>
                                         @error('description')
                                             <span class="invalid-feedback" role="alert">
@@ -147,6 +147,17 @@ $main_link = 'brand';
                                 </div>
                             </div>
                             @include('helper.ckeditor')
+
+                            <div class="form-group row mb-0">
+                                <div class="col-md-12">
+                                    @if ($brand->image)
+                                        <div class="border border-danger mb-5 pt-5 pb-5">
+                                            <img src="{{ $brand->image }}" class="rounded mx-auto d-block"
+                                                alt="{{ $brand->name }}" width="200" height="200">
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
 
                             <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-4">

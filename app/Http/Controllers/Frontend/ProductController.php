@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\ShippingFee;
+use Illuminate\Support\Facades\Cache;
 
 class ProductController extends Controller
 {
@@ -28,6 +30,7 @@ class ProductController extends Controller
             'products.styles',
             'brands.name as brand_name',
             'brands.name_seo as brand_name_seo',
+            'prices.id as price_id',
             'prices.sap_id',
             'prices.barcode',
             'prices.name as price_name',
@@ -64,7 +67,13 @@ class ProductController extends Controller
                 ])
                 ->limit(4)
                 ->get();
-            return view('frontend.product.index', compact(['product', 'related_products']));
+
+            $shippingFees = Cache::rememberForever('shippingFees', function () {
+                return ShippingFee::where('status', '=', 1)
+                    ->get();
+            });
+
+            return view('frontend.product.index', compact(['product', 'related_products', 'shippingFees']));
         }
         return redirect()->route('comming-soon');
     }
