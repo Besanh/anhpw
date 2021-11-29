@@ -38,13 +38,16 @@ function bindForm($this) {
     document.getElementById("ship_detail_email").innerHTML = customers_email;
     document.getElementById("ship_detail_phone").innerHTML = customers_phone;
 
-
-    $.getJSON(url_fetch_province + '/' + customers_province, function (data) {
-        document.getElementById("ship_detail_province").innerHTML = data.name
-    })
-    $.getJSON(url_fetch_district + '/' + customers_district, function (data) {
-        document.getElementById("ship_detail_district").innerHTML = data.name;
-    })
+    if (customers_province) {
+        $.getJSON(url_fetch_province + '/' + customers_province, function (data) {
+            document.getElementById("ship_detail_province").innerHTML = data.name
+        })
+    }
+    if (customers_district) {
+        $.getJSON(url_fetch_district + '/' + customers_district, function (data) {
+            document.getElementById("ship_detail_district").innerHTML = data.name;
+        })
+    }
 
     document.getElementById("ship_detail_zipcode").innerHTML = customers_zipcode;
     document.getElementById("ship_detail_address").innerHTML = customers_address;

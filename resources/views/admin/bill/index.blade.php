@@ -1,14 +1,27 @@
 <?php
 
-$title = __('Brands - Index');
-$head_table = ['#', 'Id', 'Name', 'Priority', 'Status', 'Created At', 'Updated At', 'Action'];
+$title = __('Bill - Index');
+$head_table = [
+'#',
+'Bill No',
+'Total Price',
+'Total Discount',
+'Total Cost',
+'Total Tax',
+'Payment',
+'Status',
+'Created
+At',
+'Updated At',
+'Action',
+];
 $main_link = 'brand';
 ?>
 @section('title', $title)
     @extends('admin.layouts.main')
 @section('content')
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800"><a href="{{ route($main_link . '.index') }}">{{ 'Brands' }}</a></h1>
+        <h1 class="h3 mb-0 text-gray-800"><a href="{{ route($main_link . '.index') }}">{{ __('Bills') }}</a></h1>
     </div>
     <div class="card mx-auto">
         @if (Session::has('message'))
@@ -46,24 +59,33 @@ $main_link = 'brand';
                             </tr>
                         </tfoot>
                         <tbody>
-                            @if ($brands)
-                                @foreach ($brands as $k => $node)
+                            @if ($bills)
+                                @foreach ($bills as $k => $node)
                                     <?php $k++; ?>
                                     <tr>
-                                        <th scope="row">{!! $k !!}</th>
-                                        <th>{{ $node->id }}</th>
-                                        <th>{!! $node->name !!}</th>
-                                        <th>{{ $node->priority }}</th>
+                                        <td>{{ $node->id }}</td>
+                                        <td>{!! $node->bill_no !!}</td>
+                                        <td>{{ $node->total_price }}</td>
+                                        <td>{{ $node->total_discount }}</td>
+                                        <td>{{ $node->total_cost }}</td>
+                                        <td>{{ $node->total_tax }}</td>
+                                        <td>{{ $node->payment }}</td>
                                         <td>
-                                            @include('helper.stick', ['status' => $node->status,
-                                            'id' => $node->id,
-                                            'uri' => route($main_link.'.status', $node->id)])
+                                            {{ $node->getBillDetail->status }}
                                         </td>
                                         <td>{{ $node->created_at }}</td>
                                         <td class="updated_at-{{ $node->id }}" data-id="{{ $node->id }}">
                                             {{ $node->updated_at }}</td>
                                         <td>
-                                            @include('helper.action', ['uri' => $main_link, 'id' => $node->id])
+                                            <a class="btn btn-warning" href="{{ route('bill-detail.show', $node->id) }}">
+                                                <i class="fa fa-eye" aria-hidden="true"></i>
+                                            </a>
+                                            <a class="delete-item btn btn-danger" data-id={{ $node->id }}
+                                                onclick="return confirm('Are you sure?')"
+                                                href="{{ route($main_link . '.destroy', $node->id) }}">
+                                                <i class="fa fa-trash"></i>
+                                            </a>
+
                                         </td>
                                     </tr>
                                 @endforeach

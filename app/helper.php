@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Capacity;
 use App\Models\Product;
 use App\Models\SeoPage;
 use App\Models\Setting;
@@ -16,6 +17,14 @@ if (!function_exists('getStatus')) {
             '0' => 'Inactive',
             '1' => 'Active'
         ];
+    }
+}
+
+// Gender
+if (!function_exists('getGender')) {
+    function getGender($id)
+    {
+        return $id = 1 ? 'Male' : 'Female';
     }
 }
 
@@ -533,5 +542,16 @@ if (!function_exists('getDevice')) {
     function getDevice()
     {
         return Arr::get($_SERVER, 'HTTP_USER_AGENT');
+    }
+}
+
+/**
+ * Get capa name
+ */
+if (!function_exists('getCapaName')) {
+    function getCapaName($id)
+    {
+        $data = Capacity::where('id', '=', $id)->select('name')->first();
+        return $data ? $data->name : '';
     }
 }

@@ -13,6 +13,7 @@ class TestController extends Controller
 {
     public function index()
     {
-        echo strlen('3b7ff672-f797-46a7-996e-1213c18b5fd2');
+        getArray(Cart::instance('shopping')->content());
+        // echo strlen('3b7ff672-f797-46a7-996e-1213c18b5fd2');
     }
 }

@@ -1,12 +1,10 @@
 <?php
 $seo = metaData('all_brand_page'); ?>
 @push('meta')
-    <meta name="description" content="{{ $seo && $seo->count() > 0 ? $seo->seo_desc : config('app.seo_desc') }}">
-    <meta name="keyword" content="{{ $seo && $seo->count() > 0 ? $seo->seo_keyword : config('app.seo_keyword') }}">
+    <meta name="description" content="{{ $seo ? $seo->seo_desc : config('app.seo_desc') }}">
+    <meta name="keyword" content="{{ $seo ? $seo->seo_keyword : config('app.seo_keyword') }}">
+    <meta name="robots" content="{{ $seo ? $seo->seo_robot : config('app.seo_robot') }}">
     <link rel="canonical" href="{{ url()->current() }}">
-    @if ($seo && $seo->count() > 0)
-        <meta name="robots" content="{{ $seo->seo_robot ? $seo->seo_robot : config('app.seo_robot') }}">
-    @endif
 @endpush
 @section('title', __('All Brand'))
     @extends('frontend.layouts.main')
@@ -18,8 +16,6 @@ $seo = metaData('all_brand_page'); ?>
             <div class="g-pos-rel g-z-index-1 g-pa-50">
                 <span class="d-block g-color-primary g-font-weight-700 g-font-size-40 mb-0"></span>
                 <h2 class="g-color-white g-font-size-50 mb-3">{{ __('All Brand') }}</h2>
-                {{-- <a class="btn u-btn-white g-brd-primary--hover g-color-primary g-color-white--hover g-bg-primary--hover g-font-size-12 text-uppercase g-py-12 g-px-25"
-                    href="home-page-1.html">Shop Now</a> --}}
             </div>
         </div>
         <!-- End Banner -->

@@ -15,15 +15,40 @@ class BillDetail extends Model
 
     public $table = 'bill_details';
 
-    protected $fillable = ['bill_id', 'channel_sale', 'devices', 'note', 'status'];
+    protected $fillable = ['bill_id', 'channel_sale', 'devices', 'status'];
 
     public function getBill()
     {
-        return $this->belongsTo(Bill::class);
+        return $this->belongsTo(Bill::class, 'bill_id', 'id');
     }
 
     public function getShoppingCart()
     {
-        return $this->belongsTo(ShoppingCart::class, 'rowId', 'identifier');
+        return $this->belongsTo(ShoppingCart::class, 'bill_id', 'identifier');
+    }
+
+    public function getCustomer($bill_id)
+    {
+        return BillCustomer::where('bill_id', $bill_id)->first();
+    }
+
+    public function getConsignee($bill_id)
+    {
+        return BillConsignee::where('bill_id', $bill_id)->first();
+    }
+
+    public function getInvoice($bill_id)
+    {
+        return BillInvoice::where('bill_id', $bill_id)->first();
+    }
+
+    public function getProvinceName($id)
+    {
+        return Provinces::where('id', $id)->select('name')->first();
+    }
+
+    public function getDistrictName($id)
+    {
+        return Districts::where('id', $id)->select('name')->first();
     }
 }

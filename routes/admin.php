@@ -3,6 +3,8 @@
 use App\Http\Controllers\Backend\Auth\RegisterController;
 use App\Http\Controllers\Backend\Auth\LoginController;
 use App\Http\Controllers\Backend\Auth\ResetPasswordController;
+use App\Http\Controllers\Backend\BillController;
+use App\Http\Controllers\Backend\BillDetailController;
 use App\Http\Controllers\Backend\BlogController;
 use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\CapaController;
@@ -140,4 +142,12 @@ Route::group(['middleware' => ['admin'], 'prefix' => 'admin'], function () {
 
     // Cache
     Route::get('clear-admin', [ClearController::class, 'clearCacheAdmin'])->name('clear-admin');
+
+    // Bill
+    Route::get('bill/destroy/{id}', [BillController::class, 'destroy'])->name('bill.destroy');
+    Route::resource('bill', BillController::class)->only($only_action_resource);
+
+    // Bill detail
+    Route::get('bill-detail/destroy/{id}', [BillDetailController::class, 'destroy'])->name('bill-detail.destroy');
+    Route::resource('bill-detail', BillDetailController::class)->only($only_action_resource);
 });

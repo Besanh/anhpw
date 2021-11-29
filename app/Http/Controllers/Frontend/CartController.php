@@ -20,6 +20,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class CartController extends Controller
 {
@@ -133,7 +134,7 @@ class CartController extends Controller
                     }
                 }
             }
-            return redirect()->route('cart.index');
+            return redirect()->route('cart.index')->with('message', 'Update cart successfully');
         }
 
         if ($request->input('make_payment') == 'make_payment') {
@@ -148,6 +149,7 @@ class CartController extends Controller
                 }
 
                 $bill = new Bill();
+                $bill->bill_no = Str::uuid()->toString();
                 $bill->total_price = $cart->subtotal(0, '', '');
                 $bill->total_discount = $total_discount;
                 $bill->total_cost = $cart->total(0, '', '') - $total_discount;
@@ -168,6 +170,22 @@ class CartController extends Controller
 
                 // Bill customer
                 if ($bill_save) {
+                    $validator_customer = Validator::make($data, [
+                        'customers_fullname' => 'required|string|max:125',
+                        'customers_gender' => 'required|integer',
+                        'customers_phone' => 'required|string|max:15',
+                        'customers_email' => 'required|email|max:125',
+                        'customers_province' => 'required|integer',
+                        'customers_district' => 'required|integer',
+                        'customers_address' => 'required|string',
+                        'customers_note' => 'string|nullable',
+                        'customers_zipcode' => 'string|nullable'
+                    ]);
+                    if ($validator_customer->fails()) {
+                        return back()
+                            ->withErrors($validator_customer)
+                            ->withInput();
+                    }
                     $bill_customer = new BillCustomer();
                     $bill_customer->bill_id = $bill->id;
                     $bill_customer->fullname = Arr::get($data, 'customers_fullname');
@@ -185,16 +203,16 @@ class CartController extends Controller
                 // Bill consignee
                 if ($bill_save) {
                     if (Arr::get($data, 'consignee_fullname') || Arr::get($data, 'consignee_email') || Arr::get($data, 'consignee_phone') || Arr::get($data, 'consignee_address')) {
-                        $Validator_consignee = Validator::make($request->all(), [
+                        $validator_consignee = Validator::make($request->all(), [
                             'consignee_fullname' => 'required|string',
                             'consignee_email' => 'required|email',
                             'consignee_phone' => 'required|string|max:15',
                             'consignee_address' => 'required|string',
                             'consignee_note' => 'string|nullable'
                         ]);
-                        if ($Validator_consignee->fails()) {
+                        if ($validator_consignee->fails()) {
                             return back()
-                                ->withErrors($Validator_consignee)
+                                ->withErrors($validator_consignee)
                                 ->withInput();
                         }
                         $bill_consignee = new BillConsignee();
@@ -238,18 +256,21 @@ class CartController extends Controller
             } catch (\Throwable $e) {
                 DB::rollBack();
                 // Gui thong bao
-                return back()->with('message', $e->getMessage());
+                return back()->withErrors(['msg' => $e->getMessage()]);
             }
 
             if ($bill_save && $bill_detail_save && $bill_customer_save) {
                 // Shopping cart
                 Cart::instance('shopping')->store($bill->id);
                 DB::commit();
+
+                // Page notify
                 $bill_no = $bill->bill_no;
                 Cart::instance('shopping')->destroy();
                 return redirect()->route('cart.complete', compact('bill_no'));
             } else {
                 DB::rollBack();
+                return redirect()->back()->with(['msg' => 'Something went wrong']);
             }
         }
     }

@@ -13,7 +13,7 @@ class BillInvoice extends Model
 
     public $table = 'bill_invoices';
 
-    protected $fillable = ['bill_id', 'company', 'tax_code', 'email', 'phone', 'address', 'note'];
+    protected $fillable = ['bill_id', 'company', 'taxcode', 'email', 'phone', 'address', 'note'];
 
     public function getBillByInvoice()
     {

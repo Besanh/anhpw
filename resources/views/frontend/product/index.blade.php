@@ -9,8 +9,8 @@ $title = __('Product' . ' - ' . $product->p_name_seo); ?>
     <meta name="robots"
         content="{{ $product->getSeo->seo_robot ? $product->getSeo->seo_robot : config('app.seo_robot') }}">
 @endpush
+@extends('frontend.layouts.main')
 @section('title', $title)
-    @extends('frontend.layouts.main')
 @section('content')
     <!-- Product Description -->
     <div class="container g-pt-50 g-pb-100">

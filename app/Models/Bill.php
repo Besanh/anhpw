@@ -17,7 +17,7 @@ class Bill extends Model
 
     public function getCustomer()
     {
-        return $this->hasOne(BillCustomer::class, 'customer_id');
+        return $this->hasOne(BillCustomer::class, 'id', 'bill_id');
     }
 
     public function getConsigneeByBill()

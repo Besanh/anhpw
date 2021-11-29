@@ -13,9 +13,9 @@ use App\Models\Price;
                             class="d-block g-color-gray-dark-v2 g-font-size-13">{{ __('Full Name') . '(*)' }}</label>
                         <input id="customers_fullname"
                             class="form-control u-form-control g-placeholder-gray-light-v1 rounded-0 g-py-15"
-                            name="customers_fullname" type="text" placeholder="{{ __('Full Name') }}" required
-                            data-msg="This field is mandatory" data-error-class="u-has-error-v1"
-                            data-success-class="u-has-success-v1">
+                            name="customers_fullname" value="{{ old('customers_fullname') }}" type="text"
+                            placeholder="{{ __('Full Name') }}" required data-msg="This field is mandatory"
+                            data-error-class="u-has-error-v1" data-success-class="u-has-success-v1">
                     </div>
                 </div>
 
@@ -24,7 +24,7 @@ use App\Models\Price;
                         <label class="d-block g-color-gray-dark-v2 g-font-size-13">{{ __('Gender') . '(*)' }}</label>
                         <select id="customers_gender"
                             class="js-custom-select u-select-v1 g-brd-gray-light-v2 g-color-gray-light-v1 g-py-12"
-                            style="width: 100%;" name="customers_gender"
+                            style="width: 100%;" name="customers_gender" {{ old('customers_gender') }}
                             data-placeholder="{{ __('Choose your gender') }}" data-open-icon="fa fa-angle-down"
                             data-close-icon="fa fa-angle-up" required data-msg="This field is mandatory"
                             data-error-class="u-has-error-v1" data-success-class="u-has-success-v1">
@@ -43,9 +43,9 @@ use App\Models\Price;
                             class="d-block g-color-gray-dark-v2 g-font-size-13">{{ __('Email Address') . '(*)' }}</label>
                         <input id="customers_email"
                             class="form-control u-form-control g-placeholder-gray-light-v1 rounded-0 g-py-15"
-                            name="customers_email" type="email" placeholder="{{ __('Email Address') }}" required
-                            data-msg="This field is mandatory" data-error-class="u-has-error-v1"
-                            data-success-class="u-has-success-v1">
+                            name="customers_email" value="{{ old('customers_email') }}" type="email"
+                            placeholder="{{ __('Email Address') }}" required data-msg="This field is mandatory"
+                            data-error-class="u-has-error-v1" data-success-class="u-has-success-v1">
                     </div>
                 </div>
 
@@ -55,9 +55,9 @@ use App\Models\Price;
                             class="d-block g-color-gray-dark-v2 g-font-size-13">{{ __('Phone Number') . '(*)' }}</label>
                         <input id="customers_phone"
                             class="form-control u-form-control g-placeholder-gray-light-v1 rounded-0 g-py-15"
-                            name="customers_phone" type="number" placeholder="{{ __('Phone Number') }}" required
-                            data-msg="This field is mandatory" data-error-class="u-has-error-v1"
-                            data-success-class="u-has-success-v1">
+                            name="customers_phone" value="{{ old('customers_phone') }}" type="number"
+                            placeholder="{{ __('Phone Number') }}" required data-msg="This field is mandatory"
+                            data-error-class="u-has-error-v1" data-success-class="u-has-success-v1">
                     </div>
                 </div>
             </div>
@@ -65,8 +65,9 @@ use App\Models\Price;
             <div class="row">
                 <div class="col-sm-6 g-mb-20">
                     <div class="form-group">
-                        <label
-                            class="d-block g-color-gray-dark-v2 g-font-size-13">{{ __('Province/City') . '(*)' }}</label>
+                        <label class="d-block g-color-gray-dark-v2 g-font-size-13">
+                            {{ __('Province/City') . '(*)' }}
+                        </label>
                         <select id="customers_province"
                             class="js-custom-select u-select-v1 g-brd-gray-light-v2 g-color-gray-light-v1 g-py-12"
                             style="width: 100%;" name="customers_province"
@@ -74,7 +75,7 @@ use App\Models\Price;
                             data-close-icon="fa fa-angle-up" required data-msg="This field is mandatory"
                             data-error-class="u-has-error-v1" data-success-class="u-has-success-v1"
                             data-href="{{ route('cart.get-district') }}">
-                            <option>{{ __('Prompt') }}</option>
+                            <option></option>
                             @foreach ($provinces as $pr)
                                 <option value="{{ $pr->id }}">{{ $pr->name }}</option>
                             @endforeach
@@ -84,15 +85,16 @@ use App\Models\Price;
 
                 <div class="col-sm-6 g-mb-20">
                     <div class="form-group">
-                        <label
-                            class="d-block g-color-gray-dark-v2 g-font-size-13">{{ __('Districts') . '(*)' }}</label>
+                        <label class="d-block g-color-gray-dark-v2 g-font-size-13">
+                            {{ __('Districts') . '(*)' }}
+                        </label>
                         <select id="customers_district"
-                            class="js-custom-selects u-select-v1 g-brd-gray-light-v2 g-color-gray-light-v1 g-py-12" style="width: 100%;"
-                            name="customers_district" data-placeholder="{{ __('Choose your district') }}"
-                            data-open-icon="fa fa-angle-down" data-close-icon="fa fa-angle-up" required
-                            data-msg="This field is mandatory" data-error-class="u-has-error-v1"
-                            data-success-class="u-has-success-v1">
-                            <option>{{ __('Prompt') }}</option>
+                            class="js-custom-selects u-select-v1 g-brd-gray-light-v2 g-color-gray-light-v1 g-py-12"
+                            style="width: 100%;" name="customers_district"
+                            data-placeholder="{{ __('Choose your district') }}" data-open-icon="fa fa-angle-down"
+                            data-close-icon="fa fa-angle-up" required data-msg="This field is mandatory"
+                            data-error-class="u-has-error-v1" data-success-class="u-has-success-v1">
+                            <option></option>
                         </select>
                     </div>
                 </div>
@@ -105,8 +107,9 @@ use App\Models\Price;
                             class="d-block g-color-gray-dark-v2 g-font-size-13">{{ __('Zip/Postal Code') }}</label>
                         <input id="customers_zipcode"
                             class="form-control u-form-control g-placeholder-gray-light-v1 rounded-0 g-py-15"
-                            name="customers_zipcode" type="text" placeholder="AB123" data-msg="This field is mandatory"
-                            data-error-class="u-has-error-v1" data-success-class="u-has-success-v1" maxlength="15">
+                            name="customers_zipcode" value="{{ old('customers_zipcode') }}" type="text"
+                            placeholder="AB123" data-msg="This field is mandatory" data-error-class="u-has-error-v1"
+                            data-success-class="u-has-success-v1" maxlength="15">
                     </div>
                 </div>
 
@@ -116,9 +119,9 @@ use App\Models\Price;
                             class="d-block g-color-gray-dark-v2 g-font-size-13">{{ __('Address') . '(*)' }}</label>
                         <input id="customers_address"
                             class="form-control u-form-control g-placeholder-gray-light-v1 rounded-0 g-py-15"
-                            name="customers_address" type="text" placeholder="{{ __('Address') }}" required
-                            data-msg="This field is mandatory" data-error-class="u-has-error-v1"
-                            data-success-class="u-has-success-v1">
+                            name="customers_address" value="{{ old('customers_address') }}" type="text"
+                            placeholder="{{ __('Address') }}" required data-msg="This field is mandatory"
+                            data-error-class="u-has-error-v1" data-success-class="u-has-success-v1">
                     </div>
                 </div>
             </div>
@@ -128,9 +131,10 @@ use App\Models\Price;
                         <label class="d-block g-color-gray-dark-v2 g-font-size-13">{{ __('Note') }}</label>
                         <input id="customers_note"
                             class="form-control u-form-control g-placeholder-gray-light-v1 rounded-0 g-py-15"
-                            name="customers_note" type="text" placeholder="{{ __('Note') }}"
-                            data-msg="This field is mandatory" data-error-class="u-has-error-v1"
-                            data-success-class="u-has-success-v1" aria-required="true">
+                            name="customers_note" value="{{ old('customers_note') }}" type="text"
+                            placeholder="{{ __('Note') }}" data-msg="This field is mandatory"
+                            data-error-class="u-has-error-v1" data-success-class="u-has-success-v1"
+                            aria-required="true">
                     </div>
                 </div>
             </div>
@@ -152,9 +156,10 @@ use App\Models\Price;
                             <label class="d-block g-color-gray-dark-v2 g-font-size-13">{{ __('Full Name') }}</label>
                             <input id="consignee_fullname"
                                 class="form-control u-form-control g-placeholder-gray-light-v1 rounded-0 g-py-15"
-                                name="consignee_fullname" type="text" placeholder="{{ __('First Name') }}"
-                                data-msg="This field is mandatory" data-error-class="u-has-error-v1"
-                                data-success-class="u-has-success-v1" aria-required="true">
+                                name="consignee_fullname" value="{{ old('consignee_fullname') }}" type="text"
+                                placeholder="{{ __('First Name') }}" data-msg="This field is mandatory"
+                                data-error-class="u-has-error-v1" data-success-class="u-has-success-v1"
+                                aria-required="true">
                         </div>
                     </div>
 
@@ -164,9 +169,10 @@ use App\Models\Price;
                                 class="d-block g-color-gray-dark-v2 g-font-size-13">{{ __('Email Address') }}</label>
                             <input id="consignee_email"
                                 class="form-control u-form-control g-placeholder-gray-light-v1 rounded-0 g-py-15"
-                                name="consignee_email" type="email" placeholder="{{ __('Email Address') }}"
-                                data-msg="This field is mandatory" data-error-class="u-has-error-v1"
-                                data-success-class="u-has-success-v1" aria-required="true">
+                                name="consignee_email" value="{{ old('consignee_email') }}" type="email"
+                                placeholder="{{ __('Email Address') }}" data-msg="This field is mandatory"
+                                data-error-class="u-has-error-v1" data-success-class="u-has-success-v1"
+                                aria-required="true">
                         </div>
                     </div>
                 </div>
@@ -177,9 +183,10 @@ use App\Models\Price;
                                 class="d-block g-color-gray-dark-v2 g-font-size-13">{{ __('Phone Number') }}</label>
                             <input id="consignee_phone"
                                 class="form-control u-form-control g-placeholder-gray-light-v1 rounded-0 g-py-15"
-                                name="consignee_phone" type="text" placeholder="{{ __('Phone Number') }}"
-                                data-msg="This field is mandatory" data-error-class="u-has-error-v1"
-                                data-success-class="u-has-success-v1" aria-required="true">
+                                name="consignee_phone" value="{{ old('consignee_phone') }}" type="text"
+                                placeholder="{{ __('Phone Number') }}" data-msg="This field is mandatory"
+                                data-error-class="u-has-error-v1" data-success-class="u-has-success-v1"
+                                aria-required="true">
                         </div>
                     </div>
                     <div class="col-sm-6 g-mb-20">
@@ -187,9 +194,10 @@ use App\Models\Price;
                             <label class="d-block g-color-gray-dark-v2 g-font-size-13">{{ __('Address') }}</label>
                             <input id="consignee_address"
                                 class="form-control u-form-control g-placeholder-gray-light-v1 rounded-0 g-py-15"
-                                name="consignee_address" type="text" placeholder="{{ __('Address') }}"
-                                data-msg="This field is mandatory" data-error-class="u-has-error-v1"
-                                data-success-class="u-has-success-v1" aria-required="true">
+                                name="consignee_address" value="{{ old('consignee_address') }}" type="text"
+                                placeholder="{{ __('Address') }}" data-msg="This field is mandatory"
+                                data-error-class="u-has-error-v1" data-success-class="u-has-success-v1"
+                                aria-required="true">
                         </div>
                     </div>
                 </div>
@@ -199,9 +207,10 @@ use App\Models\Price;
                             <label class="d-block g-color-gray-dark-v2 g-font-size-13">{{ __('Note') }}</label>
                             <input id="consignee_note"
                                 class="form-control u-form-control g-placeholder-gray-light-v1 rounded-0 g-py-15"
-                                name="consignee_note" type="text" placeholder="{{ __('Note') }}"
-                                data-msg="This field is mandatory" data-error-class="u-has-error-v1"
-                                data-success-class="u-has-success-v1" aria-required="true">
+                                name="consignee_note" value="{{ old('consignee_note') }}" type="text"
+                                placeholder="{{ __('Note') }}" data-msg="This field is mandatory"
+                                data-error-class="u-has-error-v1" data-success-class="u-has-success-v1"
+                                aria-required="true">
                         </div>
                     </div>
                 </div>
@@ -224,9 +233,10 @@ use App\Models\Price;
                             <label class="d-block g-color-gray-dark-v2 g-font-size-13">{{ __('Company') }}</label>
                             <input id="invoice_company"
                                 class="form-control u-form-control g-placeholder-gray-light-v1 rounded-0 g-py-15"
-                                name="invoice_company" type="text" placeholder="{{ __('Company') }}"
-                                data-msg="This field is mandatory" data-error-class="u-has-error-v1"
-                                data-success-class="u-has-success-v1" aria-required="true">
+                                name="invoice_company" value="{{ old('invoice_company') }}" type="text"
+                                placeholder="{{ __('Company') }}" data-msg="This field is mandatory"
+                                data-error-class="u-has-error-v1" data-success-class="u-has-success-v1"
+                                aria-required="true">
                         </div>
                     </div>
 
@@ -235,9 +245,10 @@ use App\Models\Price;
                             <label class="d-block g-color-gray-dark-v2 g-font-size-13">{{ __('Tax Code') }}</label>
                             <input id="invoice_taxcode"
                                 class="form-control u-form-control g-placeholder-gray-light-v1 rounded-0 g-py-15"
-                                name="invoice_taxcode" type="text" placeholder="{{ __('Tax Code') }}"
-                                data-msg="This field is mandatory" data-error-class="u-has-error-v1"
-                                data-success-class="u-has-success-v1" aria-required="true">
+                                name="invoice_taxcode" value="{{ old('invoice_taxcode') }}" type="text"
+                                placeholder="{{ __('Tax Code') }}" data-msg="This field is mandatory"
+                                data-error-class="u-has-error-v1" data-success-class="u-has-success-v1"
+                                aria-required="true">
                         </div>
                     </div>
                 </div>
@@ -247,9 +258,10 @@ use App\Models\Price;
                             <label class="d-block g-color-gray-dark-v2 g-font-size-13">{{ __('Email') }}</label>
                             <input id="invoice_email"
                                 class="form-control u-form-control g-placeholder-gray-light-v1 rounded-0 g-py-15"
-                                name="invoice_email" type="email" placeholder="{{ __('Email') }}"
-                                data-msg="This field is mandatory" data-error-class="u-has-error-v1"
-                                data-success-class="u-has-success-v1" aria-required="true">
+                                name="invoice_email" value="{{ old('invoice_email') }}" type="email"
+                                placeholder="{{ __('Email') }}" data-msg="This field is mandatory"
+                                data-error-class="u-has-error-v1" data-success-class="u-has-success-v1"
+                                aria-required="true">
                         </div>
                     </div>
 
@@ -259,9 +271,10 @@ use App\Models\Price;
                                 class="d-block g-color-gray-dark-v2 g-font-size-13">{{ __('Phone Number') }}</label>
                             <input id="invoice_phone"
                                 class="form-control u-form-control g-placeholder-gray-light-v1 rounded-0 g-py-15"
-                                name="invoice_phone" type="text" placeholder="{{ __('Phone Number') }}" required=""
-                                data-msg="This field is mandatory" data-error-class="u-has-error-v1"
-                                data-success-class="u-has-success-v1" aria-required="true">
+                                name="invoice_phone" value="{{ old('invoice_phone') }}" type="text"
+                                placeholder="{{ __('Phone Number') }}" required="" data-msg="This field is mandatory"
+                                data-error-class="u-has-error-v1" data-success-class="u-has-success-v1"
+                                aria-required="true">
                         </div>
                     </div>
                 </div>
@@ -271,9 +284,10 @@ use App\Models\Price;
                             <label class="d-block g-color-gray-dark-v2 g-font-size-13">{{ __('Address') }}</label>
                             <input id="invoice_address"
                                 class="form-control u-form-control g-placeholder-gray-light-v1 rounded-0 g-py-15"
-                                name="invoice_address" type="text" placeholder="{{ __('Address') }}"
-                                data-msg="This field is mandatory" data-error-class="u-has-error-v1"
-                                data-success-class="u-has-success-v1" aria-required="true">
+                                name="invoice_address" value="{{ old('invoice_address') }}" type="text"
+                                placeholder="{{ __('Address') }}" data-msg="This field is mandatory"
+                                data-error-class="u-has-error-v1" data-success-class="u-has-success-v1"
+                                aria-required="true">
                         </div>
                     </div>
                 </div>
@@ -283,9 +297,10 @@ use App\Models\Price;
                             <label class="d-block g-color-gray-dark-v2 g-font-size-13">{{ __('Note') }}</label>
                             <input id="invoice_note"
                                 class="form-control u-form-control g-placeholder-gray-light-v1 rounded-0 g-py-15"
-                                name="invoice_note" type="text" placeholder="{{ __('Note') }}"
-                                data-msg="This field is mandatory" data-error-class="u-has-error-v1"
-                                data-success-class="u-has-success-v1" aria-required="true">
+                                name="invoice_note" value="{{ old('invoice_note') }}" type="text"
+                                placeholder="{{ __('Note') }}" data-msg="This field is mandatory"
+                                data-error-class="u-has-error-v1" data-success-class="u-has-success-v1"
+                                aria-required="true">
                         </div>
                     </div>
                 </div>

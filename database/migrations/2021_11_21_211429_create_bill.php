@@ -52,7 +52,6 @@ class CreateBill extends Migration
 
         Schema::create('bill_details', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('rowId', 255);
             $table->foreignId('bill_id')->onDelete('cascade')->onUpdate('cascade');
             $table->string('channel_sale', 50)->nullable();
             $table->text('devices');
@@ -81,7 +80,7 @@ class CreateBill extends Migration
             $table->bigIncrements('id');
             $table->foreignId('bill_id')->onDelete('cascade')->onUpdate('cascade');
             $table->string('company', 255);
-            $table->string('tax_code', 15);
+            $table->string('taxcode', 15);
             $table->string('email', 100);
             $table->string('phone', 15);
             $table->string('address', 255);

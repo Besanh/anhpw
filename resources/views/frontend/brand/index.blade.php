@@ -15,8 +15,8 @@ $seo_keyword .= $brand->name . ', ' . $brand->name_seo;
     <meta name="description"
         content="{{ getTeaser($brand->description ? $brand->description : config('app.seo_desc'), 50) }}">
     <meta name="keyword" content="{{ $seo_keyword }}">
-    <link rel="canonical" href="{{ url()->current() }}">
     <meta name="robots" content="{{ config('app.seo_robot') }}">
+    <link rel="canonical" href="{{ url()->current() }}">
 @endpush
 @extends('frontend.layouts.main')
 @section('title', $title)
@@ -28,8 +28,6 @@ $seo_keyword .= $brand->name . ', ' . $brand->name_seo;
             <div class="g-pos-rel g-z-index-1 g-pa-50">
                 <span class="d-block g-color-primary g-font-weight-700 g-font-size-40 mb-0"></span>
                 <h2 class="g-color-white g-font-size-50 mb-3">{{ $title }}</h2>
-                {{-- <a class="btn u-btn-white g-brd-primary--hover g-color-primary g-color-white--hover g-bg-primary--hover g-font-size-12 text-uppercase g-py-12 g-px-25"
-                    href="home-page-1.html">Shop Now</a> --}}
             </div>
         </div>
         <!-- End Banner -->

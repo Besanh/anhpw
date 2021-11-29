@@ -31,7 +31,7 @@ $data_msg = getConfig('order_msg_complete');
                         <p>{{ __(Arr::get($item, 'content')) }}</p>
                     @endforeach
                 @endif
-                <p>{{ __('Your track number is') }}: {{ $bill_id }}. <a href="#">{{ __('Track Order') }}</a>
+                <p>{{ __('Your track number is') }}: <b>{{ $bill_no }}</b>. <a href="#">{{ __('Track Order') }}</a>
                 </p>
             </div>
 
