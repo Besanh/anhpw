@@ -12,7 +12,10 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
-        'ckfinder/*'
-        //
+        'ckfinder/*',
+        'admin/bill-detail/editable-customer',
+        'admin/bill-detail/editable-detail',
+        'admin/bill-detail/editable-consignee',
+        'admin/bill-detail/editable-invoice',
     ];
 }

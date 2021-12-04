@@ -30,3 +30,4 @@
 @stack('append-input')
 @stack('ckfinder-input')
 @stack('jquery-ui')
+@stack('script-edit-table')

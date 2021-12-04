@@ -148,6 +148,10 @@ Route::group(['middleware' => ['admin'], 'prefix' => 'admin'], function () {
     Route::resource('bill', BillController::class)->only($only_action_resource);
 
     // Bill detail
+    Route::post('bill-detail/editable-customer', [BillDetailController::class, 'editableCustomer'])->name('bill-detail.editable-customer');
+    Route::post('bill-detail/editable-detail', [BillDetailController::class, 'editableDetail'])->name('bill-detail.editable-detail');
+    Route::post('bill-detail/editable-consignee', [BillDetailController::class, 'editableConsignee'])->name('bill-detail.editable-consignee');
+    Route::post('bill-detail/editable-invoice', [BillDetailController::class, 'editableInvoice'])->name('bill-detail.editable-invoice');
     Route::get('bill-detail/destroy/{id}', [BillDetailController::class, 'destroy'])->name('bill-detail.destroy');
     Route::resource('bill-detail', BillDetailController::class)->only($only_action_resource);
 });

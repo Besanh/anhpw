@@ -66,3 +66,8 @@ https://scotch.io/tutorials/implementing-smart-search-with-laravel-and-typeahead
 Select2
 https://www.positronx.io/how-to-create-select2-dropdown-in-laravel-livewire/
 https://www.nicesnippets.com/blog/laravel-livewire-select2-multiple-example
+
+Editable
+Tắt csrf trong middleware
+http://vitalets.github.io/x-editable/
+https://demo.s-cart.org/sc_admin

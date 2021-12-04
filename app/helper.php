@@ -24,7 +24,7 @@ if (!function_exists('getStatus')) {
 if (!function_exists('getGender')) {
     function getGender($id)
     {
-        return $id = 1 ? 'Male' : 'Female';
+        return $id == 0 ? 'Male' : 'Female';
     }
 }
 
