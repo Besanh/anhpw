@@ -1,26 +1,25 @@
 <?php
-$title = $brand->name;
+$title = $help->title;
 $head_table = [
-'Id' => $brand->id,
-'Alias' => $brand->alias,
-'Name' => $brand->name,
-'Name SEO' => $brand->name_seo,
-'Description' => $brand->description,
-'Image' => $brand->image,
-'Priority' => $brand->priority,
-'Status' => $brand->status,
-'Created At' => $brand->created_at,
-'Updated At' => $brand->updated_at,
+'Id' => $help->id,
+'Title' => $help->title,
+'Sub Title' => $help->sub_title,
+'Priority' => $help->priority,
+'Status' => $help->status,
+'Created By' => $helpContent->created_by,
+'Updated By' => $helpContent->updated_by,
+'Created At' => $help->created_at,
+'Updated At' => $help->updated_at,
 'Action' => '',
 ];
-$main_link = 'brand';
+$main_link = 'help';
 ?>
 @extends('admin.layouts.main')
 @section('title', $title)
 
 @section('content')
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">{{ __('Brand') }}</h1>
+        <h1 class="h3 mb-0 text-gray-800">{{ __($title) }}</h1>
     </div>
     <div class="card mx-auto">
         @if (Session::has('message'))
@@ -39,7 +38,7 @@ $main_link = 'brand';
         <div class="card-header border-bottom-primary">
             <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
-                    <a href="{!! route($main_link . '.index') !!}" class="float-right">{{ __('Brands') }}</a>
+                    <a href="{!! route($main_link . '.index') !!}" class="float-right">{{ __('Helps') }}</a>
                 </div>
             </div>
         </div>
@@ -48,13 +47,13 @@ $main_link = 'brand';
                 <div class="table-responsive">
                     <table class="table table-bordered" width="100%" cellspacing="0">
                         <tbody>
-                            @if ($brand)
+                            @if ($help)
                                 @foreach ($head_table as $head => $item)
                                     <tr>
                                         <th>{{ $head }}</th>
                                         <td>
                                             @if ($head == 'Action')
-                                                @include('helper.action', ['uri' => $main_link, 'id' => $brand->id])
+                                                @include('helper.action', ['uri' => $main_link, 'id' => $help->id])
                                             @else
                                                 {{ $item }}
                                             @endif

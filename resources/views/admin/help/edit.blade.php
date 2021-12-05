@@ -1,15 +1,14 @@
 <?php
-$title = __('Brand - Create');
+$title = __('Help - Edit');
 $status = getStatus();
-$main_link = 'brand';
+$main_link = 'help';
 ?>
-@extends('admin.layouts.main')
 @section('title', $title)
-    
+    @extends('admin.layouts.main')
 @section('content')
     <div class="container">
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">{{ __('Brand') }}</h1>
+            <h1 class="h3 mb-0 text-gray-800">{{ __($help->title) }}</h1>
         </div>
         <div class="row justify-content-center">
             <div class="col-md-12">
@@ -32,54 +31,41 @@ $main_link = 'brand';
                     @endif
                     <div class="card-header">
                         {{ $title }}
-                        <a href="{{ route($main_link . '.index') }}" class="float-right">{{ __('Brands') }}</a>
+                        <a href="{{ route($main_link . '.index') }}" class="float-right">{{ __('Helps') }}</a>
                     </div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route($main_link . '.store') }}" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route($main_link . '.update', $help->id) }}">
                             @csrf
+                            @method('PUT')
 
                             <div class="row">
-                                <div class="col-md-6">
-                                    <label for="name" class="col-form-label text-md-right">
-                                        {{ __('Name') }}
+                                <div class="col-md-12">
+                                    <label for="title" class="col-form-label text-md-right">
+                                        {{ __('Title') }}
                                     </label>
                                     <div>
-                                        <input id="name" type="text"
-                                            class="form-control @error('name') is-invalid @enderror" name="name"
-                                            value="{{ old('name') }}" required autocomplete="name" autofocus>
-
-                                        @error('name')
+                                        <input id="title" type="text"
+                                            class="form-control @error('title') is-invalid @enderror" name="title"
+                                            value="{{ old('title', $help->title) }}" required autocomplete="title"
+                                            autofocus>
+                                        @error('title')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
                                     </div>
 
-                                    <label for="name_seo" class="col-form-label text-md-right">
-                                        {{ __('Name SEO') }}
+                                    <label for="sub_title" class="col-form-label text-md-right">
+                                        {{ __('Sub Title') }}
                                     </label>
                                     <div>
-                                        <input id="name_seo" type="text"
-                                            class="form-control @error('name_seo') is-invalid @enderror" name="name_seo"
-                                            value="{{ old('name_seo') }}" required autocomplete="name_seo" autofocus>
+                                        <input id="sub_title" type="text"
+                                            class="form-control @error('subtitle') is-invalid @enderror" name="sub_title"
+                                            value="{{ old('sub_title', $help->sub_title) }}" required
+                                            autocomplete="sub_title" autofocus>
 
-                                        @error('name_seo')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-
-                                    <label for="alias" class="col-form-label text-md-right">
-                                        {{ __('Alias') }}
-                                    </label>
-                                    <div>
-                                        <input id="alias" type="text"
-                                            class="form-control @error('alias') is-invalid @enderror" name="alias"
-                                            value="{{ old('alias') }}" required autocomplete="alias" autofocus>
-
-                                        @error('alias')
+                                        @error('sub_title')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -92,7 +78,8 @@ $main_link = 'brand';
                                     <div>
                                         <input id="priority" type="text"
                                             class="form-control @error('priority') is-invalid @enderror" name="priority"
-                                            value="{{ old('priority') }}" required autocomplete="priority" autofocus>
+                                            value="{{ old('priority', $help->priority) }}" required
+                                            autocomplete="priority" autofocus>
 
                                         @error('priority')
                                             <span class="invalid-feedback" role="alert">
@@ -108,6 +95,7 @@ $main_link = 'brand';
                                         <select name="status" class="form-control" aria-label="Default select" required>
                                             @foreach (getStatus() as $k => $t)
                                                 <option value="{!! $k !!}"
+                                                    {{ $help->status == $k ? 'selected' : '' }}
                                                     class="@error('t') is-invalid @enderror">
                                                     {!! $t !!}
                                                 </option>
@@ -119,31 +107,13 @@ $main_link = 'brand';
                                             </span>
                                         @enderror
                                     </div>
-
-                                    @include('helper.ckfinder', ['name' => 'image', 'value' => ''])
-                                </div>
-
-                                <div class="col-md-6">
-                                    <label for="description"
-                                        class="col-form-label text-md-right">{{ __('Description') }}</label>
-
-                                    <div>
-                                        <div class="form-group">
-                                            <textarea class="ckeditor form-control" name="description"></textarea>
-                                        </div>
-                                        @error('description')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
                                 </div>
                             </div>
 
-                            <div class="form-group row mb-0">
-                                <div class="col-md-6 offset-md-4">
+                            <div class="form-group row mb-0 mt-5">
+                                <div class="col-md-6 offset-md-4 text-center">
                                     <button type="submit" class="btn btn-primary">
-                                        {{ __('Create') }}
+                                        {{ __('Update') }}
                                     </button>
                                 </div>
                             </div>

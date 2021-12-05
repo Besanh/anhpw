@@ -14,7 +14,7 @@ $bill_customer = $billDetail->getCustomer($billDetail->getBill->id);
 @section('content')
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">
-            <a href="{{ route($main_link . '.index') }}">{{ __('Bill Detail') }}</a>
+            <a href="{{ route($main_link . '.index') }}">{{ __('Bills') }}</a>
         </h1>
     </div>
     <div class="card mx-auto">
@@ -35,190 +35,6 @@ $bill_customer = $billDetail->getCustomer($billDetail->getBill->id);
                     </div>
                 </div>
             </div>
-            <div class="row mt-5 m-0 text-danger">
-                <div class="col-md-6 col-sm-6 col-xs-6 text-center">
-                    <h3 class="font-weight-bold">{{ __('Bill Detail') }}</h3>
-                </div>
-                <div class="col-md-6 col-sm-6 col-xs-6 text-center">
-                    <h3 class="font-weight-bold">{{ __('Shopping Cart') }}</h3>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-6">
-                    <table id="collapse1" class="table table-hover box-body text-wrap table-bordered shadow">
-                        <tbody>
-                            <tr>
-                                <td class="td-title">{{ __('Bill Id') }}:</td>
-                                <td>{{ $billDetail->bill_id }}</td>
-                            </tr>
-                            <tr>
-                                <td class="td-title">{{ __('Channel Sale') }}:</td>
-                                <td>
-                                    <a href="#" class="bill-editable editable editable-click" data-name="channel_sale"
-                                        data-type="select" data-pk="{{ $billDetail->id }}"
-                                        data-title="{{ __('Channel Sale') }}"
-                                        data-value="{{ $billDetail->channel_sale }}"
-                                        data-url="{{ route('bill-detail.editable-detail') }}"
-                                        data-source="{{ json_encode(BillDetail::$channel) }}">
-                                        {{ $billDetail->channel_sale }}
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="td-title">{{ __('Devices') }}:</td>
-                                <td>{{ $billDetail->devices }}</td>
-                            </tr>
-                            <tr>
-                                <td class="td-title">{{ __('Status') }}:</td>
-                                <td class="text-center">
-                                    <a href="#" class="bill-select-status-editable editable editable-click"
-                                        data-name="status" data-type="select" data-pk="{{ $billDetail->id }}"
-                                        data-title="{{ __('Status') }}" data-value="{{ $billDetail->status }}"
-                                        data-url="{{ route('bill-detail.editable-detail') }}"
-                                        data-source="{{ BillDetail::getStatusJson() }}">
-                                        {!! BillDetail::getStatus($billDetail->status) !!}
-                                    </a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="col-sm-6">
-                    <table class="table table-hover box-body text-wrap table-bordered shadow">
-                        <tbody>
-                            <tr>
-                                <td class="td-title">{{ __('Identifier') }}:</td>
-                                <td>{{ $billDetail->getShoppingCart->identifier }}</td>
-                            </tr>
-                            <tr>
-                                <td class="td-title">{{ __('Instance') }}:</td>
-                                <td>{{ $billDetail->getShoppingCart->instance }}</td>
-                            </tr>
-                            <tr>
-                                <td class="td-title">{{ __('Created At') }}:</td>
-                                <td>{{ $billDetail->getShoppingCart->created_at }}</td>
-                            </tr>
-                            <tr>
-                                <td class="td-title">{{ __('Updated At') }}:</td>
-                                <td>{{ $billDetail->getShoppingCart->updated_at }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <table class="table table-hover box-body text-wrap table-bordered shadow">
-                        <tbody>
-                            <tr>
-                                <td class="td-title">{{ __('$ Currency') }}:
-                                </td>
-                                <td class="text-center">
-                                    <div class="bg-info text-white p-3 rotate-15 d-inline-block my-4">
-                                        {{ __('VND') }}
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="td-title"><i class="fas fa-chart-line"></i> {{ __('Exchange Rate') }}:</td>
-                                <td>1</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            {{-- Shopping cart --}}
-            <div class="row mt-5 m-0 text-danger">
-                <div class="col-md-12 col-sm-12 col-xs-12 text-center">
-                    <h3 class="font-weight-bold">{{ __('Products') }}</h3>
-                </div>
-            </div>
-            <form id="form-add-item" action="" method="POST">
-                @csrf
-                <div class="table-responsive">
-                    <table class="table table-hover box-body text-wrap table-bordered shadow">
-                        <thead>
-                            <tr>
-                                <th>{{ __('Id') }}</th>
-                                <th>{{ __('SKU Code') }}</th>
-                                <th>{{ __('Quantity') }}</th>
-                                <th class="product_name">{{ __('Name') }}</th>
-                                <th class="product_price">{{ __('Price') }}</th>
-                                <th class="product_discount">{{ __('Discount') }}</th>
-                                <th class="product-tax">{{ __('Tax') }}</th>
-                                <th class="product_tax">{{ __('Cost') }}</th>
-                                <th class="product_note">{{ __('Note') }}</th>
-                                <th>{{ __('Action') }}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php $data = unserialize($billDetail->getShoppingCart->content); ?>
-                            @if ($data)
-                                @foreach ($data as $item)
-                                    <tr>
-                                        <td>{{ $item->id }}</td>
-                                        <td>{{ $item->options->barcode }}</td>
-                                        <td>
-                                            <a href="#" class="edit-item-detail editable editable-click"
-                                                data-value="{{ $item->qty }}" data-name="qty" data-type="number" min="0"
-                                                data-pk="{{ $billDetail->bill_id }}" data-url=""
-                                                data-title="{{ __('Qty') }}">
-                                                {{ $item->qty }}
-                                            </a>
-                                        </td>
-                                        <td>
-                                            {{ $item->name . ' - ' . $item->options->capa . ' ' . getCapaName($item->options->capa_id) }}
-                                        </td>
-                                        <td><a href="#" class="edit-item-detail editable editable-click"
-                                                data-value="{{ $item->price }}" data-name="price" data-type="number"
-                                                min="0" data-pk="{{ $billDetail->bill_id }}" data-url=""
-                                                data-title="{{ __('Price') }}">
-                                                {{ $item->price }}
-                                            </a>
-                                        </td>
-                                        <td><a href="#" class="edit-item-detail editable editable-click"
-                                                data-value="{{ $item->options->discount }}" data-name="discount"
-                                                data-type="number" min="0" data-pk="53" data-url=""
-                                                data-title="{{ __('Discount') }}">
-                                                {{ $item->options->discount }}
-                                            </a>
-                                        </td>
-                                        <td><a href="#" class="edit-item-detail editable editable-click"
-                                                data-value="{{ $item->options->taxtRate }}" data-name="taxRate"
-                                                data-type="number" min="0" data-pk="53" data-url=""
-                                                data-title="{{ __('taxRate') }}">
-                                                {{ $item->options->taxtRate }}
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <a href="#" class="edit-item-detail editable editable-click"
-                                                data-value="{{ $item->price - $item->options->discount }}"
-                                                data-name="cost" data-type="number" min="0" data-pk="53" data-url=""
-                                                data-title="{{ __('cost') }}">
-                                                {{ $item->price - $item->options->discount }}
-                                            </a>
-                                        </td>
-                                        <td>{{ $item->options->note }}</td>
-                                        <td>
-                                            <span onclick="" class="btn btn-danger btn-xs"
-                                                data-title="{{ __('Delete') }}">
-                                                <i class="fa fa-trash" aria-hidden="true"></i>
-                                            </span>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            @endif
-                            <tr id="add-item" class="not-print">
-                                <td colspan="10">
-                                    <button type="button" class="btn btn-flat btn-success" id="add-item-button"
-                                        title="{{ __('Add new') }}"><i class="fa fa-plus"></i>
-                                        {{ __('Add new') }}</button>
-                                    &nbsp;&nbsp;&nbsp;<button style="display: none; margin-right: 50px" type="button"
-                                        class="btn btn-flat btn-warning" id="add-item-button-save" title="Save"><i
-                                            class="fa fa-save"></i> {{ __('Save') }}</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </form>
 
             <div class="row mt-5 m-0 text-danger">
                 <div class="col-md-6 col-sm-6 col-xs-6 text-center">
@@ -229,50 +45,51 @@ $bill_customer = $billDetail->getCustomer($billDetail->getBill->id);
                 </div>
             </div>
             <div class="row">
+                <?php $bill = $billDetail->getBill; ?>
                 {{-- Bill --}}
                 <div class="col-sm-6">
                     <table class="table table-hover box-body text-wrap table-bordered shadow">
                         <tbody>
                             <tr>
                                 <td class="td-title-normal">{{ __('Bill No') }}:</td>
-                                <td style="text-align:right" class="data-subtotal">
-                                    {{ $billDetail->getBill->bill_no }}
+                                <td style="text-align:right" class="bg-info text-white">
+                                    {{ $bill->bill_no }}
                                 </td>
                             </tr>
                             <tr>
                                 <td class="td-title-normal">{{ __('Total Price') }}:</td>
-                                <td style="text-align:right" class="data-tax">{{ $billDetail->getBill->total_price }}
+                                <td style="text-align:right" class="data-tax">{{ $bill->total_price }}
                                 </td>
                             </tr>
                             <tr>
                                 <td>{{ __('Total Discount') }}:</td>
-                                <td style="text-align:right">{{ $billDetail->getBill->total_discount }}</td>
+                                <td style="text-align:right">{{ $bill->total_discount }}</td>
                             </tr>
                             <tr>
                                 <td>{{ __('Total Tax') }}:</td>
                                 <td style="text-align:right">
-                                    {{ $billDetail->getBill->total_tax }}
+                                    {{ $bill->total_tax }}
                                 </td>
                             </tr>
                             <tr>
                                 <td>{{ __('Shipping Cost') }}:</td>
                                 <td style="text-align:right">
-                                    {{ $billDetail->getBill->shipping_cost }}
+                                    {{ $bill->shipping_cost }}
                                 </td>
                             </tr>
                             <tr>
                                 <td>{{ __('Payment') }}:</td>
-                                <td style="text-align:right">{{ $billDetail->getBill->payment }}</td>
+                                <td style="text-align:right">{{ $bill->payment }}</td>
                             </tr>
                             <tr>
                                 <td>{{ __('Note') }}:</td>
-                                <td style="text-align:right">{{ $billDetail->getBill->note }}</td>
+                                <td style="text-align:right">{{ $bill->note }}</td>
                             </tr>
                             <tr style="color:#0e9e33;font-weight: bold;">
                                 <td>
                                     {{ __('Total Cost') }}
                                 </td>
-                                <td style="text-align:right">{{ $billDetail->getBill->total_cost }}</td>
+                                <td style="text-align:right">{{ $bill->total_cost }}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -382,6 +199,193 @@ $bill_customer = $billDetail->getCustomer($billDetail->getBill->id);
                 </div>
             </div>
 
+
+
+            {{-- Shopping cart --}}
+            <div class="row mt-5 m-0 text-danger">
+                <div class="col-md-12 col-sm-12 col-xs-12 text-center">
+                    <h3 class="font-weight-bold">{{ __('Products') }}</h3>
+                </div>
+            </div>
+            <form id="form-add-item" action="" method="POST">
+                @csrf
+                <div class="table-responsive">
+                    <table class="table table-hover box-body text-wrap table-bordered shadow">
+                        <thead>
+                            <tr>
+                                <th>{{ __('Id') }}</th>
+                                <th>{{ __('SKU Code') }}</th>
+                                <th>{{ __('Quantity') }}</th>
+                                <th class="product_name">{{ __('Name') }}</th>
+                                <th class="product_price">{{ __('Price') }}</th>
+                                <th class="product_discount">{{ __('Discount') }}</th>
+                                <th class="product-tax">{{ __('Tax') }}</th>
+                                <th class="product_tax">{{ __('Cost') }}</th>
+                                <th class="product_note">{{ __('Note') }}</th>
+                                <th>{{ __('Action') }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php $data = unserialize($billDetail->getShoppingCart->content); ?>
+                            @if ($data)
+                                @foreach ($data as $item)
+                                    <tr>
+                                        <td>{{ $item->id }}</td>
+                                        <td>{{ $item->options->barcode }}</td>
+                                        <td>
+                                            <a href="#" class="edit-item-detail editable editable-click"
+                                                data-value="{{ $item->qty }}" data-name="qty" data-type="number" min="0"
+                                                data-pk="{{ $billDetail->bill_id }}" data-url=""
+                                                data-title="{{ __('Qty') }}">
+                                                {{ $item->qty }}
+                                            </a>
+                                        </td>
+                                        <td>
+                                            {{ $item->name . ' - ' . $item->options->capa . ' ' . getCapaName($item->options->capa_id) }}
+                                        </td>
+                                        <td><a href="#" class="edit-item-detail editable editable-click"
+                                                data-value="{{ $item->price }}" data-name="price" data-type="number"
+                                                min="0" data-pk="{{ $billDetail->bill_id }}" data-url=""
+                                                data-title="{{ __('Price') }}">
+                                                {{ $item->price }}
+                                            </a>
+                                        </td>
+                                        <td><a href="#" class="edit-item-detail editable editable-click"
+                                                data-value="{{ $item->options->discount }}" data-name="discount"
+                                                data-type="number" min="0" data-pk="53" data-url=""
+                                                data-title="{{ __('Discount') }}">
+                                                {{ $item->options->discount }}
+                                            </a>
+                                        </td>
+                                        <td><a href="#" class="edit-item-detail editable editable-click"
+                                                data-value="{{ $item->options->taxtRate }}" data-name="taxRate"
+                                                data-type="number" min="0" data-pk="53" data-url=""
+                                                data-title="{{ __('taxRate') }}">
+                                                {{ $item->options->taxtRate }}
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="#" class="edit-item-detail editable editable-click"
+                                                data-value="{{ $item->price - $item->options->discount }}"
+                                                data-name="cost" data-type="number" min="0" data-pk="53" data-url=""
+                                                data-title="{{ __('cost') }}">
+                                                {{ $item->price - $item->options->discount }}
+                                            </a>
+                                        </td>
+                                        <td>{{ $item->options->note }}</td>
+                                        <td>
+                                            <span onclick="" class="btn btn-danger btn-xs"
+                                                data-title="{{ __('Delete') }}">
+                                                <i class="fa fa-trash" aria-hidden="true"></i>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endif
+                            <tr id="add-item" class="not-print">
+                                <td colspan="10">
+                                    <button type="button" class="btn btn-flat btn-success" id="add-item-button"
+                                        title="{{ __('Add new') }}"><i class="fa fa-plus"></i>
+                                        {{ __('Add new') }}</button>
+                                    &nbsp;&nbsp;&nbsp;<button style="display: none; margin-right: 50px" type="button"
+                                        class="btn btn-flat btn-warning" id="add-item-button-save" title="Save"><i
+                                            class="fa fa-save"></i> {{ __('Save') }}</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </form>
+
+            <div class="row mt-5 m-0 text-danger">
+                <div class="col-md-6 col-sm-6 col-xs-6 text-center">
+                    <h3 class="font-weight-bold">{{ __('Bill Detail') }}</h3>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-6 text-center">
+                    <h3 class="font-weight-bold">{{ __('Shopping Cart') }}</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <table id="collapse1" class="table table-hover box-body text-wrap table-bordered shadow">
+                        <tbody>
+                            <tr>
+                                <td class="td-title">{{ __('Bill Id') }}:</td>
+                                <td>{{ $billDetail->bill_id }}</td>
+                            </tr>
+                            <tr>
+                                <td class="td-title">{{ __('Channel Sale') }}:</td>
+                                <td class="bg-warning text-white">
+                                    <a href="#" class="bill-editable editable editable-click" data-name="channel_sale"
+                                        data-type="select" data-pk="{{ $billDetail->id }}"
+                                        data-title="{{ __('Channel Sale') }}"
+                                        data-value="{{ $billDetail->channel_sale }}"
+                                        data-url="{{ route('bill-detail.editable-detail') }}"
+                                        data-source="{{ json_encode(BillDetail::$channel) }}">
+                                        {{ $billDetail->channel_sale }}
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td-title">{{ __('Devices') }}:</td>
+                                <td>{{ $billDetail->devices }}</td>
+                            </tr>
+                            <tr>
+                                <td class="td-title">{{ __('Status') }}:</td>
+                                <td class="text-center">
+                                    <a href="#" class="bill-select-status-editable editable editable-click"
+                                        data-name="status" data-type="select" data-pk="{{ $billDetail->id }}"
+                                        data-title="{{ __('Status') }}" data-value="{{ $billDetail->status }}"
+                                        data-url="{{ route('bill-detail.editable-detail') }}"
+                                        data-source="{{ BillDetail::getStatusJson() }}">
+                                        {!! BillDetail::getStatus($billDetail->status) !!}
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-sm-6">
+                    <table class="table table-hover box-body text-wrap table-bordered shadow">
+                        <tbody>
+                            <tr>
+                                <td class="td-title">{{ __('Identifier') }}:</td>
+                                <td>{{ $billDetail->getShoppingCart->identifier }}</td>
+                            </tr>
+                            <tr>
+                                <td class="td-title">{{ __('Instance') }}:</td>
+                                <td>{{ $billDetail->getShoppingCart->instance }}</td>
+                            </tr>
+                            <tr>
+                                <td class="td-title">{{ __('Created At') }}:</td>
+                                <td>{{ $billDetail->getShoppingCart->created_at }}</td>
+                            </tr>
+                            <tr>
+                                <td class="td-title">{{ __('Updated At') }}:</td>
+                                <td>{{ $billDetail->getShoppingCart->updated_at }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-hover box-body text-wrap table-bordered shadow">
+                        <tbody>
+                            <tr>
+                                <td class="td-title">{{ __('$ Currency') }}:
+                                </td>
+                                <td class="text-center">
+                                    <div class="bg-info text-white p-3 rotate-15 d-inline-block my-4">
+                                        {{ __('VND') }}
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td-title"><i class="fas fa-chart-line"></i> {{ __('Exchange Rate') }}:</td>
+                                <td>1</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
             <div class="row mt-5 m-0 text-danger">
                 <div class="col-md-6 col-sm-6 col-xs-6 text-center">
                     <h3 class="font-weight-bold">{{ __('Bill Consignee') }}</h3>
@@ -390,70 +394,71 @@ $bill_customer = $billDetail->getCustomer($billDetail->getBill->id);
                     <h3 class="font-weight-bold">{{ __('Bill Invoice') }}</h3>
                 </div>
             </div>
-            <?php $consignee = $billDetail->getConsignee($billDetail->getBill->id); ?>
+
             <div class="row">
                 {{-- Bill Consignee --}}
+                <?php $consignee = $billDetail->getConsignee($billDetail->getBill->id); ?>
                 <div class="col-sm-6">
                     <table class="table table-hover box-body text-wrap table-bordered shadow">
                         <tbody>
                             <tr>
                                 <td class="td-title-normal">{{ __('Full Name') }}:</td>
                                 <td style="text-align:right" class="data-subtotal">
-                                    <a href="#" class="bill-editable editable editable-click"
-                                        data-value="{{ $consignee ? $consignee->fullname : '' }}" data-name="fullname"
-                                        data-type="text" data-pk="{{ $billDetail->bill_id }}"
-                                        data-url="{{ route('bill-detail.editable-consignee') }}"
-                                        data-title="{{ __('Full Name') }}">
-                                        {{ $consignee ? $consignee->fullname : '' }}
-                                    </a>
+                                    @if ($consignee)
+                                        <a href="#" class="bill-editable editable editable-click"
+                                            data-value="{{ $consignee->fullname }}" data-name="fullname"
+                                            data-type="text" data-pk="{{ $billDetail->bill_id }}"
+                                            data-url="{{ route('bill-detail.editable-consignee') }}"
+                                            data-title="{{ __('Full Name') }}">{{ $consignee->fullname }}</a>
+                                    @endif
                                 </td>
                             </tr>
                             <tr>
                                 <td class="td-title-normal">{{ __('Email') }}:</td>
                                 <td style="text-align:right" class="data-tax">
-                                    <a href="#" class="bill-editable editable editable-click"
-                                        data-value="{{ $consignee ? $consignee->email : '' }}" data-name="email"
-                                        data-type="text" data-pk="{{ $billDetail->bill_id }}"
-                                        data-url="{{ route('bill-detail.editable-consignee') }}"
-                                        data-title="{{ __('Email') }}">
-                                        {{ $consignee ? $consignee->email : '' }}
-                                    </a>
+                                    @if ($consignee)
+                                        <a href="#" class="bill-editable editable editable-click"
+                                            data-value="{{ $consignee->email }}" data-name="email" data-type="text"
+                                            data-pk="{{ $billDetail->bill_id }}"
+                                            data-url="{{ route('bill-detail.editable-consignee') }}"
+                                            data-title="{{ __('Email') }}">{{ $consignee->email }}</a>
+                                    @endif
                                 </td>
                             </tr>
                             <tr>
                                 <td>{{ __('Phone') }}:</td>
                                 <td style="text-align:right">
-                                    <a href="#" class="bill-editable editable editable-click"
-                                        data-value="{{ $consignee ? $consignee->phone : '' }}" data-name="phone"
-                                        data-type="text" data-pk="{{ $billDetail->bill_id }}"
-                                        data-url="{{ route('bill-detail.editable-consignee') }}"
-                                        data-title="{{ __('Phone') }}">
-                                        {{ $consignee ? $consignee->phone : '' }}
-                                    </a>
+                                    @if ($consignee)
+                                        <a href="#" class="bill-editable editable editable-click"
+                                            data-value="{{ $consignee->phone }}" data-name="phone" data-type="text"
+                                            data-pk="{{ $billDetail->bill_id }}"
+                                            data-url="{{ route('bill-detail.editable-consignee') }}"
+                                            data-title="{{ __('Phone') }}">{{ $consignee->phone }}</a>
+                                    @endif
                                 </td>
                             </tr>
                             <tr>
                                 <td>{{ __('Address') }}:</td>
                                 <td style="text-align:right">
-                                    <a href="#" class="bill-editable editable editable-click"
-                                        data-value="{{ $consignee ? $consignee->address : '' }}" data-name="address"
-                                        data-type="text" data-pk="{{ $billDetail->bill_id }}"
-                                        data-url="{{ route('bill-detail.editable-consignee') }}"
-                                        data-title="{{ __('Address') }}">
-                                        {{ $consignee ? $consignee->address : '' }}
-                                    </a>
+                                    @if ($consignee)
+                                        <a href="#" class="bill-editable editable editable-click"
+                                            data-value="{{ $consignee->address }}" data-name="address" data-type="text"
+                                            data-pk="{{ $billDetail->bill_id }}"
+                                            data-url="{{ route('bill-detail.editable-consignee') }}"
+                                            data-title="{{ __('Address') }}">{{ $consignee->address }}</a>
+                                    @endif
                                 </td>
                             </tr>
                             <tr>
                                 <td>{{ __('Note') }}:</td>
                                 <td style="text-align:right">
-                                    <a href="#" class="bill-editable editable editable-click"
-                                        data-value="{{ $consignee ? $consignee->note : '' }}" data-name="note"
-                                        data-type="text" data-pk="{{ $billDetail->bill_id }}"
-                                        data-url="{{ route('bill-detail.editable-consignee') }}"
-                                        data-title="{{ __('Note') }}">
-                                        {{ $consignee ? $consignee->note : '' }}
-                                    </a>
+                                    @if ($consignee)
+                                        <a href="#" class="bill-editable editable editable-click"
+                                            data-value="{{ $consignee->note }}" data-name="note" data-type="text"
+                                            data-pk="{{ $billDetail->bill_id }}"
+                                            data-url="{{ route('bill-detail.editable-consignee') }}"
+                                            data-title="{{ __('Note') }}">{{ $consignee->note }}</a>
+                                    @endif
                                 </td>
                             </tr>
                         </tbody>
@@ -467,73 +472,73 @@ $bill_customer = $billDetail->getCustomer($billDetail->getBill->id);
                             <tr>
                                 <td class="td-title-normal">{{ __('Company') }}:</td>
                                 <td style="text-align:right" class="data-subtotal">
-                                    <a href="#" class="bill-editable editable editable-click"
-                                        data-value="{{ $invoice ? $invoice->company : '' }}" data-name="company"
-                                        data-type="text" data-pk="{{ $billDetail->bill_id }}"
-                                        data-url="{{ route('bill-detail.editable-invoice') }}"
-                                        data-title="{{ __('Company') }}">
-                                        {{ $invoice ? $invoice->company : '' }}
-                                    </a>
+                                    @if ($invoice)
+                                        <a href="#" class="bill-editable editable editable-click"
+                                            data-value="{{ $invoice->company }}" data-name="company" data-type="text"
+                                            data-pk="{{ $billDetail->bill_id }}"
+                                            data-url="{{ route('bill-detail.editable-invoice') }}"
+                                            data-title="{{ __('Company') }}">{{ $invoice->company }}</a>
+                                    @endif
                                 </td>
                             </tr>
                             <tr>
                                 <td class="td-title-normal">{{ __('Taxcode') }}:</td>
                                 <td style="text-align:right" class="data-tax">
-                                    <a href="#" class="edit-item-detail editable editable-click"
-                                        data-value="{{ $invoice ? $invoice->taxcode : '' }}" data-name="taxcode"
-                                        data-type="text" data-pk="{{ $billDetail->bill_id }}"
-                                        data-url="{{ route('bill-detail.editable-invoice') }}"
-                                        data-title="{{ __('Gender') }}">
-                                        {{ $invoice ? $invoice->taxcode : '' }}
-                                    </a>
+                                    @if ($invoice)
+                                        <a href="#" class="bill-editable editable editable-click"
+                                            data-value="{{ $invoice->taxcode }}" data-name="taxcode" data-type="text"
+                                            data-pk="{{ $billDetail->bill_id }}"
+                                            data-url="{{ route('bill-detail.editable-invoice') }}"
+                                            data-title="{{ __('Taxcode') }}">{{ $invoice->taxcode }}</a>
+                                    @endif
                                 </td>
                             </tr>
                             <tr>
                                 <td>{{ __('Email') }}:</td>
                                 <td style="text-align:right">
-                                    <a href="#" class="bill-editable editable editable-click"
-                                        data-value="{{ $invoice ? $invoice->email : '' }}" data-name="email"
-                                        data-type="text" data-pk="{{ $billDetail->bill_id }}"
-                                        data-url="{{ route('bill-detail.editable-invoice') }}"
-                                        data-title="{{ __('Email') }}">
-                                        {{ $invoice ? $invoice->email : '' }}
-                                    </a>
+                                    @if ($invoice)
+                                        <a href="#" class="bill-editable editable editable-click"
+                                            data-value="{{ $invoice->email }}" data-name="email" data-type="text"
+                                            data-pk="{{ $billDetail->bill_id }}"
+                                            data-url="{{ route('bill-detail.editable-invoice') }}"
+                                            data-title="{{ __('Email') }}">{{ $invoice->email }}</a>
+                                    @endif
                                 </td>
                             </tr>
                             <tr>
                                 <td>{{ __('Phone') }}:</td>
                                 <td style="text-align:right">
-                                    <a href="#" class="bill-editable editable editable-click"
-                                        data-value="{{ $invoice ? $invoice->phone : '' }}" data-name="phone"
-                                        data-type="text" data-pk="{{ $billDetail->bill_id }}"
-                                        data-url="{{ route('bill-detail.editable-invoice') }}"
-                                        data-title="{{ __('Phone') }}">
-                                        {{ $invoice ? $invoice->phone : '' }}
-                                    </a>
+                                    @if ($invoice)
+                                        <a href="#" class="bill-editable editable editable-click"
+                                            data-value="{{ $invoice->phone }}" data-name="phone" data-type="text"
+                                            data-pk="{{ $billDetail->bill_id }}"
+                                            data-url="{{ route('bill-detail.editable-invoice') }}"
+                                            data-title="{{ __('Phone') }}">{{ $invoice->phone }}</a>
+                                    @endif
                                 </td>
                             </tr>
                             <tr>
                                 <td>{{ __('Address') }}:</td>
                                 <td style="text-align:right">
-                                    <a href="#" class="bill-editable editable editable-click"
-                                        data-value="{{ $invoice ? $invoice->address : '' }}" data-name="address"
-                                        data-type="text" data-pk="{{ $billDetail->bill_id }}"
-                                        data-url="{{ route('bill-detail.editable-invoice') }}"
-                                        data-title="{{ __('Address') }}">
-                                        {{ $invoice ? $invoice->address : '' }}
-                                    </a>
+                                    @if ($invoice)
+                                        <a href="#" class="bill-editable editable editable-click"
+                                            data-value="{{ $invoice->address }}" data-name="address" data-type="text"
+                                            data-pk="{{ $billDetail->bill_id }}"
+                                            data-url="{{ route('bill-detail.editable-invoice') }}"
+                                            data-title="{{ __('Address') }}">{{ $invoice->address }}</a>
+                                    @endif
                                 </td>
                             </tr>
                             <tr>
                                 <td>{{ __('Note') }}:</td>
                                 <td style="text-align:right">
-                                    <a href="#" class="bill-editable editable editable-click"
-                                        data-value="{{ $invoice ? $invoice->note : '' }}" data-name="note"
-                                        data-type="text" data-pk="{{ $billDetail->bill_id }}"
-                                        data-url="{{ route('bill-detail.editable-invoice') }}"
-                                        data-title="{{ __('Note') }}">
-                                        {{ $invoice ? $invoice->note : '' }}
-                                    </a>
+                                    @if ($invoice)
+                                        <a href="#" class="bill-editable editable editable-click"
+                                            data-value="{{ $invoice->note }}" data-name="note" data-type="text"
+                                            data-pk="{{ $billDetail->bill_id }}"
+                                            data-url="{{ route('bill-detail.editable-invoice') }}"
+                                            data-title="{{ __('Note') }}">{{ $invoice->note }}</a>
+                                    @endif
                                 </td>
                             </tr>
                         </tbody>

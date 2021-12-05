@@ -3,12 +3,17 @@
 use App\Http\Controllers\Backend\Auth\RegisterController;
 use App\Http\Controllers\Backend\Auth\LoginController;
 use App\Http\Controllers\Backend\Auth\ResetPasswordController;
+use App\Http\Controllers\Backend\BillConsigneeController;
 use App\Http\Controllers\Backend\BillController;
+use App\Http\Controllers\Backend\BillCustomerController;
 use App\Http\Controllers\Backend\BillDetailController;
+use App\Http\Controllers\Backend\BillInvoiceController;
 use App\Http\Controllers\Backend\BlogController;
 use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\CapaController;
 use App\Http\Controllers\Backend\CateController;
+use App\Http\Controllers\Backend\HelpContentController;
+use App\Http\Controllers\Backend\HelpController;
 use App\Http\Controllers\Backend\MenuController;
 use App\Http\Controllers\Backend\MenuTypeController;
 use App\Http\Controllers\Backend\PriceController;
@@ -154,4 +159,23 @@ Route::group(['middleware' => ['admin'], 'prefix' => 'admin'], function () {
     Route::post('bill-detail/editable-invoice', [BillDetailController::class, 'editableInvoice'])->name('bill-detail.editable-invoice');
     Route::get('bill-detail/destroy/{id}', [BillDetailController::class, 'destroy'])->name('bill-detail.destroy');
     Route::resource('bill-detail', BillDetailController::class)->only($only_action_resource);
+
+    // Bill Consignee
+    Route::get('bill-consignee', [BillConsigneeController::class, 'index'])->name('bill-consignee.index');
+
+    // Bill Customer
+    Route::get('bill-customer', [BillCustomerController::class, 'index'])->name('bill-customer.index');
+
+    // Bill Invoice
+    Route::get('bill-invoice', [BillInvoiceController::class, 'index'])->name('bill-invoice.index');
+
+    // Help
+    Route::get('help/update-status/{id}', [HelpController::class, 'updateStatus'])->name('help.status');
+    Route::get('help/destroy/{id}', [HelpController::class, 'destroy'])->name('help.destroy');
+    Route::resource('help', HelpController::class)->only($only_action_resource);
+
+    // Help content
+    Route::get('help-content/update-status/{id}', [HelpContentController::class, 'updateStatus'])->name('help-content.status');
+    Route::get('help-content/destroy/{id}', [HelpContentController::class, 'destroy'])->name('help-content.destroy');
+    Route::resource('help-content', HelpContentController::class)->only($only_action_resource);
 });

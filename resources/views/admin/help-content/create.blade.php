@@ -1,15 +1,15 @@
 <?php
-$title = $brand->name;
+$title = __('Help Content - Create');
 $status = getStatus();
-$main_link = 'brand';
+$main_link = 'help-content';
 ?>
 @extends('admin.layouts.main')
 @section('title', $title)
-    
+
 @section('content')
     <div class="container">
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">{{ __('Brand') }}</h1>
+            <h1 class="h3 mb-0 text-gray-800">{{ __('Help Content') }}</h1>
         </div>
         <div class="row justify-content-center">
             <div class="col-md-12">
@@ -32,59 +32,43 @@ $main_link = 'brand';
                     @endif
                     <div class="card-header">
                         {{ $title }}
-                        <a href="{{ route($main_link . '.index') }}" class="float-right">{{ __('Brands') }}</a>
+                        <a href="{{ route($main_link . '.index') }}" class="float-right">{{ __('Help Contents') }}</a>
                     </div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route($main_link . '.update', $brand->id) }}"
-                            enctype="multipart/form-data">
+                        <form method="POST" action="{{ route($main_link . '.store') }}">
                             @csrf
-                            @method('PUT')
 
                             <div class="row">
-                                <div class="col-md-6">
-                                    <label for="name" class="col-form-label text-md-right">
-                                        {{ __('Name') }}
+                                <div class="col-md-12">
+                                    <label for="help_id" class="col-form-label text-md-right">
+                                        {{ __('Help') }}
                                     </label>
                                     <div>
-                                        <input id="name" type="text"
-                                            class="form-control @error('name') is-invalid @enderror" name="name"
-                                            value="{{ old('name', $brand->name) }}" required autocomplete="name"
-                                            autofocus>
-
-                                        @error('name')
+                                        <select name="help_id" class="form-control" aria-label="Default select" required>
+                                            <option>{{ __('---Choose---') }}</option>
+                                            @foreach ($help_list as $h)
+                                                <option value="{!! $h->id !!}"
+                                                    class="@error('help_id') is-invalid @enderror">
+                                                    {!! $h->title !!}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('help_id')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
                                     </div>
 
-                                    <label for="name_seo" class="col-form-label text-md-right">
-                                        {{ __('Name SEO') }}
+                                    <label for="title" class="col-form-label text-md-right">
+                                        {{ __('Title') }}
                                     </label>
                                     <div>
-                                        <input id="name" type="text"
-                                            class="form-control @error('name_seo') is-invalid @enderror" name="name_seo"
-                                            value="{{ old('name_seo', $brand->name_seo) }}" required
-                                            autocomplete="name_seo" autofocus>
-
-                                        @error('name_seo')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-
-                                    <label for="alias" class="col-form-label text-md-right">
-                                        {{ __('Alias') }}
-                                    </label>
-                                    <div>
-                                        <input id="name" type="text"
-                                            class="form-control @error('alias') is-invalid @enderror" name="alias"
-                                            value="{{ old('alias', $brand->alias) }}" required autocomplete="alias"
-                                            autofocus>
-
-                                        @error('alias')
+                                        <input id="title" type="text"
+                                            class="form-control @error('title') is-invalid @enderror" name="title"
+                                            value="{{ old('title') }}" required autocomplete="title" autofocus>
+                                        @error('title')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -95,11 +79,9 @@ $main_link = 'brand';
                                         {{ __('Priority') }}
                                     </label>
                                     <div>
-                                        <input id="name" type="text"
+                                        <input id="priority" type="text"
                                             class="form-control @error('priority') is-invalid @enderror" name="priority"
-                                            value="{{ old('priority', $brand->priority) }}" required
-                                            autocomplete="priority" autofocus>
-
+                                            value="{{ old('priority') }}" required autocomplete="priority" autofocus>
                                         @error('priority')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -114,7 +96,6 @@ $main_link = 'brand';
                                         <select name="status" class="form-control" aria-label="Default select" required>
                                             @foreach (getStatus() as $k => $t)
                                                 <option value="{!! $k !!}"
-                                                    {{ $brand->status == $k ? 'selected' : '' }}
                                                     class="@error('t') is-invalid @enderror">
                                                     {!! $t !!}
                                                 </option>
@@ -127,19 +108,14 @@ $main_link = 'brand';
                                         @enderror
                                     </div>
 
-                                    @include('helper.ckfinder', ['name' => 'image', 'value' => $brand->image])
-                                </div>
-
-                                <div class="col-md-6">
-                                    <label for="province_id"
-                                        class="col-form-label text-md-right">{{ __('Description') }}</label>
-
+                                    <label for="content" class="col-form-label text-md-right">
+                                        {{ __('Content') }}
+                                    </label>
                                     <div>
                                         <div class="form-group">
-                                            <textarea class="ckeditor form-control"
-                                                name="description">{!! $brand->description !!}</textarea>
+                                            <textarea class="ckeditor form-control" name="content"></textarea>
                                         </div>
-                                        @error('description')
+                                        @error('content')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -147,23 +123,11 @@ $main_link = 'brand';
                                     </div>
                                 </div>
                             </div>
-                            @include('helper.ckeditor')
 
-                            <div class="form-group row mb-0">
-                                <div class="col-md-12">
-                                    @if ($brand->image)
-                                        <div class="border border-danger mb-5 pt-5 pb-5">
-                                            <img src="{{ $brand->image }}" class="rounded mx-auto d-block"
-                                                alt="{{ $brand->name }}" width="200" height="200">
-                                        </div>
-                                    @endif
-                                </div>
-                            </div>
-
-                            <div class="form-group row mb-0">
-                                <div class="col-md-6 offset-md-4">
+                            <div class="form-group row mb-0 mt-5">
+                                <div class="col-md-6 offset-md-4 text-center">
                                     <button type="submit" class="btn btn-primary">
-                                        {{ __('Update') }}
+                                        {{ __('Create') }}
                                     </button>
                                 </div>
                             </div>
@@ -174,3 +138,4 @@ $main_link = 'brand';
         </div>
     </div>
 @endsection
+@include('helper.ckeditor')

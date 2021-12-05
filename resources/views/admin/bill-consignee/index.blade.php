@@ -1,15 +1,16 @@
 <?php
 
-$title = __('Brands');
-$head_table = ['#', 'Id', 'Name', 'Priority', 'Status', 'Created At', 'Updated At', 'Action'];
-$main_link = 'brand';
+$title = __('Bill Consignee');
+$head_table = ['#', 'Bill Id', 'Fulllname', 'Email', 'Phone', 'Address', 'Note', 'Created At', 'Updated At'];
+$main_link = 'bill-consignee';
 ?>
 @extends('admin.layouts.main')
 @section('title', $title)
 
 @section('content')
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800"><a href="{{ route($main_link . '.index') }}">{{ $title }}</a></h1>
+        <h1 class="h3 mb-0 text-gray-800"><a href="{{ route($main_link . '.index') }}">{{ __('Bill Consignees') }}</a>
+        </h1>
     </div>
     <div class="card mx-auto">
         @if (Session::has('message'))
@@ -26,11 +27,6 @@ $main_link = 'brand';
             </div>
         @endif
         <div class="card-header border-bottom-primary">
-            <div class="row">
-                <div class="col-md-12 col-sm-12 col-xs-12">
-                    <a href="{!! route($main_link . '.create') !!}" class="float-right">{{ __('Create') }}</a>
-                </div>
-            </div>
         </div>
         <div class="card shadow mb-4">
             <div class="card-body">
@@ -47,24 +43,22 @@ $main_link = 'brand';
                             </tr>
                         </tfoot>
                         <tbody>
-                            @if ($brands)
-                                @foreach ($brands as $k => $node)
+                            @if ($consignees)
+                                @foreach ($consignees as $k => $node)
                                     <?php $k++; ?>
                                     <tr>
-                                        <th scope="row">{!! $k !!}</th>
-                                        <th>{{ $node->id }}</th>
-                                        <th>{!! $node->name !!}</th>
-                                        <th>{{ $node->priority }}</th>
-                                        <td>
-                                            @include('helper.stick', ['status' => $node->status,
-                                            'id' => $node->id,
-                                            'uri' => route($main_link.'.status', $node->id)])
+                                        <td>{{ $node->id }}</td>
+                                        <th>{!! $node->bill_id !!}</th>
+                                        <td>{{ $node->fullname }}</td>
+                                        <td>{{ $node->email }}</td>
+                                        <td>{{ $node->phone }}</td>
+                                        <td>{{ $node->address }}</td>
+                                        <td>{{ $node->note }}</td>
+                                        <td class="created_at-{{ $node->id }}" data-id="{{ $node->id }}">
+                                            {{ $node->created_at }}
                                         </td>
-                                        <td>{{ $node->created_at }}</td>
                                         <td class="updated_at-{{ $node->id }}" data-id="{{ $node->id }}">
-                                            {{ $node->updated_at }}</td>
-                                        <td>
-                                            @include('helper.action', ['uri' => $main_link, 'id' => $node->id])
+                                            {{ $node->updated_at }}
                                         </td>
                                     </tr>
                                 @endforeach
@@ -76,4 +70,3 @@ $main_link = 'brand';
         </div>
     </div>
 @endsection
-@include('helper.be-crud')

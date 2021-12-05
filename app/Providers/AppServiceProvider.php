@@ -448,6 +448,7 @@ class AppServiceProvider extends ServiceProvider
                 'status',
                 'note'
             ])
+            ->orderBy('priority', 'ASC')
             ->get();
     }
 

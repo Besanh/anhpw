@@ -12,7 +12,7 @@
                 {!!$message!!}
             </div>
             <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">{{ __('Cancel') }}</button>
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">{{ __('Close') }}</button>
             </div>
         </div>
     </div>
