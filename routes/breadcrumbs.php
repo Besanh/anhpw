@@ -32,7 +32,13 @@ Breadcrumbs::for('cart-complete', function (BreadcrumbTrail $trail) {
 });
 
 // Home > Store
-Breadcrumbs::for('store', function(BreadcrumbTrail $trail){
+Breadcrumbs::for('store', function (BreadcrumbTrail $trail) {
     $trail->parent('home');
     $trail->push('Store');
+});
+
+// Home > Help
+Breadcrumbs::for('help', function (BreadcrumbTrail $trail) {
+    $trail->parent('home');
+    $trail->push('Help');
 });

@@ -6,8 +6,9 @@ $seo = metaData('all_brand_page'); ?>
     <meta name="robots" content="{{ $seo ? $seo->seo_robot : config('app.seo_robot') }}">
     <link rel="canonical" href="{{ url()->current() }}">
 @endpush
+@extends('frontend.layouts.main')
 @section('title', __('All Brand'))
-    @extends('frontend.layouts.main')
+
 @section('content')
     <div class="container">
         <!-- Banner -->

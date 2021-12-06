@@ -9,7 +9,9 @@ $main_link = 'help-content';
 
 @section('content')
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800"><a href="{{ route($main_link . '.index') }}">{{ $title }}</a></h1>
+        <h1 class="h3 mb-0 text-gray-800"><a
+                href="{{ isset($help_id) ? route($main_link . '.view-topic', ['help_id' => $help_id]) : route($main_link . '.index') }}">{{ $title }}</a>
+        </h1>
     </div>
     <div class="card mx-auto">
         @if (Session::has('message'))

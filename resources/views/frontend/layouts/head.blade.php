@@ -31,3 +31,6 @@
 
 <!-- Store -->
 @stack('link-store')
+
+<!-- Help -->
+@stack('link-help')

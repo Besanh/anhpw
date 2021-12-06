@@ -8,6 +8,7 @@
 @stack('script-cart')
 @stack('script-cart-notify')
 @stack('script-store')
+@stack('script-help')
 
 
 <script src="{{ asset('js/jquery.pjax.js') }}"></script>

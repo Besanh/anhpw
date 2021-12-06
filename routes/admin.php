@@ -175,6 +175,7 @@ Route::group(['middleware' => ['admin'], 'prefix' => 'admin'], function () {
     Route::resource('help', HelpController::class)->only($only_action_resource);
 
     // Help content
+    Route::get('help-content/view-topic/{help_id}', [HelpContentController::class, 'viewTopic'])->name('help-content.view-topic')->whereNumber(['help_id']);
     Route::get('help-content/update-status/{id}', [HelpContentController::class, 'updateStatus'])->name('help-content.status');
     Route::get('help-content/destroy/{id}', [HelpContentController::class, 'destroy'])->name('help-content.destroy');
     Route::resource('help-content', HelpContentController::class)->only($only_action_resource);

@@ -513,15 +513,13 @@ if (!function_exists('subString')) {
 if (!function_exists('metaData')) {
     function metaData($param)
     {
-        return Cache::remember('metaData', timeToLive(), function () use ($param) {
-            $query = SeoPage::select(['title', 'seo_desc', 'seo_keyword', 'seo_robot']);
-            if (is_numeric($param)) {
-                $query->where('pid', $param);
-            } else {
-                $query->where('page_name', $param);
-            }
-            return $query->first();
-        });
+        $query = SeoPage::select(['title', 'seo_desc', 'seo_keyword', 'seo_robot']);
+        if (is_numeric($param)) {
+            $query->where('pid', $param);
+        } else {
+            $query->where('page_name', $param);
+        }
+        return $query->first();
     }
 }
 

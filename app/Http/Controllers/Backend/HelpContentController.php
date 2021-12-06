@@ -28,7 +28,7 @@ class HelpContentController extends Controller
      */
     public function create()
     {
-        $help_list = Help::where('status', '=', 1)->orderBY('id', 'DESC')->get();
+        $help_list = Help::where('status', '=', 1)->get();
         return view('admin.help-content.create', compact('help_list'));
     }
 
@@ -66,7 +66,7 @@ class HelpContentController extends Controller
      */
     public function edit(HelpContent $helpContent)
     {
-        $help_list = Help::where('status', '=', 1)->orderBY('id', 'DESC')->get();
+        $help_list = Help::where('status', '=', 1)->get();
         return view('admin.help-content.edit', compact(['helpContent', 'help_list']));
     }
 
@@ -113,5 +113,15 @@ class HelpContentController extends Controller
             return response()->json($msg);
         }
         return redirect()->back()->with('message', 'Nothing change');
+    }
+
+    /**
+     * Xem danh sach cau hoi theo topic
+     */
+    public function viewTopic(int $help_id)
+    {
+        $help_contents = HelpContent::where('help_id', $help_id)->orderBy('priority', 'DESC')->get();
+
+        return view('admin.help-content.index', compact(['help_contents', 'help_id']));
     }
 }

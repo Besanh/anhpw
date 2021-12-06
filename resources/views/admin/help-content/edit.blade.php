@@ -9,7 +9,7 @@ $main_link = 'help-content';
 @section('content')
     <div class="container">
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">{{ __('Help Content') }}</h1>
+            <h1 class="h3 mb-0 text-gray-800">{{ __('Title - ' . $title) }}</h1>
         </div>
         <div class="row justify-content-center">
             <div class="col-md-12">

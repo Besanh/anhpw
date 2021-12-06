@@ -53,7 +53,7 @@ $main_link = 'help';
                                     <tr>
                                         <th scope="row">{!! $k !!}</th>
                                         <th>{{ $node->id }}</th>
-                                        <th>{!! $node->title !!}</th>
+                                        <td>{!! $node->title !!}</td>
                                         <td>
                                             @include('helper.stick', ['status' => $node->status,
                                             'id' => $node->id,
@@ -63,6 +63,10 @@ $main_link = 'help';
                                         <td class="updated_at-{{ $node->id }}" data-id="{{ $node->id }}">
                                             {{ $node->updated_at }}</td>
                                         <td>
+                                            <a class="btn btn-info"
+                                                href="{{ route('help-content.view-topic', $node->id) }}">
+                                                <i class="fa fa-list-alt"></i>
+                                            </a>
                                             @include('helper.action', ['uri' => $main_link, 'id' => $node->id])
                                         </td>
                                     </tr>
