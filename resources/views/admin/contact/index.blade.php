@@ -1,15 +1,15 @@
 <?php
 
-$title = __('Capacities - Index');
-$head_table = ['#', 'Name', 'Status', 'Created At', 'Updated At', 'Action'];
-$main_link = 'capa';
+$title = __('Contact - Index');
+$head_table = ['#', 'Rep ID', 'Name', 'Email', 'Subject', 'Status', 'Created At', 'Updated At', 'Action'];
+$main_link = 'contact';
 ?>
 @extends('admin.layouts.main')
 @section('title', $title)
 
 @section('content')
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800"><a href="{{ route($main_link . '.index') }}">{{ __('Capacities') }}</a></h1>
+        <h1 class="h3 mb-0 text-gray-800"><a href="{{ route($main_link . '.index') }}">{{ __('Contact') }}</a></h1>
     </div>
     <div class="card mx-auto">
         @if (Session::has('message'))
@@ -26,11 +26,6 @@ $main_link = 'capa';
             </div>
         @endif
         <div class="card-header border-bottom-primary">
-            <div class="row">
-                <div class="col-md-12 col-sm-12 col-xs-12">
-                    <a href="{!! route($main_link . '.create') !!}" class="float-right">{{ __('Create') }}</a>
-                </div>
-            </div>
         </div>
         <div class="card shadow mb-4">
             <div class="card-body">
@@ -47,12 +42,15 @@ $main_link = 'capa';
                             </tr>
                         </tfoot>
                         <tbody>
-                            @if ($capa)
-                                @foreach ($capa as $k => $node)
+                            @if ($contacts)
+                                @foreach ($contacts as $k => $node)
                                     <?php $k++; ?>
                                     <tr>
                                         <th scope="row">{!! $k !!}</th>
-                                        <th>{!! $node->name !!}</th>
+                                        <td>{{ $node->rep_id }}</td>
+                                        <td>{{ $node->name }}</td>
+                                        <td>{{ $node->email }}</td>
+                                        <td>{{ $node->subject }}</td>
                                         <td>
                                             @include('helper.stick', ['status' => $node->status,
                                             'id' => $node->id,

@@ -12,6 +12,7 @@ use App\Http\Controllers\Backend\BlogController;
 use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\CapaController;
 use App\Http\Controllers\Backend\CateController;
+use App\Http\Controllers\Backend\ContactController;
 use App\Http\Controllers\Backend\HelpContentController;
 use App\Http\Controllers\Backend\HelpController;
 use App\Http\Controllers\Backend\MenuController;
@@ -183,4 +184,9 @@ Route::group(['middleware' => ['admin'], 'prefix' => 'admin'], function () {
     Route::get('help-content/{help_content}/edit/{help_id?}', [HelpContentController::class, 'edit'])->name('help-content.edit')->whereNumber(['help_id']);
     Route::get('help-content/{help_content}/show/{help_id?}', [HelpContentController::class, 'show'])->name('help-content.show')->whereNumber(['help_id']);
     Route::resource('help-content', HelpContentController::class)->only('index', 'update', 'store');
+
+    // Contact
+    Route::get('contact/update-status/{id}', [ContactController::class, 'updateStatus'])->name('contact.status');
+    Route::get('contact/destroy/{id}', [ContactController::class, 'destroy'])->name('contact.destroy');
+    Route::resource('contact', ContactController::class)->only($only_action_resource);
 });

@@ -69,11 +69,17 @@ class CreateAreaInfo extends Migration
 
         Schema::create('contacts', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name', 100);
-            $table->string('email', 100);
-            $table->string('subject');
+            $table->integer('rep_id')->default(0);
+            $table->string('name', 125);
+            $table->string('email', 125);
             $table->string('phone', 15);
-            $table->text('message')->nullable();
+            $table->string('address');
+            $table->string('subject');
+            $table->text('content');
+            $table->text('reply')->nullable();
+            $table->integer('status')->default(0);
+            $table->integer('created_by')->default(0)->nullable();
+            $table->integer('updated_by')->default(0)->nullable();
             $table->timestamps();
             $table->engine = self::$myisam;
         });

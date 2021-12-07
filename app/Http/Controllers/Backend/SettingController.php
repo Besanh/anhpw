@@ -42,10 +42,10 @@ class SettingController extends Controller
         $val = null;
         if ($request->type == 'json') {
             $val = $this->proccessValue($request->key_setting, $request->value_setting);
-        } elseif ($request->type == 'image') {
+        } elseif ($request->type == 'image' || $request->type == 'text') {
             $val = $request->value_setting;
         }
-        
+
         if ($request->validated()) {
             $setting->create([
                 'name' => $request->name,
@@ -93,7 +93,7 @@ class SettingController extends Controller
         $val = null;
         if ($request->type == 'json') {
             $val = $this->proccessValue($request->key_setting, $request->value_setting);
-        } elseif ($request->type == 'image') {
+        } elseif ($request->type == 'image' || $request->type == 'text') {
             $val = $request->value_setting;
         }
 

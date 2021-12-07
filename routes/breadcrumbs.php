@@ -42,3 +42,9 @@ Breadcrumbs::for('help', function (BreadcrumbTrail $trail) {
     $trail->parent('home');
     $trail->push('Help');
 });
+
+// Home > Contact
+Breadcrumbs::for('contact', function (BreadcrumbTrail $trail) {
+    $trail->parent('home');
+    $trail->push('Contact');
+});

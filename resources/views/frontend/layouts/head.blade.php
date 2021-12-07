@@ -34,3 +34,6 @@
 
 <!-- Help -->
 @stack('link-help')
+
+<!-- Contact -->
+@stack('link-contact')
