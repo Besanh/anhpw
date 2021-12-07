@@ -50,6 +50,7 @@ Route::group(['middleware' => ['admin'], 'prefix' => 'admin'], function () {
 
     // Home
     Route::get('dashboard', [HomeController::class, 'index'])->name('admin.dashboard');
+    Route::get('', [HomeController::class, 'index'])->name('admin.default');
 
     // Menu
     Route::get('menu/{alias}', [MenuController::class, 'index'])->name('menu.index');
@@ -178,5 +179,8 @@ Route::group(['middleware' => ['admin'], 'prefix' => 'admin'], function () {
     Route::get('help-content/view-topic/{help_id}', [HelpContentController::class, 'viewTopic'])->name('help-content.view-topic')->whereNumber(['help_id']);
     Route::get('help-content/update-status/{id}', [HelpContentController::class, 'updateStatus'])->name('help-content.status');
     Route::get('help-content/destroy/{id}', [HelpContentController::class, 'destroy'])->name('help-content.destroy');
-    Route::resource('help-content', HelpContentController::class)->only($only_action_resource);
+    Route::get('help-content/create/{help_id?}', [HelpContentController::class, 'create'])->name('help-content.create')->whereNumber(['help_id']);
+    Route::get('help-content/{help_content}/edit/{help_id?}', [HelpContentController::class, 'edit'])->name('help-content.edit')->whereNumber(['help_id']);
+    Route::get('help-content/{help_content}/show/{help_id?}', [HelpContentController::class, 'show'])->name('help-content.show')->whereNumber(['help_id']);
+    Route::resource('help-content', HelpContentController::class)->only('index', 'update', 'store');
 });

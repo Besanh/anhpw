@@ -79,5 +79,13 @@
             }, 200);
         });
 
+        // Filter search by topic
+        $(".search-topic").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $(".tab-pane .body-topic").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+
     </script>
 @endpush

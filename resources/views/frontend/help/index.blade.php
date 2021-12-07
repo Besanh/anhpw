@@ -17,7 +17,7 @@ $title = $seo ? $seo->title : config('app.name');
 @section('content')
     <!-- Breadcrumb -->
     {{ Breadcrumbs::render('help') }}
-    
+
     <!-- Help -->
     <div class="container g-pt-100 g-pb-70">
         <div class="row g-mb-20">
@@ -48,7 +48,7 @@ $title = $seo ? $seo->title : config('app.name');
                         <i class="g-color-gray-dark-v4 g-font-size-12 icon-education-045 u-line-icon-pro"></i>
                     </span>
                     <input
-                        class="form-control u-form-control g-brd-around g-brd-gray-light-v3 g-brd-primary--focus g-font-size-13 g-rounded-3 g-pl-35"
+                        class="search-topic form-control u-form-control g-brd-around g-brd-gray-light-v3 g-brd-primary--focus g-font-size-13 g-rounded-3 g-pl-35"
                         type="search" placeholder="{{ __('Type to find answer') }}">
                 </form>
                 <!-- End Search Form -->
@@ -67,7 +67,7 @@ $title = $seo ? $seo->title : config('app.name');
                                     @foreach ($itm->getHelpContent as $j => $node)
                                         <?php $stt++; ?>
                                         <div id="accordion-12-{{ $j }}"
-                                            class="u-accordion u-accordion-color-primary" role="tablist"
+                                            class="body-topic u-accordion u-accordion-color-primary" role="tablist"
                                             aria-multiselectable="true">
                                             <!-- Card -->
                                             <div

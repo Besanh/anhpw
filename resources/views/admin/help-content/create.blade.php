@@ -32,7 +32,8 @@ $main_link = 'help-content';
                     @endif
                     <div class="card-header">
                         {{ $title }}
-                        <a href="{{ route($main_link . '.index') }}" class="float-right">{{ __('Help Contents') }}</a>
+                        <a href="{{ isset($help_id) ? route($main_link . '.view-topic', ['help_id' => $help_id]) : route($main_link . '.index') }}"
+                            class="float-right">{{ __('Help Contents') }}</a>
                     </div>
 
                     <div class="card-body">

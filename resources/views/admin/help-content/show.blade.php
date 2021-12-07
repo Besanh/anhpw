@@ -39,7 +39,8 @@ $main_link = 'help-content';
         <div class="card-header border-bottom-primary">
             <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
-                    <a href="{!! route($main_link . '.index') !!}" class="float-right">{{ __('Help Contents') }}</a>
+                    <a href="{{ isset($help_id) ? route($main_link . '.view-topic', ['help_id' => $help_id]) : route($main_link . '.index') }}"
+                        class="float-right">{{ __('Help Contents') }}</a>
                 </div>
             </div>
         </div>
@@ -54,7 +55,19 @@ $main_link = 'help-content';
                                         <th>{{ $head }}</th>
                                         <td>
                                             @if ($head == 'Action')
-                                                @include('helper.action', ['uri' => $main_link, 'id' => $helpContent->id])
+                                                <a class="btn btn-success"
+                                                    href="{{ isset($help_id) ? route($main_link . '.edit', ['help_content' => $helpContent->id, 'help_id' => $help_id]) : route($main_link . '.edit', $helpContent->id) }}">
+                                                    <i class="fa fa-paint-brush" aria-hidden="true"></i>
+                                                </a>
+                                                <a class="btn btn-warning"
+                                                    href="{{ route($main_link . '.show', ['help_content' => $helpContent->id, 'help_id' => $help_id]) }}">
+                                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                                </a>
+                                                <a class="delete-item btn btn-danger" data-id={{ $helpContent->id }}
+                                                    onclick="return confirm('Are you sure?')"
+                                                    href="{{ route($main_link . '.destroy', $helpContent->id) }}">
+                                                    <i class="fa fa-trash"></i>
+                                                </a>
                                             @else
                                                 {{ $item }}
                                             @endif

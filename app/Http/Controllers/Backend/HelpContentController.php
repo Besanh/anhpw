@@ -26,10 +26,16 @@ class HelpContentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(int $help_id = null)
     {
-        $help_list = Help::where('status', '=', 1)->get();
-        return view('admin.help-content.create', compact('help_list'));
+        $query = Help::where('status', '=', 1);
+        if (is_numeric($help_id)) {
+            $query->where(function ($query) use ($help_id) {
+                $query->where('id', $help_id);
+            });
+        }
+        $help_list = $query->get();
+        return view('admin.help-content.create', compact(['help_list', 'help_id']));
     }
 
     /**
@@ -53,9 +59,9 @@ class HelpContentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(HelpContent $helpContent)
+    public function show(HelpContent $helpContent, int $help_id = null)
     {
-        return view('admin.help-content.show', compact('helpContent'));
+        return view('admin.help-content.show', compact(['helpContent', 'help_id']));
     }
 
     /**
@@ -64,10 +70,16 @@ class HelpContentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(HelpContent $helpContent)
+    public function edit(HelpContent $helpContent, int $help_id = null)
     {
-        $help_list = Help::where('status', '=', 1)->get();
-        return view('admin.help-content.edit', compact(['helpContent', 'help_list']));
+        $query = Help::where('status', '=', 1);
+        if (is_numeric($help_id)) {
+            $query->where(function ($query) use ($help_id) {
+                $query->where('id', $help_id);
+            });
+        }
+        $help_list = $query->get();
+        return view('admin.help-content.edit', compact(['helpContent', 'help_list', 'help_id']));
     }
 
     /**

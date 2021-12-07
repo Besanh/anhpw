@@ -15,22 +15,20 @@ $main_link = 'help-content';
     </div>
     <div class="card mx-auto">
         @if (Session::has('message'))
-            <div>
-                <div class="alert alert-success">
-                    {!! Session::get('message') !!}
-                </div>
+            <div class="alert alert-success">
+                {!! Session::get('message') !!}
             </div>
         @elseif(Session::has('message_error'))
-            <div>
-                <div class="alert alert-danger">
-                    {!! Session::get('message_error') !!}
-                </div>
+            <div class="alert alert-danger">
+                {!! Session::get('message_error') !!}
             </div>
         @endif
         <div class="card-header border-bottom-primary">
             <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
-                    <a href="{!! route($main_link . '.create') !!}" class="float-right">{{ __('Create') }}</a>
+                    <a href="{!! isset($help_id) ? route($main_link . '.create', ['help_id' => $help_id]) : route($main_link . '.create') !!}" class="float-right">
+                        {{ __('Create') }}
+                    </a>
                 </div>
             </div>
         </div>
@@ -65,7 +63,19 @@ $main_link = 'help-content';
                                         <td class="updated_at-{{ $node->id }}" data-id="{{ $node->id }}">
                                             {{ $node->updated_at }}</td>
                                         <td>
-                                            @include('helper.action', ['uri' => $main_link, 'id' => $node->id])
+                                            <a class="btn btn-success"
+                                                href="{{ isset($help_id) ? route($main_link . '.edit', ['help_content' => $node->id, 'help_id' => $help_id]) : route($main_link . '.edit', $node->id) }}">
+                                                <i class="fa fa-paint-brush" aria-hidden="true"></i>
+                                            </a>
+                                            <a class="btn btn-warning"
+                                                href="{{ route($main_link . '.show', ['help_content' => $node->id, 'help_id' => $help_id]) }}">
+                                                <i class="fa fa-eye" aria-hidden="true"></i>
+                                            </a>
+                                            <a class="delete-item btn btn-danger" data-id={{ $node->id }}
+                                                onclick="return confirm('Are you sure?')"
+                                                href="{{ route($main_link . '.destroy', $node->id) }}">
+                                                <i class="fa fa-trash"></i>
+                                            </a>
                                         </td>
                                     </tr>
                                 @endforeach
