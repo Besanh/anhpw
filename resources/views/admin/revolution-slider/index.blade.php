@@ -1,7 +1,7 @@
 <?php
 
 $title = __('Revolution Slider');
-$head_table = ['#', 'Image', 'Status', 'Action'];
+$head_table = ['#', 'Image', 'Status', 'Start Date', 'End Date', 'Action'];
 $main_link = 'revolution-slider';
 ?>
 @extends('admin.layouts.main')
@@ -65,6 +65,11 @@ $main_link = 'revolution-slider';
                                             'uri' => route($main_link.'.status', $node->id)])
                                         </td>
                                         <td>
+                                            {{ $node->start_date }}
+                                        </td>
+                                        <td>
+                                            {{ $node->end_date }}
+                                        <td>
                                             @include('helper.action', ['uri' => $main_link, 'id' => $node->id])
                                         </td>
                                     </tr>
@@ -89,11 +94,13 @@ $main_link = 'revolution-slider';
                 var img_list = [];
                 $('.sort-table tr').each(function() {
                     var id = $(this).attr('data-node');
-                    var priority = $(this).data('id')
-                    img_list.push({
-                        'id': id,
-                        'priority': priority
-                    })
+                    if (id) {
+                        var priority = $(this).data('id')
+                        img_list.push({
+                            'id': id,
+                            'priority': priority
+                        })
+                    }
                 })
                 $.ajax({
                     url: $('.save-sort').attr('data-href'),

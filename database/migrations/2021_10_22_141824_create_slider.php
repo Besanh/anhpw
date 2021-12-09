@@ -26,8 +26,8 @@ class CreateSlider extends Migration
             $table->string('link')->nullable();
             $table->integer('priority')->default(0);
             $table->string('status')->default(0);
-            $table->dateTime('start_date');
-            $table->dateTime('end_date');
+            $table->timestamp('start_date');
+            $table->timestamp('end_date');
             $table->timestamps();
         });
     }

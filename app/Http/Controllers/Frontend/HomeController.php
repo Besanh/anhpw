@@ -6,15 +6,21 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\RevolutionSlider;
 use App\Models\Setting;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
 
 class HomeController extends Controller
 {
     public function index()
     {
+        $now = Carbon::createFromFormat('Y-m-d H:i:s', now());
         $model_product = new Product();
-        Cache::remember('sliders', timeToLive(), function () {
-            return RevolutionSlider::where('status', 1)
+        Cache::remember('sliders', timeToLive(), function () use ($now) {
+            return RevolutionSlider::where([
+                ['status', '=', 1],
+                ['start_date', '<=', $now],
+                ['end_date', '>=', $now]
+            ])
                 ->select(['image', 'link', 'type', 'title', 'type_writter', 'btn_name'])
                 ->orderBy('priority', 'DESC')
                 ->get();

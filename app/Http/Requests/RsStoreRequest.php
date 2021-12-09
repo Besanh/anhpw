@@ -33,7 +33,9 @@ class RsStoreRequest extends FormRequest
             'btn_name' => 'string|nullable',
             'link' => 'string|nullable',
             'priority' => 'integer',
-            'status' => 'integer'
+            'status' => 'integer',
+            'start_date' => 'date_format:Y-m-d H:i:s',
+            'end_date' => 'date_format:Y-m-d H:i:s'
         ];
     }
 }
