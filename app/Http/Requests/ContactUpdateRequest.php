@@ -13,7 +13,7 @@ class ContactUpdateRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,8 @@ class ContactUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'reply' => 'string|nullable',
+            'is_send_email' => 'accepted'
         ];
     }
 }

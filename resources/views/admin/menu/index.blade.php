@@ -1,15 +1,16 @@
 <?php
 use App\Models\Menu;
 
-$title = 'Menu - Index';
+$title = __('Menu - Index');
 $head_table = ['#', 'Id', 'Type', 'Name', 'Priority', 'Status', 'Action'];
 $main_link = 'menu';
 ?>
+@extends('admin.layouts.main')
 @section('title', $title)
-    @extends('admin.layouts.main')
+
 @section('content')
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800"><a href="{{ route($main_link . '.index', $alias) }}">{{ 'Menus' }}</a>
+        <h1 class="h3 mb-0 text-gray-800"><a href="{{ route($main_link . '.index', $alias) }}">{{ __('Menus') }}</a>
         </h1>
     </div>
     <div class="card mx-auto">
@@ -29,7 +30,7 @@ $main_link = 'menu';
         <div class="card-header border-bottom-primary">
             <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
-                    <a href="{!! route($main_link . '.create', $alias) !!}" class="float-right">Create</a>
+                    <a href="{!! route($main_link . '.create', $alias) !!}" class="float-right">{{ __('Create') }}</a>
                 </div>
             </div>
         </div>

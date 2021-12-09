@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Backend\AdminUser;
 use App\Models\Capacity;
 use App\Models\Product;
 use App\Models\SeoPage;
@@ -550,6 +551,17 @@ if (!function_exists('getCapaName')) {
     function getCapaName($id)
     {
         $data = Capacity::where('id', '=', $id)->select('name')->first();
+        return $data ? $data->name : '';
+    }
+}
+
+/**
+ * Get username via created_by and updated_by
+ */
+if (!function_exists('getUserName')) {
+    function getUserName($id)
+    {
+        $data = AdminUser::where('id', '=', $id)->select('name')->first();
         return $data ? $data->name : '';
     }
 }

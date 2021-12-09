@@ -1,5 +1,5 @@
 <?php
-$title = 'Product - Show';
+$title = __('Revolution Slider - Show');
 $head_table = [
 'Id' => $revolutionSlider->id,
 'Type' => $revolutionSlider->type,
@@ -16,11 +16,12 @@ $head_table = [
 ];
 $main_link = 'revolution-slider';
 ?>
+@extends('admin.layouts.main')
 @section('title', $title)
-    @extends('admin.layouts.main')
+
 @section('content')
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">{{ 'Revolution Slider' }}</h1>
+        <h1 class="h3 mb-0 text-gray-800">{{ __('Revolution Slider') }}</h1>
     </div>
     <div class="card mx-auto">
         @if (Session::has('message'))

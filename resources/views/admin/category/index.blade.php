@@ -3,8 +3,9 @@ $title = __('Category - Index');
 $head_table = ['#', 'Name', 'Alias', 'Status', 'Created At', 'Updated At', 'Action'];
 $main_link = 'category';
 ?>
+@extends('admin.layouts.main')
 @section('title', $title)
-    @extends('admin.layouts.main')
+
 @section('content')
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800"><a href="{{ route($main_link . '.index') }}">{{ __('Categories') }}</a></h1>
@@ -58,7 +59,9 @@ $main_link = 'category';
                                             'uri' => route($main_link.'.status', $node->id)])
                                         </td>
                                         <td>{{ $node->created_at }}</td>
-                                        <td>{{ $node->updated_at }}</td>
+                                        <td class="updated_at-{{ $node->id }}" data-id="{{ $node->id }}">
+                                            {{ $node->updated_at }}
+                                        </td>
                                         <td>
                                             @include('helper.action', ['uri' => $main_link, 'id' => $node->id])
                                         </td>

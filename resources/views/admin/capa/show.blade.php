@@ -1,5 +1,5 @@
 <?php
-$title = 'Capacity - Show';
+$title = __('Capacity - Show');
 $head_table = [
 'Id' => $capa->id,
 'Name' => $capa->name,
@@ -10,11 +10,12 @@ $head_table = [
 ];
 $main_link = 'capa';
 ?>
+@extends('admin.layouts.main')
 @section('title', $title)
-    @extends('admin.layouts.main')
+
 @section('content')
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">{{ 'Capacity' }}</h1>
+        <h1 class="h3 mb-0 text-gray-800">{{ __('Capacity') }}</h1>
     </div>
     <div class="card mx-auto">
         @if (Session::has('message'))
@@ -33,7 +34,7 @@ $main_link = 'capa';
         <div class="card-header border-bottom-primary">
             <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
-                    <a href="{!! route($main_link . '.index') !!}" class="float-right">Capacities</a>
+                    <a href="{!! route($main_link . '.index') !!}" class="float-right">{{ __('Capacities') }}</a>
                 </div>
             </div>
         </div>
@@ -48,7 +49,7 @@ $main_link = 'capa';
                                         <th>{{ $head }}</th>
                                         <td>
                                             @if ($head == 'Action')
-                                            @include('helper.action', ['uri' => $main_link, 'id' => $capa->id])
+                                                @include('helper.action', ['uri' => $main_link, 'id' => $capa->id])
                                             @else
                                                 {{ $item }}
                                             @endif

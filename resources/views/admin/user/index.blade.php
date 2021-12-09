@@ -1,13 +1,14 @@
 <?php
-$title = 'Users - Index';
+$title = __('Users - Index');
 $head_table = ['#', 'Name', 'Email', 'Email Verified At', 'Created At', 'Updated At', 'Action'];
 $main_link = 'user';
 ?>
+@extends('admin.layouts.main')
 @section('title', $title)
-    @extends('admin.layouts.main')
+
 @section('content')
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800"><a href="{{ route($main_link . '.index') }}">{{ 'Users' }}</a></h1>
+        <h1 class="h3 mb-0 text-gray-800"><a href="{{ route($main_link . '.index') }}">{{ __('Users') }}</a></h1>
     </div>
     <div class="card mx-auto">
         @if (Session::has('message'))
@@ -26,7 +27,7 @@ $main_link = 'user';
         <div class="card-header border-bottom-primary">
             <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
-                    <a href="{!! route($main_link . '.create') !!}" class="float-right">Create</a>
+                    <a href="{!! route($main_link . '.create') !!}" class="float-right">{{ __('Create') }}</a>
                 </div>
             </div>
         </div>
@@ -54,7 +55,9 @@ $main_link = 'user';
                                         <td>{{ $node->email }}</td>
                                         <td>{!! $node->email_verified_at !!}</td>
                                         <td>{{ $node->created_at }}</td>
-                                        <td>{{ $node->updated_at }}</td>
+                                        <td class="updated_at-{{ $node->id }}" data-id="{{ $node->id }}">
+                                            {{ $node->updated_at }}
+                                        </td>
                                         <td>
                                             @include('helper.action', ['uri' => $main_link, 'id' => $node->id])
                                         </td>

@@ -1,19 +1,22 @@
 <?php
 use Diglactic\Breadcrumbs\Breadcrumbs;
+use Illuminate\Support\Arr;
+use App\Models\Contact;
 
 $seo = metaData('contact_page');
 $title = $seo ? $seo->title : config('app.name');
 ?>
 @extends('frontend.layouts.main')
+@push('meta')
+    <meta name="description" content="{{ __($seo ? $seo->seo_desc : config('app.seo_desc')) }}">
+    <meta name="keyword" content="{{ __($seo ? $seo->seo_keyword : config('app.seo_keyword')) }}">
+    <link rel="canonical" href="{{ url()->current() }}">
+    @if ($seo)
+        <meta name="robots" content="{{ __($seo->seo_robot ? $seo->seo_robot : config('app.seo_robot')) }}">
+    @endif
+@endpush
 @section('title', $title)
-    @push('meta')
-        <meta name="description" content="{{ __($seo ? $seo->seo_desc : config('app.seo_desc')) }}">
-        <meta name="keyword" content="{{ __($seo ? $seo->seo_keyword : config('app.seo_keyword')) }}">
-        <link rel="canonical" href="{{ url()->current() }}">
-        @if ($seo)
-            <meta name="robots" content="{{ __($seo->seo_robot ? $seo->seo_robot : config('app.seo_robot')) }}">
-        @endif
-    @endpush
+
 @section('content')
     <!-- Breadcrumbs -->
     {{ Breadcrumbs::render('contact') }}
@@ -113,6 +116,8 @@ $title = $seo ? $seo->title : config('app.name');
             <div class="col-lg-8">
                 <form action="{{ route('contact.post-contact') }}" method="POST">
                     @csrf
+                    <input type="hidden" name="type" value="{{ Arr::get(Contact::$types, 'contact') }}" />
+
                     <div class="row">
                         <div class="col-md-6 form-group g-mb-20">
                             <input

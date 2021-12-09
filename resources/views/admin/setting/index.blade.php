@@ -1,14 +1,15 @@
 <?php
 
-$title = 'Setting - Index';
+$title = __('Setting - Index');
 $head_table = ['#', 'Name', 'Value Setting', 'Status', 'Action'];
 $main_link = 'setting';
 ?>
+@extends('admin.layouts.main')
 @section('title', $title)
-    @extends('admin.layouts.main')
+
 @section('content')
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800"><a href="{{ route($main_link . '.index') }}">{{ 'Settings' }}</a></h1>
+        <h1 class="h3 mb-0 text-gray-800"><a href="{{ route($main_link . '.index') }}">{{ __('Settings') }}</a></h1>
     </div>
     <div class="card mx-auto">
         @if (Session::has('message'))
@@ -27,7 +28,7 @@ $main_link = 'setting';
         <div class="card-header border-bottom-primary">
             <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
-                    <a href="{!! route($main_link . '.create') !!}" class="float-right">Create</a>
+                    <a href="{!! route($main_link . '.create') !!}" class="float-right">{{ __('Create') }}</a>
                 </div>
             </div>
         </div>
@@ -53,7 +54,6 @@ $main_link = 'setting';
                                         <th scope="row">{!! $k !!}</th>
                                         <th>{!! $node->name !!}</th>
                                         <td>{{ $node->value_setting }}</td>
-                                        {{-- <td>{{ $node->type }}</td> --}}
                                         <td>
                                             @include('helper.stick', ['status' => $node->status,
                                             'id' => $node->id,

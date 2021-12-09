@@ -1,11 +1,12 @@
 <?php
 
-$title = 'Revolution Slider';
+$title = __('Revolution Slider');
 $head_table = ['#', 'Image', 'Status', 'Action'];
 $main_link = 'revolution-slider';
 ?>
+@extends('admin.layouts.main')
 @section('title', $title)
-    @extends('admin.layouts.main')
+
 @section('content')
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800"><a href="{{ route($main_link . '.index') }}">{{ $title }}</a></h1>
@@ -27,9 +28,10 @@ $main_link = 'revolution-slider';
         <div class="card-header border-bottom-primary">
             <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
-                    <button class="save-sort btn btn-success" data-href="{{ route($main_link . '.sort-slide') }}">Save
-                        Sort</button>
-                    <a href="{!! route($main_link . '.create') !!}" class="float-right">Create</a>
+                    <button class="save-sort btn btn-success" data-href="{{ route($main_link . '.sort-slide') }}">
+                        {{ __('Save Sort') }}
+                    </button>
+                    <a href="{!! route($main_link . '.create') !!}" class="float-right">{{ __('Create') }}</a>
                 </div>
             </div>
         </div>

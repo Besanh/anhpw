@@ -69,6 +69,7 @@ class CreateAreaInfo extends Migration
 
         Schema::create('contacts', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->enum('type', ['help', 'contact']);
             $table->integer('rep_id')->default(0);
             $table->string('name', 125);
             $table->string('email', 125);
@@ -77,6 +78,7 @@ class CreateAreaInfo extends Migration
             $table->string('subject');
             $table->text('content');
             $table->text('reply')->nullable();
+            $table->integer('is_send_mail')->default(1);
             $table->integer('status')->default(0);
             $table->integer('created_by')->default(0)->nullable();
             $table->integer('updated_by')->default(0)->nullable();

@@ -48,6 +48,7 @@ class ContactController extends Controller
     public function postContact(Request $request)
     {
         $request->validate([
+            'type' => 'required|string',
             'name' => 'required|string',
             'email' => 'required|email',
             'address' => 'required|string',
@@ -56,6 +57,7 @@ class ContactController extends Controller
             'content' => 'required|string'
         ]);
         if (Contact::create([
+            'type' => $request->type,
             'rep_id' => 0,
             'name' => $request->name,
             'email' => $request->email,
@@ -64,9 +66,11 @@ class ContactController extends Controller
             'subject' => $request->subject,
             'content' => $request->content
         ])) {
-            return redirect()->route('contact')->with('message', 'Your information has been recorded');
+            // Send email notification
+
+            return redirect()->back()->with('message', 'Your information has been recorded. Thank you!');
         } else {
-            return redirect()->route('contact')->with('message', 'Something went wrong. Please try again later');
+            return redirect()->back()->with('message', 'Something went wrong. Please try again later!');
         }
     }
 }

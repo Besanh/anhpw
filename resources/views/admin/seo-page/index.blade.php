@@ -4,8 +4,9 @@ $title = __('Seo Page');
 $head_table = ['#', 'Title', 'Pid', 'Page Name', 'Action'];
 $main_link = 'seo-page';
 ?>
+@extends('admin.layouts.main')
 @section('title', $title)
-    @extends('admin.layouts.main')
+
 @section('content')
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800"><a href="{{ route($main_link . '.index') }}">{{ $title }}</a></h1>

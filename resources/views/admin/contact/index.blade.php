@@ -1,7 +1,7 @@
 <?php
 
 $title = __('Contact - Index');
-$head_table = ['#', 'Rep ID', 'Name', 'Email', 'Subject', 'Status', 'Created At', 'Updated At', 'Action'];
+$head_table = ['#', 'Type', 'Rep ID', 'Name', 'Subject', 'Status', 'Created At', 'Updated At', 'Action'];
 $main_link = 'contact';
 ?>
 @extends('admin.layouts.main')
@@ -47,21 +47,35 @@ $main_link = 'contact';
                                     <?php $k++; ?>
                                     <tr>
                                         <th scope="row">{!! $k !!}</th>
-                                        <td>{{ $node->rep_id }}</td>
+                                        <th>{{ $node->type }}</th>
+                                        <td>{{ getUserName($node->rep_id) }}</td>
                                         <td>{{ $node->name }}</td>
-                                        <td>{{ $node->email }}</td>
                                         <td>{{ $node->subject }}</td>
                                         <td>
-                                            @include('helper.stick', ['status' => $node->status,
-                                            'id' => $node->id,
-                                            'uri' => route($main_link.'.status', $node->id)])
+                                            @if ($node->status == 1)
+                                                <i class="fa fa-check text-success"></i>
+                                            @else
+                                                <i class="fa fa-times text-danger"></i>
+                                            @endif
                                         </td>
                                         <td>{{ $node->created_at }}</td>
                                         <td class="updated_at-{{ $node->id }}" data-id="{{ $node->id }}">
                                             {{ $node->updated_at }}
                                         </td>
                                         <td>
-                                            @include('helper.action', ['uri' => $main_link, 'id' => $node->id])
+                                            <a class="btn btn-success"
+                                                href="{{ route($main_link . '.chat', $node->id) }}">
+                                                <i class="fa fa-comments" aria-hidden="true"></i>
+                                            </a>
+                                            <a class="btn btn-warning"
+                                                href="{{ route($main_link . '.show', $node->id) }}">
+                                                <i class="fa fa-eye" aria-hidden="true"></i>
+                                            </a>
+                                            <a class="delete-item btn btn-danger" data-id={{ $node->id }}
+                                                onclick="return confirm('Are you sure?')"
+                                                href="{{ route($main_link . '.destroy', $node->id) }}">
+                                                <i class="fa fa-trash"></i>
+                                            </a>
                                         </td>
                                     </tr>
                                 @endforeach

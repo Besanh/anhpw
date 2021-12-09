@@ -13,7 +13,8 @@
 {{-- Loader Page --}}
 <script src="{{ asset('js/loader.js') }}"></script>
 
-@stack('moment')
+<!-- Moment JS 2.29.1 -->
+<script src="{{ asset('js/admin/moment.min.js') }}"></script>
 
 {{-- Custom JS --}}
 <script src="{{ asset('/js/custom.js') }}"></script>

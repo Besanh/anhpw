@@ -22,7 +22,6 @@ $(document).ready(function () {
                     $(".loader-" + id).show();
                 },
                 success: function (data) {
-
                     var t = window.setTimeout(function () {
                         if (data.status == 1) {
                             $('i.status-' + id).removeClass().addClass('status status-' + id + ' fa fa-check text-success');

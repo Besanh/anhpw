@@ -186,6 +186,8 @@ Route::group(['middleware' => ['admin'], 'prefix' => 'admin'], function () {
     Route::resource('help-content', HelpContentController::class)->only('index', 'update', 'store');
 
     // Contact
+    Route::get('contact/{contact}/chat', [ContactController::class, 'chat'])->name('contact.chat');
+    Route::post('contact/{contact}/post-chat', [ContactController::class, 'postChat'])->name('contact.post-chat');
     Route::get('contact/update-status/{id}', [ContactController::class, 'updateStatus'])->name('contact.status');
     Route::get('contact/destroy/{id}', [ContactController::class, 'destroy'])->name('contact.destroy');
     Route::resource('contact', ContactController::class)->only($only_action_resource);
