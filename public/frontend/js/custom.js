@@ -98,3 +98,31 @@ function bindProToDist() {
     })
 }
 bindProToDist();
+
+/**
+ * Chon gift card va so luong trong page gift-card
+ */
+function buyGiftCard() {
+    var id = qty = null;
+    $('.select-giftcard').on('click', function () {
+        id = $(this).val();
+        qty = $('.qty-giftcard').val();
+        if (id != null && qty != null) {
+            window.location.href = '/' + 'cart/add/' + id + '/' + qty;
+        }
+        else {
+            $('.modal-body').text('Please choose gift card');
+            $('div.modal-notify .modal').modal('show');
+        }
+    });
+    $('.add-giftcard').on('click', function () {
+        if (id != null && qty != null) {
+            window.location.href = '/' + 'cart/add/' + id + '/' + qty;
+        }
+        else {
+            $('.modal-body').text('Please choose gift card');
+            $('div.modal-notify .modal').modal('show');
+        }
+    });
+}
+buyGiftCard();

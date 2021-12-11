@@ -64,7 +64,7 @@ class CartController extends Controller
     /**
      * Add item
      */
-    public function addItem($price_id, $selling_id = 0)
+    public function addItem($price_id, $selling_id = 0, $qty = 1)
     {
         $item = Price::getItemCart($price_id, $selling_id);
         if ($item) {
@@ -72,7 +72,7 @@ class CartController extends Controller
                 'id' => $item->id,
                 'name' => $item->name,
                 'price' => $item->price,
-                'qty' => 1,
+                'qty' => $qty,
                 'options' => [
                     'taxRate' => 0,
                     'isSaved' => false,

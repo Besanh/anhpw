@@ -20,7 +20,7 @@ $title = $seo ? $seo->title : config('app.name');
     <!-- End Revolution Slider -->
 
     <!-- Products -->
-    @include('frontend.home.sub_home._featured_product', compact('slogan_f_p'))
+    @include('frontend.home.sub_home._featured_product')
     <!-- End Products -->
 
     <!-- New Arrivals -->
@@ -28,17 +28,13 @@ $title = $seo ? $seo->title : config('app.name');
     <!-- End New Arrivals -->
 
     <!-- Promo Block -->
-    @if ($countdown && $countdown->value_setting > date('Y/m/d H:i'))
+    {{-- @if ($countdown && $countdown->value_setting > date('Y/m/d H:i'))
         @include('frontend.home.sub_home._promotion', compact('countdown'))
-    @endif
+    @endif --}}
     <!-- End Promo Block -->
 
     <!-- News -->
-    @include('frontend.home.sub_home._news')
+    {{-- @include('frontend.home.sub_home._news') --}}
     <!-- End News -->
-
-    <!-- Features -->
-    @include('frontend.home.sub_home._features')
-    <!-- End Features -->
 @endsection
 @include('frontend.home.stack')

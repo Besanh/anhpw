@@ -6,6 +6,7 @@ use App\Http\Controllers\Frontend\CateController;
 use App\Http\Controllers\Frontend\ClearController;
 use App\Http\Controllers\Frontend\CommingSoonController;
 use App\Http\Controllers\Frontend\ContactController;
+use App\Http\Controllers\Frontend\GiftCardController;
 use App\Http\Controllers\Frontend\HelpController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\LoginController;
@@ -58,7 +59,7 @@ Route::get('search-blog/blog', [SearchController::class, 'searchByBlog'])->name(
 
 // Brand
 Route::get('list-brand', [BrandController::class, 'listBrand'])->name('list-brand');
-Route::get('brand/{alias}', [BrandController::class, 'brandIndex'])->name('brand')->whereAlpha('alias');
+Route::get('brand/{alias}', [BrandController::class, 'brandIndex'])->name('brand');
 
 // Clear cache
 Route::get('clear-cache', [ClearController::class, 'clearCache'])->name('clear-cache');
@@ -67,8 +68,8 @@ Route::get('clear-cache', [ClearController::class, 'clearCache'])->name('clear-c
 Route::post('cart/save-cart', [CartController::class, 'saveCart'])->name('cart.save-cart');
 Route::post('cart/post-cart', [CartController::class, 'postCart'])->name('cart.post-cart');
 Route::get('cart', [CartController::class, 'index'])->name('cart.index');
-Route::get('cart/add/{id}/{selling_id?}', [CartController::class, 'addItem'])->name('cart.add')
-    ->whereNumber(['id', 'selling_id']);
+Route::get('cart/add/{id}/{qty?}/{selling_id?}', [CartController::class, 'addItem'])->name('cart.add')
+    ->whereNumber(['id', 'qty','selling_id']);
 Route::get('cart/delete/{rowId}', [CartController::class, 'deleteItem'])->name('cart.delete');
 Route::get('cart/update/{rowId}', [CartController::class, 'updateItem'])->name('cart.update');
 Route::get('cart/destroy', [CartController::class, 'destroyCart'])->name('cart.destroy');
@@ -83,3 +84,6 @@ Route::get('cart/complete/{bill_no}', [CartController::class, 'completeNotify'])
 // Contact
 Route::get('contact', [ContactController::class, 'index'])->name('contact');
 Route::post('contact/post-contact', [ContactController::class, 'postContact'])->name('contact.post-contact');
+
+// Gift Card
+Route::get('gift-card', [GiftCardController::class, 'index'])->name('gift-card');

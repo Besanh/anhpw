@@ -35,27 +35,23 @@ $seo_keyword .= $cate->name . ', ' . $cate->name_seo;
                     <!-- End Banner -->
 
                     <!-- Filters -->
-                    @include('frontend.category.sub_files.filter_show', compact(['alias', 'limit', 'sort', 'show']))
+                    @include('frontend.category.sub_files.filter_show')
                     <!-- End Filters -->
                     @if ($show && $show == 'list')
-                        @include('frontend.category.list.item', compact(['products']))
+                        @include('frontend.category.list.item')
                     @else
-                        @include('frontend.category.sub_files.item', compact(['products']))
+                        @include('frontend.category.sub_files.item')
                     @endif
                 </div>
             </div>
             <!-- End Content -->
 
             <!-- Filters -->
-            @include('frontend.category.sub_files.filter', compact(['brands', 'other_cate', 'capas', 'alias']))
+            @include('frontend.category.sub_files.filter')
             <!-- End Filters -->
         </div>
     </div>
     <!-- End Products -->
-
-    <!-- Call to Action -->
-    @include('frontend.category.sub_files.action')
-    <!-- End Call to Action -->
 
 @endsection
 

@@ -22,6 +22,9 @@
         @yield('content')
         {{-- </div> --}}
 
+        {{-- Feature web --}}
+        @include('frontend.layouts.features')
+
         @include('frontend.layouts.footer')
 
         @include('frontend.layouts.gototop')

@@ -47,6 +47,8 @@ class BrandController extends Controller
                 'categories.name_seo as cate_name_seo',
                 'categories.alias as cate_alias',
                 'prices.id as price_id',
+                'prices.name as price_name',
+                'prices.name_seo as price_name_seo',
                 'prices.stock',
                 'prices.price'
             ])

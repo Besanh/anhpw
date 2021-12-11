@@ -14,7 +14,7 @@ $min_stock = minStock(); ?>
                                 <a href="{{ $p_route }}">
                                     <img class="img-thumbnail"
                                         src="{{ $item->image ? getImage($item->image) : asset('frontend/img-temp/480x700/img1.jpg') }}"
-                                        alt="{{ $item->name }}">
+                                        alt="{{ $item->name_seo }}">
                                 </a>
 
                                 @if ($item->stock < $min_stock)
@@ -42,7 +42,7 @@ $min_stock = minStock(); ?>
                                 <h4 class="h5 g-color-black mb-0 mt-1">
                                     <a class="u-link-v5 g-color-black g-color-primary--hover"
                                         href="{{ $p_route }}">
-                                        {{ $item->name_seo }}
+                                        {{ getTeaser($item->price_name_seo, 5) }}
                                     </a>
                                 </h4>
                                 <a class="u-link-v5 d-inline-block g-color-gray-dark-v5 g-font-size-13 mb-2 g-color-primary--hover"
@@ -75,7 +75,8 @@ $min_stock = minStock(); ?>
                             </ul>
                             <!-- End Products Icons -->
 
-                            <a class="btn u-btn-primary g-font-size-12 text-uppercase g-py-10 g-px-20" href="#">
+                            <a class="btn u-btn-primary g-font-size-12 text-uppercase g-py-10 g-px-20"
+                                href="{{ route('cart.add', ['id' => $item->price_id]) }}">
                                 {{ __('Add to Cart') }}
                                 <i class="ml-2 icon-finance-100 u-line-icon-pro"></i>
                             </a>

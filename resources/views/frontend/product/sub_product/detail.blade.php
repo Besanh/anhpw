@@ -100,9 +100,9 @@
 <!-- Tab Panes -->
 <div id="nav-1-1-default-hor-left" class="tab-content">
     <div class="tab-pane fade show active g-pt-30" id="nav-1-1-default-hor-left--3" role="tabpanel">
-        <p class="g-color-gray-dark-v4 g-font-size-13 mb-0">You can return/exchange your orders in Unify E-commerce. For
-            more information, read our
-            <a href="#">Help</a>.
+        <p class="g-color-gray-dark-v4 g-font-size-13 mb-0">
+            {{ __('You can return/exchange your orders in Unify E-commerce. For more information, read our') }}
+            <a href="{{ route('help') }}">{{ __('Help') }}</a>.
         </p>
     </div>
 

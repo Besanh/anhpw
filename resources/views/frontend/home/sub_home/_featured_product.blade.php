@@ -7,10 +7,10 @@ $products = Cache::get('home_products');
 ?>
 <div class="container g-pb-5 mt-5">
     <div class="text-center mx-auto g-max-width-600 g-mb-50">
-        @if ($slogan_f_p && isJson($slogan_f_p->value_setting))
-            @foreach (json_decode($slogan_f_p->value_setting, true) as $s)
-                <h2 class="g-color-black mb-4">{!! Arr::get($s, 'name') !!}</h2>
-                <p class="lead">{!! Arr::get($s, 'slogan') !!}</p>
+        @if ($slogan_feature_product && isJson($slogan_feature_product->value_setting))
+            @foreach (json_decode($slogan_feature_product->value_setting, true) as $s)
+                <h2 class="g-color-black mb-4">{!! Arr::get($s, 'title') !!}</h2>
+                <p class="lead">{!! Arr::get($s, 'content') !!}</p>
             @endforeach
         @endif
     </div>
@@ -30,7 +30,7 @@ $products = Cache::get('home_products');
                                 href="{{ $p->stock < $minStock ? 'javascript:void(0)' : route('product-detail', ['brand_alias' => $p->b_alias, 'id' => $p->id, 'product_alias' => toAlias($p->name_seo)]) }}">
                                 <img class="img-thumbnail"
                                     data-lazy="{{ $p->image ? getImage($p->image) : getNoImage() }}"
-                                    alt="{{ $p->name_seo }}">
+                                    alt="{{ $p->price_name_seo }}">
 
                                 @if ($p->stock < $minStock)
                                     <figcaption
@@ -60,7 +60,7 @@ $products = Cache::get('home_products');
                                 <h4 class="h6 g-color-black mb-1">
                                     <a class="u-link-v5 g-color-black g-color-primary--hover"
                                         href="{{ route('product-detail', ['brand_alias' => $p->b_alias, 'id' => $p->id, 'product_alias' => toAlias($p->name_seo)]) }}">
-                                        {{ subString($p->name_seo, 10) }}
+                                        {{ getTeaser($p->price_name_seo, 5) }}
                                     </a>
                                 </h4>
                                 <a class="u-link-v5 d-inline-block g-color-gray-dark-v5 g-font-size-13"
@@ -75,7 +75,8 @@ $products = Cache::get('home_products');
                             <ul class="list-inline media-body text-right">
                                 <li class="list-inline-item align-middle mx-0">
                                     <a class="u-icon-v1 u-icon-size--sm g-color-gray-dark-v5 g-color-primary--hover g-font-size-15 rounded-circle"
-                                href="{{route('cart.add', ['id' => $p->price_id])}}" data-toggle="tooltip" data-placement="top" title="Add to Cart">
+                                        href="{{ route('cart.add', ['id' => $p->price_id]) }}" data-toggle="tooltip"
+                                        data-placement="top" title="Add to Cart">
                                         <i class="icon-finance-100 u-line-icon-pro"></i>
                                     </a>
                                 </li>

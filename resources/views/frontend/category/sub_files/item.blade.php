@@ -43,10 +43,10 @@ $min_stock = minStock(); ?>
                                 <h4 class="h6 g-color-black mb-1">
                                     <a class="u-link-v5 g-color-black g-color-primary--hover"
                                         href="{{ $p_route }}">
-                                        {{ getTeaser($item->name_seo, 3) }}
+                                        {{ getTeaser($item->price_name_seo, 3) }}
                                     </a>
                                 </h4>
-                                <a class="u-link-v5 d-inline-block g-color-black g-font-size-13 g-color-primary--hover"
+                                <a class="u-link-v5 d-inline-block g-color-gray-dark-v5 g-font-size-13 g-color-primary--hover"
                                     href="{{ route('cate', ['alias' => $item->cate_alias]) }}">{{ getTeaser($item->cate_name_seo, 3) }}</a>
                                 <span class="d-block g-color-black g-font-size-17">{!! getPrice($item->price) !!}</span>
                             </div>

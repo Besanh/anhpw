@@ -10,7 +10,7 @@
 @stack('script-store')
 @stack('script-help')
 @stack('script-contact')
-
+@stack('script-gift-card')
 
 <script src="{{ asset('js/jquery.pjax.js') }}"></script>
 <script src="{{ asset('js/filter-cate.js') }}"></script>

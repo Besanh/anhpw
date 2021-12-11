@@ -73,7 +73,7 @@ $seo_keyword .= $brand->name . ', ' . $brand->name_seo;
                                     <h4 class="h6 g-color-black mb-1">
                                         <a class="u-link-v5 g-color-black g-color-primary--hover"
                                             href="{{ $p_route }}">
-                                            {{ getTeaser($item->name_seo, 5) }}
+                                            {{ getTeaser($item->price_name_seo, 5) }}
                                         </a>
                                     </h4>
                                     <a class="u-link-v5 d-inline-block g-color-gray-dark-v5 g-font-size-13"

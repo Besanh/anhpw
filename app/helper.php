@@ -181,7 +181,7 @@ if (!function_exists('getNoImage')) {
 }
 
 /**
- * 
+ * Get config setting db
  */
 if (!function_exists('getConfig')) {
     function getConfig($name, $attribute = null)
@@ -214,7 +214,7 @@ if (!function_exists('isJson')) {
     }
 }
 
-if (!function_exists('minusDateBefore')) {
+if (!function_exists('dateBeforeAfter')) {
     function dateBeforeAfter($date, $operator)
     {
         return date('Y-m-d H:i:s', strtotime($operator . '30 day', strtotime($date)));
@@ -249,6 +249,9 @@ if (!function_exists('getPrice')) {
     }
 }
 
+/**
+ * Index array via key
+ */
 if (!function_exists('arrayIndex')) {
     function arrayIndex($array, $key, $groups = [])
     {

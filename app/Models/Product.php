@@ -110,6 +110,8 @@ class Product extends Model
             'products.ingredient',
             'products.created_at',
             'prices.id as price_id',
+            'prices.name as price_name',
+            'prices.name_seo as price_name_seo',
             'prices.price',
             'prices.barcode',
             'prices.stock',

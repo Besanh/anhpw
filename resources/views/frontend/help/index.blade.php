@@ -120,6 +120,5 @@ $title = $seo ? $seo->title : config('app.name');
         @include('frontend.help.contact')
     </div>
     <!-- End Help -->
-    @include('frontend.home.sub_home._features')
 @endsection
 @include('frontend.help.stack')

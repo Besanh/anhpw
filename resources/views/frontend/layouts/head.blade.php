@@ -37,3 +37,6 @@
 
 <!-- Contact -->
 @stack('link-contact')
+
+<!-- Gift Card -->
+@stack('link-gift-card')

@@ -13,6 +13,8 @@ $head_table = [
 'Status' => $price->status,
 'Note' => $price->note,
 'Stock' => $price->stock,
+'Created By' => $price->created_by,
+'Updated By' => $price->updated_by,
 'Created At' => $price->created_at,
 'Updated At' => $price->updated_at,
 'Action' => '',
@@ -21,7 +23,7 @@ $main_link = 'price';
 ?>
 @extends('admin.layouts.main')
 @section('title', $title)
-    
+
 @section('content')
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">{{ __('Price') }}</h1>

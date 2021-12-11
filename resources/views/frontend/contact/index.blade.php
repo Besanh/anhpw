@@ -166,6 +166,5 @@ $title = $seo ? $seo->title : config('app.name');
         </div>
         <!-- End Contact Form -->
     </div>
-    @include('frontend.home.sub_home._features')
 @endsection
 @include('frontend.contact.stack')

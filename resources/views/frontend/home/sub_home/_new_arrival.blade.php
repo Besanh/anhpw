@@ -4,11 +4,12 @@ $arrival_products = Cache::get('home_arrival_products');
 ?>
 <section class="container g-py-100">
     <div class="text-center mx-auto g-max-width-600 g-mb-50">
-        <h2 class="g-color-black mb-4">{{ __('New Arrivals') }}</h2>
-        <p class="lead">
-            {{ __("We want to create a range of beautiful, practical and modern outerwear that doesn't cost
-        the earth – but let's you still live life in style.") }}
-        </p>
+        @if ($slogan_new_arrival_product && isJson($slogan_new_arrival_product->value_setting))
+            @foreach (json_decode($slogan_new_arrival_product->value_setting, true) as $s)
+                <h2 class="g-color-black mb-4">{!! Arr::get($s, 'title') !!}</h2>
+                <p class="lead">{!! Arr::get($s, 'content') !!}</p>
+            @endforeach
+        @endif
     </div>
 
     <div class="row g-mx-minus-10 g-mb-50">
@@ -33,7 +34,7 @@ $arrival_products = Cache::get('home_arrival_products');
                             <h4 class="h5 g-mb-7">
                                 <a class="g-color-black g-color-primary--hover g-text-underline--none--hover"
                                     href="{{ route('product-detail', ['brand_alias' => $item->b_alias, 'id' => $item->id, 'product_alias' => toAlias($item->name_seo)]) }}">
-                                    {!! subString($item->name_seo, 10) !!}
+                                    {!! getTeaser($item->price_name_seo, 5) !!}
                                 </a>
                             </h4>
                             <a class="u-link-v5 d-inline-block g-color-gray-dark-v5 g-font-size-13 g-mb-10"
@@ -48,13 +49,15 @@ $arrival_products = Cache::get('home_arrival_products');
                                         class="list-inline-item align-middle g-brd-right g-brd-gray-light-v3 g-pr-10 g-mr-6">
                                         <a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover"
                                             href="{{ route('cart.add', ['id' => $item->price_id]) }}"
-                                            title="Add to Cart" data-toggle="tooltip" data-placement="top">
+                                            title="{{ __('Add to Cart') }}" data-toggle="tooltip"
+                                            data-placement="top">
                                             <i class="icon-finance-100 u-line-icon-pro"></i>
                                         </a>
                                     </li>
                                     <li class="list-inline-item align-middle">
                                         <a class="g-color-gray-dark-v5 g-color-primary--hover g-text-underline--none--hover"
-                                            href="#" title="Add to Wishlist" data-toggle="tooltip" data-placement="top">
+                                            href="#" title="{{ __('Add to Wishlist') }}" data-toggle="tooltip"
+                                            data-placement="top">
                                             <i class="icon-medical-022 u-line-icon-pro"></i>
                                         </a>
                                     </li>
@@ -67,7 +70,6 @@ $arrival_products = Cache::get('home_arrival_products');
                 </div>
             @endforeach
         @endif
-
     </div>
 
     <div class="text-center">

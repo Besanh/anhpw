@@ -32,7 +32,7 @@ class HomeController extends Controller
             return $model_product->getArrivalProduct();
         });
 
-        $slogan_f_p = Cache::remember('slogan_f_p', timeToLive(), function () {
+        $slogan_feature_product = Cache::remember('slogan_f_p', timeToLive(), function () {
             return Setting::where([
                 ['name', '=', 'featured_product'],
                 ['status', '=', 1]
@@ -41,18 +41,28 @@ class HomeController extends Controller
                 ->first();
         });
 
-        $countdown = Cache::remember('countdown', timeToLive(), function () {
+        $slogan_new_arrival_product = Cache::remember('slogan_new_arrival_product', timeToLive(), function () {
             return Setting::where([
-                ['name', '=', 'countdown'],
+                ['name', '=', 'slogan_new_arrival_product'],
                 ['status', '=', 1]
             ])
                 ->select('value_setting')
                 ->first();
         });
 
+        // $countdown = Cache::remember('countdown', timeToLive(), function () {
+        //     return Setting::where([
+        //         ['name', '=', 'countdown'],
+        //         ['status', '=', 1]
+        //     ])
+        //         ->select('value_setting')
+        //         ->first();
+        // });
+
         return view('frontend.home.home', compact([
-            'slogan_f_p',
-            'countdown',
+            'slogan_feature_product',
+            'slogan_new_arrival_product',
+            // 'countdown',
         ]));
     }
 }

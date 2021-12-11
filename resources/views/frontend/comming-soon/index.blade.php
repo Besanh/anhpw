@@ -26,35 +26,35 @@ $title = __('Comming Soon');
                         class="d-inline-block u-shadow-v19 g-brd-around g-brd-gray-light-v3 rounded g-pa-20 g-mx-15 g-mb-30">
                         <div class="js-cd-month g-color-primary g-font-weight-700 g-font-size-40 g-line-height-1_4"></div>
                         <hr class="g-brd-gray-light-v3 my-2 mb-3">
-                        <h3 class="h6 g-color-text g-font-weight-400 mb-0">Month</h3>
+                        <h3 class="h6 g-color-text g-font-weight-400 mb-0">{{ __('Month') }}</h3>
                     </div>
 
                     <div
                         class="d-inline-block u-shadow-v19 g-brd-around g-brd-gray-light-v3 rounded g-pa-20 g-mx-15 g-mb-30">
                         <div class="js-cd-days g-color-primary g-font-weight-700 g-font-size-40 g-line-height-1_4"></div>
                         <hr class="g-brd-gray-light-v3 my-2 mb-3">
-                        <h3 class="h6 g-color-text g-font-weight-400 mb-0">Days</h3>
+                        <h3 class="h6 g-color-text g-font-weight-400 mb-0">{{ __('Days') }}</h3>
                     </div>
 
                     <div
                         class="d-inline-block u-shadow-v19 g-brd-around g-brd-gray-light-v3 rounded g-pa-20 g-mx-15 g-mb-30">
                         <div class="js-cd-hours g-color-primary g-font-weight-700 g-font-size-40 g-line-height-1_4"></div>
                         <hr class="g-brd-gray-light-v3 my-2 mb-3">
-                        <h3 class="h6 g-color-text g-font-weight-400 mb-0">Hours</h3>
+                        <h3 class="h6 g-color-text g-font-weight-400 mb-0">{{ __('Hours') }}</h3>
                     </div>
 
                     <div
                         class="d-inline-block u-shadow-v19 g-brd-around g-brd-gray-light-v3 rounded g-pa-20 g-mx-15 g-mb-30">
                         <div class="js-cd-minutes g-color-primary g-font-weight-700 g-font-size-40 g-line-height-1_4"></div>
                         <hr class="g-brd-gray-light-v3 my-2 mb-3">
-                        <h3 class="h6 g-color-text g-font-weight-400 mb-0">Minutes</h3>
+                        <h3 class="h6 g-color-text g-font-weight-400 mb-0">{{ __('Minutes') }}</h3>
                     </div>
 
                     <div
                         class="d-inline-block u-shadow-v19 g-brd-around g-brd-gray-light-v3 rounded g-pa-20 g-mx-15 g-mb-30">
                         <div class="js-cd-seconds g-color-primary g-font-weight-700 g-font-size-40 g-line-height-1_4"></div>
                         <hr class="g-brd-gray-light-v3 my-2 mb-3">
-                        <h3 class="h6 g-color-text g-font-weight-400 mb-0">Seconds</h3>
+                        <h3 class="h6 g-color-text g-font-weight-400 mb-0">{{ __('Seconds') }}</h3>
                     </div>
                 </div>
                 <!-- End Countdown -->
@@ -62,9 +62,10 @@ $title = __('Comming Soon');
                 <!-- Subscribe -->
                 <div class="g-max-width-550 text-center mx-auto">
                     <div class="mb-4">
-                        <h2 class="h4">Subscribe</h2>
-                        <p class="g-color-gray-dark-v5">Subscribe and stay in touch with the latest news, deals and
-                            promotions.</p>
+                        <h2 class="h4">{{ __('Subscribe') }}</h2>
+                        <p class="g-color-gray-dark-v5">
+                            {{ __('Subscribe and stay in touch with the latest news, deals and promotions.') }}
+                        </p>
                     </div>
 
                     <form class="input-group u-shadow-v21" action="" method="POST">
