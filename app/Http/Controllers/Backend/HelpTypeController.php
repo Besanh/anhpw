@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\HelpStoreRequest;
-use App\Http\Requests\HelpUpdateRequest;
-use App\Models\Help;
+use App\Http\Requests\HelpTypeStoreRequest;
+use App\Http\Requests\HelpTypeUpdateRequest;
 use App\Models\HelpType;
+use Illuminate\Http\Request;
 
-class HelpController extends Controller
+class HelpTypeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,9 +17,8 @@ class HelpController extends Controller
      */
     public function index()
     {
-        $helps = Help::orderBy('id', 'DESC')->get();
-
-        return view('admin.help.index', compact('helps'));
+        $help_types = HelpType::orderBy('id', 'DESC')->get();
+        return view('admin.help-type.index', compact('help_types'));
     }
 
     /**
@@ -29,11 +28,7 @@ class HelpController extends Controller
      */
     public function create()
     {
-        $help_types = HelpType::where('status', '=', 1)
-            ->select(['id', 'name'])
-            ->orderBy('priority', 'DESC')
-            ->get();
-        return view('admin.help.create', compact('help_types'));
+        return view('admin.help-type.create');
     }
 
     /**
@@ -42,11 +37,10 @@ class HelpController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(HelpStoreRequest $request)
+    public function store(HelpTypeStoreRequest $request, HelpType $helpType)
     {
         if ($request->validated()) {
-            Help::create($request->validated());
-
+            $helpType->create($request->validated());
             return redirect()->back()->with('message', 'Created successfully');
         }
     }
@@ -57,9 +51,9 @@ class HelpController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Help $help)
+    public function show(HelpType $helpType)
     {
-        return view('admin.help.show', compact('help'));
+        return view('admin.help-type.show', compact('helpType'));
     }
 
     /**
@@ -68,13 +62,9 @@ class HelpController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Help $help)
+    public function edit(HelpType $helpType)
     {
-        $help_types = HelpType::where('status', '=', 1)
-            ->select(['id', 'name'])
-            ->orderBy('priority', 'DESC')
-            ->get();
-        return view('admin.help.edit', compact(['help', 'help_types']));
+        return view('admin.help-type.edit', compact('helpType'));
     }
 
     /**
@@ -84,14 +74,12 @@ class HelpController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(HelpUpdateRequest $request, Help $help)
+    public function update(HelpTypeUpdateRequest $request, HelpType $helpType)
     {
         if ($request->validated()) {
-            $help->update($request->validated());
+            $helpType->update($request->validated());
             return redirect()->back()->with('message', 'Updated successfully');
         }
-
-        return redirect()->refresh();
     }
 
     /**
@@ -102,7 +90,7 @@ class HelpController extends Controller
      */
     public function destroy($id)
     {
-        $model = Help::find($id);
+        $model = HelpType::find($id);
         if ($model) {
             $model->delete();
             return redirect()->back()->with('message', 'Delete #' . $id . ' successfully');
@@ -112,7 +100,7 @@ class HelpController extends Controller
 
     public function updateStatus($id)
     {
-        $model = Help::find($id);
+        $model = HelpType::find($id);
         if ($model) {
             $model->status = ($model->status) ? 0 : 1;
             $model->save();

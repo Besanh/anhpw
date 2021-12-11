@@ -15,6 +15,7 @@ use App\Http\Controllers\Backend\CateController;
 use App\Http\Controllers\Backend\ContactController;
 use App\Http\Controllers\Backend\HelpContentController;
 use App\Http\Controllers\Backend\HelpController;
+use App\Http\Controllers\Backend\HelpTypeController;
 use App\Http\Controllers\Backend\MenuController;
 use App\Http\Controllers\Backend\MenuTypeController;
 use App\Http\Controllers\Backend\PriceController;
@@ -175,6 +176,11 @@ Route::group(['middleware' => ['admin'], 'prefix' => 'admin'], function () {
     Route::get('help/update-status/{id}', [HelpController::class, 'updateStatus'])->name('help.status');
     Route::get('help/destroy/{id}', [HelpController::class, 'destroy'])->name('help.destroy');
     Route::resource('help', HelpController::class)->only($only_action_resource);
+
+    // Help type
+    Route::get('help-type/update-status/{id}', [HelpTypeController::class, 'updateStatus'])->name('help-type.status');
+    Route::get('help-type/destroy/{id}', [HelpTypeController::class, 'destroy'])->name('help-type.destroy');
+    Route::resource('help-type', HelpTypeController::class)->only($only_action_resource);
 
     // Help content
     Route::get('help-content/view-topic/{help_id}', [HelpContentController::class, 'viewTopic'])->name('help-content.view-topic')->whereNumber(['help_id']);

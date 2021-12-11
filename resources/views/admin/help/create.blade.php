@@ -5,7 +5,7 @@ $main_link = 'help';
 ?>
 @extends('admin.layouts.main')
 @section('title', $title)
-    
+
 @section('content')
     <div class="container">
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -41,6 +41,27 @@ $main_link = 'help';
 
                             <div class="row">
                                 <div class="col-md-12">
+                                    <label for="help_type_id" class="col-form-label text-md-right">
+                                        {{ __('Help Type') }}
+                                    </label>
+                                    <div>
+                                        <select name="help_type_id" class="form-control" aria-label="Default select"
+                                            required>
+                                            <option>{{ __('Choose Type') }}</option>
+                                            @foreach ($help_types as $t)
+                                                <option value="{!! $t->id !!}"
+                                                    class="@error('help_type_id') is-invalid @enderror">
+                                                    {!! $t->name !!}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('help_type_id')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+
                                     <label for="title" class="col-form-label text-md-right">
                                         {{ __('Title') }}
                                     </label>
@@ -61,7 +82,7 @@ $main_link = 'help';
                                     <div>
                                         <input id="sub_title" type="text"
                                             class="form-control @error('sub_title') is-invalid @enderror" name="sub_title"
-                                            value="{{ old('sub_title') }}" required autocomplete="sub_title" autofocus>
+                                            value="{{ old('sub_title') }}" autocomplete="sub_title" autofocus>
 
                                         @error('sub_title')
                                             <span class="invalid-feedback" role="alert">
@@ -107,7 +128,7 @@ $main_link = 'help';
                             </div>
 
                             <div class="form-group row mb-0 mt-5">
-                                <div class="col-md-6 offset-md-4 text-center">
+                                <div class="col-md-6 offset-md-4">
                                     <button type="submit" class="btn btn-primary">
                                         {{ __('Create') }}
                                     </button>

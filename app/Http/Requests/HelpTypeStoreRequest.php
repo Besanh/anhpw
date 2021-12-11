@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class HelpUpdateRequest extends FormRequest
+class HelpTypeStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,8 @@ class HelpUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'help_type_id' => 'required|integer',
-            'title' => 'required|string',
-            'sub_title' => 'string|nullable',
+            'name' => 'required|string',
+            'alias' => 'required|string',
             'priority' => 'required|integer',
             'status' => 'required|integer'
         ];

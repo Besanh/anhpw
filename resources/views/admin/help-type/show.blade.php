@@ -1,19 +1,18 @@
 <?php
-$title = $help->title;
+$title = $helpType->name;
 $head_table = [
-'Id' => $help->id,
-'Help Type Id' => $help->help_type_id,
-'Title' => $help->title,
-'Sub Title' => $help->sub_title,
-'Priority' => $help->priority,
-'Status' => $help->status,
-'Created By' => $help->created_by,
-'Updated By' => $help->updated_by,
-'Created At' => $help->created_at,
-'Updated At' => $help->updated_at,
+'Id' => $helpType->id,
+'Name' => $helpType->name,
+'Alias' => $helpType->alias,
+'Priority' => $helpType->priority,
+'Status' => $helpType->status,
+'Created By' => $helpType->created_by,
+'Updated By' => $helpType->updated_by,
+'Created At' => $helpType->created_at,
+'Updated At' => $helpType->updated_at,
 'Action' => '',
 ];
-$main_link = 'help';
+$main_link = 'help-type';
 ?>
 @extends('admin.layouts.main')
 @section('title', $title)
@@ -39,7 +38,7 @@ $main_link = 'help';
         <div class="card-header border-bottom-primary">
             <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
-                    <a href="{!! route($main_link . '.index') !!}" class="float-right">{{ __('Helps') }}</a>
+                    <a href="{!! route($main_link . '.index') !!}" class="float-right">{{ __('Help Types') }}</a>
                 </div>
             </div>
         </div>
@@ -48,13 +47,13 @@ $main_link = 'help';
                 <div class="table-responsive">
                     <table class="table table-bordered" width="100%" cellspacing="0">
                         <tbody>
-                            @if ($help)
+                            @if ($helpType)
                                 @foreach ($head_table as $head => $item)
                                     <tr>
                                         <th>{{ $head }}</th>
                                         <td>
                                             @if ($head == 'Action')
-                                                @include('helper.action', ['uri' => $main_link, 'id' => $help->id])
+                                                @include('helper.action', ['uri' => $main_link, 'id' => $helpType->id])
                                             @else
                                                 {{ $item }}
                                             @endif

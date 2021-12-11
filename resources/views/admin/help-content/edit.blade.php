@@ -132,7 +132,7 @@ $main_link = 'help-content';
                             </div>
 
                             <div class="form-group row mb-0 mt-5">
-                                <div class="col-md-6 offset-md-4 text-center">
+                                <div class="col-md-6 offset-md-4">
                                     <button type="submit" class="btn btn-primary">
                                         {{ __('Update') }}
                                     </button>

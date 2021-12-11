@@ -25,7 +25,7 @@ Route::get('home', [HomeController::class, 'index'])->name('frontend.home');
 
 // Top bar
 Route::get('store', [StoreController::class, 'index'])->name('store');
-Route::get('help', [HelpController::class, 'index'])->name('help');
+Route::get('help/{alias}', [HelpController::class, 'index'])->name('help');
 Route::get('login', [LoginController::class, 'index'])->name('login');
 Route::get('signup', [SignupController::class, 'index'])->name('signup');
 Route::get('wish-list', [WishListController::class, 'index'])->name('wish-list');
@@ -38,7 +38,7 @@ Route::get('get-filter/{alias}', [CateController::class, 'getFilter'])->where(['
 
 // Product
 Route::get('{brand_alias}/{id}-{product_alias}.html', [ProductController::class, 'index'])
-    ->whereAlphaNumeric('brand_alias')
+    // ->whereAlphaNumeric('brand_alias')
     ->whereNumber('id')
     // ->whereAlphaNumeric('product_alias')
     ->name('product-detail');
@@ -69,7 +69,7 @@ Route::post('cart/save-cart', [CartController::class, 'saveCart'])->name('cart.s
 Route::post('cart/post-cart', [CartController::class, 'postCart'])->name('cart.post-cart');
 Route::get('cart', [CartController::class, 'index'])->name('cart.index');
 Route::get('cart/add/{id}/{qty?}/{selling_id?}', [CartController::class, 'addItem'])->name('cart.add')
-    ->whereNumber(['id', 'qty','selling_id']);
+    ->whereNumber(['id', 'qty', 'selling_id']);
 Route::get('cart/delete/{rowId}', [CartController::class, 'deleteItem'])->name('cart.delete');
 Route::get('cart/update/{rowId}', [CartController::class, 'updateItem'])->name('cart.update');
 Route::get('cart/destroy', [CartController::class, 'destroyCart'])->name('cart.destroy');

@@ -1,14 +1,15 @@
 <?php
-$title = __('Help - Edit');
+$title = __('Help Type - Edit');
 $status = getStatus();
-$main_link = 'help';
+$main_link = 'help-type';
 ?>
+@extends('admin.layouts.main')
 @section('title', $title)
-    @extends('admin.layouts.main')
+
 @section('content')
     <div class="container">
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">{{ __($help->title) }}</h1>
+            <h1 class="h3 mb-0 text-gray-800">{{ __('Help Type') }}</h1>
         </div>
         <div class="row justify-content-center">
             <div class="col-md-12">
@@ -31,63 +32,41 @@ $main_link = 'help';
                     @endif
                     <div class="card-header">
                         {{ $title }}
-                        <a href="{{ route($main_link . '.index') }}" class="float-right">{{ __('Helps') }}</a>
+                        <a href="{{ route($main_link . '.index') }}" class="float-right">{{ __('Help Types') }}</a>
                     </div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route($main_link . '.update', $help->id) }}">
+                        <form method="POST" action="{{ route($main_link . '.update', $helpType->id) }}">
                             @csrf
                             @method('PUT')
 
                             <div class="row">
                                 <div class="col-md-12">
-                                    <label for="help_type_id" class="col-form-label text-md-right">
-                                        {{ __('Help Type') }}
+                                    <label for="name" class="col-form-label text-md-right">
+                                        {{ __('Name') }}
                                     </label>
                                     <div>
-                                        <select name="help_type_id" class="form-control" aria-label="Default select"
-                                            required>
-                                            <option>{{ __('Choose Type') }}</option>
-                                            @foreach ($help_types as $t)
-                                                <option value="{!! $t->id !!}"
-                                                    {{ $help->help_type_id == $t->id ? 'selected' : '' }}
-                                                    class="@error('help_type_id') is-invalid @enderror">
-                                                    {!! $t->name !!}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                        @error('help_type_id')
+                                        <input id="name" type="text"
+                                            class="form-control @error('name') is-invalid @enderror" name="name"
+                                            value="{{ old('name', $helpType->name) }}" required autocomplete="name"
+                                            autofocus>
+                                        @error('name')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
                                     </div>
 
-                                    <label for="title" class="col-form-label text-md-right">
-                                        {{ __('Title') }}
+                                    <label for="alias" class="col-form-label text-md-right">
+                                        {{ __('Alias') }}
                                     </label>
                                     <div>
-                                        <input id="title" type="text"
-                                            class="form-control @error('title') is-invalid @enderror" name="title"
-                                            value="{{ old('title', $help->title) }}" required autocomplete="title"
-                                            autofocus>
-                                        @error('title')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-
-                                    <label for="sub_title" class="col-form-label text-md-right">
-                                        {{ __('Sub Title') }}
-                                    </label>
-                                    <div>
-                                        <input id="sub_title" type="text"
-                                            class="form-control @error('subtitle') is-invalid @enderror" name="sub_title"
-                                            value="{{ old('sub_title', $help->sub_title) }}" autocomplete="sub_title"
+                                        <input id="alias" type="text"
+                                            class="form-control @error('alias') is-invalid @enderror" name="alias"
+                                            value="{{ old('alias', $helpType->alias) }}" required autocomplete="alias"
                                             autofocus>
 
-                                        @error('sub_title')
+                                        @error('alias')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -100,7 +79,7 @@ $main_link = 'help';
                                     <div>
                                         <input id="priority" type="text"
                                             class="form-control @error('priority') is-invalid @enderror" name="priority"
-                                            value="{{ old('priority', $help->priority) }}" required
+                                            value="{{ old('priority', $helpType->priority) }}" required
                                             autocomplete="priority" autofocus>
 
                                         @error('priority')
@@ -117,7 +96,7 @@ $main_link = 'help';
                                         <select name="status" class="form-control" aria-label="Default select" required>
                                             @foreach (getStatus() as $k => $t)
                                                 <option value="{!! $k !!}"
-                                                    {{ $help->status == $k ? 'selected' : '' }}
+                                                    {{ $helpType->status == $k ? 'selected' : '' }}
                                                     class="@error('t') is-invalid @enderror">
                                                     {!! $t !!}
                                                 </option>

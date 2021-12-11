@@ -24,8 +24,9 @@ class HelpStoreRequest extends FormRequest
     public function rules()
     {
         return [
+            'help_type_id' => 'required|integer',
             'title' => 'required|string',
-            'sub_title' => 'required|string|nullable',
+            'sub_title' => 'string|nullable',
             'priority' => 'required|integer',
             'status' => 'required|integer'
         ];

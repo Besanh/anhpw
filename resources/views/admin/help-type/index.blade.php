@@ -1,8 +1,8 @@
 <?php
 
-$title = __('Helps');
-$head_table = ['#', 'Id', 'Help Type Id', 'Title', 'Status', 'Created At', 'Updated At', 'Action'];
-$main_link = 'help';
+$title = __('Help Types');
+$head_table = ['#', 'Id', 'Name', 'Alias', 'Priority', 'Status', 'Action'];
+$main_link = 'help-type';
 ?>
 @extends('admin.layouts.main')
 @section('title', $title)
@@ -47,27 +47,21 @@ $main_link = 'help';
                             </tr>
                         </tfoot>
                         <tbody>
-                            @if ($helps)
-                                @foreach ($helps as $k => $node)
+                            @if ($help_types)
+                                @foreach ($help_types as $k => $node)
                                     <?php $k++; ?>
                                     <tr>
                                         <th scope="row">{!! $k !!}</th>
                                         <th>{{ $node->id }}</th>
-                                        <td>{{ $node->help_type_id }}</td>
-                                        <td>{!! $node->title !!}</td>
+                                        <td>{{ $node->name }}</td>
+                                        <td>{!! $node->alias !!}</td>
+                                        <td>{!! $node->priority !!}</td>
                                         <td>
                                             @include('helper.stick', ['status' => $node->status,
                                             'id' => $node->id,
                                             'uri' => route($main_link.'.status', $node->id)])
                                         </td>
-                                        <td>{{ $node->created_at }}</td>
-                                        <td class="updated_at-{{ $node->id }}" data-id="{{ $node->id }}">
-                                            {{ $node->updated_at }}</td>
                                         <td>
-                                            <a class="btn btn-info"
-                                                href="{{ route('help-content.view-topic', $node->id) }}">
-                                                <i class="fa fa-list-alt"></i>
-                                            </a>
                                             @include('helper.action', ['uri' => $main_link, 'id' => $node->id])
                                         </td>
                                     </tr>
