@@ -1,15 +1,16 @@
 <?php
-$title = 'Setting - Create';
+$title = __('Setting - Create');
 $status = getStatus();
 $main_link = 'setting';
 ?>
+@extends('admin.layouts.main')
 @section('title', $title)
-    @extends('admin.layouts.main')
+
 @section('content')
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">{{ 'Setting' }}</h1>
-    </div>
     <div class="container">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">{{ __('Setting') }}</h1>
+        </div>
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
@@ -17,6 +18,12 @@ $main_link = 'setting';
                         <div>
                             <div class="alert alert-success">
                                 {!! Session::get('message') !!}
+                            </div>
+                        </div>
+                    @elseif(Session::has('error'))
+                        <div>
+                            <div class="alert alert-danger">
+                                {!! Session::get('error') !!}
                             </div>
                         </div>
                     @endif
@@ -31,7 +38,7 @@ $main_link = 'setting';
                     @endif
                     <div class="card-header">
                         {{ $title }}
-                        <a href="{{ route($main_link . '.index') }}" class="float-right">Settings</a>
+                        <a href="{{ route($main_link . '.index') }}" class="float-right">{{ __('Settings') }}</a>
                     </div>
 
                     <div class="card-body">

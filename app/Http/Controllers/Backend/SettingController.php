@@ -55,7 +55,7 @@ class SettingController extends Controller
             ]);
             return redirect()->back()->with('message', 'Created setting successfully');
         }
-        return redirect()->back()->with('message', 'Something went wrong');
+        return redirect()->back()->with('error', 'Something went wrong');
     }
 
     /**
@@ -106,6 +106,7 @@ class SettingController extends Controller
             ]);
             return redirect()->back()->with('message', 'Updated setting successfully');
         }
+        return redirect()->back()->with('error', 'Something went wrong');
     }
 
     /**
@@ -121,7 +122,7 @@ class SettingController extends Controller
             $model->delete();
             return redirect()->back()->with('message', 'Delete #' . $id . ' successfully');
         }
-        return redirect()->back()->with('message', 'Data not found');
+        return redirect()->back()->with('error', 'Data not found');
     }
 
     public function updateStatus($id)

@@ -182,7 +182,9 @@ class AppServiceProvider extends ServiceProvider
                     'products.id',
                     'products.name',
                     'products.name_seo',
-                    'brands.alias as b_alias'
+                    'brands.alias as b_alias',
+                    'prices.name as price_name',
+                    'prices.name_seo as price_name_seo'
                 ])
                     ->join('brands', 'brands.id', '=', 'products.bid')
                     ->join('prices', 'prices.pid', '=', 'products.id')

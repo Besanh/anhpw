@@ -3,8 +3,9 @@ use App\Models\Menu;
 use Illuminate\Support\Arr;
 $title = __('Menu - Create');
 ?>
+@extends('admin.layouts.main')
 @section('title', $title)
-    @extends('admin.layouts.main')
+
 @section('content')
     <div class="container">
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -17,6 +18,12 @@ $title = __('Menu - Create');
                         <div>
                             <div class="alert alert-success">
                                 {!! Session::get('message') !!}
+                            </div>
+                        </div>
+                    @elseif(Session::has('error'))
+                        <div>
+                            <div class="alert alert-danger">
+                                {!! Session::get('error') !!}
                             </div>
                         </div>
                     @endif
@@ -43,7 +50,7 @@ $title = __('Menu - Create');
                                     <div>
                                         <select name="parent_id" class="form-control" aria-label="Default select" required
                                             size="4">
-                                            <option value="0">ROOT</option>
+                                            <option value="0">{{ __('ROOT') }}</option>
                                             @if ($menu_list)
                                                 @foreach ($menu_list as $k => $m)
                                                     <option value="{!! $k !!}"
@@ -278,4 +285,3 @@ $title = __('Menu - Create');
         </div>
     </div>
 @endsection
-{{-- @include('helper.ckeditor') --}}

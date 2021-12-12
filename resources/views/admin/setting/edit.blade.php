@@ -1,5 +1,5 @@
 <?php
-$title = 'Setting - Edit';
+$title = __('Setting - Edit');
 $status = getStatus();
 $main_link = 'setting';
 
@@ -7,13 +7,14 @@ $val = '';
 $val = $setting->type == 'json' ? (isJson($setting->value_setting) ? json_decode($setting->value_setting) : '') :
 $setting->value_setting;
 ?>
+@extends('admin.layouts.main')
 @section('title', $title)
-    @extends('admin.layouts.main')
+
 @section('content')
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">{{ 'Setting' }}</h1>
-    </div>
     <div class="container">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">{{ __('Setting') }}</h1>
+        </div>
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
@@ -21,6 +22,12 @@ $setting->value_setting;
                         <div>
                             <div class="alert alert-success">
                                 {!! Session::get('message') !!}
+                            </div>
+                        </div>
+                    @elseif(Session::has('error'))
+                        <div>
+                            <div class="alert alert-danger">
+                                {!! Session::get('error') !!}
                             </div>
                         </div>
                     @endif
@@ -35,7 +42,7 @@ $setting->value_setting;
                     @endif
                     <div class="card-header">
                         {{ $title }}
-                        <a href="{{ route($main_link . '.index') }}" class="float-right">Settings</a>
+                        <a href="{{ route($main_link . '.index') }}" class="float-right">{{ __('Settings') }}</a>
                     </div>
 
                     <div class="card-body">
@@ -60,76 +67,6 @@ $setting->value_setting;
                                 </div>
                             </div>
 
-                            @if ($setting->type == 'json')
-                                @foreach ($val as $node)
-                                    @foreach ($node as $key => $value)
-                                        <div class="form-group row clone_key_setting">
-                                            <label for="value_setting" class="col-md-4 col-form-label text-md-right">
-                                                {{ __('Key Setting') }}
-                                                <span class="click-to-clone" style="color:red">
-                                                    <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                                                </span>
-                                            </label>
-                                            <div class="col-md-6">
-                                                <textarea class="form-control value-setting" name="key_setting[]"
-                                                    placeholder="key">{{ $key }}</textarea>
-                                                @error('key_setting')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                        <div class="form-group row clone_value_setting">
-                                            <label for="value_setting" class="col-md-4 col-form-label text-md-right">
-                                                {{ __('Value Setting') }}
-                                            </label>
-                                            <div class="col-md-6">
-                                                <textarea class="form-control value-setting" name="value_setting[]"
-                                                    placeholder="value">{{ $value }}</textarea>
-                                                @error('value_setting')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                    @endforeach
-                                @endforeach
-                            @elseif($setting->type == 'text')
-                                <div class="form-group row clone_key_setting">
-                                    <label for="value_setting" class="col-md-4 col-form-label text-md-right">
-                                        {{ __('Value Setting') }}
-                                    </label>
-                                    <div class="col-md-6">
-                                        <textarea class="form-control value-setting" name="value_setting"
-                                            placeholder="key">{{ $setting->value_setting }}</textarea>
-                                        @error('key_setting')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                            @else
-                                <div class="form-group row">
-                                    <label for="{{ 'value_setting' }}" class="col-md-4 col-form-label text-md-right">
-                                        {{ ucfirst('value setting') }}
-                                    </label>
-                                    <div class="col-md-6">
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-prepend">
-                                                <button id="ckfinder-modal" class="btn btn-outline-success ckfinder-btn"
-                                                    type="button">Upload</button>
-                                            </div>
-                                            <input type="text" class="form-control" id="ckfinder-input"
-                                                value="{{ old('value_setting', $setting->value_setting) }}"
-                                                name="{{ 'value_setting' }}" placeholder="upload file">
-                                        </div>
-                                    </div>
-                                </div>
-                            @endif
-
                             <div class="form-group row setting-type">
                                 <label for="type" class="col-md-4 col-form-label text-md-right">
                                     {{ __('Type') }}
@@ -138,12 +75,11 @@ $setting->value_setting;
                                     <select name="type" class="form-control" aria-label="Default select" required
                                         onchange="changeField(this)">
                                         @foreach ($types as $k => $t)
-                                            @if ($k == $setting->type)
-                                                <option value="{!! $k !!}" selected
-                                                    class="@error('t') is-invalid @enderror">
-                                                    {!! $t !!}
-                                                </option>
-                                            @endif
+                                            <option value="{!! $k !!}"
+                                                {{ $k == $setting->type ? 'selected' : '' }}
+                                                class="@error('t') is-invalid @enderror">
+                                                {!! $t !!}
+                                            </option>
                                         @endforeach
                                     </select>
                                     @error('type')
@@ -152,6 +88,78 @@ $setting->value_setting;
                                         </span>
                                     @enderror
                                 </div>
+                            </div>
+
+                            <div class="setting-content">
+                                @if ($setting->type == 'json')
+                                    @foreach ($val as $node)
+                                        @foreach ($node as $key => $value)
+                                            <div class="form-group row clone_key_setting">
+                                                <label for="value_setting" class="col-md-4 col-form-label text-md-right">
+                                                    {{ __('Key Setting') }}
+                                                    <span class="click-to-clone" style="color:red">
+                                                        <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                                    </span>
+                                                </label>
+                                                <div class="col-md-6">
+                                                    <textarea class="form-control value-setting" name="key_setting[]"
+                                                        placeholder="key">{{ $key }}</textarea>
+                                                    @error('key_setting')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="form-group row clone_value_setting">
+                                                <label for="value_setting" class="col-md-4 col-form-label text-md-right">
+                                                    {{ __('Value Setting') }}
+                                                </label>
+                                                <div class="col-md-6">
+                                                    <textarea class="form-control value-setting" name="value_setting[]"
+                                                        placeholder="value">{{ $value }}</textarea>
+                                                    @error('value_setting')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    @endforeach
+                                @elseif($setting->type == 'text')
+                                    <div class="form-group row clone_key_setting">
+                                        <label for="value_setting" class="col-md-4 col-form-label text-md-right">
+                                            {{ __('Value Setting') }}
+                                        </label>
+                                        <div class="col-md-6">
+                                            <textarea class="form-control value-setting" name="value_setting"
+                                                placeholder="key">{{ $setting->value_setting }}</textarea>
+                                            @error('key_setting')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                @else
+                                    <div class="form-group row">
+                                        <label for="{{ 'value_setting' }}" class="col-md-4 col-form-label text-md-right">
+                                            {{ ucfirst('value setting') }}
+                                        </label>
+                                        <div class="col-md-6">
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <button id="ckfinder-modal" class="btn btn-outline-success ckfinder-btn"
+                                                        type="button">{{ __('Upload') }}</button>
+                                                </div>
+                                                <input type="text" class="form-control" id="ckfinder-input"
+                                                    value="{{ old('value_setting', $setting->value_setting) }}"
+                                                    name="{{ 'value_setting' }}" placeholder="upload file">
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
                             </div>
 
                             <div class="form-group row">
@@ -252,7 +260,49 @@ $setting->value_setting;
             });
         };
 
-    </script>
-    <script src="//cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js" type="text/javascript"></script>
+        /**
+         * Cho type JSON, khi click add 1 file thi no se add 2 input (key+value) dong thoi
+         */
+        function clickToClone() {
+            $('.click-to-clone').on('click', function() {
+                var clone_ks = $('.clone_key_setting:last').clone();
+                clone_ks.insertAfter('.clone_value_setting:last');
 
+                var clone_vs = $('.clone_value_setting:last').clone();
+                clone_vs.insertAfter('.clone_key_setting:last');
+
+                $('.key-setting:last').val('');
+                $('.value-setting:last').val('');
+
+                clickToClone();
+            });
+        }
+        clickToClone();
+
+        /**
+         * Doi type thi field input content doi theo
+         */
+        function changeField(sel) {
+            var url = sel.value == 'text' ? "{{ route('setting.field-text') }}" : (sel.value == 'image' ?
+                "{{ route('setting.field-image') }}" : "{{ route('setting.field-json') }}");
+            $.ajax({
+                    url: url,
+                    type: 'GET',
+                    dataType: 'html',
+                    success: function(data) {
+                        if ($('.field-setting').length > 0) {
+                            $('.field-setting').remove();
+                        }
+                        if ($('.setting-content').length > 0) {
+                            $('.setting-content').remove();
+                        }
+                        $(data).insertAfter($('.setting-type'));
+                    }
+                })
+                .done(function() {
+                    clickToClone();
+                });
+        }
+
+    </script>
 @endpush

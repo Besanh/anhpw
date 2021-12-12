@@ -32,7 +32,7 @@ $limits = [1, 9, 18, 27, 36];
     <!-- Sort By -->
     <div class="g-mr-60">
         <h2 class="h6 align-middle d-inline-block g-font-weight-400 text-uppercase g-pos-rel g-top-1 mb-0">
-            Sort by:</h2>
+            {{ __('Sort by') }}:</h2>
 
         <!-- Secondary Button -->
         <div class="d-inline-block btn-group g-line-height-1_2">

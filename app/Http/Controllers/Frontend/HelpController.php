@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Help;
-use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Arr;
 
 class HelpController extends Controller
 {
@@ -16,7 +16,11 @@ class HelpController extends Controller
      */
     public function index(string $alias)
     {
-        $helps = Help::select('helps.*')
+        $title = '';
+        $helps = Help::select([
+            'helps.*',
+            'help_types.name'
+        ])
             ->join('help_types', 'help_types.id', '=', 'helps.help_type_id')
             ->where([
                 ['alias', '=', $alias],
@@ -24,7 +28,10 @@ class HelpController extends Controller
                 ['helps.status', '=', 1]
             ])
             ->get();
+        if ($helps) {
+            $title = Arr::get($helps, '0.name');
+        }
 
-        return view('frontend.help.index', compact('helps'));
+        return view('frontend.help.index', compact(['helps', 'title']));
     }
 }

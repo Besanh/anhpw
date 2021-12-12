@@ -13,3 +13,15 @@
 .bg-main{
     background: linear-gradient(133deg,#ed1b23,#2e3091,#253494) !important;
 }
+
+div.media {
+    justify-content: center;
+}
+
+form.form-search-brand .twitter-typeahead {
+    width: 100%;
+}
+
+form.form-search-brand .tt-menu {
+    width: 100%;
+}

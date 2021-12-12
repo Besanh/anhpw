@@ -28,7 +28,7 @@ $title = __('Product' . ' - ' . $product->p_name_seo); ?>
 
             <div class="col-lg-5">
                 <div class="g-px-40--lg g-pt-70">
-                    @include('frontend.product.sub_product.detail', compact('product'))
+                    @include('frontend.product.sub_product.detail')
                 </div>
             </div>
         </div>
@@ -36,7 +36,7 @@ $title = __('Product' . ' - ' . $product->p_name_seo); ?>
     <!-- End Product Description -->
 
     <!-- Description -->
-    @include('frontend.product.sub_product.description', compact('product'))
+    @include('frontend.product.sub_product.description')
     <!-- End Description -->
 
     <!-- Review -->
@@ -45,7 +45,7 @@ $title = __('Product' . ' - ' . $product->p_name_seo); ?>
 
     <!-- Products -->
     @if ($related_products->count() > 0)
-        @include('frontend.product.sub_product.related_product', compact('related_products'))
+        @include('frontend.product.sub_product.related_product')
     @endif
 
     <!-- End Products -->

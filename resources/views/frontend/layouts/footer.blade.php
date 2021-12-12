@@ -46,7 +46,9 @@ $brands_footer = Cache::get('brands_footer');
                                         @if ($k > 4 && $k <= 9)
                                             <li class="g-mb-10">
                                                 <a class="u-link-v5 g-color-gray-dark-v5 g-color-primary--hover"
-                                                    href="{{ route('product-detail', ['brand_alias' => $p->b_alias, 'id' => $p->id, 'product_alias' => toAlias($p->name_seo)]) }}">{{ getTeaser($p->name_seo, 3) }}</a>
+                                                    href="{{ route('product-detail', ['brand_alias' => $p->b_alias, 'id' => $p->id, 'product_alias' => toAlias($p->name_seo)]) }}">
+                                                    {{ getTeaser($p->price_name_seo, 3) }}
+                                                </a>
                                             </li>
                                         @endif
 
@@ -64,7 +66,9 @@ $brands_footer = Cache::get('brands_footer');
                                         @if ($k > 9)
                                             <li class="g-mb-10">
                                                 <a class="u-link-v5 g-color-gray-dark-v5 g-color-primary--hover"
-                                                    href="{{ route('product-detail', ['brand_alias' => $p->b_alias, 'id' => $p->id, 'product_alias' => toAlias($p->name_seo)]) }}">{{ getTeaser($p->name_seo, 3) }}</a>
+                                                    href="{{ route('product-detail', ['brand_alias' => $p->b_alias, 'id' => $p->id, 'product_alias' => toAlias($p->name_seo)]) }}">
+                                                    {{ getTeaser($p->price_name_seo, 3) }}
+                                                </a>
                                             </li>
                                         @endif
 

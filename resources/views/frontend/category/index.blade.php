@@ -14,7 +14,7 @@ $seo_keyword .= $cate->name . ', ' . $cate->name_seo;
 @section('title', $title)
 @section('content')
     <!-- Breadcrumbs -->
-    @include('frontend.category.sub_files.breadcrumb', compact(['cate']))
+    @include('frontend.category.sub_files.breadcrumb')
     <!-- End Breadcrumbs -->
     <!-- Products -->
     <div class="container">

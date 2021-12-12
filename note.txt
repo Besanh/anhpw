@@ -60,6 +60,9 @@ https://twitter.github.io/typeahead.js/examples/
 // Khong dung bootstrap
 https://viblo.asia/p/xay-dung-chuc-nang-tim-kiem-thong-minh-trong-laravel-voi-typeaheadjs-aWj53ko856m
 https://scotch.io/tutorials/implementing-smart-search-with-laravel-and-typeahead-js
+Sua loi sau khi click thi hien json trong input
+https://stackoverflow.com/questions/42841675/why-typeahead-shows-json-object-in-input-after-click
+
 
 // Pattern product variant
 

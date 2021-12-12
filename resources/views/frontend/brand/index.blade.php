@@ -24,7 +24,7 @@ $seo_keyword .= $brand->name . ', ' . $brand->name_seo;
     <div class="container">
         <!-- Banner -->
         <div class="g-bg-size-cover g-bg-pos-center g-py-40 g-mt-50"
-            style="background-image: url('http://127.0.0.1:8000/userfiles/images/category_big_thumb/2021/10/1633534002.9381.jpg');">
+            style="background-image: url({{ getImage('userfiles/images/breadcrumb_bg/breadcrumb_perfume.jpg') }});">
             <div class="g-pos-rel g-z-index-1 g-pa-50">
                 <span class="d-block g-color-primary g-font-weight-700 g-font-size-40 mb-0"></span>
                 <h2 class="g-color-white g-font-size-50 mb-3">{{ $title }}</h2>

@@ -89,7 +89,6 @@ $title = $seo ? $seo->title : config('app.name');
         {!! Arr::get($gift_cards, '0.description') !!}
     </div>
 
-    @include('frontend.home.sub_home._features')
     <div class="modal-notify">
         <div class="modal" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">

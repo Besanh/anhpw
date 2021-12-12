@@ -5,8 +5,9 @@ $title = __('Menu - Edit');
 $status = getStatus();
 $main_link = 'menu';
 ?>
+@extends('admin.layouts.main')
 @section('title', $title)
-    @extends('admin.layouts.main')
+
 @section('content')
     <div class="container">
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -19,6 +20,12 @@ $main_link = 'menu';
                         <div>
                             <div class="alert alert-success">
                                 {!! Session::get('message') !!}
+                            </div>
+                        </div>
+                    @elseif(Session::has('error'))
+                        <div>
+                            <div class="alert alert-danger">
+                                {!! Session::get('error') !!}
                             </div>
                         </div>
                     @endif
@@ -41,6 +48,7 @@ $main_link = 'menu';
                             enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
+
                             <div class="row">
                                 <div class="col-md-4">
                                     <label for="parent_id" class="col-form-label text-md-right">{{ __('Parent') }}</label>
@@ -48,7 +56,7 @@ $main_link = 'menu';
                                         <select name="parent_id" class="form-control" aria-label="Default select" required
                                             size="4">
                                             <option value="0" selected>
-                                                ROOT
+                                                {{ __('ROOT') }}
                                             </option>
                                             @if ($menu_list)
                                                 @foreach ($menu_list as $k => $m)
@@ -297,4 +305,3 @@ $main_link = 'menu';
         </div>
     </div>
 @endsection
-{{-- @include('helper.ckeditor') --}}

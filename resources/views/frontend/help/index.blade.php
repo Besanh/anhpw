@@ -2,7 +2,6 @@
 use Diglactic\Breadcrumbs\Breadcrumbs;
 
 $seo = metaData('help_page');
-$title = $seo ? $seo->title : config('app.name');
 ?>
 @extends('frontend.layouts.main')
 @push('meta')

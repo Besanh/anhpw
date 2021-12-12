@@ -1,15 +1,18 @@
 @include('ckfinder::setup')
-<div class="form-group row">
-    <label for="{{ 'value_setting' }}" class="col-md-4 col-form-label text-md-right">
-        {{ ucfirst("value setting") }}
-    </label>
-    <div class="col-md-6">
-        <div class="input-group mb-3">
-            <div class="input-group-prepend">
-                <button id="ckfinder-modal" class="btn btn-outline-success ckfinder-btn" type="button">Upload</button>
+<div class="setting-content">
+    <div class="form-group row">
+        <label for="{{ 'value_setting' }}" class="col-md-4 col-form-label text-md-right">
+            {{ ucfirst('value setting') }}
+        </label>
+        <div class="col-md-6">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <button id="ckfinder-modal" class="btn btn-outline-success ckfinder-btn"
+                        type="button">{{ __('Upload') }}</button>
+                </div>
+                <input type="text" class="form-control" id="ckfinder-input" value="{{ old('value_setting') }}"
+                    name="{{ 'value_setting' }}" placeholder="{{ __('Upload File') }}">
             </div>
-            <input type="text" class="form-control" id="ckfinder-input" value="{{ old('value_setting') }}"
-                name="{{ 'value_setting' }}" placeholder="upload file">
         </div>
     </div>
 </div>
@@ -46,4 +49,3 @@
     };
 
 </script>
-<script src="//cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js" type="text/javascript"></script>

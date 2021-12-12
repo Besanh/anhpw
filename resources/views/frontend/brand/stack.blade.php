@@ -80,5 +80,65 @@
             $.HSCore.components.HSSlider.init('#rangeSlider1');
         });
 
+        // Filter search by brand
+        // $(".search-brand").on("keyup", function() {
+        //     var value = $(this).val().toLowerCase();
+        //     $(".tab-brand .body-tab-brand").filter(function() {
+        //         $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        //     });
+        // });
+
+        $(document).ready(function($) {
+            // Set the Options for "Bloodhound" suggestion engine
+            var brands = new Bloodhound({
+                remote: {
+                    url: '/search-brand/brand?search=%QUERY%',
+                    wildcard: '%QUERY%'
+                },
+                datumTokenizer: Bloodhound.tokenizers.whitespace('search'),
+                queryTokenizer: Bloodhound.tokenizers.whitespace
+            });
+
+            $(".search-brand").typeahead({
+                hint: true,
+                // highlight: true,
+                minLength: 1
+            }, {
+                source: brands.ttAdapter(),
+
+                // This will be appended to "tt-dataset-" to form the class name of the suggestion menu.
+                name: 'brands-name',
+
+                // the key from the array we want to display (name,id,email,etc...)
+                display: 'name',
+
+                templates: {
+                    // empty: [
+                    //     '<div class="list-group-item">Nothing found.</div>'
+                    // ],
+                    header: [
+                        '<div class="header-title" style="padding: 5px 10px;background: #dadada;font-weight: bold;">Brands</div><div class="list-group search-results-dropdown"></div>'
+                    ],
+                    suggestion: function(data) {
+                        let path =
+                            '/brand/' + data.alias;
+                        return '<a href="' + path + '" class="list-group-item">' + '<img src="' + data
+                            .image + '" style="width: 25%; height: 25%" />' +
+                            '<span style="margin: 20px; font-weight: bold;font-size: 20px">' + data
+                            .name_seo +
+                            '</span>' +
+                            '</a>'
+                    }
+                }
+            }, );
+
+            function convertToSlug(Text) {
+                return Text
+                    .toLowerCase()
+                    .replace(/ /g, '-')
+                    .replace(/[^\w-]+/g, '');
+            }
+        });
+
     </script>
 @endpush
