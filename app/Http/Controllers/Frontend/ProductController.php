@@ -5,16 +5,30 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\ShippingFee;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
 
 class ProductController extends Controller
 {
     public function index($brand_alias, $id, $product_alias)
     {
-        $product = Product::select([
+        $product_detail = Product::select([
+            'products.*',
+        ])
+            ->join('prices', 'prices.pid', '=', 'products.id')
+            ->join('categories', 'categories.id', '=', 'products.cate_id')
+            ->where([
+                ['products.id', '=', $id],
+                ['categories.status', '=', 1],
+                ['products.status', '=', 1],
+                ['prices.status', '=', 1],
+            ])
+            ->first();
+        $product_items = Product::select([
             'categories.name as cate_name',
             'categories.name_seo as cate_name_seo',
             'products.id',
+            'products.cate_id',
             'products.name as p_name',
             'products.name_seo as p_name_seo',
             'products.benefit',
@@ -51,13 +65,14 @@ class ProductController extends Controller
                 ['products.status', '=', 1],
                 ['prices.status', '=', 1]
             ])
-            ->first();
-        if ($product) {
+            ->get();
+
+        if ($product_detail) {
             $related_products = Product::queryDataProduct()
                 ->where([
                     ['brands.alias', '=', $brand_alias],
-                    ['products.id', '!=', $product->p_id],
-                    ['products.cate_id', '=', $product->cate_id],
+                    ['products.id', '!=', $product_detail->id],
+                    ['products.cate_id', '=', $product_detail->cate_id],
                     ['products.id', '=', $id],
                     ['brands.status', '=', 1],
                     ['products.status', '=', 1],
@@ -73,8 +88,38 @@ class ProductController extends Controller
                     ->get();
             });
 
-            return view('frontend.product.index', compact(['product', 'related_products', 'shippingFees']));
+            return view('frontend.product.index', compact(['product_detail', 'product_items', 'related_products', 'shippingFees']));
         }
         return redirect()->route('comming-soon');
+    }
+
+    /**
+     * Get
+     * Click capa change info product
+     */
+    public function clickCapaBindInfo($id)
+    {
+        $product_detail = Product::select([
+            'products.id',
+            'prices.id as price_id',
+            'prices.name',
+            'prices.name_seo',
+            'prices.barcode',
+            'prices.sap_id',
+            'prices.price'
+        ])
+            ->join('prices', 'prices.pid', '=', 'products.id')
+            ->join('categories', 'categories.id', '=', 'products.cate_id')
+            ->where([
+                ['prices.id', '=', $id],
+                ['categories.status', '=', 1],
+                ['products.status', '=', 1],
+                ['prices.status', '=', 1],
+            ])
+            ->first();
+        if ($product_detail) {
+            return response()->json($product_detail, 200);
+        }
+        return response()->json(['message' => 'Data not found'], 200);
     }
 }

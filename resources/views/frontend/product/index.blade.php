@@ -1,13 +1,16 @@
 <?php
-$title = __('Product' . ' - ' . $product->p_name_seo); ?>
+use Illuminate\Support\Arr;
+
+$title = __('Product' . ' - ' . $product_detail->name_seo);
+?>
 @push('meta')
     <meta name="description"
-        content="{{ getTeaser($product->getSeo->seo_desc ? $product->getSeo->seo_desc : config('app.seo_desc'), 50) }}">
+        content="{{ getTeaser($product_detail->getSeo->seo_desc ? $product_detail->getSeo->seo_desc : config('app.seo_desc'), 50) }}">
     <meta name="keyword"
-        content="{{ $product->getSeo->seo_keyword ? $product->getSeo->seo_keyword : config('app.seo_keyword') }}">
+        content="{{ $product_detail->getSeo->seo_keyword ? $product_detail->getSeo->seo_keyword : config('app.seo_keyword') }}">
     <link rel="canonical" href="{{ url()->current() }}">
     <meta name="robots"
-        content="{{ $product->getSeo->seo_robot ? $product->getSeo->seo_robot : config('app.seo_robot') }}">
+        content="{{ $product_detail->getSeo->seo_robot ? $product_detail->getSeo->seo_robot : config('app.seo_robot') }}">
 @endpush
 @extends('frontend.layouts.main')
 @section('title', $title)
@@ -18,10 +21,10 @@ $title = __('Product' . ' - ' . $product->p_name_seo); ?>
             <div class="col-lg-7">
                 <!-- Carousel -->
                 @includeIf('frontend.product.sub_product.carousel', [
-                'image' => $product->image,
-                'image_thumb_small' => $product->image_thumb_small,
-                'galleries' => $product->galleries,
-                'thumb_small' => $product->thumb_small
+                'image' => $product_detail->image,
+                'image_thumb_small' => $product_detail->image_thumb_small,
+                'galleries' => $product_detail->galleries,
+                'thumb_small' => $product_detail->thumb_small
                 ])
                 <!-- End Carousel -->
             </div>

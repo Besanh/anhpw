@@ -126,3 +126,32 @@ function buyGiftCard() {
     });
 }
 buyGiftCard();
+
+/**
+ * Page product detail
+ * Chon capa
+ */
+function changeCapaProDetail() {
+    var id = qty = null;
+    $('.select-capa').on('click', function () {
+        id = $(this).val();
+        qty = $('.qty-capa').val();
+        if (id != null && qty != null) {
+            $('.add-cart').attr('href', '/' + 'cart/add/' + id + '/' + qty)
+        }
+        $.ajax({
+            url: $(this).attr('data-url'),
+            method: 'get',
+            data: { _token: $('meta[name="csrf-token"]').attr('content') },
+            success: function (json) {
+                if (!json.message) {
+                    $('.prices-detail-name').text(json.name_seo)
+                    $('.prices-detail-price').text(new Intl.NumberFormat('vn-VN').format(json.price) + ' VND')
+                    $('.prices-detail-barcode').text(json.barcode)
+                    $(this).attr('checked', true)
+                }
+            }
+        })
+    });
+}
+changeCapaProDetail();

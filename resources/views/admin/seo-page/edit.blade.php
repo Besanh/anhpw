@@ -3,8 +3,9 @@ $title = __('SEO Page - Update');
 $status = getStatus();
 $main_link = 'seo-page';
 ?>
+@extends('admin.layouts.main')
 @section('title', $title)
-    @extends('admin.layouts.main')
+
 @section('content')
     <div class="container">
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -33,7 +34,7 @@ $main_link = 'seo-page';
                     @endif
                     <div class="card-header">
                         {{ $title }}
-                        <a href="{{ route($main_link . '.index') }}" class="float-right">{{ __('SEO Page') }}</a>
+                        <a href="{{ route($main_link . '.index') }}" class="float-right">{{ __('SEO Pages') }}</a>
                     </div>
 
                     <div class="card-body">

@@ -1,17 +1,18 @@
 <!-- Product Info -->
 <div class="g-mb-30">
-    <h1 class="g-font-weight-500 mb-4 g-color-primary">{{ $product ? $product->p_name_seo : null }}</h1>
-    <p>{!! $product ? $product->ingredient : null !!}</p>
+    <h1 class="prices-detail-name g-font-weight-500 mb-4 g-color-primary">{{ $product_detail->name_seo }}</h1>
+    <p>{!! $product_detail->ingredient !!}</p>
 </div>
 <!-- End Product Info -->
 
 <!-- Price -->
 <div class="g-mb-30">
-    <h2 class="g-color-gray-dark-v5 g-font-weight-400 g-font-size-12 text-uppercase mb-2">
-        {{ $product ? $product->barcode : null }}
+    <h2 class="prices-detail-barcode g-color-gray-dark-v5 g-font-weight-400 g-font-size-12 text-uppercase mb-2">
+        {{ Arr::get($product_items, '0.barcode') }}
     </h2>
-    <span
-        class="g-color-black g-font-weight-300 g-font-size-30 mr-2">{{ $product ? getPrice($product->price) : null }}</span>
+    <span class="prices-detail-price g-color-black g-font-weight-300 g-font-size-30 mr-2">
+        {{ getPrice(Arr::get($product_items, '0.price')) }}
+    </span>
     {{-- <s class="g-color-gray-dark-v4 g-font-weight-500 g-font-size-16">$101.00</s> --}}
 </div>
 <!-- End Price -->
@@ -28,7 +29,7 @@
     </div>
     <div id="accordion-01-body-01" class="collapse" role="tabpanel" aria-labelledby="accordion-01-heading-01">
         <div class="g-py-10">
-            <p class="g-font-size-12 mb-2">{!! $product ? $product->benefit : null !!}</p>
+            <p class="g-font-size-12 mb-2">{!! $product_detail->benefit !!}</p>
         </div>
     </div>
 </div>
@@ -39,12 +40,18 @@
     <h5 class="g-color-gray-dark-v5 g-font-weight-400 g-font-size-default mb-0">{{ __('Capacity') }}</h5>
 
     <!-- Checkbox -->
-    <label class="form-check-inline u-check mb-0 ml-auto g-mr-15">
-        <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="capacity" type="radio">
-        <span class="d-block g-font-size-12 g-color-primary--checked">
-            {{ $product ? $product->capa : null }}
-        </span>
-    </label>
+    @if ($product_items)
+        @foreach ($product_items as $k => $item)
+            <label class="form-check-inline u-check mb-0 ml-5 g-mr-15">
+                <input class="select-capa g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="capacity"
+                    value="{{ $item->price_id }}" type="radio"
+                    data-url="{{ route('click-capa-bind-info', $item->price_id) }}">
+                <span class="d-block g-font-size-12 g-color-primary--checked">
+                    {{ $item->capa . ' ' . getCapaName($item->capa_id) }}
+                </span>
+            </label>
+        @endforeach
+    @endif
     <!-- End Checkbox -->
 </div>
 <!-- End Size -->
@@ -54,8 +61,8 @@
     <h5 class="g-color-gray-dark-v5 g-font-weight-400 g-font-size-default mb-0">{{ __('Quantity') }}</h5>
 
     <div class="js-quantity input-group u-quantity-v1 g-width-80 g-brd-primary--focus">
-        <input class="js-result form-control text-center g-font-size-13 rounded-0" name="quantity" type="text" value="1"
-            readonly>
+        <input class="qty-capa js-result form-control text-center g-font-size-13 rounded-0" name="quantity" type="text"
+            value="1" readonly>
 
         <div
             class="input-group-addon d-flex align-items-center g-width-30 g-brd-gray-light-v2 g-bg-white g-font-size-13 rounded-0 g-pa-5">
@@ -68,10 +75,15 @@
 <!-- Buttons -->
 <div class="row g-mx-minus-5 g-mb-20">
     <div class="col g-px-5 g-mb-10">
-        <button class="btn btn-block u-btn-primary g-font-size-12 text-uppercase g-py-15 g-px-25" type="button"
-            onclick="window.location='{{ route('cart.add', ['id' => $product->price_id]) }}'">
+        {{-- <button class="add-cart btn btn-block u-btn-primary g-font-size-12 text-uppercase g-py-15 g-px-25" type="button"
+            onclick="window.location='{{ route('cart.add', ['id' => Arr::get($product_items, '0.price_id')]) }}'">
             {{ __('Add to Cart') }} <i class="align-middle ml-2 icon-finance-100 u-line-icon-pro"></i>
-        </button>
+        </button> --}}
+        <a class="add-cart btn btn-block u-btn-primary g-font-size-12 text-uppercase g-py-15 g-px-25"
+            href="{{ route('cart.add', ['id' => Arr::get($product_items, '0.price_id')]) }}"
+            style="color:#fff!important">
+            {{ __('Add to Cart') }} <i class="align-middle ml-2 icon-finance-100 u-line-icon-pro"></i>
+        </a>
     </div>
     <div class="col g-px-5 g-mb-10">
         <button
@@ -90,6 +102,12 @@
         <a class="nav-link active g-color-primary--parent-active g-pa-0 g-pb-1" data-toggle="tab"
             href="#nav-1-1-default-hor-left--3" role="tab">{{ __('Returns') }}</a>
     </li>
+    {{-- <li class="nav-item g-brd-bottom g-brd-gray-dark-v4">
+        <a class="nav-link g-color-primary--parent-active g-pa-0 g-pb-1" data-toggle="tab"
+            href="#nav-1-1-default-hor-left--1" role="tab">
+            {{ __('Stock') }}
+        </a>
+    </li> --}}
     <li class="nav-item g-brd-bottom g-brd-gray-dark-v4">
         <a class="nav-link g-color-primary--parent-active g-pa-0 g-pb-1" data-toggle="tab"
             href="#nav-1-1-default-hor-left--2" role="tab">{{ __('Delivery') }}</a>
@@ -101,10 +119,40 @@
 <div id="nav-1-1-default-hor-left" class="tab-content">
     <div class="tab-pane fade show active g-pt-30" id="nav-1-1-default-hor-left--3" role="tabpanel">
         <p class="g-color-gray-dark-v4 g-font-size-13 mb-0">
-            {{ __('You can return/exchange your orders in Unify E-commerce. For more information, read our') }}
+            {{ __('You can return/exchange your orders in ' . config('app.name') . '. For more information, read our') }}
             <a href="{{ route('help', ['alias' => 'help']) }}">{{ __('Help') }}</a>.
         </p>
     </div>
+
+    {{-- <div class="tab-pane fade g-pt-30" id="nav-1-1-default-hor-left--1" role="tabpanel">
+        <h4 class="g-font-size-15 mb-3">{{ __('Check store product inventory') }}</h4>
+
+        <!-- Size -->
+        @if (!$product_items)
+            <?php $str_stock = ''; ?>
+            <table>
+                <tbody>
+                    <tr class="g-color-gray-dark-v4 g-font-size-12">
+                        @foreach ($product_items as $k => $title)
+                            <td class="align-top g-width-150 g-py-5">{{ $title->barcode }}</td>
+                        @endforeach
+                    </tr>
+                    @foreach ($product_items as $j => $item)
+                        <tr class="g-color-gray-dark-v4 g-font-size-12">
+                            <td class="align-top g-width-150 g-py-5">UK</td>
+                            <td class="align-top g-width-50 g-py-5">6</td>
+                            <td class="align-top g-width-50 g-py-5">8</td>
+                            <td class="align-top g-width-50 g-py-5">10</td>
+                            <td class="align-top g-width-50 g-py-5">12</td>
+                            <td class="align-top g-width-50 g-py-5">14</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        @endif
+        <!-- End Size -->
+    </div> --}}
+
 
     <div class="tab-pane fade g-pt-30" id="nav-1-1-default-hor-left--2" role="tabpanel">
         <!-- Shipping Mehtod -->

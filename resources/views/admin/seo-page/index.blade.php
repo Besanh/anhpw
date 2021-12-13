@@ -1,6 +1,6 @@
 <?php
 
-$title = __('Seo Page');
+$title = __('Seo Pages');
 $head_table = ['#', 'Title', 'Pid', 'Page Name', 'Action'];
 $main_link = 'seo-page';
 ?>

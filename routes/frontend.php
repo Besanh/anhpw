@@ -42,6 +42,7 @@ Route::get('{brand_alias}/{id}-{product_alias}.html', [ProductController::class,
     ->whereNumber('id')
     // ->whereAlphaNumeric('product_alias')
     ->name('product-detail');
+Route::get('click-capa-bind-info/{id}', [ProductController::class, 'clickCapaBindInfo'])->name('click-capa-bind-info');
 
 // Comming soon
 Route::get('comming-soon', [CommingSoonController::class, 'index'])->name('comming-soon');
