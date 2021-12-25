@@ -1,10 +1,11 @@
 <?php
-$title = 'Province - Create';
+$title = __('Province - Create');
 $status = getStatus();
 $main_link = 'province';
 ?>
+@extends('admin.layouts.main')
 @section('title', $title)
-    @extends('admin.layouts.main')
+
 @section('content')
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">{{ 'Province' }}</h1>
@@ -31,7 +32,7 @@ $main_link = 'province';
                     @endif
                     <div class="card-header">
                         {{ $title }}
-                        <a href="{{ route($main_link . '.index') }}" class="float-right">Provinces</a>
+                        <a href="{{ route($main_link . '.index') }}" class="float-right">{{ __('Provinces') }}</a>
                     </div>
 
                     <div class="card-body">

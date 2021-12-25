@@ -2,13 +2,27 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\AdminBaseController as Controller;
 use App\Http\Requests\SettingStoreRequest;
 use App\Http\Requests\SettingUpdateRequest;
 use App\Models\Setting;
 
 class SettingController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:setting-list', ['only' => ['index']]);
+        $this->middleware('permission:setting-show', ['only' => ['show']]);
+        $this->middleware('permission:setting-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:setting-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:setting-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:setting-update-status', ['only' => ['updateStatus']]);
+        $this->middleware('permission:setting-proccess-value', ['only' => ['proccessValue']]);
+        $this->middleware('permission:setting-field-text', ['only' => ['fieldText']]);
+        $this->middleware('permission:setting-field-json', ['only' => ['fieldJson']]);
+        $this->middleware('permission:setting-field-image', ['only' => ['fieldImage']]);
+    }
+
     /**
      * Display a listing of the resource.
      *

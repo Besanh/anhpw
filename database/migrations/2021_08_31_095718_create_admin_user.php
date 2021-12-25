@@ -13,7 +13,7 @@ class CreateAdminUser extends Migration
      */
     public function up()
     {
-        Schema::create('admin_user', function (Blueprint $table) {
+        Schema::create('admin_users', function (Blueprint $table) {
             $table->id();
             $table->string('name', 50);
             $table->string('email', 50);
@@ -31,6 +31,6 @@ class CreateAdminUser extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('admin_user');
+        Schema::dropIfExists('admin_users');
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\AdminBaseController as Controller;
 use App\Http\Requests\HelpStoreRequest;
 use App\Http\Requests\HelpUpdateRequest;
 use App\Models\Help;
@@ -10,6 +10,15 @@ use App\Models\HelpType;
 
 class HelpController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:help-list', ['only' => ['index']]);
+        $this->middleware('permission:help-show', ['only' => ['show']]);
+        $this->middleware('permission:help-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:help-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:help-delete', ['only' => ['destroy']]);
+    }
+
     /**
      * Display a listing of the resource.
      *

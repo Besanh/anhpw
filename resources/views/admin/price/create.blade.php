@@ -3,8 +3,9 @@ $title = __('Price - Create');
 $status = getStatus();
 $main_link = 'price';
 ?>
+@extends('admin.layouts.main')
 @section('title', $title)
-    @extends('admin.layouts.main')
+
 @section('content')
     <div class="container">
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -19,6 +20,12 @@ $main_link = 'price';
                                 {!! Session::get('message') !!}
                             </div>
                         </div>
+                        {{-- @elseif(Session::has('error'))
+                        <div>
+                            <div class="alert alert-danger">
+                                {!! Session::get('error') !!}
+                            </div>
+                        </div> --}}
                     @endif
                     @if ($errors->any())
                         <div>
@@ -31,28 +38,36 @@ $main_link = 'price';
                     @endif
                     <div class="card-header">
                         {{ $title }}
-                    <a href="{{ route($main_link . '.index') }}" class="float-right">{{__('Prices')}}</a>
+                        <a href="{{ route($main_link . '.index') }}" class="float-right">{{ __('Prices') }}</a>
                     </div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route($main_link . '.store') }}" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route($main_link . '.store') }}">
                             @csrf
 
                             <div class="row">
                                 <div class="col-md-4">
-                                    <label for="sap_id" class="col-form-label text-md-right">
-                                        {{ __('SAP ID') }}
+                                    <label for="cate_id" class="col-form-label text-md-right">
+                                        {{ __('Category') }}
                                     </label>
                                     <div>
-                                        <input id="sap_id" type="text"
-                                            class="form-control @error('sap_id') is-invalid @enderror" name="sap_id"
-                                            value="{{ old('sap_id') }}" required autocomplete="sap_id" autofocus>
-
-                                        @error('sap_id')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
+                                        @if ($categories)
+                                            <select name="cate_id" class="form-control" aria-label="Default select"
+                                                required>
+                                                <option value="">{{ __('Choose category') }}</option>
+                                                @foreach ($categories as $j => $c)
+                                                    <option value="{!! $c->id !!}"
+                                                        class="@error('cate_id') is-invalid @enderror">
+                                                        {!! $c->name !!}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            @error('cate_id')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        @endif
                                     </div>
 
                                     <label for="pid" class="col-form-label text-md-right">
@@ -61,7 +76,7 @@ $main_link = 'price';
                                     <div>
                                         @if ($products)
                                             <select name="pid" class="form-control" aria-label="Default select" required>
-                                                <option value="">Choose product</option>
+                                                <option value="">{{ __('Choose product') }}</option>
                                                 @foreach ($products as $k => $p)
                                                     <option value="{!! $p->id !!}"
                                                         class="@error('pid') is-invalid @enderror">
@@ -75,6 +90,21 @@ $main_link = 'price';
                                                 </span>
                                             @enderror
                                         @endif
+                                    </div>
+
+                                    <label for="sap_id" class="col-form-label text-md-right">
+                                        {{ __('SAP ID') }}
+                                    </label>
+                                    <div>
+                                        <input id="sap_id" type="text"
+                                            class="form-control @error('sap_id') is-invalid @enderror" name="sap_id"
+                                            value="{{ old('sap_id') }}" required autocomplete="sap_id" autofocus>
+
+                                        @error('sap_id')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
 
                                     <label for="barcode" class="col-form-label text-md-right">
@@ -145,7 +175,7 @@ $main_link = 'price';
                                         @if ($capacities)
                                             <select name="capa_id" class="form-control" aria-label="Default select"
                                                 required>
-                                                <option>Choose capacity</option>
+                                                <option>{{ __('Choose capacity') }}</option>
                                                 @foreach ($capacities as $k => $c)
                                                     <option value="{!! $c->id !!}"
                                                         class="@error('capa_id') is-invalid @enderror">
@@ -175,6 +205,24 @@ $main_link = 'price';
                                             </span>
                                         @enderror
                                     </div>
+
+                                    <label for="sex" class="col-form-label text-md-right">
+                                        {{ __('Sex') }}
+                                    </label>
+                                    <select name="sex" class="form-control" aria-label="Default select" required>
+                                        <option value="">{{ __('Choose gender') }}</option>
+                                        @foreach (arrayGender() as $i => $g)
+                                            <option value="{!! $i !!}"
+                                                class="@error('sex') is-invalid @enderror">
+                                                {!! $g !!}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('sex')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                                 <div class="col-md-4">
                                     <label for="promote" class="col-form-label text-md-right">
@@ -240,7 +288,7 @@ $main_link = 'price';
                                 </div>
                             </div>
 
-                            <div class="form-group row mb-0 text-center">
+                            <div class="form-group row mb-0 mt-5 text-center">
                                 <div class="col-md-12 offset-md-12">
                                     <button type="submit" class="btn btn-primary">
                                         {{ __('Create') }}
@@ -254,5 +302,4 @@ $main_link = 'price';
         </div>
     </div>
 @endsection
-@include('helper.ckeditor')
 @include('helper.select2')

@@ -32,3 +32,4 @@
 @stack('ckfinder-input')
 @stack('jquery-ui')
 @stack('script-edit-table')
+@stack('script-role')

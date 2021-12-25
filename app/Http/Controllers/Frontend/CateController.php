@@ -102,14 +102,18 @@ class CateController extends Controller
                 ->orderBy('products.promote', 'DESC')
                 ->get();
 
-            $other_cate = Category::withCount(['getProducts'])
-                ->join('products', 'products.cate_id', '=', 'categories.id')
+            $other_cate = Category::select([
+                'categories.name',
+                'categories.name_seo',
+                'categories.alias'
+            ])
+                ->join('prices', 'prices.cate_id', '=', 'categories.id')
                 ->where([
-                    ['products.status', '=', 1],
                     ['categories.status', '=', 1],
                     ['categories.id', '!=', $cate_id]
                 ])
-                ->orderBy('products.promote', 'DESC')
+                ->withCount('getPrices')
+                ->groupBy('categories.id')
                 ->get();
 
             $capas = $mode_price->getCapa($cate_id);

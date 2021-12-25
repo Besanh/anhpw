@@ -2,6 +2,8 @@
 $title = __('Price - Show');
 $head_table = [
 'Id' => $price->id,
+'Cate_id' => $price->cate_id,
+'Pid' => $price->pid,
 'Sap ID' => $price->sap_id,
 'Barcode' => $price->barcode,
 'Name' => $price->name,

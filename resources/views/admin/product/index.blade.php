@@ -1,7 +1,7 @@
 <?php
 
 $title = __('Product - Index');
-$head_table = ['#', 'Category', 'Brand', 'Name', 'Status', 'Created At', 'Updated At', 'Action'];
+$head_table = ['#', 'Brand', 'Name', 'Status', 'Created At', 'Updated At', 'Action'];
 $main_link = 'product';
 ?>
 @extends('admin.layouts.main')
@@ -52,7 +52,6 @@ $main_link = 'product';
                                     <?php $k++; ?>
                                     <tr>
                                         <th scope="row">{!! $k !!}</th>
-                                        <td>{{ $node->cate_id . ' - ' . $node->getCates->name }}</td>
                                         <td>{{ $node->bid . ' - ' . $node->getBrands->name }}</td>
                                         <td>{!! $node->name !!}</td>
                                         <td>

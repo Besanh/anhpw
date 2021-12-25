@@ -2,17 +2,29 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\AdminBaseController as Controller;
 use App\Http\Requests\MenuStoreRequest;
 use App\Http\Requests\MenuUpdateRequest;
 use App\Models\Menu;
 use App\Models\MenuType;
 use Exception;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 class MenuController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:menu-list', ['only' => ['index']]);
+        $this->middleware('permission:menu-show', ['only' => ['show']]);
+        $this->middleware('permission:menu-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:menu-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:menu-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:menu-find-menu-type', ['only' => ['findMenuType']]);
+        $this->middleware('permission:menu-get-type', ['only' => ['getType']]);
+        $this->middleware('permission:menu', ['only' => ['menu']]);
+        $this->middleware('permission:menu-update-status', ['only' => ['updateStatus']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -52,7 +64,7 @@ class MenuController extends Controller
         }
         // }
         if ($request->validated()) {
-            if (Route::has($request->route)) {
+            if (!$request->route || ($request->route && Route::has($request->route))) {
                 Menu::create([
                     'parent_id' => $request->parent_id,
                     'type_id' => $request->type_id,
@@ -71,11 +83,9 @@ class MenuController extends Controller
                 ]);
                 return redirect()->back()->with('message', 'Create menu successfully');
             } else {
-                return redirect()->back()->with('error', 'Route not exist');
+                return redirect()->back()->with('error', 'Route not exist or something went wrong');
             }
         }
-
-        return redirect()->back()->with('error', 'Somthing went wrong');
     }
 
     /**
@@ -130,7 +140,7 @@ class MenuController extends Controller
         $menu = Menu::find($id);
         if ($menu) {
             if ($request->validated()) {
-                if (Route::has($request->route)) {
+                if (!$request->route || ($request->route && Route::has($request->route))) {
                     $menu->update([
                         'parent_id' => $request->parent_id,
                         'type_id' => $request->type_id,
@@ -145,11 +155,11 @@ class MenuController extends Controller
                         'priority' => $request->priority,
                         'status' => $request->status,
                         'note' => $request->note,
-                        'image' => $image ? $image : $menu->image
+                        'image' => $image ? $image : $request->image
                     ]);
-                    return redirect()->back()->with('message', 'Updated successfully');
+                    return redirect()->back()->with('message', 'Create menu successfully');
                 } else {
-                    return redirect()->back()->with('error', 'Route not exist');
+                    return redirect()->back()->with('error', 'Route not exist or something went wrong');
                 }
             }
         }

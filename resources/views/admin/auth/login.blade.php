@@ -40,6 +40,28 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">{{ __('Welcome Back!') }}</h1>
                                     </div>
+                                    @if (Session::has('message'))
+                                        <div>
+                                            <div class="alert alert-success">
+                                                {!! Session::get('message') !!}
+                                            </div>
+                                        </div>
+                                    @elseif(Session::has('error'))
+                                        <div>
+                                            <div class="alert alert-danger">
+                                                {!! Session::get('error') !!}
+                                            </div>
+                                        </div>
+                                    @endif
+                                    @if ($errors->any())
+                                        <div>
+                                            <div class="alert alert-danger">
+                                                @foreach ($errors->all() as $error)
+                                                    {!! $error !!}
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    @endif
                                     <form class="user" action="{{ route('post-admin-login') }}" method="POST">
                                         @csrf
                                         <div class="form-group">

@@ -21,6 +21,17 @@ if (!function_exists('getStatus')) {
     }
 }
 
+// Array gender
+if (!function_exists('arrayGender')) {
+    function arrayGender()
+    {
+        return [
+            '0' => 'Male',
+            '1' => 'Female'
+        ];
+    }
+}
+
 // Gender
 if (!function_exists('getGender')) {
     function getGender($id)

@@ -182,6 +182,8 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         // Hardevine shopping cart
         Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
+        // Socalite
+        Laravel\Socialite\SocialiteServiceProvider::class,
     ],
 
     /*
@@ -237,6 +239,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'Cart' => Gloudemans\Shoppingcart\Facades\Cart::class,
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
     ],
 
     // SEO

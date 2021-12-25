@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\AdminBaseController as Controller;
 use App\Models\BillConsignee;
 use App\Models\BillCustomer;
 use App\Models\BillDetail;
@@ -12,6 +12,15 @@ use Illuminate\Support\Facades\View;
 
 class BillDetailController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:bill-detail-list', ['only' => ['show']]);
+        $this->middleware('permission:bill-editable-customer', ['only' => ['editableCustomer']]);
+        $this->middleware('permission:bill-editable-detail', ['only' => ['editableDetail']]);
+        $this->middleware('permission:bill-editable-consignee', ['only' => ['editableConsignee']]);
+        $this->middleware('permission:bill-editable-invoice', ['only' => ['editableInvoice']]);
+    }
+
     /**
      * Display the specified resource.
      *

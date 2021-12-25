@@ -14,9 +14,14 @@ class Category extends Model
 
     protected $fillable = ['name', 'name_seo', 'alias', 'description', 'image', 'big_thumb', 'status'];
 
-    public function getProducts()
+    // public function getProducts()
+    // {
+    //     return $this->hasMany(Product::class, 'cate_id', 'id');
+    // }
+
+    public function getPrices()
     {
-        return $this->hasMany(Product::class, 'cate_id', 'id');
+        return $this->hasMany(Price::class, 'cate_id', 'id');
     }
 
     function proccessUpload($request, $model = 'default', $width = 500, $height = 500)

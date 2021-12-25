@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\AdminBaseController as Controller;
 use App\Http\Requests\ProductStoreRequest;
 use App\Http\Requests\ProductUpdateRequest;
 use App\Models\Brand;
@@ -13,6 +13,18 @@ use Intervention\Image\Facades\Image;
 
 class ProductController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:product-list', ['only' => ['index']]);
+        $this->middleware('permission:product-show', ['only' => ['show']]);
+        $this->middleware('permission:product-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:product-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:product-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:product-update-status', ['only' => ['updateStatus']]);
+        $this->middleware('permission:product-upload-gallery', ['only' => 'uploadGalleries']);
+        $this->middleware('permission:product-upload-thumbsmall', ['only' => 'uploadThumbSmall']);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -32,8 +44,8 @@ class ProductController extends Controller
     public function create()
     {
         $cates = Category::where('status', 1)->select(['id', 'name'])->get();
-        $brands = Brand::where('status', 1)->select(['id', 'name'])->get();
-        return view('admin.product.create', compact('cates', 'brands'));
+        $products = Brand::where('status', 1)->select(['id', 'name'])->get();
+        return view('admin.product.create', compact('cates', 'products'));
     }
 
     /**
@@ -44,8 +56,8 @@ class ProductController extends Controller
      */
     public function store(ProductStoreRequest $request, Product $product)
     {
-        $galleries = $thumb_small = $img_thumb_small = '';
-        $img_org = $thumb = $img = '';
+        $galleries = $thumb_small = [];
+        $img_thumb_small = $img_org = $thumb = $img = '';
         if ($request->hasFile('image')) {
             [$img_org, $thumb, $img] = proccessUpload($request, 'product', 650, 750);
             $img_thumb_small = $this->uploadThumbSmall($request->file('image'), 'product_image', 250, 125);
@@ -110,8 +122,8 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         $cates = Category::where('status', 1)->select(['id', 'name'])->get();
-        $brands = Brand::where('status', 1)->select(['id', 'name'])->get();
-        return view('admin.product.edit', compact('cates', 'brands', 'product'));
+        $products = Brand::where('status', 1)->select(['id', 'name'])->get();
+        return view('admin.product.edit', compact('cates', 'products', 'product'));
     }
 
     /**
@@ -123,8 +135,8 @@ class ProductController extends Controller
      */
     public function update(ProductUpdateRequest $request, Product $product)
     {
-        $galleries = $thumb_small = $img_thumb_small = '';
-        $img_org = $thumb = $img = '';
+        $galleries = $thumb_small = [];
+        $img_thumb_small = $img_org = $thumb = $img = '';
         if ($request->hasFile('image')) {
             [$img_org, $thumb, $img] = proccessUpload($request, 'product', 650, 750);
             $img_thumb_small = $this->uploadThumbSmall($request->file('image'), 'product_image', 250, 125);

@@ -2,16 +2,27 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\AdminBaseController as Controller;
 use App\Http\Requests\PriceStoreRequest;
 use App\Http\Requests\PriceUpdateRequest;
 use App\Models\Capacity;
+use App\Models\Category;
 use App\Models\Price;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
 class PriceController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:price-list', ['only' => ['index']]);
+        $this->middleware('permission:price-show', ['only' => ['show']]);
+        $this->middleware('permission:price-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:price-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:price-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:price-update-status', ['only' => ['updateStatus']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -30,9 +41,10 @@ class PriceController extends Controller
      */
     public function create()
     {
+        $categories = Category::where('status', 1)->select(['id', 'name', 'name_seo'])->get();
         $products = Product::where('status', 1)->select(['id', 'name'])->get();
         $capacities = Capacity::where('status', 1)->select(['id', 'name'])->get();
-        return view('admin.price.create', compact('products', 'capacities'));
+        return view('admin.price.create', compact('products', 'capacities', 'categories'));
     }
 
     /**
@@ -55,13 +67,9 @@ class PriceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Price $price)
     {
-        $price = Price::where('id', $id)->first();
-        if ($price) {
-            return view('admin.price.show', compact('price'));
-        }
-        return redirect()->back()->with('message', 'Something went wrong');
+        return view('admin.price.show', compact('price'));
     }
 
     /**
@@ -70,15 +78,12 @@ class PriceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Price $price)
     {
-        $price = Price::where('id', $id)->first();
-        if ($price) {
-            $products = Product::where('status', 1)->select(['id', 'name'])->get();
-            $capacities = Capacity::where('status', 1)->select(['id', 'name'])->get();
-            return view('admin.price.edit', compact(['price', 'products', 'capacities']));
-        }
-        return redirect()->back()->with('message', 'Something went wrong');
+        $categories = Category::where('status', 1)->select(['id', 'name', 'name_seo'])->get();
+        $products = Product::where('status', 1)->select(['id', 'name'])->orderBy('updated_at', 'DESC')->get();
+        $capacities = Capacity::where('status', 1)->select(['id', 'name'])->get();
+        return view('admin.price.edit', compact('price', 'products', 'capacities', 'categories'));
     }
 
     /**
@@ -88,16 +93,13 @@ class PriceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(PriceUpdateRequest $request, $id)
+    public function update(PriceUpdateRequest $request, Price $price)
     {
-        $price = Price::where('id', $id)->first();
-        if ($price) {
-            if ($request->validated()) {
-                $price->update($request->validated());
-                return redirect()->back()->with('message', 'Updated item successfully');
-            }
+        if ($request->validated()) {
+            $price->update($request->validated());
+            return redirect()->back()->with('message', 'Updated successfully');
         }
-        return redirect()->back()->with('message', 'Something went wrong');
+        return redirect()->back()->with('error', 'Something went wrong');
     }
 
     /**

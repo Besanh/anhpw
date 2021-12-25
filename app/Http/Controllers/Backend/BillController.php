@@ -2,12 +2,21 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\AdminBaseController as Controller;
 use App\Models\Bill;
 use Illuminate\Http\Request;
 
 class BillController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:bill-list', ['only' => ['index']]);
+        $this->middleware('permission:bill-show', ['only' => ['show']]);
+        $this->middleware('permission:bill-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:bill-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:bill-delete', ['only' => ['destroy']]);
+    }
+
     /**
      * Display a listing of the resource.
      *

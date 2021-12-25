@@ -1,15 +1,15 @@
 <?php
-$title = 'User - Create';
-$status = getStatus();
+$title = __('User - Create');
 $main_link = 'user';
 ?>
+@extends('admin.layouts.main')
 @section('title', $title)
-    @extends('admin.layouts.main')
+
 @section('content')
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">{{ 'User' }}</h1>
-    </div>
     <div class="container">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">{{ __('User') }}</h1>
+        </div>
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
@@ -31,7 +31,7 @@ $main_link = 'user';
                     @endif
                     <div class="card-header">
                         {{ $title }}
-                        <a href="{{ route($main_link . '.index') }}" class="float-right">Users</a>
+                        <a href="{{ route($main_link . '.index') }}" class="float-right">{{ __('Users') }}</a>
                     </div>
 
                     <div class="card-body">
@@ -104,8 +104,29 @@ $main_link = 'user';
                                 </div>
                             </div>
 
+                            <div class="form-group row">
+                                <label for="email"
+                                    class="col-md-4 col-form-label text-md-right">{{ __('Roles') }}</label>
+
+                                <div class="col-md-6">
+                                    <select name="roles[]" class="form-control" multiple aria-label="Default select" required>
+                                        @foreach ($roles as $k => $r)
+                                            <option value="{!! $k !!}"
+                                                class="@error('roles') is-invalid @enderror">
+                                                {!! $r !!}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('roles')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
                             <div class="form-group row mb-0">
-                                <div class="col-md-6 offset-md-4">
+                                <div class="col-md-6 offset-md-4 text-center">
                                     <button type="submit" class="btn btn-primary">
                                         {{ __('Create') }}
                                     </button>

@@ -3,8 +3,9 @@ $title = __('Store - Create');
 $status = getStatus();
 $main_link = 'store';
 ?>
+@extends('admin.layouts.main')
 @section('title', $title)
-    @extends('admin.layouts.main')
+    
 @section('content')
     <div class="container">
         <div class="d-sm-flex align-items-center justify-content-between mb-4">

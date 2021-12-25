@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\AdminBaseController as Controller;
 use App\Http\Requests\CateStoreRequest;
 use App\Http\Requests\CateUpdateRequest;
 use App\Models\Category;
@@ -10,6 +10,16 @@ use Illuminate\Http\Request;
 
 class CateController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:cate-list', ['only' => ['index']]);
+        $this->middleware('permission:cate-show', ['only' => ['show']]);
+        $this->middleware('permission:cate-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:cate-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:cate-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:cate-update-status', ['only' => ['updateStatus']]);
+    }
+
     /**
      * Display a listing of the resource.
      *

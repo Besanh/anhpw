@@ -1,7 +1,23 @@
 <?php
+use App\Models\Price;
 
 $title = __('Price - Index');
-$head_table = ['#', 'SAP ID', 'Barcode', 'Name', 'Price', 'Status', 'Created At', 'Updated At', 'Action'];
+$head_table = [
+'#',
+'Cate Id',
+'Product',
+'Barcode',
+'Name',
+'Price',
+'Capacity',
+'Promote',
+'Stock',
+'Status',
+'Created
+At',
+'Updated At',
+'Action',
+];
 $main_link = 'price';
 ?>
 @extends('admin.layouts.main')
@@ -37,7 +53,7 @@ $main_link = 'price';
         <div class="card shadow mb-4">
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered" width="100%" cellspacing="0">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
                                 @include('helper.head-table', compact('head_table'))
@@ -54,10 +70,14 @@ $main_link = 'price';
                                     <?php $k++; ?>
                                     <tr>
                                         <th scope="row">{!! $k !!}</th>
-                                        <td>{{ $node->sap_id }}</td>
+                                        <th>{{ $node->cate_id . ' - ' . $node->getCate->name_seo }}</th>
+                                        <th>{{ $node->pid . ' - ' . $node->getProduct->name_seo }}</th>
                                         <td>{{ $node->barcode }}</td>
                                         <td>{!! $node->name !!}</td>
                                         <td>{{ $node->price }}</td>
+                                        <td>{{ $node->capa . ' ' . getCapaName($node->capa_id) }}</td>
+                                        <td>{{ $node->promote }}</td>
+                                        <th>{{ $node->stock }}</th>
                                         <td>
                                             @include('helper.stick', ['status' => $node->status,
                                             'id' => $node->id,

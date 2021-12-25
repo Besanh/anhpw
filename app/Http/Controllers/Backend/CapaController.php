@@ -2,12 +2,22 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\AdminBaseController as Controller;
 use App\Models\Capacity;
 use Illuminate\Http\Request;
 
 class CapaController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:capa-list', ['only' => ['index']]);
+        $this->middleware('permission:capa-show', ['only' => ['show']]);
+        $this->middleware('permission:capa-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:capa-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:capa-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:capa-update-status', ['only' => ['updateStatus']]);
+    }
+
     /**
      * Display a listing of the resource.
      *

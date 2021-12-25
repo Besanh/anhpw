@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\AdminBaseController as Controller;
 use App\Http\Requests\BlogStoreRequest;
 use App\Http\Requests\BlogUpdateRequest;
 use App\Models\Blog;
@@ -10,6 +10,16 @@ use Illuminate\Http\Request;
 
 class BlogController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:blog-list', ['only' => ['index']]);
+        $this->middleware('permission:blog-show', ['only' => ['show']]);
+        $this->middleware('permission:blog-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:blog-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:blog-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:blog-update-status', ['only' => ['updateStatus']]);
+    }
+
     /**
      * Display a listing of the resource.
      *

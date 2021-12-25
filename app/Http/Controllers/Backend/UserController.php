@@ -2,15 +2,25 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\AdminBaseController as Controller;
 use App\Http\Requests\UserStoreRequest;
 use App\Http\Requests\UserUpdateRequest;
-use App\Models\User;
-use Illuminate\Http\Request;
+use App\Models\Backend\AdminUser;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:user-list', ['only' => ['index']]);
+        $this->middleware('permission:user-show', ['only' => ['show']]);
+        $this->middleware('permission:user-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:user-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:user-delete', ['only' => ['destroy']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -18,7 +28,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::orderBy('id', 'DESC')->get();
+        $users = AdminUser::orderBy('id', 'DESC')->get();
         return view('admin.user.index', compact('users'));
     }
 
@@ -29,7 +39,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('admin.user.create');
+        $roles = Role::pluck('name', 'name')->all();
+        return view('admin.user.create', compact('roles'));
     }
 
     /**
@@ -38,13 +49,14 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UserStoreRequest $request, User $user)
+    public function store(UserStoreRequest $request, AdminUser $user)
     {
         if ($request->validated()) {
             $user->name = $request->name;
             $user->email = $request->email;
             $user->password = Hash::make($request->password);
             $user->save();
+            $user->assignRole($request->roles);
             return redirect()->back()->with('message', 'Created user successfully');
         }
     }
@@ -55,7 +67,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show(AdminUser $user)
     {
         return view('admin.user.show', compact('user'));
     }
@@ -66,9 +78,11 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit(AdminUser $user)
     {
-        return view('admin.user.edit', compact('user'));
+        $roles = Role::pluck('name', 'name')->all();
+        $userRoles = $user->roles()->pluck('name', 'name')->all();
+        return view('admin.user.edit', compact('user', 'roles', 'userRoles'));
     }
 
     /**
@@ -78,10 +92,21 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UserUpdateRequest $request, User $user)
+    public function update(UserUpdateRequest $request, AdminUser $user)
     {
         if ($request->validated()) {
-            $user->update($request->validated());
+            $user->update([
+                'name' => $request->name,
+                'email' => $request->email,
+            ]);
+            if ($request->password) {
+                $user->update([
+                    'password' => Hash::make($request->password)
+                ]);
+            }
+            DB::table('model_has_roles')->where('model_id', $user->id)->delete();
+
+            $user->assignRole($request->roles);
 
             return redirect()->back()->with('message', 'Updated user successfully');
         }
@@ -95,7 +120,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $model = User::find($id);
+        $model = AdminUser::find($id);
         if ($model) {
             $model->delete();
             return redirect()->back()->with('message', 'Delete #' . $id . ' successfully');

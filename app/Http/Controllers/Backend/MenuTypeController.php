@@ -2,13 +2,23 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\AdminBaseController as Controller;
 use App\Http\Requests\MenuTypeStoreRequest;
 use App\Http\Requests\MenuTypeUpdateRequest;
 use App\Models\MenuType;
 
 class MenuTypeController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:menu-type-list', ['only' => ['index']]);
+        $this->middleware('permission:menu-type-show', ['only' => ['show']]);
+        $this->middleware('permission:menu-type-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:menu-type-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:menu-type-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:menu-type-update-status', ['only' => ['updateStatus']]);
+    }
+
     /**
      * Display a listing of the resource.
      *

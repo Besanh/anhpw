@@ -1,4 +1,6 @@
 <?php
+use Diglactic\Breadcrumbs\Breadcrumbs;
+
 $title = __('Category' . ' - ' . $cate->name_seo);
 $seo_keyword = 'category' . ', ';
 $seo_keyword .= $cate->name . ', ' . $cate->name_seo;
@@ -14,7 +16,7 @@ $seo_keyword .= $cate->name . ', ' . $cate->name_seo;
 @section('title', $title)
 @section('content')
     <!-- Breadcrumbs -->
-    @include('frontend.category.sub_files.breadcrumb')
+    {{ Breadcrumbs::render('category', $cate) }}
     <!-- End Breadcrumbs -->
     <!-- Products -->
     <div class="container">

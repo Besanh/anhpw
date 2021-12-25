@@ -25,7 +25,9 @@ use App\Http\Controllers\Backend\StoreController;
 use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\DistrictController;
 use App\Http\Controllers\Backend\HomeController;
+use App\Http\Controllers\Backend\PermissionController;
 use App\Http\Controllers\Backend\RevolutionSliderController;
+use App\Http\Controllers\Backend\RoleController;
 use App\Http\Controllers\Backend\SeoPageController;
 use App\Http\Controllers\Backend\ShippingController;
 use App\Http\Controllers\Frontend\ClearController;
@@ -54,6 +56,18 @@ Route::group(['middleware' => ['admin'], 'prefix' => 'admin'], function () {
     Route::get('dashboard', [HomeController::class, 'index'])->name('admin.dashboard');
     Route::get('', [HomeController::class, 'index'])->name('admin.default');
 
+    // User
+    Route::get('user/destroy/{id}', [UserController::class, 'destroy'])->name('user.destroy');
+    Route::resource('user', UserController::class)->only($only_action_resource);
+
+    // Role
+    Route::get('role/destroy/{id}', [RoleController::class, 'destroy'])->name('role.destroy');
+    Route::resource('role', RoleController::class)->only($only_action_resource);
+
+    // Permission
+    Route::get('permission/destroy/{id}', [PermissionController::class, 'destroy'])->name('permission.destroy');
+    Route::resource('permission', PermissionController::class)->only($only_action_resource);
+
     // Menu
     Route::get('menu/{alias}', [MenuController::class, 'index'])->name('menu.index');
     Route::get('menu/create/{alias}', [MenuController::class, 'create'])->name('menu.create');
@@ -71,10 +85,6 @@ Route::group(['middleware' => ['admin'], 'prefix' => 'admin'], function () {
     Route::get('menu-type/update-status/{id}', [MenuTypeController::class, 'updateStatus'])->name('menu-type.status');
     Route::get('menu-type/destroy/{id}', [MenuTypeController::class, 'destroy'])->name('menu-type.destroy');
     Route::resource('menu-type', MenuTypeController::class)->only($only_action_resource);
-
-    // User
-    Route::get('user/destroy/{id}', [UserController::class, 'destroy'])->name('user.destroy');
-    Route::resource('user', UserController::class)->only($only_action_resource);
 
     // Province
     Route::get('province/update-status/{id}', [ProvinceController::class, 'updateStatus'])->name('province.status');
@@ -107,21 +117,21 @@ Route::group(['middleware' => ['admin'], 'prefix' => 'admin'], function () {
     Route::resource('product', ProductController::class)->only($only_action_resource);
 
     // Price
-    Route::resource('price', PriceController::class)->only($only_action_resource);
     Route::get('price/update-status/{id}', [PriceController::class, 'updateStatus'])->name('price.status');
     Route::get('price/destroy/{id}', [PriceController::class, 'destroy'])->name('price.destroy');
     Route::get('price/select-product', [PriceController::class, 'selectProduct'])->name('price.select-product');
     Route::get('price/select-capa', [PriceController::class, 'selectCapa'])->name('price.select-capa');
+    Route::resource('price', PriceController::class)->only($only_action_resource);
 
     // Store
-    Route::resource('store', StoreController::class)->only($only_action_resource);
     Route::get('store/update-status/{id}', [StoreController::class, 'updateStatus'])->name('store.status');
     Route::get('store/destroy/{id}', [StoreController::class, 'destroy'])->name('store.destroy');
+    Route::resource('store', StoreController::class)->only($only_action_resource);
 
     // Blog
-    Route::resource('blog', BlogController::class)->only($only_action_resource);
     Route::get('blog/update-status/{id}', [BlogController::class, 'updateStatus'])->name('blog.status');
     Route::get('blog/destroy/{id}', [BlogController::class, 'destroy'])->name('blog.destroy');
+    Route::resource('blog', BlogController::class)->only($only_action_resource);
 
     // Setting
     Route::get('setting/update-status/{id}', [SettingController::class, 'updateStatus'])->name('setting.status');

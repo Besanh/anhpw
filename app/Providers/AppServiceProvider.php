@@ -2,11 +2,15 @@
 
 namespace App\Providers;
 
+use App\Models\AdminMenuRole;
+use App\Models\Backend\AdminUser;
 use App\Models\Brand;
 use App\Models\Menu;
 use App\Models\Product;
 use App\Models\Setting;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Cache;
@@ -33,42 +37,52 @@ class AppServiceProvider extends ServiceProvider
         Paginator::useBootstrap();
 
         ///////////////////////////////////////////////////////////////////
-        ///////////////////////////// Admin Other ////////////////////////
+        ///////////////////////////// Admin Sidebar //////////////////////
         /////////////////////////////////////////////////////////////////
         View::composer('admin.layouts.sidebar', function ($view) {
+            $role = Arr::get(Auth::guard('admin')->user()->roles->pluck('name'), '0');
+            $menu_role = AdminMenuRole::select(['admin_menu_roles.menu', 'admin_menu_roles.role_id'])
+                ->join('roles', 'roles.id', '=', 'admin_menu_roles.role_id')
+                ->where('name', $role)
+                ->first();
             $parent_other_tree = $this->getParent(1, $cache_name = 'parent_admin');
             $other_tree = '';
-            if ($parent_other_tree) {
-                foreach ($parent_other_tree as $node) {
-                    if ($node->route) {
-                        $url = route($node->route);
-                    } else {
-                        $url = $node->url == 'javascript:void(0)' ? $node->url : url($node->url);
-                    }
-                    if (!$node->head) {
-                        $other_tree .= '<a class="nav-link" href="' . $url . '">
-                        <i class="' . $node->icon . '"></i>
-                        <span>' . $node->name . '</span></a>';
-                    } else {
-                        $other_tree .= '<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#' . $node->note . '"
-                    aria-expanded="true" aria-controls="' . $node->note . '">
-                    <i class="' . $node->icon . '"></i>
-                    <span>' . $node->head . '</span>
-                </a>';
-                        $other_tree .= '<div id="' . $node->note . '" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-                            <div class="bg-white py-2 collapse-inner rounded">
-                                <h6 class="collapse-header">Custom Utilities:</h6>';
-                        $other_tree .= $this->getChildOther($node->id, $node->type_id, 'child_admin');
-                        $other_tree .= '</div>
-                        </div>';
-                        $other_tree .= '<hr class="sidebar-divider">';
+            if ($menu_role) {
+                if ($parent_other_tree) {
+                    foreach ($parent_other_tree as $node) {
+                        if ($menu_role->count() > 0 && in_array($node->id, unserialize($menu_role->menu))) {
+                            if ($node->route) {
+                                $url = route($node->route);
+                            } else {
+                                $url = $node->url == 'javascript:void(0)' ? $node->url : url($node->url);
+                            }
+                            if (!$node->head) {
+                                $other_tree .= '<a class="nav-link" href="' . $url . '">
+                                <i class="' . $node->icon . '"></i>
+                                <span>' . $node->name . '</span></a>';
+                            } else {
+                                $other_tree .= '<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#' . $node->note . '"
+                            aria-expanded="true" aria-controls="' . $node->note . '">
+                            <i class="' . $node->icon . '"></i>
+                            <span>' . $node->head . '</span>
+                        </a>';
+                                $other_tree .= '<div id="' . $node->note . '" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                                    <div class="bg-white py-2 collapse-inner rounded">
+                                        <h6 class="collapse-header">Custom Utilities:</h6>';
+                                $other_tree .= $this->getChildOther($node->id, $node->type_id, 'child_admin', $menu_role);
+                                $other_tree .= '</div>
+                                </div>';
+                                $other_tree .= '<hr class="sidebar-divider">';
+                            }
+                        }
                     }
                 }
+                if ($menu_role->count() > 0) {
+                    Cache::remember('OTHER_TREE', timeToLive(), function () use ($other_tree) {
+                        return $other_tree;
+                    });
+                }
             }
-            Cache::remember('OTHER_TREE', timeToLive(), function () use ($other_tree) {
-                return $other_tree;
-            });
-            // $view->with(compact('other_tree'));
         });
 
         ///////////////////////////////////////////////////////////////////
@@ -404,29 +418,11 @@ class AppServiceProvider extends ServiceProvider
                 $str .= $this->getCateSubNav($v->id, $v->type_id, 'cache_subnav');
                 $str .= '</div>';
                 $str .= '</div>';
-
-                if ($v->image) {
-                    //     $str .= '<div class="col-md-6 col-lg-4 g-mb-30 g-mb-0--md">
-                    //     <article class="g-pos-rel">
-                    //         <img class="img-fluid" src="' . getImage($v->image) . '"
-                    //             alt="' . $v->name . '">
-
-                    //         <div class="g-pos-abs g-bottom-30 g-left-30">
-                    //             <span class="d-block g-color-gray-dark-v4 mb-2">Modern
-                    //                 Lighting</span>
-                    //             <span class="d-block h4">Desk Clock 65" Table Lamp</span>
-                    //             <span
-                    //                 class="d-block g-color-gray-dark-v3 g-font-size-16 mb-4">$156.00</span>
-                    //             <a class="btn u-btn-primary u-shadow-v29 g-font-size-12 text-uppercase g-py-10 g-px-20"
-                    //                 href="#">Add to Cart</a>
-                    //         </div>
-                    //     </article>
-                    // </div>';
-                }
             }
         }
         $str .= '</div>';
         $str .= '</div>';
+
         return $str;
     }
 
@@ -477,79 +473,22 @@ class AppServiceProvider extends ServiceProvider
         return $str;
     }
 
-    // public function getChildArrival($parent_id, $type_id)
-    // {
-    //     $str = '';
-    //     $real_path = '';
-    //     $sub_menu = $this->queryChild($parent_id, $type_id);
-    //     if ($sub_menu) {
-    //         $str .= '<!-- Mega Menu -->
-    //             <div class="w-100 hs-mega-menu u-shadow-v11 g-text-transform-none g-brd-top g-brd-primary g-brd-top-2 g-bg-white g-pa-30 g-mt-17"
-    //                 aria-labelledby="mega-menu-label-5">
-    //                 <div class="row">';
-    //         $arrival_products = getArrivalProduct();
-    //         if ($arrival_products) {
-    //             $route = '';
-    //             foreach ($arrival_products as $p) {
-    //                 $route = route('product-detail', ['brand_alias' => $p->b_alias, 'id' => $p->id, 'product_alias' => toAlias($p->name_seo)]);
-    //                 $str .= '<div class="col-md-4 g-mb-30 g-mb-0--md">
-    //                 <!-- Article -->
-    //                 <article
-    //                     class="g-bg-size-cover g-bg-pos-center g-bg-cover g-bg-bluegray-opacity-0_3--after text-center g-px-40 g-py-80"
-    //                     data-bg-img-src="' . getImage($p->thumb) . '">
-    //                     <div class="g-pos-rel g-z-index-1">
-    //                         <span
-    //                             class="d-block g-color-white g-font-weight-400 text-uppercase mb-3">' . $p->cate_name_seo . '</span>
-    //                         <span class="d-block h2 g-color-white mb-4"></span>
-    //                         <a class="btn u-btn-white g-brd-primary--hover g-color-white--hover g-bg-primary--hover g-font-size-11 text-uppercase g-py-10 g-px-20"
-    //                             href="' . $route . '">Shop Now</a>
-    //                     </div>
-    //                 </article>
-    //                 <!-- End Article -->
-    //             </div>';
-    //             }
-    //         }
-    //         // foreach ($sub_menu as $s) {
-    //         //     if ($s->route) {
-    //         //         $real_path = route($s->route);
-    //         //     } else {
-    //         //         $real_path = $s->url == 'javascript:void(0)' ? $s->url : url($s->url);
-    //         //     }
-    //         //     $str .= '<div class="col-md-4 g-mb-30 g-mb-0--md">
-    //         //         <!-- Article -->
-    //         //         <article
-    //         //             class="g-bg-size-cover g-bg-pos-center g-bg-cover g-bg-bluegray-opacity-0_3--after text-center g-px-40 g-py-80"
-    //         //             data-bg-img-src="' . getImage($s->image) . '">
-    //         //             <div class="g-pos-rel g-z-index-1">
-    //         //                 <span
-    //         //                     class="d-block g-color-white g-font-weight-400 text-uppercase mb-3">Blouse</span>
-    //         //                 <span class="d-block h2 g-color-white mb-4">' . $s->name . '</span>
-    //         //                 <a class="btn u-btn-white g-brd-primary--hover g-color-white--hover g-bg-primary--hover g-font-size-11 text-uppercase g-py-10 g-px-20"
-    //         //                     href="' . $real_path . '">Shop Now</a>
-    //         //             </div>
-    //         //         </article>
-    //         //         <!-- End Article -->
-    //         //     </div>';
-    //         // }
-    //         $str .= '</div>
-    //         </div>';
-    //     }
-    //     return $str;
-    // }
-
-    public function getChildOther($parent_id, $type_id, $cache_name = 'default_child_admin')
+    public function getChildOther($parent_id, $type_id, $cache_name = 'default_child_admin', $menu_role)
     {
         $str = '';
         $menu_child = $this->queryChild($parent_id, $type_id, $cache_name);
-
-        if ($menu_child) {
-            foreach ($menu_child as $child) {
-                if ($child->route) {
-                    $url = route($child->route);
-                } else {
-                    $url = $child->url == 'javascript:void(0)' ? $child->url : url($child->url);
+        if ($menu_role) {
+            if ($menu_child) {
+                foreach ($menu_child as $child) {
+                    if ($menu_role->count() > 0 && in_array($child->id, unserialize($menu_role->menu))) {
+                        if ($child->route) {
+                            $url = route($child->route);
+                        } else {
+                            $url = $child->url == 'javascript:void(0)' ? $child->url : url($child->url);
+                        }
+                        $str .= '<a class="collapse-item" href="' . $url . '">' . $child->name . '</a>';
+                    }
                 }
-                $str .= '<a class="collapse-item" href="' . $url . '">' . $child->name . '</a>';
             }
         }
         return $str;

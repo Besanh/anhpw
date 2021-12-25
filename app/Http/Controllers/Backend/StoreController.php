@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\AdminBaseController as Controller;
 use App\Models\Provinces;
 use App\Models\Store;
 use Illuminate\Http\Request;
@@ -10,6 +10,17 @@ use Intervention\Image\Facades\Image;
 
 class StoreController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:store-list', ['only' => ['index']]);
+        $this->middleware('permission:store-show', ['only' => ['show']]);
+        $this->middleware('permission:store-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:store-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:store-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:store-update-status', ['only' => ['updateStatus']]);
+        $this->middleware('permission:store-upload', ['only' => ['upload']]);
+    }
+
     /**
      * Display a listing of the resource.
      *

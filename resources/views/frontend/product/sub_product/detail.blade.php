@@ -129,7 +129,6 @@
 
         <!-- Size -->
         @if (!$product_items)
-            <?php $str_stock = ''; ?>
             <table>
                 <tbody>
                     <tr class="g-color-gray-dark-v4 g-font-size-12">

@@ -39,7 +39,8 @@ class LoginController extends Controller
         ])) {
             return redirect()->intended($this->redirectTo);
         }
-        return back()->withInput($request->only('email', 'remember'));
+        return back()->with('error', 'Login fail. Please try again');
+        // return back()->withInput($request->only('email', 'remember'));
     }
 
     public function adminLogout(Request $request)

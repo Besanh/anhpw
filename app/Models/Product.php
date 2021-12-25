@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 
 class Product extends Model
 {
@@ -20,10 +21,10 @@ class Product extends Model
         'galleries', 'thumb_small', 'promote', 'status'
     ];
 
-    public function getCates()
-    {
-        return $this->belongsTo(Category::class, 'cate_id', 'id');
-    }
+    // public function getCates()
+    // {
+    //     return $this->belongsTo(Category::class, 'cate_id', 'id');
+    // }
 
     public function getBrands()
     {
@@ -100,26 +101,28 @@ class Product extends Model
 
     public static function queryDataProduct()
     {
-        return self::select([
-            'products.id',
-            'products.name',
-            'products.name_seo',
-            'products.image',
-            'products.thumb',
-            'products.benefit',
-            'products.ingredient',
-            'products.created_at',
-            'prices.id as price_id',
-            'prices.name as price_name',
-            'prices.name_seo as price_name_seo',
-            'prices.price',
-            'prices.barcode',
-            'prices.stock',
-            'categories.name as cate_name',
-            'categories.name_seo as cate_name_seo',
-            'categories.alias as cate_alias',
-            'brands.alias as b_alias'
-        ])
+        return self::select(
+            DB::raw(
+                'products.id,
+                products.name,
+                products.name_seo,
+                products.image,
+                products.thumb,
+                products.benefit,
+                products.ingredient,
+                products.created_at,
+                prices.id as price_id,
+                prices.name as price_name,
+                prices.name_seo as price_name_seo,
+                max(prices.price) as price,
+                prices.barcode,
+                prices.stock,
+                categories.name as cate_name,
+                categories.name_seo as cate_name_seo,
+                categories.alias as cate_alias,
+                brands.alias as b_alias'
+            )
+        )
             ->join('prices', 'prices.pid', '=', 'products.id')
             ->join('categories', 'categories.id', '=', 'products.cate_id')
             ->join('brands', 'brands.id', 'products.bid')
@@ -129,7 +132,7 @@ class Product extends Model
                 ['categories.status', '=', 1],
                 ['prices.stock', '>', 0]
             ])
-            ->groupBy('prices.id')
+            ->groupBy('products.id')
             ->orderBy('prices.stock', 'DESC')
             ->orderBy('products.promote', 'DESC')
             ->orderBy('prices.promote', 'DESC');

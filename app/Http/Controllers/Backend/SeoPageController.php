@@ -2,13 +2,22 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\AdminBaseController as Controller;
 use App\Http\Requests\SeoPageStoreRequest;
 use App\Http\Requests\SeoPageUpdateRequest;
 use App\Models\SeoPage;
 
 class SeoPageController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:seopage-list', ['only' => ['index']]);
+        $this->middleware('permission:seopage-show', ['only' => ['show']]);
+        $this->middleware('permission:seopage-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:seopage-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:seopage-delete', ['only' => ['destroy']]);
+    }
+
     /**
      * Display a listing of the resource.
      *

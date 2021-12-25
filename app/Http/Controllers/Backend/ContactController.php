@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\AdminBaseController as Controller;
 use App\Http\Requests\ContactUpdateRequest;
 use App\Models\Contact;
 use Illuminate\Http\Request;
@@ -10,6 +10,18 @@ use Illuminate\Support\Facades\Auth;
 
 class ContactController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:contact-list', ['only' => ['index']]);
+        $this->middleware('permission:contact-show', ['only' => ['show']]);
+        $this->middleware('permission:contact-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:contact-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:contact-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:contact-update-status', ['only' => ['updateStatus']]);
+        $this->middleware('permission:contact-chat', ['only' => ['chat']]);
+        $this->middleware('permission:contact-post-chat', ['only' => ['postChat']]);
+    }
+
     /**
      * Display a listing of the resource.
      *

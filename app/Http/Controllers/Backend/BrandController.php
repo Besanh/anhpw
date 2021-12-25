@@ -2,13 +2,22 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\AdminBaseController as Controller;
 use App\Http\Requests\BrandStoreRequest;
 use App\Http\Requests\BrandUpdateRequest;
 use App\Models\Brand;
 
 class BrandController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:brand-list', ['only' => ['index']]);
+        $this->middleware('permission:brand-show', ['only' => ['show']]);
+        $this->middleware('permission:brand-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:brand-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:brand-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:brand-update-status', ['only' => ['updateStatus']]);
+    }
     /**
      * Display a listing of the resource.
      *

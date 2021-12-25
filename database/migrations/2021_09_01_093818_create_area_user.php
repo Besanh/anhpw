@@ -31,7 +31,7 @@ class CreateAreaUser extends Migration
             $table->engine = self::$myisam;
         });
 
-        Schema::create('subscribers', function(Blueprint $table){
+        Schema::create('subscribers', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('phone', 15)->nullable();
             $table->string('email', 15)->nullable();
@@ -42,11 +42,12 @@ class CreateAreaUser extends Migration
             $table->engine = self::$innodb;
         });
 
-        Schema::create('social_providers', function(Blueprint $table){
+        Schema::create('social_providers', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('provider_id');
             $table->string('email');
             $table->string('provider', 100);
+            $table->enum('type', ['FRONTEND', 'BACKEND']);
             $table->integer('created_by')->default(0)->nullable();
             $table->integer('updated_by')->default(0)->nullable();
             $table->timestamps();

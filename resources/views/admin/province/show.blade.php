@@ -1,5 +1,5 @@
 <?php
-$title = 'Province - Show';
+$title = __('Province - Show');
 $head_table = [
 'Id' => $province->id,
 'Name' => $province->name,

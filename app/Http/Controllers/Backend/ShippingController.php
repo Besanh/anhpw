@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\AdminBaseController as Controller;
 use App\Http\Requests\ShippingStoreRequest;
 use App\Http\Requests\ShippingUpdateRequest;
 use App\Models\ShippingFee;
@@ -10,6 +10,16 @@ use Illuminate\Http\Request;
 
 class ShippingController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:shipping-list', ['only' => ['index']]);
+        $this->middleware('permission:shipping-show', ['only' => ['show']]);
+        $this->middleware('permission:shipping-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:shipping-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:shipping-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:shipping-update-status', ['only' => ['updateStatus']]);
+    }
+
     /**
      * Display a listing of the resource.
      *

@@ -24,11 +24,13 @@ class PriceStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'sap_id' => 'required|string|max:50',
+            'cate_id' => 'required|integer',
             'pid' => 'required|integer',
-            'barcode' => 'required|string|max:50',
+            'sap_id' => "required|string|max:50|unique:prices",
+            'barcode' => "required|string|max:50|unique:prices",
             'name' => 'required|string',
             'name_seo' => 'required|string',
+            'sex' => 'required|integer',
             'promote' => 'required|integer',
             'capa' => 'required|string|max:50',
             'capa_id' => 'required|integer',

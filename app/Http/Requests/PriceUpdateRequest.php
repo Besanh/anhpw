@@ -23,12 +23,15 @@ class PriceUpdateRequest extends FormRequest
      */
     public function rules()
     {
+        $id = $this->route('price')->id;
         return [
-            'sap_id' => 'required|string|max:50',
+            'cate_id' => 'required|integer',
             'pid' => 'required|integer',
-            'barcode' => 'required|string|max:50',
+            'sap_id' => "required|string|max:50|unique:prices,sap_id," . $id,
+            'barcode' => "required|string|max:50|unique:prices,barcode," . $id,
             'name' => 'required|string',
             'name_seo' => 'required|string',
+            'sex' => 'required|integer',
             'promote' => 'required|integer',
             'capa' => 'required|string|max:50',
             'capa_id' => 'required|integer',

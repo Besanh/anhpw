@@ -2,13 +2,24 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\AdminBaseController as Controller;
 use App\Http\Requests\HelpContentStoreRequest;
 use App\Models\Help;
 use App\Models\HelpContent;
 
 class HelpContentController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:help-content-list', ['only' => ['index']]);
+        $this->middleware('permission:help-content-show', ['only' => ['show']]);
+        $this->middleware('permission:help-content-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:help-content-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:help-content-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:help-content-update-status', ['only' => ['updateStatus']]);
+        $this->middleware('permission:help-content-view-topic', ['only' => ['viewTopic']]);
+    }
+
     /**
      * Display a listing of the resource.
      *

@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\AdminBaseController as Controller;
 use Illuminate\Http\Request;
 
 class CKEditorController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:ckeditor-upload', ['only' => ['upload']]);
+    }
+
     public function upload(Request $request)
     {
         if ($request->hasFile('upload')) {

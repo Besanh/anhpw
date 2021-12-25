@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\AdminBaseController as Controller;
 use App\Http\Requests\RsStoreRequest;
 use App\Http\Requests\RsUpdateRequest;
 use App\Models\RevolutionSlider;
@@ -11,6 +11,18 @@ use Illuminate\Support\Arr;
 
 class RevolutionSliderController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:rs-slider-list', ['only' => ['index']]);
+        $this->middleware('permission:rs-slider-show', ['only' => ['show']]);
+        $this->middleware('permission:rs-slider-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:rs-slider-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:rs-slider-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:rs-slider-update-status', ['only' => ['updateStatus']]);
+        $this->middleware('permission:rs-slider-sort-slide', ['only' => ['sortSlide']]);
+        $this->middleware('permission:rs-slider-field-change', ['only' => ['fieldChange']]);
+    }
+
     /**
      * Display a listing of the resource.
      *

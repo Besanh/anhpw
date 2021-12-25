@@ -1,6 +1,6 @@
 <?php
 $title = __('Users - Index');
-$head_table = ['#', 'Name', 'Email', 'Email Verified At', 'Created At', 'Updated At', 'Action'];
+$head_table = ['#', 'Roles', 'Name', 'Email', 'Email Verified At', 'Created At', 'Updated At', 'Action'];
 $main_link = 'user';
 ?>
 @extends('admin.layouts.main')
@@ -51,6 +51,13 @@ $main_link = 'user';
                                     <?php $k++; ?>
                                     <tr>
                                         <th scope="row">{!! $k !!}</th>
+                                        <td>
+                                            @if (!empty($node->getRoleNames()))
+                                                @foreach ($node->getRoleNames() as $item)
+                                                    <label for="role badge badge-warning">{{ $item }}</label>
+                                                @endforeach
+                                            @endif
+                                        </td>
                                         <th>{!! $node->name !!}</th>
                                         <td>{{ $node->email }}</td>
                                         <td>{!! $node->email_verified_at !!}</td>
