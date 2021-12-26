@@ -1,7 +1,7 @@
 /**
  * Bind form data cart toi step payment
  */
-function bindForm($this) {
+function bindForm($this) {$(window).scrollTop(0)
     const url_fetch_province = document.getElementById('link-get-province-name').dataset.url;
     const url_fetch_district = document.getElementById('link-get-district-name').dataset.url;
 
@@ -79,6 +79,8 @@ function bindForm($this) {
     else {
         $('.invoice_summary').addClass('d-none');
     }
+
+    
 }
 
 /**
@@ -135,7 +137,7 @@ function changeCapaProDetail() {
     var id = qty = null;
     $('.select-capa').on('click', function () {
         id = $(this).val();
-        qty = $('.qty-capa').val();
+        qty = $('.qty-cart').val();
         if (id != null && qty != null) {
             $('.add-cart').attr('href', '/' + 'cart/add/' + id + '/' + qty)
         }
@@ -149,9 +151,17 @@ function changeCapaProDetail() {
                     $('.prices-detail-price').text(new Intl.NumberFormat('vn-VN').format(json.price) + ' VND')
                     $('.prices-detail-barcode').text(json.barcode)
                     $(this).attr('checked', true)
+                    $('.add-cart').attr('data-id', json.price_id)
                 }
             }
         })
+    });
+    $('.js-change-qty').on('click', function () {
+        id = $('.add-cart').attr('data-id');
+        qty = $('.qty-cart').val()
+        if (id != null && qty != null) {
+            $('.add-cart').attr('href', '/' + 'cart/add/' + id + '/' + qty)
+        }
     });
 }
 changeCapaProDetail();

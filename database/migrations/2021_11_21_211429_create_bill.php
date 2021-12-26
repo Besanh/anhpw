@@ -71,6 +71,8 @@ class CreateBill extends Migration
             $table->string('phone', 15);
             $table->string('address', 255);
             $table->string('note')->nullable();
+            $table->integer('created_by')->default(0)->nullable();
+            $table->integer('updated_by')->default(0)->nullable();
             $table->timestamps();
             $table->engine = self::$innodb;
         });
@@ -85,6 +87,8 @@ class CreateBill extends Migration
             $table->string('phone', 15);
             $table->string('address', 255);
             $table->string('note')->nullable();
+            $table->integer('created_by')->default(0)->nullable();
+            $table->integer('updated_by')->default(0)->nullable();
             $table->timestamps();
             $table->engine = self::$innodb;
         });
@@ -97,6 +101,8 @@ class CreateBill extends Migration
             $table->string('delivery_time', 150);
             $table->string('cost', 50);
             $table->integer('status')->default(0);
+            $table->integer('created_by')->default(0)->nullable();
+            $table->integer('updated_by')->default(0)->nullable();
             $table->timestamps();
             $table->engine = self::$myisam;
         });

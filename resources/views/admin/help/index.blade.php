@@ -1,7 +1,7 @@
 <?php
 
 $title = __('Helps');
-$head_table = ['#', 'Id', 'Help Type Id', 'Title', 'Status', 'Created At', 'Updated At', 'Action'];
+$head_table = ['#', 'Id', 'Help Type Id', 'Title', 'Status', 'Created By', 'Updated By', 'Action'];
 $main_link = 'help';
 ?>
 @extends('admin.layouts.main')
@@ -60,9 +60,10 @@ $main_link = 'help';
                                             'id' => $node->id,
                                             'uri' => route($main_link.'.status', $node->id)])
                                         </td>
-                                        <td>{{ $node->created_at }}</td>
-                                        <td class="updated_at-{{ $node->id }}" data-id="{{ $node->id }}">
-                                            {{ $node->updated_at }}</td>
+                                        <td>{{ $node->created_by != 0 ? getUserName($node->created_by) : $node->created_by }}
+                                        </td>
+                                        <td>{{ $node->updated_by != 0 ? getUserName($node->updated_by) : $node->updated_by }}
+                                        </td>
                                         <td>
                                             <a class="btn btn-info"
                                                 href="{{ route('help-content.view-topic', $node->id) }}">

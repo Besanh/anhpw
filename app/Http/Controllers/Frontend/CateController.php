@@ -116,14 +116,14 @@ class CateController extends Controller
                 ->groupBy('categories.id')
                 ->get();
 
-            $capas = $mode_price->getCapa($cate_id);
+            // $capas = $mode_price->getCapa($cate_id);
             $show = Arr::get($query, 'filter.show');
             return view('frontend.category.index', compact([
                 'alias',
                 'limit',
                 'brands',
                 'other_cate',
-                'capas',
+                // 'capas',
                 'products',
                 'cate',
                 'sort',

@@ -1,10 +1,11 @@
 <?php
-$title = 'Product - Create';
+$title = __('Product - Create');
 $status = getStatus();
 $main_link = 'product';
 ?>
+@extends('admin.layouts.main')
 @section('title', $title)
-    @extends('admin.layouts.main')
+
 @section('content')
     <div class="container">
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -71,7 +72,7 @@ $main_link = 'product';
                                                 <div>
                                                     <select name="cate_id" class="form-control" aria-label="Default select"
                                                         required>
-                                                        <option value="" selected>Select Category</option>
+                                                        <option value="" selected>{{ __('Select Category') }}</option>
                                                         @foreach ($cates as $k => $c)
                                                             <option value="{!! $c->id !!}"
                                                                 class="@error('p') is-invalid @enderror">
@@ -350,7 +351,7 @@ $main_link = 'product';
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="image" class="col-form-label text-md-right"
-                                                    data-toggle="tooltip" data-placement="top" title="900x450">
+                                                    data-toggle="tooltip" data-placement="top" title="300x300">
                                                     {{ __('Image') }}
                                                 </label>
                                                 <div class="custom-file" data-toggle="tooltip" data-placement="top"
@@ -365,7 +366,7 @@ $main_link = 'product';
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="galleries" class="col-form-label text-md-right"
-                                                    data-toggle="tooltip" data-placement="top" title="900x450">
+                                                    data-toggle="tooltip" data-placement="top" title="300x300">
                                                     {{ __('Galleries') }}
                                                 </label>
                                                 <div class="custom-file" data-toggle="tooltip" data-placement="top"
@@ -400,7 +401,6 @@ $main_link = 'product';
 @include('helper.datetimepicker')
 @push('ckeditor')
     <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
-    {{-- <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script> --}}
     <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
     <script>
         CKEDITOR.replace('benefit', {

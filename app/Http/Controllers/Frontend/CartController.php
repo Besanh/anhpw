@@ -64,7 +64,7 @@ class CartController extends Controller
     /**
      * Add item
      */
-    public function addItem($price_id, $selling_id = 0, $qty = 1)
+    public function addItem($price_id, $qty = 1, $selling_id = 0)
     {
         $item = Price::getItemCart($price_id, $selling_id);
         if ($item) {

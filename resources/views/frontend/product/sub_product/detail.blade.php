@@ -61,11 +61,11 @@
     <h5 class="g-color-gray-dark-v5 g-font-weight-400 g-font-size-default mb-0">{{ __('Quantity') }}</h5>
 
     <div class="js-quantity input-group u-quantity-v1 g-width-80 g-brd-primary--focus">
-        <input class="qty-capa js-result form-control text-center g-font-size-13 rounded-0" name="quantity" type="text"
+        <input class="qty-cart js-result form-control text-center g-font-size-13 rounded-0" name="quantity" type="text"
             value="1" readonly>
 
         <div
-            class="input-group-addon d-flex align-items-center g-width-30 g-brd-gray-light-v2 g-bg-white g-font-size-13 rounded-0 g-pa-5">
+            class="js-change-qty input-group-addon d-flex align-items-center g-width-30 g-brd-gray-light-v2 g-bg-white g-font-size-13 rounded-0 g-pa-5">
             <i class="js-plus g-color-gray g-color-primary--hover fa fa-angle-up"></i>
             <i class="js-minus g-color-gray g-color-primary--hover fa fa-angle-down"></i>
         </div>
@@ -75,13 +75,9 @@
 <!-- Buttons -->
 <div class="row g-mx-minus-5 g-mb-20">
     <div class="col g-px-5 g-mb-10">
-        {{-- <button class="add-cart btn btn-block u-btn-primary g-font-size-12 text-uppercase g-py-15 g-px-25" type="button"
-            onclick="window.location='{{ route('cart.add', ['id' => Arr::get($product_items, '0.price_id')]) }}'">
-            {{ __('Add to Cart') }} <i class="align-middle ml-2 icon-finance-100 u-line-icon-pro"></i>
-        </button> --}}
         <a class="add-cart btn btn-block u-btn-primary g-font-size-12 text-uppercase g-py-15 g-px-25"
             href="{{ route('cart.add', ['id' => Arr::get($product_items, '0.price_id')]) }}"
-            style="color:#fff!important">
+            data-id="{{ Arr::get($product_items, '0.price_id') }}" style="color:#fff!important">
             {{ __('Add to Cart') }} <i class="align-middle ml-2 icon-finance-100 u-line-icon-pro"></i>
         </a>
     </div>
@@ -102,12 +98,6 @@
         <a class="nav-link active g-color-primary--parent-active g-pa-0 g-pb-1" data-toggle="tab"
             href="#nav-1-1-default-hor-left--3" role="tab">{{ __('Returns') }}</a>
     </li>
-    {{-- <li class="nav-item g-brd-bottom g-brd-gray-dark-v4">
-        <a class="nav-link g-color-primary--parent-active g-pa-0 g-pb-1" data-toggle="tab"
-            href="#nav-1-1-default-hor-left--1" role="tab">
-            {{ __('Stock') }}
-        </a>
-    </li> --}}
     <li class="nav-item g-brd-bottom g-brd-gray-dark-v4">
         <a class="nav-link g-color-primary--parent-active g-pa-0 g-pb-1" data-toggle="tab"
             href="#nav-1-1-default-hor-left--2" role="tab">{{ __('Delivery') }}</a>
@@ -123,35 +113,6 @@
             <a href="{{ route('help', ['alias' => 'help']) }}">{{ __('Help') }}</a>.
         </p>
     </div>
-
-    {{-- <div class="tab-pane fade g-pt-30" id="nav-1-1-default-hor-left--1" role="tabpanel">
-        <h4 class="g-font-size-15 mb-3">{{ __('Check store product inventory') }}</h4>
-
-        <!-- Size -->
-        @if (!$product_items)
-            <table>
-                <tbody>
-                    <tr class="g-color-gray-dark-v4 g-font-size-12">
-                        @foreach ($product_items as $k => $title)
-                            <td class="align-top g-width-150 g-py-5">{{ $title->barcode }}</td>
-                        @endforeach
-                    </tr>
-                    @foreach ($product_items as $j => $item)
-                        <tr class="g-color-gray-dark-v4 g-font-size-12">
-                            <td class="align-top g-width-150 g-py-5">UK</td>
-                            <td class="align-top g-width-50 g-py-5">6</td>
-                            <td class="align-top g-width-50 g-py-5">8</td>
-                            <td class="align-top g-width-50 g-py-5">10</td>
-                            <td class="align-top g-width-50 g-py-5">12</td>
-                            <td class="align-top g-width-50 g-py-5">14</td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        @endif
-        <!-- End Size -->
-    </div> --}}
-
 
     <div class="tab-pane fade g-pt-30" id="nav-1-1-default-hor-left--2" role="tabpanel">
         <!-- Shipping Mehtod -->

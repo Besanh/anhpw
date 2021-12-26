@@ -1,7 +1,20 @@
 <?php
 
 $title = __('Bill Consignee');
-$head_table = ['#', 'Bill Id', 'Fulllname', 'Email', 'Phone', 'Address', 'Note', 'Created At', 'Updated At'];
+$head_table = [
+'#',
+'Bill Id',
+'Fulllname',
+'Email',
+'Phone',
+'Address',
+'Note',
+'Created By',
+'Updated By',
+'Created
+At',
+'Updated At',
+];
 $main_link = 'bill-consignee';
 ?>
 @extends('admin.layouts.main')
@@ -54,6 +67,10 @@ $main_link = 'bill-consignee';
                                         <td>{{ $node->phone }}</td>
                                         <td>{{ $node->address }}</td>
                                         <td>{{ $node->note }}</td>
+                                        <td>{{ $node->created_by != 0 ? getUserName($node->created_by) : $node->created_by }}
+                                        </td>
+                                        <td>{{ $node->updated_by != 0 ? getUserName($node->updated_by) : $node->updated_by }}
+                                        </td>
                                         <td class="created_at-{{ $node->id }}" data-id="{{ $node->id }}">
                                             {{ $node->created_at }}
                                         </td>

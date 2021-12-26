@@ -41,7 +41,6 @@ $data_msg = getConfig('order_msg_complete');
             </a>
         </div>
     </div>
-    @include('frontend.home.sub_home._features')
 @endsection
 @push('link-cart-notify')
     <!-- CSS Global Compulsory -->

@@ -15,8 +15,8 @@ $products = Cache::get('home_products');
         @endif
     </div>
 
-    <div id="carouselCus1" class="js-carousel g-pb-100 g-mx-minus-10" data-infinite="true" data-slides-show="4"
-        data-lazy-load="ondemand"
+    <div id="carouselCus1" class="autoplay-carousel js-carousel g-pb-100 g-mx-minus-10" data-infinite="true"
+        data-slides-show="4" data-lazy-load="ondemand"
         data-arrows-classes="u-arrow-v1 g-pos-abs g-bottom-0 g-width-45 g-height-45 g-color-gray-dark-v5 g-bg-secondary g-color-white--hover g-bg-primary--hover rounded"
         data-arrow-left-classes="fa fa-angle-left g-left-10" data-arrow-right-classes="fa fa-angle-right g-right-10"
         data-pagi-classes="u-carousel-indicators-v1 g-absolute-centered--x g-bottom-20 text-center">
@@ -50,8 +50,7 @@ $products = Cache::get('home_products');
                                     @endif
                                 @endif
                             </a>
-                            {{-- <span
-                                class="u-ribbon-v1 g-width-40 g-height-40 g-color-white g-bg-primary g-font-size-13 text-center text-uppercase g-rounded-50x g-top-10 g-right-minus-10 g-px-2 g-py-10">-40%</span> --}}
+
                         </figure>
 
                         <div class="media">

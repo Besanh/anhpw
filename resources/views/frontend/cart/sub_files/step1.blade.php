@@ -68,7 +68,8 @@ use App\Models\Price;
                                     <span
                                         class="g-color-gray-dark-v2 g-font-size-13 mr-4">{{ getPrice($item->price * $item->qty) }}</span>
                                     <span class="g-color-gray-dark-v4 g-color-black--hover g-cursor-pointer">
-                                        <a href="{{ route('cart.delete', ['rowId' => $item->rowId]) }}">
+                                        <a href="{{ route('cart.delete', ['rowId' => $item->rowId]) }}"
+                                            onclick="return confirm('Are you sure?')">
                                             <i class="mt-auto fa fa-trash"></i>
                                         </a>
                                     </span>
@@ -86,41 +87,6 @@ use App\Models\Price;
             <!-- Summary -->
             <div class="g-bg-gray-light-v5 g-pa-20 g-pb-50 mb-4">
                 <h4 class="h6 text-uppercase mb-3">{{ __('Summary') }}</h4>
-
-                <!-- Accordion -->
-                {{-- <div id="accordion-01" class="mb-4" role="tablist" aria-multiselectable="true">
-                    <div id="accordion-01-heading-01" class="g-brd-y g-brd-gray-light-v2 py-3" role="tab">
-                        <h5 class="g-font-weight-400 g-font-size-default mb-0">
-                            <a class="g-color-gray-dark-v4 g-text-underline--none--hover" href="#accordion-01-body-01"
-                                data-toggle="collapse" data-parent="#accordion-01" aria-expanded="false"
-                                aria-controls="accordion-01-body-01">Estimate shipping
-                                <span class="ml-3 fa fa-angle-down"></span></a>
-                        </h5>
-                    </div>
-                    <div id="accordion-01-body-01" class="collapse" role="tabpanel"
-                        aria-labelledby="accordion-01-heading-01">
-                        <div class="g-py-10">
-                            <div class="mb-3">
-                                <label class="d-block g-color-gray-dark-v2 g-font-size-13">Country</label>
-                                <input id="inputGroup1"
-                                    class="form-control u-form-control g-placeholder-gray-light-v1 rounded-0 g-py-15"
-                                    name="country" type="text" placeholder="United Kingdom" required>
-                            </div>
-                            <div class="mb-3">
-                                <label class="d-block g-color-gray-dark-v2 g-font-size-13">State/Province</label>
-                                <input id="inputGroup2"
-                                    class="form-control u-form-control g-placeholder-gray-light-v1 rounded-0 g-py-15"
-                                    name="stateProvince" type="text" placeholder="London" required>
-                            </div>
-                            <label class="d-block g-color-gray-dark-v2 g-font-size-13">ZIP/Postal
-                                Code</label>
-                            <input id="inputGroup3"
-                                class="form-control u-form-control g-placeholder-gray-light-v1 rounded-0 g-py-15"
-                                name="zip" type="text" placeholder="e.g. AB123" required>
-                        </div>
-                    </div>
-                </div> --}}
-                <!-- End Accordion -->
 
                 <div class="d-flex justify-content-between mb-2">
                     <span class="g-color-black">{{ __('Subtotal') }}</span>
@@ -166,7 +132,7 @@ use App\Models\Price;
                             class="form-control g-brd-gray-light-v1 g-brd-right-none g-color-gray-dark-v3 g-placeholder-gray-dark-v3"
                             type="text" placeholder="Enter discount code">
                         <span class="input-group-append g-brd-gray-light-v1 g-bg-white">
-                            <button class="btn u-btn-primary" type="submit">{{ __('Apply') }}</button>
+                            <button class="btn u-btn-primary" type="button">{{ __('Apply') }}</button>
                         </span>
                     </div>
                 </div>

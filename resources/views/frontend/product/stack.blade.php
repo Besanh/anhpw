@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="{{ asset('frontend/css/animate.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/hamburgers/hamburgers.min.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/hs-megamenu//hs.megamenu.css') }}">
-    {{-- <link rel="stylesheet" href="{{ asset('frontend/css/slick-carousel/slick.css') }}"> --}}
     <link rel="stylesheet" href="{{ asset('frontend/css/malihu-scrollbar/jquery.mCustomScrollbar.min.css') }}">
     <!-- CSS Unify Theme -->
     <link rel="stylesheet" href="{{ asset('frontend/css/styles.e-commerce.css') }}">
@@ -14,8 +13,6 @@
     <!-- CSS Customization -->
     <link rel="stylesheet" href="{{ asset('frontend/css/custom.css') }}">
 
-    <!-- Owl Carousel -->
-    <link rel="stylesheet" href="{{ asset('css/owlcarousel/owl.carousel.min.css') }}">
 @endpush
 @push('script-product-detail')
     <!-- JS Global Compulsory -->
@@ -23,10 +20,9 @@
     <script src="{{ asset('frontend/js/jquery-migrate/jquery-migrate.min.js') }}"></script>
     <script src="{{ asset('frontend/js/popper/popper.min.js') }}"></script>
     <script src="{{ asset('frontend/js/bootstrap/bootstrap.min.js') }}"></script>
+
     <!-- JS Implementing Plugins -->
-    {{-- <script src="{{ asset('frontend/js/slick-carousel/slick.js') }}"></script> --}}
     <script src="{{ asset('frontend/js/hs-megamenu/hs.megamenu.js') }}"></script>
-    <script src="{{ asset('frontend/js/jquery-countdown/jquery.countdown.min.js') }}"></script>
     <script src="{{ asset('frontend/js/malihu-scrollbar/jquery.mCustomScrollbar.concat.min.js') }}"></script>
 
     <!-- JS Unify -->
@@ -44,9 +40,6 @@
 
     <!-- JS Customization -->
     <script src="{{ asset('frontend/js/custom.js') }}"></script>
-
-    <!-- Owl Carousel -->
-    <script src="{{ asset('js/owlcarousel/owl.carousel.min.js') }}"></script>
 
     <!-- JS Plugins Init. -->
     <script>

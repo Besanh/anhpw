@@ -60,8 +60,10 @@ $main_link = 'bill-customer';
                                         <td>{{ $node->address }}</td>
                                         <td>{{ $node->note }}</td>
                                         <td>{{ $node->zipcode }}</td>
-                                        <td>{{ $node->created_by }}</td>
-                                        <td>{{ $node->updated_by }}</td>
+                                        <td>{{ $node->created_by != 0 ? getUserName($node->created_by) : $node->created_by }}
+                                        </td>
+                                        <td>{{ $node->updated_by != 0 ? getUserName($node->updated_by) : $node->updated_by }}
+                                        </td>
                                         <td class="created_at-{{ $node->id }}" data-id="{{ $node->id }}">
                                             {{ $node->created_at }}
                                         </td>

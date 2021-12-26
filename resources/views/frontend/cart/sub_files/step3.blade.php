@@ -21,7 +21,7 @@ use App\Models\Price;
                 </li>
                 <li class="my-3">
                     <label
-                        class="form-check-inline u-check d-block u-link-v5 g-color-gray-dark-v4 g-color-primary--hover g-pl-30">
+                        class="disabled form-check-inline u-check d-block u-link-v5 g-color-gray-dark-v4 g-color-primary--hover g-pl-30">
                         <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="payment" value="vnpay"
                             type="radio">
                         <span class="d-block u-check-icon-checkbox-v4 g-absolute-centered--y g-left-0">
@@ -33,7 +33,7 @@ use App\Models\Price;
                 </li>
                 <li class="g-brd-bottom g-brd-gray-light-v3 pb-3 my-3">
                     <label
-                        class="form-check-inline u-check d-block u-link-v5 g-color-gray-dark-v4 g-color-primary--hover g-pl-30">
+                        class="disabled form-check-inline u-check d-block u-link-v5 g-color-gray-dark-v4 g-color-primary--hover g-pl-30">
                         <input class="g-hidden-xs-up g-pos-abs g-top-0 g-left-0" name="payment" value="paypal"
                             type="radio">
                         <span class="d-block u-check-icon-checkbox-v4 g-absolute-centered--y g-left-0">
@@ -98,7 +98,7 @@ use App\Models\Price;
             <!-- End Ship To -->
 
             <div class="g-brd-bottom g-brd-gray-light-v3 g-pb-30 g-mb-30">
-                <div class="text-right">
+                <div class="text-left">
                     <button class="btn u-btn-primary g-font-size-13 text-uppercase g-px-40 g-py-15" type="submit"
                         name="make_payment" value="make_payment">{{ __('Make Payment') }}</button>
                 </div>
@@ -145,7 +145,7 @@ use App\Models\Price;
                         <span class="g-color-black">{{ __('Shipping') }}</span>
                         <span class="g-color-black g-font-weight-300">{{ getPrice('15000') }}</span>
                     </div>
-                    <p class="g-font-size-13">{{ __('Shipping Delivery - 2-3 Working Days') }}</p>
+                    {{-- <p class="g-font-size-13">{{ __('Shipping Delivery - 2-3 Working Days') }}</p> --}}
                 </div>
                 <div class="d-flex justify-content-between mb-3">
                     <span class="g-color-black">{{ __('Tax') }}</span>
@@ -174,7 +174,8 @@ use App\Models\Price;
                                 @foreach (Cart::instance('shopping')->content() as $item)
                                     <!-- Product -->
                                     <li class="d-flex justify-content-start">
-                                        <img class="g-width-100 g-height-100 mr-3" src="{{ getImage($item->options->image) }}"
+                                        <img class="g-width-100 g-height-100 mr-3"
+                                            src="{{ getImage($item->options->image) }}"
                                             alt="{{ $item->options->name_seo }}">
                                         <div class="d-block">
                                             <h4 class="h6 g-color-black">{{ $item->options->name_seo }}

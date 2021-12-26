@@ -50,19 +50,9 @@ class HomeController extends Controller
                 ->first();
         });
 
-        // $countdown = Cache::remember('countdown', timeToLive(), function () {
-        //     return Setting::where([
-        //         ['name', '=', 'countdown'],
-        //         ['status', '=', 1]
-        //     ])
-        //         ->select('value_setting')
-        //         ->first();
-        // });
-
         return view('frontend.home.home', compact([
             'slogan_feature_product',
             'slogan_new_arrival_product',
-            // 'countdown',
         ]));
     }
 }

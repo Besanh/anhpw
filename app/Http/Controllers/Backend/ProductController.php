@@ -43,9 +43,11 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $cates = Category::where('status', 1)->select(['id', 'name'])->get();
-        $products = Brand::where('status', 1)->select(['id', 'name'])->get();
-        return view('admin.product.create', compact('cates', 'products'));
+        $cates = Category::where('status', 1)->select(['id', 'name'])
+            ->where('status', 1)->get();
+        $brands = Brand::where('status', 1)->select(['id', 'name'])
+            ->where('status', 1)->get();
+        return view('admin.product.create', compact('cates', 'brands'));
     }
 
     /**
@@ -59,12 +61,12 @@ class ProductController extends Controller
         $galleries = $thumb_small = [];
         $img_thumb_small = $img_org = $thumb = $img = '';
         if ($request->hasFile('image')) {
-            [$img_org, $thumb, $img] = proccessUpload($request, 'product', 650, 750);
+            [$img_org, $thumb, $img] = proccessUpload($request, 'product', 300, 300);
             $img_thumb_small = $this->uploadThumbSmall($request->file('image'), 'product_image', 250, 125);
         }
         if ($request->hasFile('galleries')) {
             foreach ($request->file('galleries') as $node) {
-                $galleries[] = $this->uploadGalleries($node, 'product_galleries', 650, 750);
+                $galleries[] = $this->uploadGalleries($node, 'product_galleries', 300, 300);
                 $thumb_small[] = $this->uploadThumbSmall($node, 'product', 250, 125);
             }
         }
@@ -121,9 +123,11 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        $cates = Category::where('status', 1)->select(['id', 'name'])->get();
-        $products = Brand::where('status', 1)->select(['id', 'name'])->get();
-        return view('admin.product.edit', compact('cates', 'products', 'product'));
+        $cates = Category::where('status', 1)->select(['id', 'name'])
+            ->where('status', 1)->get();
+        $brands = Brand::where('status', 1)->select(['id', 'name'])
+            ->where('status', 1)->get();
+        return view('admin.product.edit', compact('cates', 'brands', 'product'));
     }
 
     /**
@@ -138,12 +142,12 @@ class ProductController extends Controller
         $galleries = $thumb_small = [];
         $img_thumb_small = $img_org = $thumb = $img = '';
         if ($request->hasFile('image')) {
-            [$img_org, $thumb, $img] = proccessUpload($request, 'product', 650, 750);
+            [$img_org, $thumb, $img] = proccessUpload($request, 'product', 300, 300);
             $img_thumb_small = $this->uploadThumbSmall($request->file('image'), 'product_image', 250, 125);
         }
         if ($request->hasFile('galleries')) {
             foreach ($request->file('galleries') as $node) {
-                $galleries[] = $this->uploadGalleries($node, 'product_galleries', 650, 750);
+                $galleries[] = $this->uploadGalleries($node, 'product_galleries', 300, 300);
                 $thumb_small[] = $this->uploadThumbSmall($node, 'product', 250, 125);
             }
         }

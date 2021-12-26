@@ -19,7 +19,6 @@ $brands_footer = Cache::get('brands_footer');
                     </h2>
 
                     <div class="row">
-
                         <div class="col-4 g-mb-20">
                             <!-- Links -->
                             <ul class="list-unstyled g-font-size-13 mb-0">
@@ -212,19 +211,19 @@ $brands_footer = Cache::get('brands_footer');
 
     <!-- Copyright -->
     <div class="container g-pt-30 g-pb-10">
-        <div class="row justify-content-between align-items-center">
-            <div class="col-md-6 g-mb-20">
+        <div class="row justify-content-between align-items-center text-center">
+            <div class="col-md-12 g-mb-20">
                 <p class="g-font-size-13 mb-0">{{ date('Y') }} &copy; {{ __(config('app.name')) }}.
                     {{ __('All Rights
                     Reserved') }}.
                 </p>
             </div>
 
-            <div class="col-md-6 text-md-right g-mb-20">
+            {{-- <div class="col-md-6 text-md-right g-mb-20">
                 <ul class="list-inline g-color-gray-dark-v5 g-font-size-25 mb-0">
                     {!! $payment ? $payment->value_setting : '' !!}
                 </ul>
-            </div>
+            </div> --}}
         </div>
     </div>
     <!-- End Copyright -->

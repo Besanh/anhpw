@@ -88,7 +88,7 @@ class ProductController extends Controller
                     ->get();
             });
 
-            return view('frontend.product.index', compact(['product_detail', 'product_items', 'related_products', 'shippingFees']));
+            return view('frontend.product.index', compact('product_detail', 'product_items', 'related_products', 'shippingFees'));
         }
         return redirect()->route('comming-soon');
     }

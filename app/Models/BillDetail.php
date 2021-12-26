@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use App\Traits\UpdateModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
 
 class BillDetail extends Model
 {
-    use HasFactory;
+    use HasFactory, UpdateModel;
 
     public static $channel = ['website' => 'website', 'facebook' => 'facebook'];
 

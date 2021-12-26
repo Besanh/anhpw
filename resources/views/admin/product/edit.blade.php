@@ -3,8 +3,9 @@ $title = __($product->name_seo);
 $status = getStatus();
 $main_link = 'product';
 ?>
+@extends('admin.layouts.main')
 @section('title', $title)
-    @extends('admin.layouts.main')
+
 @section('content')
     <div class="container">
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -39,6 +40,7 @@ $main_link = 'product';
                             enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
+
                             <ul class="nav nav-tabs" id="pills-tab" role="tablist">
                                 <li class="nav-item">
                                     <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home"
@@ -73,7 +75,7 @@ $main_link = 'product';
                                                 <div>
                                                     <select name="cate_id" class="form-control" aria-label="Default select"
                                                         required>
-                                                        <option value="" selected>Select Category</option>
+                                                        <option value="" selected>{{ __('Select Category') }}</option>
                                                         @foreach ($cates as $k => $c)
                                                             <option value="{!! $c->id !!}"
                                                                 {{ $product->cate_id == $c->id ? 'selected' : '' }}
@@ -97,7 +99,7 @@ $main_link = 'product';
                                                 <div>
                                                     <select name="bid" class="form-control" aria-label="Default select"
                                                         required>
-                                                        <option value="" selected>Select Brand</option>
+                                                        <option value="" selected>{{ __('Select Brand') }}</option>
                                                         @foreach ($brands as $k => $b)
                                                             <option value="{!! $b->id !!}"
                                                                 {{ $product->bid == $b->id ? 'selected' : '' }}
@@ -365,7 +367,7 @@ $main_link = 'product';
                                                     {{ __('Image') }}
                                                 </label>
                                                 <div class="custom-file" data-toggle="tooltip" data-placement="top"
-                                                    title="650x750">
+                                                    title="300x300">
                                                     <input type="file" name="image" class="custom-file-input" id="image"
                                                         accept="image/png, image/gif, image/jpeg">
                                                     <label class="custom-file-label" for="image">
@@ -386,7 +388,7 @@ $main_link = 'product';
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="galleries" class="col-form-label text-md-right"
-                                                    data-toggle="tooltip" data-placement="top" title="900x450">
+                                                    data-toggle="tooltip" data-placement="top" title="300x300">
                                                     {{ __('Galleries') }}
                                                 </label>
                                                 <div class="custom-file" data-toggle="tooltip" data-placement="top"
@@ -429,7 +431,6 @@ $main_link = 'product';
 @include('helper.datetimepicker')
 @push('ckeditor')
     <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
-    {{-- <script src="{{ asset('ckeditor/ckeditor.js') }}"></script> --}}
     <script>
         CKEDITOR.replace('benefit', {
             filebrowserUploadUrl: "{{ route('upload', ['_token' => csrf_token()]) }}",

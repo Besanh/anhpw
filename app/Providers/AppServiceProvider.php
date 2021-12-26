@@ -207,6 +207,7 @@ class AppServiceProvider extends ServiceProvider
                         ['products.status', '=', 1],
                         ['prices.status', '=', 1]
                     ])
+                    ->groupBy('products.id')
                     ->orderBy('products.promote', 'DESC')
                     ->orderBy('products.id', 'ASC')
                     ->limit(8)

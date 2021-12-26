@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use App\Traits\UpdateModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class BillConsignee extends Model
 {
-    use HasFactory;
+    use HasFactory, UpdateModel;
 
     public $timestamps = true;
 

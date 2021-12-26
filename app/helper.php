@@ -15,8 +15,8 @@ if (!function_exists('getStatus')) {
     function getStatus()
     {
         return [
+            '1' => 'Active',
             '0' => 'Inactive',
-            '1' => 'Active'
         ];
     }
 }

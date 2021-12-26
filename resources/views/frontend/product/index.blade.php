@@ -18,7 +18,7 @@ $title = __('Product' . ' - ' . $product_detail->name_seo);
     <!-- Product Description -->
     <div class="container g-pt-50 g-pb-100">
         <div class="row">
-            <div class="col-lg-7">
+            <div class="col-sm-5 col-xs-5 col-lg-5">
                 <!-- Carousel -->
                 @includeIf('frontend.product.sub_product.carousel', [
                 'image' => $product_detail->image,
@@ -29,8 +29,8 @@ $title = __('Product' . ' - ' . $product_detail->name_seo);
                 <!-- End Carousel -->
             </div>
 
-            <div class="col-lg-5">
-                <div class="g-px-40--lg g-pt-70">
+            <div class="col-sm-7 col-xs-7 col-lg-7">
+                <div class="g-px-40--lg">
                     @include('frontend.product.sub_product.detail')
                 </div>
             </div>
@@ -42,14 +42,10 @@ $title = __('Product' . ' - ' . $product_detail->name_seo);
     @include('frontend.product.sub_product.description')
     <!-- End Description -->
 
-    <!-- Review -->
-    {{-- @include('frontend.product.sub_product.review') --}}
-    <!-- End Review -->
-
     <!-- Products -->
-    @if ($related_products->count() > 0)
+    {{-- @if ($related_products->count() > 0)
         @include('frontend.product.sub_product.related_product')
-    @endif
+    @endif --}}
 
     <!-- End Products -->
 @endsection

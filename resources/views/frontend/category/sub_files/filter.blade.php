@@ -1,5 +1,5 @@
-<div class="col-md-3 order-md-1 g-brd-right--lg g-brd-gray-light-v4 g-pt-40 g-pb-40">
-    <div class="g-pr-15--lg g-pt-60">
+<div class="col-md-3 order-md-1 g-brd-right--lg g-brd-gray-light-v4 g-pb-40">
+    <div class="g-pr-15--lg g-pt-30">
         <!-- Categories -->
         @if ($other_cate && $other_cate->count() > 0)
             <div class="g-mb-30">
@@ -10,7 +10,7 @@
                             <a class="d-block u-link-v5 g-color-gray-dark-v4 g-color-primary--hover"
                                 href="{!! route('cate', $item->alias) !!}">
                                 {!! $item->name_seo !!}
-                                <span class="float-right g-font-size-12">{!! $item->get_prices_count !!}</span></a>
+                                {{-- <span class="float-right g-font-size-12">{!! $item->get_prices_count !!}</span></a> --}}
                         </li>
                     @endforeach
                 </ul>
@@ -37,7 +37,7 @@
                                     <i class="fa" data-check-icon="&#xf00c"></i>
                                 </span>
                                 {!! getTeaser($b->name, 3) !!}
-                                <span class="float-right g-font-size-13">{!! $b->get_products_count !!}</span>
+                                {{-- <span class="float-right g-font-size-13">{!! $b->get_products_count !!}</span> --}}
                             </label>
                         </li>
                     @endforeach
@@ -49,21 +49,21 @@
         <hr>
 
         <!-- Pricing -->
-        <div class="g-mb-30">
+        {{-- <div class="g-mb-30">
             <h3 class="h5 mb-3">{{ __('Pricing') }}</h3>
 
             <div class="text-center">
-                <span class="d-block g-color-primary mb-4">(<span id="rangeSliderAmount3">0</span>)đ</span>
+                <span class="d-block g-color-primary mb-4">(<span id="rangeSliderAmount3">0</span>) VND</span>
                 <div id="rangeSlider1" class="u-slider-v1-3" data-result-container="rangeSliderAmount3"
                     data-range="true" data-default="1000000, 50000000" data-min="100000" data-max="100000000"></div>
             </div>
         </div>
         <!-- End Pricing -->
 
-        <hr>
+        <hr> --}}
 
         <!-- Size -->
-        @if ($capas && $capas->count() > 0)
+        {{-- @if ($capas && $capas->count() > 0)
             <div class="g-mb-30">
                 <h3 class="h5 mb-3">{{ __('Capacity') }}</h3>
 
@@ -90,10 +90,10 @@
         @endif
         <!-- End Size -->
 
-        <hr>
+        <hr> --}}
 
         <!-- Rating -->
-        <div class="g-mb-30">
+        {{-- <div class="g-mb-30">
             <h3 class="h5 mb-3">{{ __('Rating') }}</h3>
 
             <ul class="js-rating u-rating-v1 g-font-size-20 g-color-gray-light-v3 mb-0"
@@ -118,7 +118,7 @@
         <!-- End Rating -->
 
         <input class="cate" type="hidden" name="cate" value="{{ $alias }}" />
-        <hr>
+        <hr> --}}
 
         <button id="filter" class="btn btn-block u-btn-black g-font-size-12 text-uppercase g-py-12 g-px-25"
             type="button" data-href="{{ route('cate', ['alias' => $alias]) }}">Find</button>

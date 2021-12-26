@@ -1,7 +1,7 @@
 <?php
 
 $title = __('Help Contents');
-$head_table = ['#', 'Id', 'Title', 'Status', 'Created At', 'Updated At', 'Action'];
+$head_table = ['#', 'Id', 'Title', 'Status', 'Created By', 'Updated By', 'Action'];
 $main_link = 'help-content';
 ?>
 @extends('admin.layouts.main')
@@ -59,16 +59,17 @@ $main_link = 'help-content';
                                             'id' => $node->id,
                                             'uri' => route($main_link.'.status', $node->id)])
                                         </td>
-                                        <td>{{ $node->created_at }}</td>
-                                        <td class="updated_at-{{ $node->id }}" data-id="{{ $node->id }}">
-                                            {{ $node->updated_at }}</td>
+                                        <td>{{ $node->created_by != 0 ? getUserName($node->created_by) : $node->created_by }}
+                                        </td>
+                                        <td>{{ $node->updated_by != 0 ? getUserName($node->updated_by) : $node->updated_by }}
+                                        </td>
                                         <td>
                                             <a class="btn btn-success"
                                                 href="{{ isset($help_id) ? route($main_link . '.edit', ['help_content' => $node->id, 'help_id' => $help_id]) : route($main_link . '.edit', $node->id) }}">
                                                 <i class="fa fa-paint-brush" aria-hidden="true"></i>
                                             </a>
                                             <a class="btn btn-warning"
-                                                href="{{ route($main_link . '.show', ['help_content' => $node->id, 'help_id' => $help_id]) }}">
+                                                href="{{ isset($help_id) ? route($main_link . '.show', ['help_content' => $node->id, 'help_id' => $help_id]) : route($main_link . '.show', $node->id) }}">
                                                 <i class="fa fa-eye" aria-hidden="true"></i>
                                             </a>
                                             <a class="delete-item btn btn-danger" data-id={{ $node->id }}

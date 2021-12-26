@@ -10,8 +10,12 @@ $head_table = [
 'Total Tax',
 'Payment',
 'Status',
-'Created At',
+'Created By',
+'Updated By',
+'Created
+At',
 'Updated At',
+'Action',
 ];
 $main_link = 'brand';
 ?>
@@ -72,6 +76,10 @@ $main_link = 'brand';
                                         <td>
                                             {{ $node->getBillDetail->status }}
                                         </td>
+                                        <td>{{ $node->created_by != 0 ? getUserName($node->created_by) : $node->created_by }}
+                                        </td>
+                                        <td>{{ $node->updated_by != 0 ? getUserName($node->updated_by) : $node->updated_by }}
+                                        </td>
                                         <td>{{ $node->created_at }}</td>
                                         <td class="updated_at-{{ $node->id }}" data-id="{{ $node->id }}">
                                             {{ $node->updated_at }}</td>
@@ -95,4 +103,3 @@ $main_link = 'brand';
         </div>
     </div>
 @endsection
-@include('helper.be-crud')
