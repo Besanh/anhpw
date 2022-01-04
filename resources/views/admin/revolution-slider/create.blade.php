@@ -181,6 +181,7 @@ $main_link = 'revolution-slider';
     </div>
 @endsection
 @push('append-input')
+    <script type="text/javascript" src="{{ asset('js/ckfinder/ckfinder.js') }}"></script>
     <script>
         function changeField(sel) {
             var url = sel.value == "SLIDE_WRITTER" ?
@@ -219,10 +220,6 @@ $main_link = 'revolution-slider';
                 }
             }
         }
-
-    </script>
-    <script type="text/javascript" src="{{ asset('js/ckfinder/ckfinder.js') }}"></script>
-    <script>
         CKFinder.config({
             connectorPath: '/ckfinder/connector'
         });
@@ -257,6 +254,5 @@ $main_link = 'revolution-slider';
         };
 
     </script>
-    {{-- <script src="//cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js" type="text/javascript"></script> --}}
 @endpush
 @include('helper.datetimepicker')

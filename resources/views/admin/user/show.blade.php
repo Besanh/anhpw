@@ -16,7 +16,7 @@ $main_link = 'user';
 
 @section('content')
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">{{ __('User'.' - '.$user->name) }}</h1>
+        <h1 class="h3 mb-0 text-gray-800">{{ __('User' . ' - ' . $user->name) }}</h1>
     </div>
     <div class="card mx-auto">
         @if (Session::has('message'))
@@ -57,6 +57,62 @@ $main_link = 'user';
                                         </td>
                                     </tr>
                                 @endforeach
+                            @endif
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-header border-bottom-primary">
+            <div class="row">
+                <div class="col-md- col-sm-12 col-xs-12">
+                    <h3>{{ __('Profile') }}</h3>
+                </div>
+            </div>
+        </div>
+        <div class="card shadow mb-4">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" width="100%" cellspacing="0">
+                        <tbody>
+                            @if ($user)
+                                <tr>
+                                    <th>{{ __('Gender') }}</th>
+                                    <td>
+                                        {{ $user->getProfileAdmin->gender }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{ __('Fullname') }}</th>
+                                    <td>
+                                        {{ $user->getProfileAdmin->fullname }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{ __('Phone') }}</th>
+                                    <td>
+                                        {{ $user->getProfileAdmin->phone }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{ __('Avatar') }}</th>
+                                    <td>
+                                        {{ $user->getProfileAdmin->avatar }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{ __('Birthday') }}</th>
+                                    <td>
+                                        {{ $user->getProfileAdmin->birthday }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{ __('Address') }}</th>
+                                    <td>
+                                        {{ $user->getProfileAdmin->address }}
+                                    </td>
+                                </tr>
                             @endif
                         </tbody>
                     </table>

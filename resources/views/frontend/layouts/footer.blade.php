@@ -5,6 +5,7 @@ $b_main = '';
 $b_child = '';
 $product_in_menu_footer = Cache::get('product_in_menu_footer');
 $brands_footer = Cache::get('brands_footer');
+$socials = Cache::get('socials');
 ?>
 
 <!-- Footer -->
@@ -129,24 +130,24 @@ $brands_footer = Cache::get('brands_footer');
                         <li class="media my-3">
                             <i class="d-flex mt-1 mr-3 icon-hotel-restaurant-235 u-line-icon-pro"></i>
                             <div class="media-body">
-                                @if ($address)
-                                    {{ $address->value_setting }}
+                                @if (Cache::has('address'))
+                                    {{ Cache::get('address')->value_setting }}
                                 @endif
                             </div>
                         </li>
                         <li class="media my-3">
                             <i class="d-flex mt-1 mr-3 icon-communication-062 u-line-icon-pro"></i>
                             <div class="media-body">
-                                @if ($email)
-                                    {{ $email->value_setting }}
+                                @if (Cache::has('email'))
+                                    {{ Cache::get('email')->value_setting }}
                                 @endif
                             </div>
                         </li>
                         <li class="media my-3">
                             <i class="d-flex mt-1 mr-3 icon-communication-033 u-line-icon-pro"></i>
                             <div class="media-body">
-                                @if ($phone)
-                                    {{ $phone->value_setting }}
+                                @if (Cache::has('phone'))
+                                    {{ Cache::get('phone')->value_setting }}
                                 @endif
                             </div>
                         </li>
@@ -211,19 +212,21 @@ $brands_footer = Cache::get('brands_footer');
 
     <!-- Copyright -->
     <div class="container g-pt-30 g-pb-10">
-        <div class="row justify-content-between align-items-center text-center">
-            <div class="col-md-12 g-mb-20">
+        <div class="row justify-content-between align-items-center">
+            <div class="col-md-6 g-mb-20">
                 <p class="g-font-size-13 mb-0">{{ date('Y') }} &copy; {{ __(config('app.name')) }}.
                     {{ __('All Rights
                     Reserved') }}.
                 </p>
             </div>
 
-            {{-- <div class="col-md-6 text-md-right g-mb-20">
+            <div class="col-md-6 text-md-right g-mb-20">
                 <ul class="list-inline g-color-gray-dark-v5 g-font-size-25 mb-0">
-                    {!! $payment ? $payment->value_setting : '' !!}
+                    @if (Cache::has('payment_support'))
+                        {!! Cache::get('payment_support')->value_setting !!}
+                    @endif
                 </ul>
-            </div> --}}
+            </div>
         </div>
     </div>
     <!-- End Copyright -->

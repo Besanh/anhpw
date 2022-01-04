@@ -1,7 +1,7 @@
 <?php
-$title = __('User - Edit');
+$title = __('Profile - Edit');
 $status = getStatus();
-$main_link = 'user';
+$main_link = 'profile';
 ?>
 @extends('admin.layouts.main')
 @section('title', $title)
@@ -9,7 +9,7 @@ $main_link = 'user';
 @section('content')
     <div class="container">
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">{{ __('User #') . $user->name }}</h1>
+            <h1 class="h3 mb-0 text-gray-800">{{ __('Profile #') . $profile->name }}</h1>
         </div>
         <div class="row justify-content-center">
             <div class="col-md-12">
@@ -38,97 +38,15 @@ $main_link = 'user';
                     @endif
                     <div class="card-header">
                         {{ $title }}
-                        <a href="{{ route($main_link . '.index') }}" class="float-right">{{ __('Users') }}</a>
                     </div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route($main_link . '.update', $user->id) }}">
+                        <form method="POST" action="{{ route($main_link . '.update', $profile->id) }}">
                             @csrf
                             @method('PUT')
 
                             <div class="form-group row">
-                                <div class="col-md-6">
-                                    <label for="name" class="col-form-label">
-                                        {{ __('Username') }}
-                                    </label>
-                                    <div>
-                                        <input id="username" type="text"
-                                            class="form-control @error('name') is-invalid @enderror" name="name"
-                                            value="{{ old('name', $user->name) }}" required autofocus>
-
-                                        @error('name')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                    <div>
-                                        <label for="email" class="col-form-label">{{ __('Email') }}</label>
-                                        <div>
-                                            <input type="email" class="form-control @error('email') is-invalid @enderror"
-                                                name="email" value="{{ old('email', $user->email) }}" required autofocus>
-
-                                            @error('email')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-
-                                    <div>
-                                        <label for="password" class="col-form-label">{{ __('Password') }}</label>
-                                        <div>
-                                            <input id="password" type="password"
-                                                class="form-control @error('password') is-invalid @enderror" name="password"
-                                                value="{{ old('password') }}">
-
-                                            @error('password')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-
-                                    <div>
-                                        <label for="password_confirmation"
-                                            class="col-form-label">{{ __('Password Confirmation') }}</label>
-                                        <div>
-                                            <input id="password_confirmation" type="password"
-                                                class="form-control @error('password_confirmation') is-invalid @enderror"
-                                                name="password_confirmation" value="{{ old('password_confirmation') }}">
-
-                                            @error('password_confirmation')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-
-                                    <label for="email" class="col-form-label">{{ __('Roles') }}</label>
-                                    <div>
-                                        <select name="roles[]" class="form-control" multiple aria-label="Default select"
-                                            required>
-                                            @foreach ($roles as $r)
-                                                <option value="{!! $r !!}"
-                                                    {{ in_array($r, $userRoles) ? 'selected' : '' }}
-                                                    class="@error('roles') is-invalid @enderror">
-                                                    {!! $r !!}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                        @error('roles')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div>
                                         <label for="gender" class="col-form-label">
                                             {{ __('Gender') }}
@@ -138,7 +56,7 @@ $main_link = 'user';
                                                 <option value="">{{ __('Choose Gender') }}</option>
                                                 @foreach (arrayGender() as $k => $g)
                                                     <option value="{{ $k }}"
-                                                        {{ $k == $user->getProfileAdmin->gender ? 'selected' : '' }}>
+                                                        {{ $k == $profile->gender ? 'selected' : '' }}>
                                                         {{ $g }}</option>
                                                 @endforeach
                                             </select>
@@ -159,7 +77,8 @@ $main_link = 'user';
                                             <input type="text"
                                                 class="form-control form-control-user @error('fullname') is-invalid @enderror"
                                                 name="fullname"
-                                                value="{{ old('fullname', $user->getProfileAdmin->fullname) }}" required>
+                                                value="{{ old('fullname', $profile->fullname) }}"
+                                                required>
                                             @error('fullname')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -175,7 +94,7 @@ $main_link = 'user';
                                         <div>
                                             <input type="text"
                                                 class="form-control form-control-user @error('phone') is-invalid @enderror"
-                                                name="phone" value="{{ old('phone', $user->getProfileAdmin->phone) }}"
+                                                name="phone" value="{{ old('phone', $profile->phone) }}"
                                                 required>
                                             @error('phone')
                                                 <span class="invalid-feedback" role="alert">
@@ -209,7 +128,8 @@ $main_link = 'user';
                                             <input id="birthday" type="text"
                                                 class="datepicker form-control form-control-user @error('birthday') is-invalid @enderror"
                                                 name="birthday"
-                                                value="{{ old('birthday', $user->getProfileAdmin->birthday) }}" required>
+                                                value="{{ old('birthday', $profile->birthday) }}"
+                                                required>
                                             @error('birthday')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -225,7 +145,7 @@ $main_link = 'user';
                                         <div>
                                             <textarea class="form-control @error('address') is-invalid @enderror"
                                                 name="address" value="{{ old('address') }}"
-                                                required>{{ old('address', $user->getProfileAdmin->address) }}</textarea>
+                                                required>{{ old('address', $profile->address) }}</textarea>
                                             @error('address')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -239,8 +159,8 @@ $main_link = 'user';
                             <div class="form-group row mb-0">
                                 <div class="col-md-12">
                                     <div class="border border-danger mb-5 pt-5 pb-5">
-                                        <img src="{{ $user->getProfileAdmin->avatar }}" class="rounded mx-auto d-block"
-                                            width="200" height="200">
+                                        <img src="{{ $profile->avatar }}"
+                                            class="rounded mx-auto d-block" width="200" height="200">
                                     </div>
                                 </div>
                             </div>

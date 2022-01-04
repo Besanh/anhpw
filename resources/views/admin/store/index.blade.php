@@ -4,8 +4,9 @@ $title = __('Store - Index');
 $head_table = ['#', 'Province', 'Name', 'Location', 'Status', 'Action'];
 $main_link = 'store';
 ?>
+@extends('admin.layouts.main')
 @section('title', $title)
-    @extends('admin.layouts.main')
+    
 @section('content')
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800"><a href="{{ route($main_link . '.index') }}">{{ __('Stores') }}</a></h1>

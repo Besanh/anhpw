@@ -314,6 +314,5 @@ $k0 = $k1 = $k2 = $k3 = 0;
     </div>
     </div>
     <!-- End Content -->
-    @include('frontend.home.sub_home._features')
 @endsection
 @include('frontend.store.stack')

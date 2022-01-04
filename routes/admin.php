@@ -26,6 +26,7 @@ use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\DistrictController;
 use App\Http\Controllers\Backend\HomeController;
 use App\Http\Controllers\Backend\PermissionController;
+use App\Http\Controllers\Backend\ProfileController;
 use App\Http\Controllers\Backend\RevolutionSliderController;
 use App\Http\Controllers\Backend\RoleController;
 use App\Http\Controllers\Backend\SeoPageController;
@@ -33,6 +34,8 @@ use App\Http\Controllers\Backend\ShippingController;
 use App\Http\Controllers\Frontend\ClearController;
 use App\Http\Controllers\ProvinceController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Http\Request;
 
 // Login & Register
 Route::group(['prefix' => 'admin'], function () {
@@ -43,11 +46,32 @@ Route::group(['prefix' => 'admin'], function () {
 
     // Register
     Route::get('register', [RegisterController::class, 'showAdminRegisterForm'])->name('admin-register');
-    Route::post('create-admin', [RegisterController::class, 'createAdmin'])->name('create-admin');
+    Route::post('create-admin', [RegisterController::class, 'createAdmin'])->name('create-admin')->middleware('admin.verified');
 
     // Reset password
-    Route::get('password/reset', [ResetPasswordController::class, 'reset'])->name('password.reset');
+    Route::get('password/reset', [ResetPasswordController::class, 'reset'])->name('admin.password.reset');
+
+    // Verify
+    Route::get('email/verify', function () {
+        return view('admin.auth.verify');
+    })->middleware('admin')->name('admin.verification.notice');
+    Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+        $request->fulfill();
+
+        return redirect()->route('admin.default');
+    })->middleware(['admin', 'signed'])->name('admin.verification.verify');
+    Route::post('/email/verification-notification', function (Request $request) {
+        $request->user()->sendEmailVerificationNotification();
+
+        return back()->with('message', 'Verification link sent!');
+    })->middleware(['admin', 'throttle:6,1'])->name('admin.verification.send');
+
+    // Forgot password
+    Route::get('/forgot-password', function () {
+        return view('admin.forgot-password');
+    })->middleware('guest')->name('admin.password.request');
 });
+
 // Backend
 Route::group(['middleware' => ['admin'], 'prefix' => 'admin'], function () {
     $only_action_resource = ['index', 'create', 'update', 'store', 'show', 'edit'];
@@ -59,6 +83,11 @@ Route::group(['middleware' => ['admin'], 'prefix' => 'admin'], function () {
     // User
     Route::get('user/destroy/{id}', [UserController::class, 'destroy'])->name('user.destroy');
     Route::resource('user', UserController::class)->only($only_action_resource);
+
+    // Profile
+    Route::get('profile/{id}', [ProfileController::class, 'show'])->name('profile.show');
+    Route::get('profile/{id}/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('profile/update/{id}', [ProfileController::class, 'update'])->name('profile.update');
 
     // Role
     Route::get('role/destroy/{id}', [RoleController::class, 'destroy'])->name('role.destroy');

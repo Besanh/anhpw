@@ -3,7 +3,6 @@
 namespace App\Providers;
 
 use App\Models\AdminMenuRole;
-use App\Models\Backend\AdminUser;
 use App\Models\Brand;
 use App\Models\Menu;
 use App\Models\Product;
@@ -232,37 +231,37 @@ class AppServiceProvider extends ServiceProvider
         ///////////////////////// Topbar, Footer /////////////////////////
         /////////////////////////////////////////////////////////////////
         View::composer(['frontend.layouts.footer', 'frontend.layouts.topbar'], function ($view) {
-            $phone = Cache::remember('phone', timeToLive(), function () {
+            Cache::remember('phone', timeToLive(), function () {
                 return Setting::where('status', 1)
                     ->where('name', 'phone')
                     ->select('value_setting')
                     ->first();
             });
-            $address = Cache::remember('address', timeToLive(), function () {
+            Cache::remember('address', timeToLive(), function () {
                 return Setting::where('status', 1)
                     ->where('name', 'address')
                     ->select('value_setting')
                     ->first();
             });
-            $email = Cache::remember('email', timeToLive(), function () {
+            Cache::remember('email', timeToLive(), function () {
                 return Setting::where('status', 1)
                     ->where('name', 'email')
                     ->select('value_setting')
                     ->first();
             });
-            $socials = Cache::remember('socials', timeToLive(), function () {
+            Cache::remember('socials', timeToLive(), function () {
                 return Setting::where('status', 1)
                     ->where('name', 'socials')
                     ->select('value_setting')
                     ->first();
             });
-            $payment = Cache::remember('payment', timeToLive(), function () {
+            Cache::remember('payment_support', timeToLive(), function () {
                 return Setting::where('status', 1)
-                    ->where('name', 'payment')
+                    ->where('name', 'payment_support')
                     ->select('value_setting')
                     ->first();
             });
-            $view->with(compact(['phone', 'address', 'email', 'socials', 'payment']));
+            // $view->with(compact('phone', 'address', 'email', 'socials', 'payments'));
         });
     }
 
@@ -317,7 +316,7 @@ class AppServiceProvider extends ServiceProvider
         return $menus;
     }
 
-    public function getChildTopBar($parent_id, $type_id, $alias, $cache_name = 'default_child_topbar')
+    public function getChildTopBar($parent_id, $type_id, $alias)
     {
         $str = '';
         $child_menus = Menu::where([

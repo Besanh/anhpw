@@ -1,3 +1,7 @@
+<?php
+use Illuminate\Support\Facades\Cache;
+$socials = Cache::get('socials');
+?>
 <div class="u-header__section g-brd-bottom g-brd-gray-light-v4 bg-main g-transition-0_3">
     <div class="container">
         <div class="row justify-content-between align-items-center g-mx-0--lg">
@@ -27,8 +31,8 @@
                 class="col-sm-auto g-hidden-sm-down g-color-white-opacity-0_6 g-font-weight-400 g-pl-15 g-pl-0--sm g-py-14">
                 <i
                     class="icon-communication-163 u-line-icon-pro g-font-size-18 g-valign-middle g-color-white-opacity-0_8 g-mr-10 g-mt-minus-2"></i>
-                @if ($phone)
-                    {{ $phone->value_setting }}
+                @if (Cache::has('phone'))
+                    {{ Cache::get('phone')->value_setting }}
                 @endif
             </div>
 
