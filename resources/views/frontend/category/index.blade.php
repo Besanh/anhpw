@@ -55,4 +55,4 @@ $seo_keyword .= $cate->name . ', ' . $cate->name_seo;
 
 @endsection
 
-@include('frontend.category/stack-cate')
+@include('frontend.category.stack-cate')

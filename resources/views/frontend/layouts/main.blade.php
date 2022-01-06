@@ -2,9 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
-
     @include('frontend.layouts.head')
-
 </head>
 
 <body>
@@ -18,9 +16,7 @@
             @include('frontend.layouts.navigation')
         </header>
         <!-- End Header -->
-        {{-- <div id="pjax-container"> --}}
         @yield('content')
-        {{-- </div> --}}
 
         {{-- Feature web --}}
         @include('frontend.layouts.features')
@@ -36,6 +32,5 @@
 
     @include('frontend.layouts.script')
 </body>
-
 
 </html>

@@ -17,11 +17,13 @@ use App\Http\Controllers\Frontend\SignupController;
 use App\Http\Controllers\Frontend\StoreController;
 use App\Http\Controllers\Frontend\TestController;
 use App\Http\Controllers\Frontend\WishListController;
+use App\Http\Controllers\Frontend\PromotionController;
 use Illuminate\Support\Facades\Route;
 
 // Home
 Route::get('/', [HomeController::class, 'index'])->name('frontend.default');
 Route::get('home', [HomeController::class, 'index'])->name('frontend.home');
+Route::get('new-arrival', [PromotionController::class, 'newArrival'])->name('new-arrival');
 
 // Top bar
 Route::get('store', [StoreController::class, 'index'])->name('store');
@@ -38,9 +40,7 @@ Route::get('get-filter/{alias}', [CateController::class, 'getFilter'])->where(['
 
 // Product
 Route::get('{brand_alias}/{id}-{product_alias}.html', [ProductController::class, 'index'])
-    // ->whereAlphaNumeric('brand_alias')
     ->whereNumber('id')
-    // ->whereAlphaNumeric('product_alias')
     ->name('product-detail');
 Route::get('click-capa-bind-info/{id}', [ProductController::class, 'clickCapaBindInfo'])->name('click-capa-bind-info');
 

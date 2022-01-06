@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Mail\ClientCartMail;
 use App\Models\Bill;
 use App\Models\BillConsignee;
 use App\Models\BillCustomer;
@@ -19,6 +20,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
@@ -335,7 +337,33 @@ class CartController extends Controller
     {
         $data = Bill::where('bill_no', '=', $bill_no)->count();
         if ($data > 0) {
-            // Send email notify or sms
+            $bill_customer = BillCustomer::select([
+                'bill_customers.id',
+                'email'
+            ])
+                ->join('bills', 'bills.id', '=', 'bill_customers.bill_id')
+                ->where([
+                    ['bills.bill_no', '=', $bill_no],
+                    ['bill_customers.count_sent_mail', '=', 0]
+                ])
+                ->first();
+            if ($bill_customer) {
+                // Send email notify or sms
+                $mailer = Setting::where('name', 'mailer')->select('value_setting')->first();
+                if ($mailer) {
+                    Mail::to($bill_customer->email)
+                        ->cc($mailer->value_setting)
+                        ->send(new ClientCartMail($bill_no));
+                    // Neu gui mail thanh cong thi update de reload khong gui mail lan nua
+                    if (!Mail::failures()) {
+                        $customer = BillCustomer::where('id', $bill_customer->id)
+                            ->first();
+                        $customer->update([
+                            'count_sent_mail' => 1
+                        ]);
+                    }
+                }
+            }
 
             return view('frontend.cart.complete', compact('bill_no'));
         }

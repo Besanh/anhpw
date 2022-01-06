@@ -1,11 +1,11 @@
-<?php
+@php
 use Diglactic\Breadcrumbs\Breadcrumbs;
 use Illuminate\Support\Arr;
 use App\Models\Contact;
 
 $seo = metaData('contact_page');
 $title = $seo ? $seo->title : config('app.name');
-?>
+@endphp
 @extends('frontend.layouts.main')
 @push('meta')
     <meta name="description" content="{{ __($seo ? $seo->seo_desc : config('app.seo_desc')) }}">
@@ -22,13 +22,7 @@ $title = $seo ? $seo->title : config('app.name');
     {{ Breadcrumbs::render('contact') }}
     <!-- End Breadcrumbs -->
 
-    <!-- Google Map -->
-    <iframe
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.8588741871604!2d106.72735611411625!3d10.74535816270633!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317525821f8c90a9%3A0xee9328acc43c9ff6!2zNDg3IEh14buzbmggVOG6pW4gUGjDoXQsIFTDom4gVGh14bqtbiDEkMO0bmcsIFF14bqtbiA3LCBUaMOgbmggcGjhu5EgSOG7kyBDaMOtIE1pbmgsIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1638885733382!5m2!1svi!2s"
-        width="100%" height="450" style="border:0;" allowfullscreen="true" loading="lazy"></iframe>
-    <!-- End Google Map -->
-
-    <div class="container g-py-100">
+    <div class="container g-py-50">
         <!-- Contact Info -->
         <div class="row g-mb-100">
             <div class="col-md-6 col-lg-4 mx-auto g-py-15">
@@ -114,7 +108,7 @@ $title = $seo ? $seo->title : config('app.name');
         @endif
         <div class="row justify-content-center">
             <div class="col-lg-8">
-                <form action="{{ route('contact.post-contact') }}" method="POST">
+                <form class="form-contact" action="{{ route('contact.post-contact') }}" method="POST">
                     @csrf
                     <input type="hidden" name="type" value="{{ Arr::get(Contact::$types, 'contact') }}" />
 
@@ -165,6 +159,26 @@ $title = $seo ? $seo->title : config('app.name');
             </div>
         </div>
         <!-- End Contact Form -->
+    </div>
+    <div class="modal-contact">
+        <div class="modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">{{ __('Notification') }}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-contact-body">
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('Close') }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
 @include('frontend.contact.stack')

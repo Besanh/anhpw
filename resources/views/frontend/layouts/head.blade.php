@@ -40,3 +40,6 @@
 
 <!-- Gift Card -->
 @stack('link-gift-card')
+
+<!-- New Arrival -->
+@stack('link-new-arrival')

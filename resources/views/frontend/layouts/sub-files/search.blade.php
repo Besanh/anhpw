@@ -25,6 +25,8 @@
     <!-- End Search Form -->
 </div>
 @push('typeahead-search')
+    {{-- Typeahead search --}}
+    <script src="{{ asset('js/typeahead.bundle.min.js') }}"></script>
     <script type="text/javascript">
         $(document).ready(function($) {
             // Set the Options for "Bloodhound" suggestion engine
@@ -65,103 +67,105 @@
             });
 
             $("#multiple-datasets .typeahead").typeahead({
-                hint: true,
-                highlight: true,
-                minLength: 1
-            }, {
-                source: products.ttAdapter(),
+                    hint: true,
+                    highlight: true,
+                    minLength: 1
+                }, {
+                    source: products.ttAdapter(),
 
-                // This will be appended to "tt-dataset-" to form the class name of the suggestion menu.
-                name: 'product-name',
+                    // This will be appended to "tt-dataset-" to form the class name of the suggestion menu.
+                    name: 'product-name',
 
-                // the key from the array we want to display (name,id,email,etc...)
-                display: 'name',
+                    // the key from the array we want to display (name,id,email,etc...)
+                    display: 'name',
 
-                templates: {
-                    // empty: [
-                    //     '<div class="list-group-item">Nothing found.</div>'
-                    // ],
-                    header: [
-                        '<div class="header-title" style="padding: 5px 10px;background: #dadada;font-weight: bold;">Products</div><div class="list-group search-results-dropdown"></div>'
-                    ],
-                    suggestion: function(data) {
-                        let path =
-                            '/' + data.b_alias + '/' + data.id + '-' + convertToSlug(data.name) +
-                            '.html';
-                        return '<a href="' + path + '" class="list-group-item">' + data.name_seo +
-                            '</a>'
+                    templates: {
+                        // empty: [
+                        //     '<div class="list-group-item">Nothing found.</div>'
+                        // ],
+                        header: [
+                            '<div class="header-title" style="padding: 5px 10px;background: #dadada;font-weight: bold;">Products</div><div class="list-group search-results-dropdown"></div>'
+                        ],
+                        suggestion: function(data) {
+                            let path =
+                                '/' + data.b_alias + '/' + data.id + '-' + convertToSlug(data.name) +
+                                '.html';
+                            return '<a href="' + path + '" class="list-group-item">' + data.name_seo +
+                                '</a>'
+                        }
                     }
-                }
-            }, {
-                source: prices.ttAdapter(),
+                },
+                // {
+                //     source: prices.ttAdapter(),
 
-                // This will be appended to "tt-dataset-" to form the class name of the suggestion menu.
-                name: 'prices-name',
+                //     // This will be appended to "tt-dataset-" to form the class name of the suggestion menu.
+                //     name: 'prices-name',
 
-                // the key from the array we want to display (name,id,email,etc...)
-                display: 'name',
+                //     // the key from the array we want to display (name,id,email,etc...)
+                //     display: 'name',
 
-                templates: {
-                    // empty: [
-                    //     '<div class="list-group-item">Nothing found.</div>'
-                    // ],
-                    header: [
-                        '<div class="header-title" style="padding: 5px 10px;background: #dadada;font-weight: bold;">Prices</div><div class="list-group search-results-dropdown"></div>'
-                    ],
-                    suggestion: function(data) {
-                        let path =
-                            '/' + data.b_alias + '/' + data.id + '-' + convertToSlug(data.name) +
-                            '.html';
-                        return '<a href="' + path + '" class="list-group-item">' + data.name_seo +
-                            '</a>'
+                //     templates: {
+                //         // empty: [
+                //         //     '<div class="list-group-item">Nothing found.</div>'
+                //         // ],
+                //         header: [
+                //             '<div class="header-title" style="padding: 5px 10px;background: #dadada;font-weight: bold;">Prices</div><div class="list-group search-results-dropdown"></div>'
+                //         ],
+                //         suggestion: function(data) {
+                //             let path =
+                //                 '/' + data.b_alias + '/' + data.id + '-' + convertToSlug(data.name) +
+                //                 '.html';
+                //             return '<a href="' + path + '" class="list-group-item">' + data.name_seo +
+                //                 '</a>'
+                //         }
+                //     }
+                // },
+                {
+                    source: cates.ttAdapter(),
+
+                    // This will be appended to "tt-dataset-" to form the class name of the suggestion menu.
+                    name: 'cates-name',
+
+                    // the key from the array we want to display (name,id,email,etc...)
+                    display: 'name',
+
+                    templates: {
+                        // empty: [
+                        //     '<div class="list-group-item">Nothing found.</div>'
+                        // ],
+                        header: [
+                            '<div class="header-title" style="padding: 5px 10px;background: #dadada;font-weight: bold;">Categories</div><div class="list-group search-results-dropdown"></div>'
+                        ],
+                        suggestion: function(data) {
+                            let path = '/cate/' + data.alias;
+                            return '<a href="' + path + '" class="list-group-item">' + data.name_seo +
+                                '</a>'
+                        }
                     }
-                }
-            }, {
-                source: cates.ttAdapter(),
+                }, {
+                    source: brands.ttAdapter(),
 
-                // This will be appended to "tt-dataset-" to form the class name of the suggestion menu.
-                name: 'cates-name',
+                    // This will be appended to "tt-dataset-" to form the class name of the suggestion menu.
+                    name: 'brands-name',
 
-                // the key from the array we want to display (name,id,email,etc...)
-                display: 'name',
+                    // the key from the array we want to display (name,id,email,etc...)
+                    display: 'name',
 
-                templates: {
-                    // empty: [
-                    //     '<div class="list-group-item">Nothing found.</div>'
-                    // ],
-                    header: [
-                        '<div class="header-title" style="padding: 5px 10px;background: #dadada;font-weight: bold;">Categories</div><div class="list-group search-results-dropdown"></div>'
-                    ],
-                    suggestion: function(data) {
-                        let path = '/cate/' + data.alias;
-                        return '<a href="' + path + '" class="list-group-item">' + data.name_seo +
-                            '</a>'
+                    templates: {
+                        // empty: [
+                        //     '<div class="list-group-item">Nothing found.</div>'
+                        // ],
+                        header: [
+                            '<div class="header-title" style="padding: 5px 10px;background: #dadada;font-weight: bold;">Brands</div><div class="list-group search-results-dropdown"></div>'
+                        ],
+                        suggestion: function(data) {
+                            let path =
+                                '/brand/' + data.alias;
+                            return '<a href="' + path + '" class="list-group-item">' + data.name_seo +
+                                '</a>'
+                        }
                     }
-                }
-            }, {
-                source: brands.ttAdapter(),
-
-                // This will be appended to "tt-dataset-" to form the class name of the suggestion menu.
-                name: 'brands-name',
-
-                // the key from the array we want to display (name,id,email,etc...)
-                display: 'name',
-
-                templates: {
-                    // empty: [
-                    //     '<div class="list-group-item">Nothing found.</div>'
-                    // ],
-                    header: [
-                        '<div class="header-title" style="padding: 5px 10px;background: #dadada;font-weight: bold;">Brands</div><div class="list-group search-results-dropdown"></div>'
-                    ],
-                    suggestion: function(data) {
-                        let path =
-                            '/brand/' + data.alias;
-                        return '<a href="' + path + '" class="list-group-item">' + data.name_seo +
-                            '</a>'
-                    }
-                }
-            }, );
+                }, );
 
             function convertToSlug(Text) {
                 return Text

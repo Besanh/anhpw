@@ -26,7 +26,6 @@
     <script src="{{ asset('frontend/js/bootstrap/bootstrap.min.js') }}"></script>
 
     <!-- JS Implementing Plugins -->
-    <script src="{{ asset('frontend/js/jquery-countdown/jquery.countdown.min.js') }}"></script>
     <script src="{{ asset('frontend/js/slick-carousel/slick.js') }}"></script>
     <script src="{{ asset('frontend/js/hs-megamenu/hs.megamenu.js') }}"></script>
     <script src="{{ asset('frontend/js/malihu-scrollbar/jquery.mCustomScrollbar.concat.min.js') }}"></script>
@@ -38,10 +37,8 @@
     <script src="{{ asset('frontend/js/hs-helpers/hs.hamburgers.js') }}"></script>
     <script src="{{ asset('frontend/js/hs-components/hs.dropdown.js') }}"></script>
     <script src="{{ asset('frontend/js/hs-components/hs.scrollbar.js') }}"></script>
-    <script src="{{ asset('frontend/js/hs-components/hs.countdown.js') }}"></script>
     <script src="{{ asset('frontend/js/hs-components/hs.carousel.js') }}"></script>
     <script src="{{ asset('frontend/js/hs-components/hs.go-to.js') }}"></script>
-    <script src="{{ asset('frontend/js/hs-components/hs.count-qty.js') }}"></script>
 
     <!-- JS Plugins Init. -->
     <script>
@@ -87,9 +84,6 @@
 
         // initialization of go to
         $.HSCore.components.HSGoTo.init('.js-go-to');
-
-        // initialization of quantity counter
-        $.HSCore.components.HSCountQty.init('.js-quantity');
 
         $(window).on('load', function() {
             // initialization of HSScrollBar component

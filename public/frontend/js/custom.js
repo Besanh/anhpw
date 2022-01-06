@@ -79,8 +79,6 @@ function bindForm($this) {$(window).scrollTop(0)
     else {
         $('.invoice_summary').addClass('d-none');
     }
-
-    
 }
 
 /**

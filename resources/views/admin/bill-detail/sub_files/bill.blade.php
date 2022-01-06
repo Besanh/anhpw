@@ -96,6 +96,17 @@ use App\Models\BillDetail; ?>
                     </td>
                 </tr>
                 <tr>
+                    <td>{{ __('Count Sent Mail') }}:</td>
+                    <td style="text-align:right">
+                        @if ($bill_customer->count_sent_mail == 1)
+                            <i class="fa fa-check text-success"></i>
+                        @else
+                            <i class="fa fa-times text-danger"></i>
+                        @endif
+
+                    </td>
+                </tr>
+                <tr>
                     <td>{{ __('Province') }}:</td>
                     <td style="text-align:right">
                         <a href="#" class="bill-select-editable edit-item-detail editable editable-click"

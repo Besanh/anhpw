@@ -54,3 +54,9 @@ Breadcrumbs::for('gift-card', function (BreadcrumbTrail $trail) {
     $trail->parent('home');
     $trail->push('Gift Card');
 });
+
+// Home > New Arrival
+Breadcrumbs::for('new-arrival', function (BreadcrumbTrail $trail) {
+    $trail->parent('home');
+    $trail->push('New Arriva');
+});

@@ -39,6 +39,7 @@ class CreateBill extends Migration
             $table->integer('gender');
             $table->string('phone', 15);
             $table->string('email', 125)->nullable();
+            $table->integer('count_sent_mail')->default(0);
             $table->integer('province');
             $table->integer('district');
             $table->string('address', 255);

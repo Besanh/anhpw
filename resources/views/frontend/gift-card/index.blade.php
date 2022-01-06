@@ -77,9 +77,6 @@ $title = $seo ? $seo->title : config('app.name');
                 </div>
                 <!-- End Quantity -->
 
-                {{-- <button class="add-giftcard btn u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25 g-mb-50" type="submit">
-                    {{ __('Add to bag') }}
-                </button> --}}
                 <button class="add-giftcard btn u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25 g-mb-50">
                     {{ __('Add to bag') }}
                 </button>

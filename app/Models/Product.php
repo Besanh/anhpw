@@ -84,7 +84,7 @@ class Product extends Model
     /**
      * Lay product trang chu
      */
-    public function getArrivalProduct()
+    public function getArrivalProduct($limit = 24)
     {
         $now_date = date('Y-m-d H:i:s');
         $minus_date = dateBeforeAfter($now_date, '-');
@@ -95,7 +95,7 @@ class Product extends Model
                     ['products.updated_at', '<=', $now_date]
                 ]);
             })
-            ->get();
+            ->paginate($limit);
         return $data;
     }
 

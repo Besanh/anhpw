@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\AdminBaseController as Controller;
 use App\Http\Requests\ContactUpdateRequest;
+use App\Mail\ContactMail;
 use App\Models\Contact;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class ContactController extends Controller
 {
@@ -106,6 +109,12 @@ class ContactController extends Controller
             ])) {
                 // Gui email thong bao
                 if ($request->is_send_email == 1) {
+                    $mailer = Setting::where('name', 'mailer')->select('value_setting')->first();
+                    if ($mailer) {
+                        Mail::to($contact->email)
+                            ->bcc($mailer->value_setting)
+                            ->send(new ContactMail($contact));
+                    }
                 }
 
                 return redirect()->back()->with('message', 'Updated successfully');

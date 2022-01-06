@@ -1,4 +1,4 @@
-@push('link-cate')
+@push('link-new-arrival')
     <link rel="stylesheet" href="{{ asset('frontend/css/bootstrap/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/icon-awesome/font-awesome.min.css') }}">
     <!-- CSS Implementing Plugins -->
@@ -19,7 +19,7 @@
     <!-- CSS Customization -->
     <link rel="stylesheet" href="{{ asset('frontend/css/custom.css') }}">
 @endpush
-@push('script-cate')
+@push('script-new-arrival')
     <!-- JS Global Compulsory -->
     <script src="{{ asset('frontend/js/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('frontend/js/jquery-migrate/jquery-migrate.min.js') }}"></script>
@@ -48,7 +48,6 @@
 
     <!-- JS Customization -->
     <script src="{{ asset('frontend/js/custom.js') }}"></script>
-    <script src="{{ asset('js/filter-cate.js') }}"></script>
 
     <script>
         $(document).on('ready', function() {
@@ -63,24 +62,11 @@
                 breakpoint: 991
             });
 
-            // initialization of HSDropdown component
-            $.HSCore.components.HSDropdown.init($('[data-dropdown-target]'), {
-                afterOpen: function() {
-                    $(this).find('input[type="search"]').focus();
-                }
-            });
-
             // initialization of HSScrollBar component
             $.HSCore.components.HSScrollBar.init($('.js-scrollbar'));
 
             // initialization of go to
             $.HSCore.components.HSGoTo.init('.js-go-to');
-
-            // initialization of rating
-            $.HSCore.helpers.HSRating.init();
-
-            // initialization of range slider
-            $.HSCore.components.HSSlider.init('#rangeSlider1');
         });
 
     </script>

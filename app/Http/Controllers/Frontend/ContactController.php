@@ -3,10 +3,15 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Mail\ClientHelpMail;
+use App\Mail\ClientMail;
+use App\Mail\ContactMail;
+use App\Mail\HelpMail;
 use App\Models\Contact;
 use App\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Mail;
 
 class ContactController extends Controller
 {
@@ -56,7 +61,7 @@ class ContactController extends Controller
             'subject' => 'required|string',
             'content' => 'required|string'
         ]);
-        if (Contact::create([
+        $contact = Contact::create([
             'type' => $request->type,
             'rep_id' => 0,
             'name' => $request->name,
@@ -65,9 +70,19 @@ class ContactController extends Controller
             'phone' => $request->phone,
             'subject' => $request->subject,
             'content' => $request->content
-        ])) {
+        ]);
+        if ($contact) {
             // Send email notification
-
+            // Gui cho mail admin
+            $mailer = Setting::where('name', 'mailer')->first();
+            if ($mailer) {
+                Mail::to($mailer->value_setting)
+                    ->send(new ContactMail($contact));
+                // Gui mail cho client vua gui contact
+                Mail::to($request->email)
+                    ->bcc($mailer->value_setting)
+                    ->send(new ClientMail($contact));
+            }
             return redirect()->back()->with('message', 'Your information has been recorded. Thank you!');
         } else {
             return redirect()->back()->with('message', 'Something went wrong. Please try again later!');

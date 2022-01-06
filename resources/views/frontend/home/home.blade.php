@@ -27,12 +27,6 @@ $title = $seo ? $seo->title : config('app.name');
     @include('frontend.home.sub_home._new_arrival')
     <!-- End New Arrivals -->
 
-    <!-- Promo Block -->
-    {{-- @if ($countdown && $countdown->value_setting > date('Y/m/d H:i'))
-        @include('frontend.home.sub_home._promotion', compact('countdown'))
-    @endif --}}
-    <!-- End Promo Block -->
-
     <!-- News -->
     {{-- @include('frontend.home.sub_home._news') --}}
     <!-- End News -->

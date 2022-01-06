@@ -74,6 +74,6 @@ $arrival_products = Cache::get('home_arrival_products');
 
     <div class="text-center">
         <a class="btn u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25"
-            href="#">{{ __('All New Arrivals') }}</a>
+            href="{{ route('new-arrival') }}">{{ __('All New Arrivals') }}</a>
     </div>
 </section>

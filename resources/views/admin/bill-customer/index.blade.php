@@ -1,8 +1,8 @@
 <?php
 
 $title = __('Bill Customers');
-$head_table = ['#', 'Bill Id', 'Fulllname', 'Gender', 'Phone', 'Email', 'Province', 'District', 'Address', 'Note',
-'Zipcode', 'Created By', 'Updated By', 'Created At', 'Updated At'];
+$head_table = ['#', 'Bill Id', 'Fulllname', 'Gender', 'Phone', 'Email', 'Count Sent Mail', 'Province', 'District',
+'Address', 'Note', 'Zipcode', 'Created By', 'Updated By', 'Created At', 'Updated At'];
 $main_link = 'bill-customer';
 ?>
 @extends('admin.layouts.main')
@@ -55,6 +55,7 @@ $main_link = 'bill-customer';
                                         <td>{{ getGender($node->gender) }}</td>
                                         <td>{{ $node->phone }}</td>
                                         <td>{{ $node->email }}</td>
+                                        <td>{{ $node->count_sent_mail }}</td>
                                         <td>{{ $node->province }}</td>
                                         <td>{{ $node->district }}</td>
                                         <td>{{ $node->address }}</td>

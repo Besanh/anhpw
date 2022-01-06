@@ -14,7 +14,7 @@ class BillCustomer extends Model
 
     public $table = 'bill_customers';
 
-    protected $fillable = ['bill_id', 'fullname', 'gender', 'phone', 'email', 'province', 'district', 'address', 'note', 'zipcode'];
+    protected $fillable = ['bill_id', 'fullname', 'gender', 'phone', 'email', 'count_sent_mail', 'province', 'district', 'address', 'note', 'zipcode'];
 
     public function getBill()
     {
