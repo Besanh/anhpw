@@ -53,7 +53,7 @@ $main_link = 'help';
                                     <tr>
                                         <th scope="row">{!! $k !!}</th>
                                         <th>{{ $node->id }}</th>
-                                        <td>{{ $node->help_type_id }}</td>
+                                        <td>{{ $node->getHelpType->name }}</td>
                                         <td>{!! $node->title !!}</td>
                                         <td>
                                             @include('helper.stick', ['status' => $node->status,

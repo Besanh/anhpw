@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\ProductCountView;
 use App\Models\ShippingFee;
+use Carbon\Carbon;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
 
@@ -87,6 +89,30 @@ class ProductController extends Controller
                 return ShippingFee::where('status', '=', 1)
                     ->get();
             });
+
+            /**
+             * Count view product
+             */
+            $start_month = Carbon::now()->startOfMonth();
+            $end_month = Carbon::now()->endOfMonth();
+            $view_product = ProductCountView::where([
+                ['pid', '=', $id],
+                ['created_at', '>=', $start_month],
+                ['created_at', '<=', $end_month]
+            ])
+                ->first();
+            // Trong 1 thang da co ghi record product nay
+            if ($view_product) {
+                $view_product->update(['view' => $view_product->view + 1]);
+            }
+            // Trong 1 thang chua ghi record product nay
+            else {
+                ProductCountView::create([
+                    'pid' => $id,
+                    'view' => 1,
+                    'device' => getDevice()
+                ]);
+            }
 
             return view('frontend.product.index', compact('product_detail', 'product_items', 'related_products', 'shippingFees'));
         }

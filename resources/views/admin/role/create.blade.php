@@ -78,8 +78,8 @@ $main_link = 'role';
                                             @foreach ($permissions as $permission)
                                                 <tr class="body-permission">
                                                     <td>
-                                                        <input type="checkbox" name="permission[{{ $permission->name }}]"
-                                                            value="{{ $permission->name }}" class='permission'>
+                                                        <input type="checkbox" name="permission[{{ $permission->id }}]"
+                                                            value="{{ $permission->id }}" class='permission'>
                                                     </td>
                                                     <td>{{ $permission->name }}</td>
                                                     <td>{{ $permission->guard_name }}</td>

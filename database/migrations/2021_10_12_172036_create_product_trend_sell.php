@@ -36,6 +36,15 @@ class CreateProductTrendSell extends Migration
             $table->timestamps();
             $table->engine = self::$myisam;
         });
+
+        Schema::create('product_count_views', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->integer('pid');
+            $table->integer('view')->default(0);
+            $table->text('device')->nullable();
+            $table->timestamps();
+            $table->engine = self::$myisam;
+        });
     }
 
     /**
@@ -47,5 +56,6 @@ class CreateProductTrendSell extends Migration
     {
         Schema::dropIfExists('product_bestseller');
         Schema::dropIfExists('seo_pages');
+        Schema::dropIfExists('product_count_views');
     }
 }

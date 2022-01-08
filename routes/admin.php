@@ -79,6 +79,8 @@ Route::group(['middleware' => ['admin'], 'prefix' => 'admin'], function () {
     // Home
     Route::get('dashboard', [HomeController::class, 'index'])->name('admin.dashboard');
     Route::get('', [HomeController::class, 'index'])->name('admin.default');
+    Route::get('chart-bill', [HomeController::class, 'getChartBill'])->name('chart-bill');
+    Route::get('chart-top-view-product', [HomeController::class, 'getChartTopViewProduct'])->name('chart-top-view-product');
 
     // User
     Route::get('user/destroy/{id}', [UserController::class, 'destroy'])->name('user.destroy');

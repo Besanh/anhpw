@@ -41,6 +41,11 @@ class Product extends Model
         return $this->hasOne(SeoPage::class, 'pid', 'id');
     }
 
+    public function getCoutView()
+    {
+        return $this->hasMany(ProductCountView::class, 'pid', 'id');
+    }
+
     public function getCateMap()
     {
         $combined = [];

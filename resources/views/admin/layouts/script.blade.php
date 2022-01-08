@@ -17,7 +17,9 @@
 <script src="{{ asset('js/admin/moment.min.js') }}"></script>
 
 {{-- Custom JS --}}
-<script src="{{ asset('/js/custom.js') }}"></script>
+<script src="{{ asset('js/custom.js') }}"></script>
+
+<script src="{{asset('js/app.js')}}"></script>
 
 {{-- @livewireScripts --}}
 @stack('datatable')
@@ -33,3 +35,4 @@
 @stack('jquery-ui')
 @stack('script-edit-table')
 @stack('script-role')
+@stack('script-chart')

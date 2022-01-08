@@ -52,7 +52,8 @@ class PermissionController extends Controller
         ]);
 
         $permission->create([
-            'name' => $request->name
+            'name' => $request->name,
+            'guard_name' => 'admin'
         ]);
 
         return redirect()->back()->with('message', 'Create permission successfully');

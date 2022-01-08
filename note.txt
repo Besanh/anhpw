@@ -74,3 +74,17 @@ Editable
 Tắt csrf trong middleware
 http://vitalets.github.io/x-editable/
 https://demo.s-cart.org/sc_admin
+
+// Chart js
+https://www.chartjs.org/docs/latest/
+https://viblo.asia/p/tim-hieu-ve-chartjs-Qbq5Qqvw5D8
+Cai qua npm
+npm i chart.js
+Trong file webpack.mix.js them vao
+mix.copy('node_modules/chart.js/dist/Chart.js', 'public/js');
+Chay npm run dev
+Them
+<script src="{{ asset('js/Chart.js') }}"></script>
+
+// Query theo tung thang
+https://stackoverflow.com/questions/53103744/laravel-querying-to-get-the-sum-of-a-column-for-each-month
