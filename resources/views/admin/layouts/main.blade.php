@@ -14,6 +14,7 @@
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
+            <div id="app"></div>
 
             <!-- Main Content -->
             <div id="content">

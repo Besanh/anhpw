@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Events\BillEvent;
 use App\Http\Controllers\Controller;
 use App\Mail\ClientCartMail;
+use App\Models\Backend\AdminUser;
 use App\Models\Bill;
 use App\Models\BillConsignee;
 use App\Models\BillCustomer;
@@ -16,11 +18,13 @@ use App\Models\Districts;
 use App\Models\Provinces;
 use App\Models\Setting;
 use App\Models\ShippingFee;
+use App\Notifications\BillNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
@@ -335,7 +339,8 @@ class CartController extends Controller
      */
     public function completeNotify($bill_no)
     {
-        $data = Bill::where('bill_no', '=', $bill_no)->count();
+        $query = Bill::where('bill_no', '=', $bill_no);
+        $data = $query->count();
         if ($data > 0) {
             $bill_customer = BillCustomer::select([
                 'bill_customers.id',
@@ -351,9 +356,9 @@ class CartController extends Controller
                 // Send email notify or sms
                 $mailer = Setting::where('name', 'mailer')->select('value_setting')->first();
                 if ($mailer) {
-                    Mail::to($bill_customer->email)
-                        ->cc($mailer->value_setting)
-                        ->send(new ClientCartMail($bill_no));
+                    // Dispatch event
+                    BillEvent::dispatch($query->first());
+                    Notification::send(AdminUser::first(), new BillNotification($query->first()));
                     // Neu gui mail thanh cong thi update de reload khong gui mail lan nua
                     if (!Mail::failures()) {
                         $customer = BillCustomer::where('id', $bill_customer->id)

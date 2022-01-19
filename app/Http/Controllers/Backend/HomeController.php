@@ -11,6 +11,8 @@ use Carbon\Carbon;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 
+use function Ramsey\Uuid\v1;
+
 class HomeController extends Controller
 {
     public function __construct()

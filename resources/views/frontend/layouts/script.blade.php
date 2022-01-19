@@ -1,3 +1,5 @@
+<script src="{{ asset('js/app.js') }}"></script>
+
 <!-- Js Implement Plugin -->
 @stack('script-cate')
 @stack('script-home')

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Events\SubscribeMail;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\RevolutionSlider;

@@ -1,2 +1,10 @@
 Tat strict trong config/database => mysql de su dung group by query binh thuong
 https://laracasts.com/discuss/channels/laravel/laravels-groupby-not-working
+
+Laravel livewire
+Laravel spatie
+Laravel mix, select2
+Laravel notification
+Mailer
+Chart js
+Typeahead js(search)

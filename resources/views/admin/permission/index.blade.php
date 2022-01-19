@@ -49,7 +49,9 @@ $main_link = 'permission';
                         <tbody>
                             @if ($permissions)
                                 @foreach ($permissions as $k => $node)
-                                    <?php $k++; ?>
+                                    @php
+                                        $k++;
+                                    @endphp
                                     <tr>
                                         <th scope="row">{!! $k !!}</th>
                                         <th>{!! $node->name !!}</th>

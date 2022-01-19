@@ -162,10 +162,12 @@ $socials = Cache::get('socials');
                     <h2 class="h5 g-color-gray-light-v3 mb-4">{{ __('Subscribe') }}</h2>
 
                     <!-- Subscribe Form -->
-                    <form action="" method="POST" class="input-group u-shadow-v19 rounded">
-                        <input
+                    <form action="{{ route('subscriber-store') }}" method="POST"
+                        class="form-subscribe input-group u-shadow-v19 rounded">
+                        @csrf
+                        <input id="form-email"
                             class="form-control g-brd-none g-color-gray-dark-v5 g-bg-main-light-v2 g-bg-main-light-v2--focus g-placeholder-gray-dark-v3 rounded g-px-20 g-py-8"
-                            type="email" name="email" placeholder="Enter your email">
+                            type="email" name="email" placeholder="Enter your email" required>
                         <span class="input-group-addon u-shadow-v19 g-brd-none g-bg-main-light-v2 g-pa-5">
                             <button class="btn u-btn-primary rounded text-uppercase g-py-8 g-px-18" type="submit">
                                 <i class="fa fa-angle-right"></i>

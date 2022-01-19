@@ -157,7 +157,7 @@ class MenuController extends Controller
                         'note' => $request->note,
                         'image' => $image ? $image : $request->image
                     ]);
-                    return redirect()->back()->with('message', 'Create menu successfully');
+                    return redirect()->back()->with('message', 'Update menu successfully');
                 } else {
                     return redirect()->back()->with('error', 'Route not exist or something went wrong');
                 }

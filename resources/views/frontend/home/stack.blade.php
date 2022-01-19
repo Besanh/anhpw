@@ -40,6 +40,9 @@
     <script src="{{ asset('frontend/js/hs-components/hs.carousel.js') }}"></script>
     <script src="{{ asset('frontend/js/hs-components/hs.go-to.js') }}"></script>
 
+    <!-- Custom -->
+    <script src="{{ asset('frontend/js/custom.js') }}"></script>
+
     <!-- JS Plugins Init. -->
     <script>
         $(document).on('ready', function() {

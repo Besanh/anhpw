@@ -2,16 +2,20 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Events\ContactEvent;
 use App\Http\Controllers\Controller;
 use App\Mail\ClientHelpMail;
 use App\Mail\ClientMail;
 use App\Mail\ContactMail;
 use App\Mail\HelpMail;
+use App\Models\Backend\AdminUser;
 use App\Models\Contact;
 use App\Models\Setting;
+use App\Notifications\ContactNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Notification;
 
 class ContactController extends Controller
 {
@@ -73,16 +77,14 @@ class ContactController extends Controller
         ]);
         if ($contact) {
             // Send email notification
+            ContactEvent::dispatch($contact);
             // Gui cho mail admin
             $mailer = Setting::where('name', 'mailer')->first();
             if ($mailer) {
                 Mail::to($mailer->value_setting)
                     ->send(new ContactMail($contact));
-                // Gui mail cho client vua gui contact
-                Mail::to($request->email)
-                    ->bcc($mailer->value_setting)
-                    ->send(new ClientMail($contact));
             }
+            Notification::send(AdminUser::first(), new ContactNotification($contact));
             return redirect()->back()->with('message', 'Your information has been recorded. Thank you!');
         } else {
             return redirect()->back()->with('message', 'Something went wrong. Please try again later!');

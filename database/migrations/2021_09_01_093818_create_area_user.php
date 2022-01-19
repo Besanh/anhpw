@@ -28,18 +28,19 @@ class CreateAreaUser extends Migration
             $table->integer('created_by')->default(0)->nullable();
             $table->integer('updated_by')->default(0)->nullable();
             $table->timestamps();
-            $table->engine = self::$myisam;
+            $table->engine = self::$innodb;
         });
 
         Schema::create('subscribers', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('phone', 15)->nullable();
-            $table->string('email', 15)->nullable();
+            $table->string('email', 125)->unique();
+            $table->string('ip');
+            $table->text('device');
             $table->integer('status')->default(0);
             $table->integer('created_by')->default(0)->nullable();
             $table->integer('updated_by')->default(0)->nullable();
             $table->timestamps();
-            $table->engine = self::$innodb;
+            $table->engine = self::$myisam;
         });
 
         Schema::create('social_providers', function (Blueprint $table) {

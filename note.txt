@@ -88,3 +88,28 @@ Them
 
 // Query theo tung thang
 https://stackoverflow.com/questions/53103744/laravel-querying-to-get-the-sum-of-a-column-for-each-month
+
+// Laravel notification
+https://viblo.asia/p/tim-hieu-ve-notifications-trong-laravel-ORNZqBEGl0n
+
+// Permission
+Dung laravel spatie hoac laravel policy
+
+// Tao he thong push va thong bao giong fb
+Laravel pusher(hoac ably): cua ben thu 3
+Hoac beyondcode(tu build): web socket
+Vs frontend: laravel echo, event listener
+
+// Cai dat beyondcode
+composer require guzzlehttp/psr7:^1.5
+composer require beyondcode/laravel-websockets
+https://github.com/beyondcode/laravel-websockets/issues/794
+https://pusher.com/tutorials/web-notifications-laravel-pusher-channels/#creating-the-application-views
+https://blog.quickadminpanel.com/laravel-notifications-with-database-driver-internal-messages/
+https://viblo.asia/p/su-dung-pusher-trong-laravel-tao-thong-bao-realtime-bJzKmX9B59N
+https://christoph-rumpel.com/2020/11/laravel-real-time-notifications
+
+// Conflick app.js vs datatable
+Comment app.js
+Khi su dung app.js dong nghia voi viec dung vuejs thi sua file app.js va webpack.mix
+https://datatables.net/forums/discussion/50869/typeerror-datatable-is-not-a-function-datatable-laravel

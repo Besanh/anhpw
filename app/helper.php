@@ -579,3 +579,13 @@ if (!function_exists('getUserName')) {
         return $data ? $data->name : '';
     }
 }
+
+/**
+ * Format datetime notification
+ */
+if (!function_exists('getTimeNotification')) {
+    function getTimeNotification($datetime)
+    {
+        return Carbon::createFromFormat('Y-m-d H:i:s', $datetime)->format('M d, Y H:i:s');
+    }
+}

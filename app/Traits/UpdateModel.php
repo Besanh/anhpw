@@ -11,12 +11,12 @@ trait UpdateModel
         parent::boot();
 
         static::creating(function ($model) {
-            $model->created_by = Auth::guard('admin')->id();
+            $model->created_by = Auth::guard('admin')->id() ? Auth::guard('admin')->id() : 0;
             $model->updated_by = 0;
         });
 
         static::updating(function ($model) {
-            $model->updated_by = Auth::guard('admin')->id();
+            $model->updated_by = Auth::guard('admin')->id() ? Auth::guard('admin')->id() : 0;
         });
     }
 }

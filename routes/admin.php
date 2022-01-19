@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Backend\Auth\RegisterController;
 use App\Http\Controllers\Backend\Auth\LoginController;
 use App\Http\Controllers\Backend\Auth\ResetPasswordController;
@@ -33,6 +34,7 @@ use App\Http\Controllers\Backend\SeoPageController;
 use App\Http\Controllers\Backend\ShippingController;
 use App\Http\Controllers\Frontend\ClearController;
 use App\Http\Controllers\ProvinceController;
+use App\Http\Controllers\Backend\SubscriberController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
@@ -238,4 +240,17 @@ Route::group(['middleware' => ['admin'], 'prefix' => 'admin'], function () {
     Route::get('contact/update-status/{id}', [ContactController::class, 'updateStatus'])->name('contact.status');
     Route::get('contact/destroy/{id}', [ContactController::class, 'destroy'])->name('contact.destroy');
     Route::resource('contact', ContactController::class)->only($only_action_resource);
+
+    // Subscriber
+    Route::get('subscriber/index', [SubscriberController::class, 'index'])->name('subscriber.index');
+    Route::get('subscriber/{id}', [SubscriberController::class, 'show'])->name('subscriber.show');
+    Route::get('subscriber/destroy/{id}', [SubscriberController::class, 'destroy'])->name('subscriber.destroy');
+    Route::get('subscriber/update-status/{id}', [SubscriberController::class, 'updateStatus'])->name('subscriber.status');
+
+    // Notification
+    Route::get('mark-notification', [NotificationController::class, 'markNotification'])->name('mark-notification');
+    Route::get('mark-all-read-notification', [NotificationController::class, 'markAllReadNotification'])->name('mark-all-read-notification');
+    Route::get('notification/index', [NotificationController::class, 'index'])->name('notification.index');
+    Route::get('notification/{id}', [NotificationController::class, 'show'])->name('notification.show');
+    Route::get('get-latest-notification', [NotificationController::class, 'getLatestNotification'])->name('latest-notification');
 });

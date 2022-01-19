@@ -1,30 +1,15 @@
 <?php
 
-$title = __('Bill - Index');
-$head_table = [
-'#',
-'Bill No',
-'Total Price',
-'Total Discount',
-'Total Cost',
-'Total Tax',
-'Payment',
-'Status',
-'Created
-By',
-'Updated By',
-'Created At',
-'Updated At',
-'Action',
-];
-$main_link = 'bill';
+$title = __('Subscriber - Index');
+$head_table = ['#', 'Email', 'Status', 'Action'];
+$main_link = 'subscriber';
 ?>
 @extends('admin.layouts.main')
 @section('title', $title)
 
 @section('content')
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800"><a href="{{ route($main_link . '.index') }}">{{ __('Bills') }}</a></h1>
+        <h1 class="h3 mb-0 text-gray-800"><a href="{{ route($main_link . '.index') }}">{{ __('Subscribers') }}</a></h1>
     </div>
     <div class="card mx-auto">
         @if (Session::has('message'))
@@ -41,11 +26,6 @@ $main_link = 'bill';
             </div>
         @endif
         <div class="card-header border-bottom-primary">
-            <div class="row">
-                <div class="col-md-12 col-sm-12 col-xs-12">
-                    <a href="{!! route($main_link . '.create') !!}" class="float-right">{{ __('Create') }}</a>
-                </div>
-            </div>
         </div>
         <div class="card shadow mb-4">
             <div class="card-body">
@@ -62,31 +42,22 @@ $main_link = 'bill';
                             </tr>
                         </tfoot>
                         <tbody>
-                            @if ($bills)
-                                @foreach ($bills as $k => $node)
+                            @if ($subscribers)
+                                @foreach ($subscribers as $k => $node)
                                     @php
                                         $k++;
                                     @endphp
                                     <tr>
-                                        <td>{{ $node->id }}</td>
-                                        <td>{!! $node->bill_no !!}</td>
-                                        <td>{{ $node->total_price }}</td>
-                                        <td>{{ $node->total_discount }}</td>
-                                        <td>{{ $node->total_cost }}</td>
-                                        <td>{{ $node->total_tax }}</td>
-                                        <td>{{ $node->payment }}</td>
+                                        <th scope="row">{!! $k !!}</th>
+                                        <td>{{ $node->email }}</td>
                                         <td>
-                                            {{ $node->getBillDetail->status }}
+                                            @include('helper.stick', ['status' => $node->status,
+                                            'id' => $node->id,
+                                            'uri' => route($main_link.'.status', $node->id)])
                                         </td>
-                                        <td>{{ $node->created_by != 0 ? getUserName($node->created_by) : $node->created_by }}
-                                        </td>
-                                        <td>{{ $node->updated_by != 0 ? getUserName($node->updated_by) : $node->updated_by }}
-                                        </td>
-                                        <td>{{ $node->created_at }}</td>
-                                        <td class="updated_at-{{ $node->id }}" data-id="{{ $node->id }}">
-                                            {{ $node->updated_at }}</td>
                                         <td>
-                                            <a class="btn btn-warning" href="{{ route('bill-detail.show', $node->id) }}">
+                                            <a class="btn btn-warning"
+                                                href="{{ route($main_link . '.show', $node->id) }}">
                                                 <i class="fa fa-eye" aria-hidden="true"></i>
                                             </a>
                                             <a class="delete-item btn btn-danger" data-id={{ $node->id }}

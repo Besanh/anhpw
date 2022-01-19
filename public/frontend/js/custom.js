@@ -1,7 +1,8 @@
 /**
  * Bind form data cart toi step payment
  */
-function bindForm($this) {$(window).scrollTop(0)
+function bindForm($this) {
+    $(window).scrollTop(0)
     const url_fetch_province = document.getElementById('link-get-province-name').dataset.url;
     const url_fetch_district = document.getElementById('link-get-district-name').dataset.url;
 
@@ -112,7 +113,10 @@ function buyGiftCard() {
         }
         else {
             $('.modal-body').text('Please choose gift card');
-            $('div.modal-notify .modal').modal('show');
+            $('div.modal-notification .modal').modal('show');
+            setTimeout(function () {
+                $('div.modal-notification .modal').modal('hide');
+            }, 5000)
         }
     });
     $('.add-giftcard').on('click', function () {
@@ -121,7 +125,10 @@ function buyGiftCard() {
         }
         else {
             $('.modal-body').text('Please choose gift card');
-            $('div.modal-notify .modal').modal('show');
+            $('div.modal-notification .modal').modal('show');
+            setTimeout(function () {
+                $('div.modal-notification .modal').modal('hide');
+            }, 5000)
         }
     });
 }
@@ -163,3 +170,37 @@ function changeCapaProDetail() {
     });
 }
 changeCapaProDetail();
+
+/**
+* Subscribe email
+ */
+function subscribeEmail() {
+    $('.form-subscribe').on('submit', function (e) {
+        e.preventDefault();
+        var formData = {
+            _token: $('meta[name="csrf-token"]').attr('content'),
+            email: $('#form-email').val()
+        }
+        $.ajax({
+            type: "POST",
+            url: $(this).attr('action'),
+            data: formData,
+            dataType: "json",
+            encode: true
+        }).done(function (data) {
+            var content = data.success ? data.success : (data.error ? data.error.email[0] : '');
+            if (content) {
+                $('.modal-body').text('');
+                $('.modal-body').text(content);
+                // Empty email
+                $('#form-email').val('')
+                $('div.modal-notification .modal').modal('show');
+                // Auto close
+                setTimeout(function () {
+                    $('div.modal-notification .modal').modal('hide');
+                }, 5000)
+            }
+        })
+    });
+}
+subscribeEmail();

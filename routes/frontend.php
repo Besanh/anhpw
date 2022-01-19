@@ -18,6 +18,7 @@ use App\Http\Controllers\Frontend\StoreController;
 use App\Http\Controllers\Frontend\TestController;
 use App\Http\Controllers\Frontend\WishListController;
 use App\Http\Controllers\Frontend\PromotionController;
+use App\Http\Controllers\Frontend\SubscriberController;
 use Illuminate\Support\Facades\Route;
 
 // Home
@@ -88,3 +89,6 @@ Route::post('contact/post-contact', [ContactController::class, 'postContact'])->
 
 // Gift Card
 Route::get('gift-card', [GiftCardController::class, 'index'])->name('gift-card');
+
+// Subscriber
+Route::post('subscriber-store', [SubscriberController::class, 'store'])->name('subscriber-store');

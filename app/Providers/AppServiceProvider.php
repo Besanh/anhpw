@@ -84,6 +84,16 @@ class AppServiceProvider extends ServiceProvider
             }
         });
 
+        /**
+         * Hien danh sach thong bao trong admin
+         */
+        View::composer(['admin.layouts.topbar'], function ($view) {
+            $notifications = auth('admin')->user()->notifications->take(4);
+            $count_unread_notification = auth('admin')->user()->unreadNotifications->count();
+
+            $view->with(compact('notifications', 'count_unread_notification'));
+        });
+
         ///////////////////////////////////////////////////////////////////
         ///////////////////////////// Menu Topbar ////////////////////////
         /////////////////////////////////////////////////////////////////
@@ -297,19 +307,7 @@ class AppServiceProvider extends ServiceProvider
             ])
                 ->orderBy('priority', 'ASC')
                 ->orderBy('id', 'DESC')
-                ->select([
-                    'id',
-                    'parent_id',
-                    'type_id',
-                    'head',
-                    'name',
-                    'name_seo',
-                    'alias',
-                    'route',
-                    'url',
-                    'icon',
-                    'note'
-                ])
+                ->select('*')
                 ->get();
         });
 
@@ -433,19 +431,7 @@ class AppServiceProvider extends ServiceProvider
             ['type_id', '=', $type_id],
             ['status', "=", 1]
         ])
-            ->select([
-                'id',
-                'parent_id',
-                'type_id',
-                'head',
-                'name',
-                'name_seo',
-                'route',
-                'url',
-                'icon',
-                'status',
-                'note'
-            ])
+            ->select('*')
             ->orderBy('priority', 'ASC')
             ->get();
     }
