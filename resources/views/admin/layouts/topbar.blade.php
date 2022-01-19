@@ -159,7 +159,8 @@ use Illuminate\Support\Arr;
                             </a>
                     @endswitch
                     @empty
-                        <span class="text-center text-gray-500">{{ __('There are no new notifications') }}</span>
+                        <span
+                            class="no-notification dropdown-item text-center text-gray-500">{{ __('There are no new notifications') }}</span>
                     @endforelse
                     <a class="dropdown-item text-center small text-gray-500"
                         href="{{ route('notification.index') }}">{{ __('Show All Alerts') }}</a>

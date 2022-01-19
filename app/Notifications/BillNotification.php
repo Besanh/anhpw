@@ -8,11 +8,11 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class BillNotification extends Notification
+class BillNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public $bill, $message;
+    public $bill;
 
     /**
      * Create a new notification instance.
@@ -22,7 +22,6 @@ class BillNotification extends Notification
     public function __construct(Bill $bill)
     {
         $this->bill = $bill;
-        $this->message = 'Bill ' . $this->bill->bill_no . ' just created';
     }
 
     /**
@@ -62,8 +61,8 @@ class BillNotification extends Notification
     public function toArray($notifiable)
     {
         return [
-            'id' => $this->bill->bill_no,
-            'message' => $this->message,
+            'id' => $this->id,
+            'message' => 'Bill ' . $this->bill->bill_no . ' has been created',
             'created_at' => getTimeNotification($this->bill->created_at)
         ];
     }

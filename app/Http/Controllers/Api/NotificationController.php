@@ -14,7 +14,7 @@ class NotificationController extends Controller
     public function __construct()
     {
         $this->middleware('permission:mark-notification', ['only' => 'markNotification']);
-        $this->middleware('permission::mark-all-read-notification', ['only' => 'markAllReadNotification']);
+        $this->middleware('permission:mark-all-read-notification', ['only' => 'markAllReadNotification']);
         $this->middleware('permission:notification-index', ['only' => 'index']);
         $this->middleware('permission:notification-show', ['only' => 'show']);
         $this->middleware('permission:latest-notification', ['only' => 'getLatestNotification']);

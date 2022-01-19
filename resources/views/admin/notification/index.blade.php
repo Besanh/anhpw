@@ -18,6 +18,12 @@ $main_link = 'notification';
                     {!! Session::get('message') !!}
                 </div>
             </div>
+        @elseif(Session::has('error'))
+            <div>
+                <div class="alert alert-danger">
+                    {!! Session::get('error') !!}
+                </div>
+            </div>
         @endif
         @if ($errors->any())
             <div>

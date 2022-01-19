@@ -8,11 +8,11 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class ContactNotification extends Notification
+class ContactNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public $contact, $message;
+    public $contact;
 
     /**
      * Create a new notification instance.
@@ -22,7 +22,6 @@ class ContactNotification extends Notification
     public function __construct(Contact $contact)
     {
         $this->contact = $contact;
-        $this->message = 'Email ' . $this->contact->email . ' sent contact';
     }
 
     /**
@@ -47,15 +46,9 @@ class ContactNotification extends Notification
         return (new MailMessage)
             ->greeting('Hello ' . $this->contact->name)
             ->line('This is an automatic notification.')
-            ->line('Here is your information Contact')
-            ->line('Subject: ' . $this->contact->subject)
-            ->line('Name: ' . $this->contact->name)
-            ->line('Email: ' . $this->contact->email)
-            ->line('Phone: ' . $this->contact->phone)
-            ->line('Address: ' . $this->contact->address)
-            ->line('Content: ' . $this->contact->content)
-            ->line('We will contact you as soon as possible.')
-            ->action('Visit more', url('/'))
+            ->line('Thank you for contacting us. We will contact you as soon as possible.')
+            ->line('You can visit our website by click the button below.')
+            ->action('Visit webiste', url('/'))
             ->line('Thank you for using our application!');
     }
 
@@ -68,8 +61,8 @@ class ContactNotification extends Notification
     public function toArray($notifiable)
     {
         return [
-            'id' => $this->contact->id,
-            'message' => $this->message,
+            'id' => $this->id,
+            'message' => 'Email ' . $this->contact->email . ' sent you contact',
             'created_at' => getTimeNotification($this->contact->created_at)
         ];
     }

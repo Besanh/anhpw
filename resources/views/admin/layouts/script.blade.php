@@ -43,7 +43,7 @@
     var notifications = notificationsWrapper.find('.dropdown-menu-center h6.dropdown-header');
 
     // Enable pusher logging - don't include this in production
-    Pusher.logToConsole = true;
+    // Pusher.logToConsole = true;
 
     var pusher = new Pusher("{!! env('PUSHER_APP_KEY') !!}", {
         cluster: 'ap1'
@@ -77,6 +77,10 @@
                     </div>
                 </a>
         `;
+        // Bo phan hien thi khong co thong bao neu chua co thong bao nao
+        if (notificationsWrapper.find('.no-notification').length > 0) {
+            $('span.no-notification').remove();
+        }
         notifications.after(newNotificationHtml);
 
         notificationsCount += 1;
@@ -109,6 +113,10 @@
                     </div>
                 </a>
         `;
+        // Bo phan hien thi khong co thong bao neu chua co thong bao nao
+        if (notificationsWrapper.find('.no-notification').length > 0) {
+            $('span.no-notification').remove();
+        }
         notifications.after(newNotificationHtml);
 
         notificationsCount += 1;
@@ -136,6 +144,10 @@
                     </div>
                 </a>
         `;
+        // Bo phan hien thi khong co thong bao neu chua co thong bao nao
+        if (notificationsWrapper.find('.no-notification').length > 0) {
+            $('span.no-notification').remove();
+        }
         notifications.after(newNotificationHtml);
 
         notificationsCount += 1;

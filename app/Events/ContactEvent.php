@@ -15,7 +15,7 @@ class ContactEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $contact, $message, $created_at;
+    public $message, $created_at;
 
     /**
      * Create a new event instance.
@@ -24,8 +24,7 @@ class ContactEvent implements ShouldBroadcast
      */
     public function __construct(Contact $contact)
     {
-        $this->contact = $contact;
-        $this->message = 'Email ' . $contact->email . ' sent contact';
+        $this->message = 'Email <i>' . $contact->email . '</i> sent you contact';
         $this->created_at =  getTimeNotification($contact->created_at);
     }
 
@@ -36,7 +35,7 @@ class ContactEvent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('channel-client-contact');
+        return new Channel('channel-client-contact');
     }
 
     public function broadCastAs()
