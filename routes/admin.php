@@ -204,7 +204,8 @@ Route::group(['middleware' => ['admin'], 'prefix' => 'admin'], function () {
     Route::post('bill-detail/editable-consignee', [BillDetailController::class, 'editableConsignee'])->name('bill-detail.editable-consignee');
     Route::post('bill-detail/editable-invoice', [BillDetailController::class, 'editableInvoice'])->name('bill-detail.editable-invoice');
     Route::get('bill-detail/destroy/{id}', [BillDetailController::class, 'destroy'])->name('bill-detail.destroy');
-    Route::resource('bill-detail', BillDetailController::class)->only($only_action_resource);
+    Route::get('bill-detail/{bill_detail}/{notification_id?}', [BillDetailController::class, 'show'])->name('bill-detail.show')
+        ->where(['any' => 'notification_id']);
 
     // Bill Consignee
     Route::get('bill-consignee', [BillConsigneeController::class, 'index'])->name('bill-consignee.index');
@@ -235,7 +236,8 @@ Route::group(['middleware' => ['admin'], 'prefix' => 'admin'], function () {
     Route::resource('help-content', HelpContentController::class)->only('index', 'update', 'store');
 
     // Contact
-    Route::get('contact/{contact}/chat', [ContactController::class, 'chat'])->name('contact.chat');
+    Route::get('contact/{contact}/chat/{notification_id?}', [ContactController::class, 'chat'])->name('contact.chat')
+        ->where(['any' => 'notification_id']);
     Route::post('contact/{contact}/post-chat', [ContactController::class, 'postChat'])->name('contact.post-chat');
     Route::get('contact/update-status/{id}', [ContactController::class, 'updateStatus'])->name('contact.status');
     Route::get('contact/destroy/{id}', [ContactController::class, 'destroy'])->name('contact.destroy');
@@ -243,7 +245,8 @@ Route::group(['middleware' => ['admin'], 'prefix' => 'admin'], function () {
 
     // Subscriber
     Route::get('subscriber/index', [SubscriberController::class, 'index'])->name('subscriber.index');
-    Route::get('subscriber/{id}', [SubscriberController::class, 'show'])->name('subscriber.show');
+    Route::get('subscriber/{id}/{notification_id?}', [SubscriberController::class, 'show'])->name('subscriber.show')
+        ->where(['any' => 'notification_id']);
     Route::get('subscriber/destroy/{id}', [SubscriberController::class, 'destroy'])->name('subscriber.destroy');
     Route::get('subscriber/update-status/{id}', [SubscriberController::class, 'updateStatus'])->name('subscriber.status');
 
@@ -252,5 +255,6 @@ Route::group(['middleware' => ['admin'], 'prefix' => 'admin'], function () {
     Route::get('mark-all-read-notification', [NotificationController::class, 'markAllReadNotification'])->name('mark-all-read-notification');
     Route::get('notification/index', [NotificationController::class, 'index'])->name('notification.index');
     Route::get('notification/{id}', [NotificationController::class, 'show'])->name('notification.show');
-    Route::get('get-latest-notification', [NotificationController::class, 'getLatestNotification'])->name('latest-notification');
+    Route::get('get-latest-notification/{type}', [NotificationController::class, 'getLatestNotification'])
+        ->name('latest-notification');
 });

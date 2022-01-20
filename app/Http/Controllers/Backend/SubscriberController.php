@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Models\Subscriber;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SubscriberController extends Controller
 {
@@ -25,9 +26,15 @@ class SubscriberController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, $notification_id = null)
     {
-        $subscriber = Subscriber::find($id)->first();
+        $subscriber = Subscriber::findOrFail($id);
+        if ($notification_id) {
+            Auth::guard('admin')->user()->unreadNotifications
+                ->when($id, function ($query) use ($id) {
+                    return $query->where('id', $id);
+                })->markAsRead();
+        }
         return view('admin.subscriber.show', compact('subscriber'));
     }
 

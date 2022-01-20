@@ -61,6 +61,7 @@ class SubscribeNotification extends Notification implements ShouldQueue
     {
         return [
             'id' => $this->id,
+            'subscriber_id' => $this->_subscriber->id,
             'message' => 'Email <i>' . $this->_subscriber->email . '</i> just subscribe your website',
             'created_at' => getTimeNotification($this->_subscriber->created_at)
         ];

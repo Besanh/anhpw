@@ -43,20 +43,37 @@
     var notifications = notificationsWrapper.find('.dropdown-menu-center h6.dropdown-header');
 
     // Enable pusher logging - don't include this in production
-    // Pusher.logToConsole = true;
+    Pusher.logToConsole = true;
 
     var pusher = new Pusher("{!! env('PUSHER_APP_KEY') !!}", {
         cluster: 'ap1'
     });
 
     // Bind data event
-    async function bindDatNotification() {
-        await axios.get("{{ route('latest-notification') }}").then(function(response) {
+    function bindDatNotification(data_type, notification_id) {
+        axios.get("/admin/get-latest-notification/" + data_type).then(function(response) {
             if (response.data.id != 'undefined') {
-                $("a.event-notification").last().attr("href", response.data.id)
+                switch (data_type) {
+                    case 'bill':
+                        $("a.event-notification").last().attr("href", '/admin/bill-detail/' + response.data
+                            .id + '/' + notification_id);
+                        break;
+                    case 'contact':
+                        $("a.event-notification").last().attr("href", '/admin/contact/' + response.data.id +
+                            '/chat' + '/' + notification_id);
+                        break;
+                    case 'subscriber':
+                        $("a.event-notification").last().attr("href", '/admin/subscriber/' + response.data
+                            .id + '/' + notification_id);
+                        break;
+                    default:
+                        $("a.event-notification").last().attr("href", '/admin/notification/' + response.data
+                            .id + '/' + notification_id);
+                        break;
+                }
             }
-        });
-    }
+        })
+    };
 
     /**
      * Subscriber
@@ -64,6 +81,7 @@
      **/
     var channel_subscribe_email = pusher.subscribe('channel-subscribe-email');
     channel_subscribe_email.bind('event-subscribe-email', function(data) {
+        bindDatNotification("subscriber", data.id);
         let newNotificationHtml = `
         <a class="dropdown-item d-flex align-items-center event-notification" href="">
                     <div class="mr-3">
@@ -93,13 +111,12 @@
                     class="badge badge-danger badge-counter badge-counter-notification"></span>`);
         $('span.badge-counter-notification').text(notificationsCount + "+");
         notificationsWrapper.show();
-
-        bindDatNotification();
     });
 
     // Bill notification
     var channel_bill = pusher.subscribe('channel-bill');
     channel_bill.bind('event-bill', function(data) {
+        bindDatNotification("bill", data.id);
         let newNotificationHtml = `
         <a class="dropdown-item d-flex align-items-center event-notification" href="">
                     <div class="mr-3">
@@ -125,13 +142,12 @@
                     class="badge badge-danger badge-counter badge-counter-notification"></span>`);
         $('span.badge-counter-notification').text(notificationsCount + "+");
         notificationsWrapper.show();
-
-        bindDatNotification();
     });
 
     // Contact notification
     var channel_contact = pusher.subscribe('channel-client-contact');
     channel_contact.bind('event-client-contact', function(data) {
+        bindDatNotification("contact", data.id);
         let newNotificationHtml = `<a class="dropdown-item d-flex align-items-center event-notification" href="">
                     <div class="mr-3">
                         <div class="icon-circle bg-success text-white">
@@ -156,8 +172,6 @@
                     class="badge badge-danger badge-counter badge-counter-notification"></span>`);
         $('span.badge-counter-notification').text(notificationsCount + "+");
         notificationsWrapper.show();
-
-        bindDatNotification();
     });
 
 

@@ -12,7 +12,7 @@ class ContactNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public $contact;
+    public $_contact;
 
     /**
      * Create a new notification instance.
@@ -21,7 +21,7 @@ class ContactNotification extends Notification implements ShouldQueue
      */
     public function __construct(Contact $contact)
     {
-        $this->contact = $contact;
+        $this->_contact = $contact;
     }
 
     /**
@@ -44,7 +44,7 @@ class ContactNotification extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->greeting('Hello ' . $this->contact->name)
+            ->greeting('Hello ' . $this->_contact->name)
             ->line('This is an automatic notification.')
             ->line('Thank you for contacting us. We will contact you as soon as possible.')
             ->line('You can visit our website by click the button below.')
@@ -62,8 +62,9 @@ class ContactNotification extends Notification implements ShouldQueue
     {
         return [
             'id' => $this->id,
-            'message' => 'Email ' . $this->contact->email . ' sent you contact',
-            'created_at' => getTimeNotification($this->contact->created_at)
+            'contact_id' => $this->_contact->id,
+            'message' => 'Email ' . $this->_contact->email . ' sent you contact',
+            'created_at' => getTimeNotification($this->_contact->created_at)
         ];
     }
 }

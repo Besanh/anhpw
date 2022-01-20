@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Bill;
+use App\Models\Contact;
 use App\Models\Notification;
+use App\Models\Subscriber;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
@@ -83,13 +86,38 @@ class NotificationController extends Controller
      * Lay record moi nhat
      * Dung cho click duoc notification trong admin khi co event
      */
-    public function getLatestNotification()
+    public function getLatestNotification($type)
     {
-        $data = Notification::orderBy('id', 'DESC')->select('data')->first();
-
-        if ($data) {
-            return response()->json(['id' => Arr::get(json_decode($data->data, true), 'id')]);
+        $data = '';
+        switch ($type) {
+            case 'subscriber':
+                $data = Subscriber::orderBy('id', 'DESC')->first();
+                if ($data) {
+                    return response()->json(['id' => $data->id]);
+                }
+                return response('', 404);
+                break;
+            case 'contact':
+                $data = Contact::orderBy('id', 'DESC')->first();
+                if ($data) {
+                    return response()->json(['id' => $data->id]);
+                }
+                return response('', 404);
+                break;
+            case 'bill':
+                $data = Bill::orderBy('id', 'DESC')->first();
+                if ($data) {
+                    return response()->json(['id' => $data->id]);
+                }
+                return response('', 404);
+                break;
+            default:
+                $data = Notification::orderBy('id', 'DESC')->select('data')->first();
+                if ($data) {
+                    return response()->json(['id' => Arr::get(json_decode($data->data, true), 'id')]);
+                }
+                return response('', 404);
+                break;
         }
-        return response('', 404);
     }
 }

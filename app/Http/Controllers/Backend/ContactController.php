@@ -79,8 +79,14 @@ class ContactController extends Controller
     /**
      * Chat
      */
-    public function chat(Contact $contact)
+    public function chat(Contact $contact, $notification_id = null)
     {
+        if ($notification_id) {
+            Auth::guard('admin')->user()->unreadNotifications
+                ->when($notification_id, function ($query) use ($notification_id) {
+                    return $query->where('id', $notification_id);
+                })->markAsRead();
+        }
         return view('admin.contact.chat', compact('contact'));
     }
 

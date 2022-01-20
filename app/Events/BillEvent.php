@@ -15,7 +15,7 @@ class BillEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $message, $created_at, $class_name;
+    public $_bill, $message, $created_at, $class_name;
 
     /**
      * Create a new event instance.
@@ -24,6 +24,7 @@ class BillEvent implements ShouldBroadcast
      */
     public function __construct(Bill $bill)
     {
+        $this->_bill = $bill;
         $this->message = 'Bill <i>' . $bill->bill_no . '</i> has been created';
         $this->class_name = Bill::class;
         $this->created_at = getTimeNotification($bill->created_at);

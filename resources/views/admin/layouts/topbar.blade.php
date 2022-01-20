@@ -48,6 +48,11 @@ use Illuminate\Support\Arr;
         </li>
 
         <!-- Nav Item - Alerts -->
+        <li class="nav-item dropdown no-arrow mx-1">
+            <a class="nav-link" href="{{ route('frontend.default') }}" target="__blank">
+                <i class="fa fa-home"></i>
+            </a>
+        </li>
         <li class="nav-item dropdown dropdown-notifications no-arrow mx-1">
             <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
@@ -70,7 +75,8 @@ use Illuminate\Support\Arr;
                     @switch($n->type)
                         @case($n->type == 'App\Notifications\SubscribeNotification')
                             <a class="dropdown-item d-flex align-items-center mark-as-read"
-                                href="{{ route('notification.show', $n->id) }}" data-id="{{ $n->id }}">
+                                href="{{ route('subscriber.show', [Arr::get($n->data, 'subscriber_id'), $n->id]) }}"
+                                data-id="{{ $n->id }}">
                                 <div class="mr-3">
                                     <div class="icon-circle bg-primary">
                                         <i class="fas fa-user-plus text-white"></i>
@@ -88,7 +94,8 @@ use Illuminate\Support\Arr;
                         @break
                         @case($n->type == 'App\Notifications\BillNotification')
                             <a class="dropdown-item d-flex align-items-center mark-as-read"
-                                href="{{ route('notification.show', $n->id) }}" data-id="{{ $n->id }}">
+                                href="{{ route('bill-detail.show', ['bill_detail' => Arr::get($n->data, 'bill_id'), 'notification_id' => $n->id]) }}"
+                                data-id="{{ $n->id }}">
                                 <div class="mr-3">
                                     <div class="icon-circle bg-danger">
                                         <i class="fas fa-donate text-white"></i>
@@ -106,7 +113,8 @@ use Illuminate\Support\Arr;
                         @break
                         @case($n->type == 'App\Notifications\ContactNotification')
                             <a class="dropdown-item d-flex align-items-center mark-as-read"
-                                href="{{ route('notification.show', $n->id) }}" data-id="{{ $n->id }}">
+                                href="{{ route('contact.chat', ['contact' => Arr::get($n->data, 'contact_id'), 'notification_id' => $n->id]) }}"
+                                data-id="{{ $n->id }}">
                                 <div class="mr-3">
                                     <div class="icon-circle bg-success text-white">
                                         <i class="fa fa-info-circle"></i>

@@ -12,7 +12,7 @@ class BillNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public $bill;
+    public $_bill;
 
     /**
      * Create a new notification instance.
@@ -21,7 +21,7 @@ class BillNotification extends Notification implements ShouldQueue
      */
     public function __construct(Bill $bill)
     {
-        $this->bill = $bill;
+        $this->_bill = $bill;
     }
 
     /**
@@ -44,10 +44,10 @@ class BillNotification extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->greeting('Hello ' . $this->bill->getCustomer->name . '!')
+            ->greeting('Hello ' . $this->_bill->getCustomer->name . '!')
             ->line('This is an automatic notification.')
             ->line('Thank you for ordering from our website. Your order is being processed and will be completed within 3-6 hours. You will receive an email confirmation when your order is completed.')
-            ->line('Your track number is: ' . $this->bill->bill_no)
+            ->line('Your track number is: ' . $this->_bill->bill_no)
             ->action('Track order', url('/'))
             ->line('Thank you for using our application!');
     }
@@ -62,8 +62,9 @@ class BillNotification extends Notification implements ShouldQueue
     {
         return [
             'id' => $this->id,
-            'message' => 'Bill ' . $this->bill->bill_no . ' has been created',
-            'created_at' => getTimeNotification($this->bill->created_at)
+            'bill_id' => $this->_bill->id,
+            'message' => 'Bill ' . $this->_bill->bill_no . ' has been created',
+            'created_at' => getTimeNotification($this->_bill->created_at)
         ];
     }
 }

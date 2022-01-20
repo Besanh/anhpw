@@ -8,6 +8,7 @@ use App\Models\BillCustomer;
 use App\Models\BillDetail;
 use App\Models\BillInvoice;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 
 class BillDetailController extends Controller
@@ -27,8 +28,14 @@ class BillDetailController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(BillDetail $billDetail)
+    public function show(BillDetail $billDetail, $notification_id)
     {
+        if ($notification_id) {
+            Auth::guard('admin')->user()->unreadNotifications
+                ->when($notification_id, function ($query) use ($notification_id) {
+                    return $query->where('id', $notification_id);
+                })->markAsRead();
+        }
         return view('admin.bill-detail.show', compact('billDetail'));
     }
 

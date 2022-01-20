@@ -18,7 +18,7 @@ class SubscribeMail implements ShouldBroadcast
 
     // public $afterCommit = true;
 
-    public $message, $created_at, $class_name;
+    public $_subscriber, $message, $created_at, $class_name;
     /**
      * Create a new event instance.
      *
@@ -26,6 +26,7 @@ class SubscribeMail implements ShouldBroadcast
      */
     public function __construct(Subscriber $subscriber)
     {
+        $this->_subscriber = $subscriber;
         $this->message = 'Email <i>' . $subscriber->email . '</i> just subscribe receive notification';
         $this->class_name = Subscriber::class;
         $this->created_at = getTimeNotification($subscriber->created_at);
