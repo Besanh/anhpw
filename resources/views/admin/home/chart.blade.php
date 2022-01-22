@@ -33,33 +33,33 @@
                         @foreach ($chart_pie as $k => $pie)
                             @switch($k)
                                 @case(0)
-                                    <span class="col-md-6">
-                                        <i class="fas fa-circle text-danger"></i> {{ subString($pie->name, 3) }}
+                                    <span class="col-md-12">
+                                        <i class="fas fa-circle text-danger"></i> {!! $pie->name . ': <b>' . $pie->view . '</b>' !!}
                                     </span>
                                 @break
                                 @case(1)
-                                    <span class="col-md-6">
-                                        <i class="fas fa-circle text-primary"></i> {{ subString($pie->name, 3) }}
+                                    <span class="col-md-12">
+                                        <i class="fas fa-circle text-primary"></i> {!! $pie->name . ': <b>' . $pie->view . '</b>' !!}
                                     </span>
                                 @break
                                 @case(2)
-                                    <span class="col-md-6">
-                                        <i class="fas fa-circle text-success"></i> {{ subString($pie->name, 3) }}
+                                    <span class="col-md-12">
+                                        <i class="fas fa-circle text-success"></i> {!! $pie->name . ': <b>' . $pie->view . '</b>' !!}
                                     </span>
                                 @break
                                 @case(3)
-                                    <span class="col-md-6">
-                                        <i class="fas fa-circle text-info"></i> {{ subString($pie->name, 3) }}
+                                    <span class="col-md-12">
+                                        <i class="fas fa-circle text-info"></i> {!! $pie->name . ': <b>' . $pie->view . '</b>' !!}
                                     </span>
                                 @break
                                 @case(4)
-                                    <span class="col-md-6">
-                                        <i class="fas fa-circle text-warning"></i> {{ subString($pie->name, 3) }}
+                                    <span class="col-md-12">
+                                        <i class="fas fa-circle text-warning"></i> {!! $pie->name . ': <b>' . $pie->view . '</b>' !!}
                                     </span>
                                 @break
                                 @default
-                                    <span class="col-md-6">
-                                        <i class="fas fa-circle text-primary"></i> {{ subString($pie->name, 3) }}
+                                    <span class="col-md-12">
+                                        <i class="fas fa-circle text-primary"></i> {!! $pie->name . ': <b>' . $pie->view . '</b>' !!}
                                     </span>
                             @endswitch
                         @endforeach

@@ -84,6 +84,12 @@ Route::group(['middleware' => ['admin'], 'prefix' => 'admin'], function () {
     Route::get('chart-bill', [HomeController::class, 'getChartBill'])->name('chart-bill');
     Route::get('chart-top-view-product', [HomeController::class, 'getChartTopViewProduct'])->name('chart-top-view-product');
 
+    // Axios bind data realtime
+    Route::get('get-top-view-realtime', [HomeController::class, 'getTopViewRealtime'])->name('top-view-realtime');
+    Route::get('get-contact-realtime', [HomeController::class, 'getContactRealtime'])->name('contact-realtime');
+    Route::get('get-subscriber-realtime', [HomeController::class, 'getSubscriberRealtime'])->name('subscriber-realtime');
+    Route::get('get-chart-bill-realtime', [HomeController::class, 'getChartBillRealtime'])->name('chart-bill-realtime');
+
     // User
     Route::get('user/destroy/{id}', [UserController::class, 'destroy'])->name('user.destroy');
     Route::resource('user', UserController::class)->only($only_action_resource);
@@ -244,7 +250,7 @@ Route::group(['middleware' => ['admin'], 'prefix' => 'admin'], function () {
     Route::resource('contact', ContactController::class)->only($only_action_resource);
 
     // Subscriber
-    Route::get('subscriber/index', [SubscriberController::class, 'index'])->name('subscriber.index');
+    Route::get('subscriber', [SubscriberController::class, 'index'])->name('subscriber.index');
     Route::get('subscriber/{id}/{notification_id?}', [SubscriberController::class, 'show'])->name('subscriber.show')
         ->where(['any' => 'notification_id']);
     Route::get('subscriber/destroy/{id}', [SubscriberController::class, 'destroy'])->name('subscriber.destroy');

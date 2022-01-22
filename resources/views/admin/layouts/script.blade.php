@@ -50,27 +50,29 @@
     });
 
     // Bind data event
-    function bindDatNotification(data_type, notification_id) {
+    function bindDatNotification(data_type) {
         axios.get("/admin/get-latest-notification/" + data_type).then(function(response) {
             if (response.data.id != 'undefined') {
                 switch (data_type) {
                     case 'bill':
                         $("a.event-notification").last().attr("href", '/admin/bill-detail/' + response.data
-                            .id + '/' + notification_id);
+                            .id + '/' + response.data.notification_id);
                         break;
                     case 'contact':
                         $("a.event-notification").last().attr("href", '/admin/contact/' + response.data.id +
-                            '/chat' + '/' + notification_id);
+                            '/chat' + '/' + response.data.notification_id);
                         break;
                     case 'subscriber':
                         $("a.event-notification").last().attr("href", '/admin/subscriber/' + response.data
-                            .id + '/' + notification_id);
+                            .id + '/' + response.data.notification_id);
                         break;
                     default:
                         $("a.event-notification").last().attr("href", '/admin/notification/' + response.data
-                            .id + '/' + notification_id);
+                            .notification_id);
                         break;
                 }
+            } else {
+                alert('Error response')
             }
         })
     };
@@ -81,7 +83,7 @@
      **/
     var channel_subscribe_email = pusher.subscribe('channel-subscribe-email');
     channel_subscribe_email.bind('event-subscribe-email', function(data) {
-        bindDatNotification("subscriber", data.id);
+        bindDatNotification("subscriber");
         let newNotificationHtml = `
         <a class="dropdown-item d-flex align-items-center event-notification" href="">
                     <div class="mr-3">
@@ -111,12 +113,26 @@
                     class="badge badge-danger badge-counter badge-counter-notification"></span>`);
         $('span.badge-counter-notification').text(notificationsCount + "+");
         notificationsWrapper.show();
+
+        // Page dashboard hien thi
+        if ($(".realtime-subscriber").length > 0) {
+            axios.get("{{ route('contact-realtime') }}").then(function(response) {
+                $(".realtime-subscriber").text(response.data.total_contact)
+            });
+        }
+
+        // Page dashboard hien thi
+        if ($(".subscriber-realtime").length > 0) {
+            axios.get("{{ route('subscriber-realtime') }}").then(function(response) {
+                $(".subscriber-realtime").text(response.data.total_subscriber)
+            });
+        }
     });
 
     // Bill notification
     var channel_bill = pusher.subscribe('channel-bill');
     channel_bill.bind('event-bill', function(data) {
-        bindDatNotification("bill", data.id);
+        bindDatNotification("bill");
         let newNotificationHtml = `
         <a class="dropdown-item d-flex align-items-center event-notification" href="">
                     <div class="mr-3">
@@ -142,12 +158,19 @@
                     class="badge badge-danger badge-counter badge-counter-notification"></span>`);
         $('span.badge-counter-notification').text(notificationsCount + "+");
         notificationsWrapper.show();
+
+        // Page dashboard hien thi
+        if ($(".realtime-contact").length > 0) {
+            axios.get("{{ route('contact-realtime') }}").then(function(response) {
+                $(".realtime-contact").text(response.data.total_contact)
+            });
+        }
     });
 
     // Contact notification
     var channel_contact = pusher.subscribe('channel-client-contact');
     channel_contact.bind('event-client-contact', function(data) {
-        bindDatNotification("contact", data.id);
+        bindDatNotification("contact");
         let newNotificationHtml = `<a class="dropdown-item d-flex align-items-center event-notification" href="">
                     <div class="mr-3">
                         <div class="icon-circle bg-success text-white">
@@ -172,6 +195,13 @@
                     class="badge badge-danger badge-counter badge-counter-notification"></span>`);
         $('span.badge-counter-notification').text(notificationsCount + "+");
         notificationsWrapper.show();
+
+        // Page dashboard hien thi
+        if ($(".contact-realtime").length > 0) {
+            axios.get("{{ route('contact-realtime') }}").then(function(response) {
+                $(".contact-realtime").text(response.data.total_contact)
+            });
+        }
     });
 
 

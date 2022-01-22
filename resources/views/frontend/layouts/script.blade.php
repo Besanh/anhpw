@@ -1,5 +1,3 @@
-<script src="{{ asset('js/app.js') }}"></script>
-
 <!-- Js Implement Plugin -->
 @stack('script-cate')
 @stack('script-home')
@@ -17,3 +15,5 @@
 {{-- Su dung cho search bt theo bootstrap typeahead --}}
 @stack('typeahead-search')
 @stack('script-notification')
+
+{{-- <script src="{{ asset('js/app.js') }}"></script> --}}

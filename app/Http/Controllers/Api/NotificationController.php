@@ -88,33 +88,32 @@ class NotificationController extends Controller
      */
     public function getLatestNotification($type)
     {
-        $data = '';
+        $notification = Notification::orderBy('id', 'DESC')->select('data')->first();
         switch ($type) {
             case 'subscriber':
                 $data = Subscriber::orderBy('id', 'DESC')->first();
                 if ($data) {
-                    return response()->json(['id' => $data->id]);
+                    return response()->json(['id' => $data->id, 'notification_id' => Arr::get(json_decode($notification->data, true), 'id')]);
                 }
                 return response('', 404);
                 break;
             case 'contact':
                 $data = Contact::orderBy('id', 'DESC')->first();
                 if ($data) {
-                    return response()->json(['id' => $data->id]);
+                    return response()->json(['id' => $data->id, 'notification_id' => Arr::get(json_decode($notification->data, true), 'id')]);
                 }
                 return response('', 404);
                 break;
             case 'bill':
                 $data = Bill::orderBy('id', 'DESC')->first();
                 if ($data) {
-                    return response()->json(['id' => $data->id]);
+                    return response()->json(['id' => $data->id, 'notification_id' => Arr::get(json_decode($notification->data, true), 'id')]);
                 }
                 return response('', 404);
                 break;
             default:
-                $data = Notification::orderBy('id', 'DESC')->select('data')->first();
-                if ($data) {
-                    return response()->json(['id' => Arr::get(json_decode($data->data, true), 'id')]);
+                if ($notification) {
+                    return response()->json(['notification_id' => Arr::get(json_decode($notification->data, true), 'id')]);
                 }
                 return response('', 404);
                 break;

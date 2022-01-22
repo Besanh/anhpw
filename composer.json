@@ -6,7 +6,6 @@
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
-        "ably/ably-php": "^1.1",
         "beyondcode/laravel-websockets": "^1.12",
         "ckfinder/ckfinder-laravel-package": "v3.5.2.1",
         "diglactic/laravel-breadcrumbs": "^7.0",
